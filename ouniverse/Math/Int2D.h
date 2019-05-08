@@ -1,12 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Simplified storage of X,Y Coordinates as integers.
-
-UE4 has 2D Vector storage but it stores them as float.
-I thought reimplementing this would be a little more efficient and faster.
-
-Used mainly to store mouse coordinates, line traces, or hold the player location in the world streaming grid.
+Simple storage of X,Y Coordinates as integers.
  */
 
 #pragma once

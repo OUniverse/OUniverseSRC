@@ -16,15 +16,15 @@ Payload is the top level unpacked of the Atlas data system.
 #include <unordered_map>
 
 class FormF;
-class Atlas;
+class AtlasC;
 
-class Payload
+class PayloadC
 {
 public:
 
 	FormF* AddForm(const std::string InProprietary);
 
-	Payload(const char* AtlasDirectory);
+	PayloadC(const char* AtlasDirectory);
 
 private:
 
@@ -43,6 +43,6 @@ private:
 
 	std::unordered_map <uint32, FormF*> Map;
 
-	std::vector <Atlas*> AtlasVector;
+	std::vector <AtlasC*> AtlasVector;
 
 };

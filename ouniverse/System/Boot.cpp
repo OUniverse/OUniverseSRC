@@ -27,8 +27,8 @@ void UBoot::Boot(UObject* WorldContextObject)
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("We have booted!"));
 
-	Major::Create();
-	Major* M = Major::Get();
+	MajorC::Create();
+	MajorC* M = MajorC::Get();
 
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
 	//If Major (this) is returning as nullptr it means this specialty GameViewPortClient class got removed from the Editor Project Settings as default.
@@ -66,14 +66,14 @@ void UBoot::Boot(UObject* WorldContextObject)
 
 void UBoot::TestBoot(UObject* WorldContextObject)
 {
-	new Payload(TCHAR_TO_ANSI(*(PathManager::Create()->DContent() + "testfolder/")));
+	new PayloadC(TCHAR_TO_ANSI(*(PathManager::Create()->DContent() + "testfolder/")));
 }
 
 void UBoot::CoherentReady()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("COHERENT READY"));
 
-	Major* M	= Major::Get();
+	MajorC* M	= MajorC::Get();
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Display()->GetUi(), M->Display()->GetNativeUiInput(), M->Path()->DContentReg());
 	M->Ui_		= UiManager::Create(M->Display()->GetUi());

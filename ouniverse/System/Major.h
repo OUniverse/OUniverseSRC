@@ -44,17 +44,17 @@ class SystemManager;
 class UBoot;
 
 #define MAJOR_IN_USAGE
-#define MAJOR Major::Get()
+#define MAJOR MajorC::Get()
 
-class OUNIVERSE_API Major
+class OUNIVERSE_API MajorC
 {
 	friend UBoot;
 
 public:
 
-	Major() {};
-	static Major* Get();
-	static Major* Create();
+	MajorC() {};
+	static MajorC* Get();
+	static MajorC* Create();
 
 	LogC*				Log();
 	PathManager*		Path();

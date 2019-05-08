@@ -5,10 +5,10 @@ The InputManager is a Singleton extension to MAJOR and manages forwarding of all
 Receives all inputs like keyboard and mouse interactions from a SlatePanel attached to the DisplayManager.
 
 Has two maps:
-InputMap pairs the DxScan int of a keypress with a Command object (system/command.h)
+InputMap pairs the DxScan int of a keypress with a CommandC object (system/command.h)
 A command object holds a delegate which can be triggered and an ID.
 
-CommandMap is where all the possible game commands get registered as Command Objects.
+CommandMap is where all the possible game commands get registered as CommandC Objects.
 
 With this system keypresses can easily be registered to broadcast events.
 Keybinds also are much easier because they only require changing the InputMap pair by moving the 
@@ -35,7 +35,7 @@ If Coherent doesn't consume the input then InputManager processes it.
 #include "InputManager.generated.h"
 
 
-class UCommand;
+class CommandC;
 class UPTKey;
 
 class UCohtmlBaseComponent;
@@ -69,7 +69,7 @@ public:
 	void OnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 	void OnMouseWheel(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 
-	UCommand* GetCommand(FString CommandName);
+	CommandC* GetCommand(FString CommandName);
 
 
 private:
@@ -94,13 +94,13 @@ private:
 	bool bPrimeTypeMode;
 
 
-	std::map <FName,UCommand*> CommandMap;
-	std::map <int32,UCommand*> InputMap;
+	std::map <FName,CommandC*> CommandMap;
+	std::map <int32,CommandC*> InputMap;
 	std::map <int32, UPTKey*> PTKeyMap;
 
 	void BindUI();
 
-	void BindCommandToKey(UCommand* CommandToBind, int32 KeyCode);
+	void BindCommandToKey(CommandC* CommandToBind, int32 KeyCode);
 
 };
 

@@ -9,7 +9,7 @@
 #include <rapidjson/document.h>
 
 
-bool Atlas::Extension(const FString InExtension)
+bool AtlasC::Extension(const FString InExtension)
 {
 	if (InExtension == "atlas")
 	{
@@ -18,7 +18,7 @@ bool Atlas::Extension(const FString InExtension)
 	return false;
 }
 
-Atlas::VersionSuite::VersionSuite(const char* JSerialized)
+AtlasC::VersionS::VersionS(const char* JSerialized)
 {
 	rapidjson::Document d;
 	d.Parse(JSerialized);
@@ -27,7 +27,7 @@ Atlas::VersionSuite::VersionSuite(const char* JSerialized)
 	Compatability	= d["cmp"].GetInt();
 }
 
-Atlas::DetailsSuite::DetailsSuite(const char*  JSerialized)
+AtlasC::DetailsS::DetailsS(const char*  JSerialized)
 {
 	rapidjson::Document d;
 	d.Parse(JSerialized);
@@ -41,7 +41,7 @@ Atlas::DetailsSuite::DetailsSuite(const char*  JSerialized)
 	Website		= d["web"].GetString();
 }
 
-Atlas::QuantitySuite::QuantitySuite(const char* JSerialized)
+AtlasC::QuantityS::QuantityS(const char* JSerialized)
 {
 	rapidjson::Document d;
 	d.Parse(JSerialized);
@@ -51,7 +51,7 @@ Atlas::QuantitySuite::QuantitySuite(const char* JSerialized)
 	Credit		= d["credit"].GetInt();
 }
 
-Atlas::Atlas(FString InPath)
+AtlasC::AtlasC(FString InPath)
 {
 	Path = InPath;
 	std::string Line;
@@ -65,16 +65,16 @@ Atlas::Atlas(FString InPath)
 	//while (std::getline(File, Line)) {
 
 		std::getline(File, Line);
-	    Version = new VersionSuite(Line.c_str());
+	    Version = new VersionS(Line.c_str());
 		std::getline(File, Line);
-		Details = new DetailsSuite(Line.c_str());
+		Details = new DetailsS(Line.c_str());
 		std::getline(File, Line);
-		Quantity = new QuantitySuite(Line.c_str());
+		Quantity = new QuantityS(Line.c_str());
 
 	File.close();
 }
 
-void Atlas::Scan(Payload* P)
+void AtlasC::Scan(PayloadC* P)
 {
 	std::string Line;
 	std::ifstream File;

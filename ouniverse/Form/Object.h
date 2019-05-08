@@ -9,7 +9,7 @@ Object Form: Base level of anything that is placed in the world.
 
 class ObjectF : public FormF
 {
-	friend Payload;
+	friend PayloadC;
 
 public:
 

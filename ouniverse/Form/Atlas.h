@@ -8,11 +8,11 @@ Atlas
 
 #include "CoreMinimal.h"
 
-class Payload;
+class PayloadC;
 
-class Atlas
+class AtlasC
 {
-	friend Payload;
+	friend PayloadC;
 
 public: 
 
@@ -20,26 +20,26 @@ public:
 
 private:
 
-	Atlas(FString InPath);	
+	AtlasC(FString InPath);	
 
-	struct VersionSuite
+	struct VersionS
 	{
 		int Incremental;
 		int Compatability;
 
-		VersionSuite(const char* JSerialized);
+		VersionS(const char* JSerialized);
 	};
 
-	struct QuantitySuite
+	struct QuantityS
 	{
 		int Form;
 		int Translation;
 		int Credit;
 
-		QuantitySuite(const char* JSerialized);
+		QuantityS(const char* JSerialized);
 	};
 
-	struct DetailsSuite
+	struct DetailsS
 	{
 		FString ID;
 		FString Name;
@@ -49,15 +49,15 @@ private:
 		FString Icon;
 		FString Date;
 
-		DetailsSuite(const char* JSerialized);
+		DetailsS(const char* JSerialized);
 	};
 
 	FString Path;
 
-	VersionSuite* Version;
-	QuantitySuite* Quantity;
-	DetailsSuite* Details;
+	VersionS* Version;
+	QuantityS* Quantity;
+	DetailsS* Details;
 
-	void Scan(Payload* P);
+	void Scan(PayloadC* P);
 
 };

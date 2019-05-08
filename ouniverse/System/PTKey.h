@@ -4,7 +4,7 @@
 Commands represent functions that can be bound to a keypress.
 For example "Jump" "Accept" "Interact" could all be commands.
 
-A Command has an ID and a delegate which can broadcast.
+A CommandC has an ID and a delegate which can broadcast.
 If something wants to register for a keypress they add their trigger function to the delegate.
  */
 

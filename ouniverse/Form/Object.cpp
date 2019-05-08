@@ -2,7 +2,7 @@
 
 #include "Form/Object.h"
 
-class Payload;
+class PayloadC;
 
 
 ObjectF::ObjectF(){}

@@ -9,11 +9,11 @@ Form: Abstract base form.
 #include "CoreMinimal.h"
 #include <rapidjson/document.h>
 
-class Payload;
+class PayloadC;
 
 class FormF
 {
-	friend Payload;
+	friend PayloadC;
 
 protected:
 

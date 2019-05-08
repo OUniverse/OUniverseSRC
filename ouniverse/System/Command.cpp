@@ -2,13 +2,13 @@
 
 #include "Command.h"
 
-UCommand::UCommand()
+CommandC::CommandC()
 {
 	BoundKeyCode = -1;
 }
 
-void UCommand::Send(FStroke Stroke)
+void CommandC::Send(StrokeS InStroke)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ID.ToString());
-	Call.ExecuteIfBound(Stroke);
+	Call.ExecuteIfBound(InStroke);
 }

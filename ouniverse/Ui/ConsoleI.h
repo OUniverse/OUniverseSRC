@@ -12,7 +12,7 @@ Handles the console.
 
 class InputManager;
 
-struct FStroke;
+struct StrokeS;
 
 class OUNIVERSE_API ConsoleIO : public Io
 {
@@ -38,6 +38,6 @@ private:
 	
 	void OnClose();
 
-	void OnCommand(FStroke Stroke);
+	void OnCommand(StrokeS Stroke);
 
 };

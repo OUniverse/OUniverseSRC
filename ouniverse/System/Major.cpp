@@ -8,30 +8,30 @@
 
 namespace GlobalSingleton
 {
-	Major gMajor;
+	MajorC gMajor;
 }
 
-Major* Major::Get()
+MajorC* MajorC::Get()
 {
 	return &GlobalSingleton::gMajor;
 }
 
-Major* Major::Create()
+MajorC* MajorC::Create()
 {
-	GlobalSingleton::gMajor = *(new Major());
+	GlobalSingleton::gMajor = *(new MajorC());
 	return &GlobalSingleton::gMajor;
 }
 
-PathManager* Major::Path()			{ return Path_; }
-UserManager* Major::User()			{ return User_; }
-ConfigManager* Major::Config()		{ return Config_; }
-UiManager* Major::Ui()				{ return Ui_; }
-StateManager* Major::State()		{ return State_; }
-SystemManager* Major::System()		{ return System_; }
-InputManager* Major::Input()		{ return Input_; }
-LogC* Major::Log()					{ return Log_; }
-AudioManager* Major::Audio()		{ return Audio_; }
-APlayerController* Major::Control() { return Control_; }
-UWorld* Major::Scope()				{ return Scope_; }
-ADisplayManager* Major::Display()	{ return Display_; }
-UViewportClient* Major::Viewport()	{ return Viewport_; }
+PathManager* MajorC::Path()			{ return Path_; }
+UserManager* MajorC::User()			{ return User_; }
+ConfigManager* MajorC::Config()		{ return Config_; }
+UiManager* MajorC::Ui()				{ return Ui_; }
+StateManager* MajorC::State()		{ return State_; }
+SystemManager* MajorC::System()		{ return System_; }
+InputManager* MajorC::Input()		{ return Input_; }
+LogC* MajorC::Log()					{ return Log_; }
+AudioManager* MajorC::Audio()		{ return Audio_; }
+APlayerController* MajorC::Control() { return Control_; }
+UWorld* MajorC::Scope()				{ return Scope_; }
+ADisplayManager* MajorC::Display()	{ return Display_; }
+UViewportClient* MajorC::Viewport()	{ return Viewport_; }

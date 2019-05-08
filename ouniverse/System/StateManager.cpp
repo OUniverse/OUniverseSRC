@@ -14,7 +14,7 @@ StateManager* StateManager::Create()
 
 StateManager::StateManager()
 {
-	Major* M = Major::Get();
+	MajorC* M = MajorC::Get();
 
 	StateVector.assign(Types::MAX, NULL);
 }

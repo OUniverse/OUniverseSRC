@@ -52,7 +52,7 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 	{
 		FName CommandID = FName(*JArr[i]->AsObject()->GetStringField("i"));
 		int KeyCode = JArr[i]->AsObject()->GetIntegerField("k");
-		UCommand* NewCommand = NewObject<UCommand>();
+		CommandC* NewCommand = new CommandC();
 		NewCommand->ID = CommandID;
 		CommandMap.insert({ CommandID, NewCommand });
 		InputMap.insert({ KeyCode, NewCommand});
@@ -80,12 +80,12 @@ void InputManager::BindUI()
 	Ui->GetView()->BindCall("inputMNG.typeModePrime", cohtml::MakeHandler(Proxy, &UInputManagerProxy::PrimeTypeMode));
 }
 
-UCommand* InputManager::GetCommand(FString CommandName)
+CommandC* InputManager::GetCommand(FString CommandName)
 {
 	return CommandMap.find(*CommandName)->second;
 }
 
-void InputManager::BindCommandToKey(UCommand* CommandToBind, int32 KeyCode)
+void InputManager::BindCommandToKey(CommandC* CommandToBind, int32 KeyCode)
 {
 	if (CommandToBind->BoundKeyCode != -1)
 	{
@@ -116,14 +116,14 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 		UiNative->OnKeyDown(MyGeometry, InKeyEvent);
 
 		//Fires off Mod generated custom keys via a second TMap
-		std::map<int32, UCommand*>::iterator it;
+		std::map<int32, CommandC*>::iterator it;
 		it = InputMap.find(KeyCode);
 
 		if (it != InputMap.end())
 		{
 
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			it->second->Send(FStroke(true));
+			it->second->Send(StrokeS(true));
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}
@@ -147,14 +147,14 @@ void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEv
 
 		//Fires off Mod generated custom keys via a second TMap
 
-		std::map <int32, UCommand*>::iterator it;
+		std::map <int32, CommandC*>::iterator it;
 		it = InputMap.find(KeyCode);
 
 		if (it != InputMap.end())
 		{
 
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			it->second->Send(FStroke(false));
+			it->second->Send(StrokeS(false));
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}

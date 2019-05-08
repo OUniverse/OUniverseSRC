@@ -91,7 +91,7 @@ void SystemMenuIO::King()
 	Ui->GetView()->TriggerEvent("sysmenu.open");
 	EvaluateOptions();
 
-	if (!Major::Get()->User()->bActiveUserFound())
+	if (!MajorC::Get()->User()->bActiveUserFound())
 	{
 		SetOverlayEnabled(false);
 		GetMenu(SubMenus::User)->King();

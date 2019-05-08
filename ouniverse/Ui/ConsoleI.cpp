@@ -46,9 +46,9 @@ void ConsoleIO::OnOpen()
 	bPendingOpen = false;
 }
 
-void ConsoleIO::OnCommand(FStroke Stroke)
+void ConsoleIO::OnCommand(StrokeS InStroke)
 {
-	if (Stroke.KeyDown)
+	if (InStroke.KeyDown)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "COMMAND IN");
 

@@ -9,7 +9,7 @@
 #include "Form/Ref.h"
 #include "Form/Object.h"
 
-Payload::Payload(const char* AtlasDirectory)
+PayloadC::PayloadC(const char* AtlasDirectory)
 {
 	FormCount = 0;
 	Path = AtlasDirectory;
@@ -23,9 +23,9 @@ Payload::Payload(const char* AtlasDirectory)
 
 	for (int i = 0; i < Fi.Count; i++)
 	{
-		if (Atlas::Extension(Fi.Extension(i)))
+		if (AtlasC::Extension(Fi.Extension(i)))
 		{
-			Atlas* NewAtlas = new Atlas(Fi.FullPath(i));
+			AtlasC* NewAtlas = new AtlasC(Fi.FullPath(i));
 			AtlasVector.push_back(NewAtlas);
 			NewAtlas->Scan(this);
 			
@@ -37,7 +37,7 @@ Payload::Payload(const char* AtlasDirectory)
 	}
 }
 
-FormF* Payload::AddForm(const std::string InProprietary)
+FormF* PayloadC::AddForm(const std::string InProprietary)
 {
 
 	uint32 UID = std::atoi(InProprietary.substr(0, 10).c_str());
