@@ -15,10 +15,10 @@ struct FInt2D
 public:
 
 	/** Global 2D zero vector constant (0,0) */
-	static CORE_API const FInt2D ZeroVector;
+	static OUNIVERSE_API const FInt2D ZeroVector;
 
 	/** Global 2D unit vector constant (1,1) */
-	static CORE_API const FInt2D UnitVector;
+	static OUNIVERSE_API const FInt2D UnitVector;
 
 	FORCEINLINE FInt2D();
 

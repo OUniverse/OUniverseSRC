@@ -2,7 +2,7 @@
 
 #include "Support/Condition.h"
 
-void UCondition::Init(UMajor* InMajor)
+bool Condition::IsTest()
 {
-	Major = InMajor;
+	return true;
 }

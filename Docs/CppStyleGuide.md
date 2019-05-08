@@ -38,19 +38,31 @@ Followed by the letter "C" if it's name will collide with it's logical parameter
 * LogC*
 * PopulaceEngineC
 
+## Struct
+
 Struct-like classes with abstract names can be simply named as they are but could use an S prefix as well:
 * ColorRBG
 * JsonWriter
 * VersionS
+* StrokeS
+
 
 
 #### Specialty Cases
-Certain repetitive purpose classes can have their own suffix. For example States are prefixed with T and UI element interfaces are followed by I.
+Certain repetitive purpose classes can have their own suffix. For example States are prefixed with State and UI element interfaces are followed by IO.
 
-* OpenWorldS
-* SystemMenuS
-* InventoryI
-* DialogueI
+* OpenWorldState
+* SystemMenuState
+* InventoryIO
+* DialogueIO
+
+##### Form
+Any class extending the basic Form type uses the F suffix.
+
+* AbilityF
+* EquippableF
+* RefF
+* ActorF
 
 ## Macros
 All upper case only used for efficiency purposes and as wrappers around Singletons.

@@ -1,6 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-
+//O:\ouniverse\ouniverse\SourceMVS\include
 
 #include "System/Boot.h"
 #include "System/Major.h"
@@ -41,8 +41,6 @@ void UBoot::Boot(UObject* WorldContextObject)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("The game mode is not set to the correct class. Should be AMode..."));
 		return;
 	}
-
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz!"));
 
 	M->Path_	= PathManager::Create();
 	M->Log_		= LogC::Create(M->Path()->DGlobalLogs());
