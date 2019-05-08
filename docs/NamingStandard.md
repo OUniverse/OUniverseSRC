@@ -76,7 +76,7 @@ Simple global variables on their own are not used however globally accessible si
 
 It's our belief that game development requires some exceptions from OOP injection principles. A majority of it works perfectly with OOP however certain things do wind up having to reach far across the scope of the program no matter what. To allow more complex and interesting features we opt into minimal usage of singletons through a service locator designated **Major**. 
 
-> The log also is a singleton but with it's own singleton outside of the service locator.
+> The log also is a singleton but with it's own access outside of the service locator.
 
 A second aspect favoring global usage in a limited capacity is the boot initialization process which requires loading many data documents that are parsed. For performance reasons in certain cases it very much appears ideal to load and hold onto the needed data in a singleton-esque fashion.
 
