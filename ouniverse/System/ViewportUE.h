@@ -4,16 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameViewportClient.h"
-#include "ViewportClient.generated.h"
+#include "ViewportUE.generated.h"
 
 
 UCLASS()
-class OUNIVERSE_API UViewportClient : public UGameViewportClient
+class OUNIVERSE_API UViewportUE : public UGameViewportClient
 {
 	GENERATED_BODY()
 
 public:
-
 
 	//UE4 already was using UGameViewportClient::Init()
 

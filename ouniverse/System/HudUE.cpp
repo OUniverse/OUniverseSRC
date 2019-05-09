@@ -1,6 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "System/DisplayManager.h"
+#include "System/HudUE.h"
 #include "System/Input.h"
 #include "Widgets/SWeakWidget.h"
 #include "Engine/GameViewportClient.h"
@@ -10,7 +10,7 @@
 #include "SCohtmlInputForward.h"
 #include "System/Boot.h"
 
-void ADisplayManager::PrepareInputs(FString UiServerPath)
+void AHudUE::PrepareInputs(FString UiServerPath)
 {
 	SAssignNew(InputNet,SInput).GameHUD(this);
 	if (GEngine && GEngine->GameViewport)
@@ -32,7 +32,7 @@ void ADisplayManager::PrepareInputs(FString UiServerPath)
 	//UiInputActor->SetCohtmlInputFocus(true);
 	FSlateApplication::Get().SetKeyboardFocus(InputNet);
 
-	GetCohtmlHUD()->ReadyForBindings.AddDynamic(this, &ADisplayManager::CoherentReady);
+	GetCohtmlHUD()->ReadyForBindings.AddDynamic(this, &AHudUE::CoherentReady);
 
 	FInputModeUIOnly Mode;
 	Mode.SetWidgetToFocus(InputNet);
@@ -40,23 +40,23 @@ void ADisplayManager::PrepareInputs(FString UiServerPath)
 }
 
 
-void ADisplayManager::CoherentReady()
+void AHudUE::CoherentReady()
 {
 	//Has to be UFunction for Coherent's PreBind function call.
 	UBoot::CoherentReady();
 }
 
-void ADisplayManager::ActivateInputs(InputManager* Input)
+void AHudUE::ActivateInputs(InputManager* Input)
 {
 	InputNet->InputRelay = Input;
 }
 
-UCohtmlHUD* ADisplayManager::GetUi()
+UCohtmlHUD* AHudUE::GetUi()
 {
 	return GetCohtmlHUD();
 }
 
-TSharedPtr<class SCohtmlInputForward> ADisplayManager::GetNativeUiInput()
+TSharedPtr<class SCohtmlInputForward> AHudUE::GetNativeUiInput()
 {
 	return UiNet;
 }

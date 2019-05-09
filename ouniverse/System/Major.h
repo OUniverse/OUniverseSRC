@@ -1,23 +1,12 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Major is intended to be the only singleton in use. It's a Service Locator setup however at this point I plan on only using it as a global and not pass it around.
-Any case where it could be passed I'll prefer Dependency Injection and call down Major only at certain key points in object chains.
+Major is a Service Locator singleton and also holds the only memory pointers to the system's services.
 
 Major will be sparingly dropped in locations where Dependency Injection is causing to much pressure and not logically feeling great.
-Certain deep end points might also use it to gain abstract to some of the more abstract systems that don't make sense to hand down many times.
+Generally if parameters are being passed around only to hand off with no relevance to the receiver it will be omitted from injection and retrieved when needed from Major.
 
-An example of this is the individual UI windows which all need to be tied in to very speicifc things across the program. I will give the UiManager
-it's own version of Major so it can distrubte what it needs instead of passing all the services directly to UiManager.
-
-Depenency Injection is greatly prefered unless to many unrelated things are being passed around to reach a distance usage.
-
-Major is mainly allowed when the usage of the program is intangible in an Object Oriented Sense as the program is shifting through an aspect
-an example of this is the difference between the boot up process / system menu or in the open world.
-
-In a few cases it will be used in very long Injection chains when Object Oriented Program is simulating to much of the complexity.
-
-A majority of the e
+Major will not be passed through constructors and will instead be reached by a Global Get() from a Macro wrapper minimal script.
  */
 
 #pragma once
@@ -36,9 +25,9 @@ class InputManager;
 class AudioManager;
 class StateManager;
 class AudioManager;
-class UViewportClient;
-class ADisplayManager;
-class APlayerController;
+class UViewportUE;
+class AHudUE;
+class AControlUE;
 class SystemManager;
 
 class UBoot;
@@ -64,12 +53,12 @@ public:
 	SystemManager*		System();
 	InputManager*		Input();
 	AudioManager*		Audio();
-	APlayerController*	Control();
+	AControlUE*			Control();
 	UiManager*			Ui();
 	StateManager*		State();
-	ADisplayManager*	Display();
+	AHudUE*				Hud();
 	UWorld*				Scope();
-	UViewportClient*	Viewport();
+	UViewportUE*	Viewport();
 
 private:
 
@@ -83,8 +72,8 @@ private:
 	AudioManager*		Audio_;
 	InputManager*		Input_;
 	UWorld*				Scope_;
-	UViewportClient*	Viewport_;
-	ADisplayManager*	Display_;
-	APlayerController*	Control_;
+	UViewportUE*		Viewport_;
+	AHudUE*				Hud_;
+	AControlUE*			Control_;
 	
 };

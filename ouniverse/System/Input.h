@@ -21,7 +21,7 @@ class OUNIVERSE_API SInput : public SCompoundWidget
 	{
 	}
 
-	SLATE_ARGUMENT(TWeakObjectPtr<class ADisplayManager>, GameHUD);
+	SLATE_ARGUMENT(TWeakObjectPtr<class AHudUE>, GameHUD);
 	SLATE_END_ARGS()
 
 
@@ -42,6 +42,6 @@ public:
 	InputManager* InputRelay;
 
 private:
-	TWeakObjectPtr<class ADisplayManager> GameHUD;
+	TWeakObjectPtr<class AHudUE> GameHUD;
 	
 };

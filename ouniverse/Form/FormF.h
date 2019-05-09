@@ -7,9 +7,9 @@ Form: Abstract base form.
 #pragma once
 
 #include "CoreMinimal.h"
-#include <rapidjson/document.h>
 
 class PayloadC;
+struct JsonS;
 
 class FormF
 {
@@ -22,6 +22,6 @@ protected:
 	FString Serialized;
 	static FormF* Create();
 	
-	virtual void Marshal(rapidjson::Document* J);
+	virtual void Marshal(JsonS* J);
 	virtual ~FormF() {};
 };

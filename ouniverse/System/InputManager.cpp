@@ -6,7 +6,7 @@
 #include "System/CharKey.h"
 #include "System/Major.h"
 
-#include "System/DisplayManager.h"
+#include "System/HudUE.h"
 #include "System/Paths.h"
 
 #include "Util/FileFriend.h"

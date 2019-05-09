@@ -6,11 +6,15 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #pragma once
 
-class OUNIVERSE_API MatC
+#include "Actual/FormA.h"
+
+class ObjectF;
+
+class OUNIVERSE_API ObjectA : public FormA
 {
 
 public:
 
-	MatC();
+	ObjectA(ObjectF* InObjectF);
 
 };

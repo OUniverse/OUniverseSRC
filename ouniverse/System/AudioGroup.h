@@ -1,7 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-AudioGroup holds different volume levels for types of audio, Example: Voice/UI/Music/Ambience.
+AudioGroups are nesting volume control containers Example: Voice/UI/Music/Ambience.
+
+- These are intended to be adjustable by the user from ingame menus during gameplay.
  */
 
 #pragma once

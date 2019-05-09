@@ -6,11 +6,11 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #pragma once
 
-class OUNIVERSE_API ActorC
+class OUNIVERSE_API MatA
 {
 
 public:
 
-	ActorC();
+	MatA();
 
 };

@@ -5,9 +5,9 @@
 
 #include "Util/FileFriend.h"
 
-#include "Form/Form.h"
-#include "Form/Ref.h"
-#include "Form/Object.h"
+#include "Form/FormF.h"
+#include "Form/RefF.h"
+#include "Form/ObjectF.h"
 
 PayloadC::PayloadC(const char* AtlasDirectory)
 {

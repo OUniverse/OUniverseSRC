@@ -11,7 +11,7 @@ The DisplayManager is an extension to UE4s GameHUD.
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 #include "CohtmlGameHUD.h"
-#include "DisplayManager.generated.h"
+#include "HudUE.generated.h"
 
 class UGameViewportClient;
 class UInputManager;
@@ -22,7 +22,7 @@ class PathsC;
 class InputManager;
 
 UCLASS()
-class OUNIVERSE_API ADisplayManager : public ACohtmlGameHUD
+class OUNIVERSE_API AHudUE : public ACohtmlGameHUD
 {
 	GENERATED_BODY()
 

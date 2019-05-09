@@ -8,16 +8,15 @@
 #include "System/Log.h"
 #include "System/ConfigManager.h"
 #include "System/UserManager.h"
-#include "System/DisplayManager.h"
+#include "System/HudUE.h"
 #include "System/SystemManager.h"
 #include "System/UiManager.h"
 #include "System/StateManager.h"
 #include "System/InputManager.h"
 #include "System/AudioManager.h"
-#include "System/ViewportClient.h"
-#include "GameFramework/PlayerController.h"
+#include "System/ViewportUE.h"
+#include "System/ControlUE.h"
 #include "Kismet/GameplayStatics.h"
-#include "GameFramework/WorldSettings.h"
 #include "System/Mode.h"
 #include "Engine/World.h"
 #include "Form/Payload.h"
@@ -34,7 +33,7 @@ void UBoot::Boot(UObject* WorldContextObject)
 
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
-	M->Viewport_ = Cast<UViewportClient>(M->Scope()->GetGameInstance()->GetGameViewportClient());
+	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
 
 	if(M->Scope()->GetAuthGameMode()->GetClass()!=AMode::StaticClass())
 	{
@@ -47,10 +46,10 @@ void UBoot::Boot(UObject* WorldContextObject)
 	M->Config_	= ConfigManager::Create(M->Path()->DUsers(),"FIXTHIS");
 	M->User_	= UserManager::Create(M->Config(),NULL);
 
-	M->Control_ = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
+	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
-	M->Display_ = Cast<ADisplayManager>(M->Control()->GetHUD());
-	M->Display()->PrepareInputs(M->Path()->DUiServer());
+	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+	M->Hud()->PrepareInputs(M->Path()->DUiServer());
 
 	M->Audio_ = AudioManager::Create(M->Scope());
 	
@@ -73,7 +72,7 @@ void UBoot::CoherentReady()
 
 	MajorC* M	= MajorC::Get();
 	M->System_	= SystemManager::Create();
-	M->Input_	= InputManager::Create(M->Display()->GetUi(), M->Display()->GetNativeUiInput(), M->Path()->DContentReg());
-	M->Ui_		= UiManager::Create(M->Display()->GetUi());
+	M->Input_	= InputManager::Create(M->Hud()->GetUi(), M->Hud()->GetNativeUiInput(), M->Path()->DContentReg());
+	M->Ui_		= UiManager::Create(M->Hud()->GetUi());
 	M->State_	= StateManager::Create();
 }

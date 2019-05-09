@@ -1,13 +1,13 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "Form/Form.h"
-
+#include "Form/FormF.h"
+#include "Interface/Json.h"
 
 FormF::FormF() {}
 
 FormF* FormF::Create() { return new FormF(); }
 
-void FormF::Marshal(rapidjson::Document* J)
+void FormF::Marshal(JsonS* J)
 {
 
 }
