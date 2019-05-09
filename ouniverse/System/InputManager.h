@@ -32,14 +32,11 @@ If Coherent doesn't consume the input then InputManager processes it.
 #include "Runtime/SlateCore/Public/Layout/Geometry.h"
 #include "Runtime/SlateCore/Public/Input/Events.h"
 
-#include "InputManager.generated.h"
-
 
 class CommandC;
-class UPTKey;
+class CharKey;
 
 class UCohtmlBaseComponent;
-class UInputManager;
 class UCohtmlHUD;
 class SCohtmlInputForward;
 
@@ -54,8 +51,7 @@ private:
 public:
 
 	static InputManager* Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, FString PathToReg);
-	
-	UInputManagerProxy* Proxy;
+
 	void TypeMode(int bEnabled);
 	void PrimeTypeMode(int bEnabled);
 	
@@ -96,29 +92,10 @@ private:
 
 	std::map <FName,CommandC*> CommandMap;
 	std::map <int32,CommandC*> InputMap;
-	std::map <int32, UPTKey*> PTKeyMap;
+	std::map <int32, CharKey*> PTKeyMap;
 
 	void BindUI();
 
 	void BindCommandToKey(CommandC* CommandToBind, int32 KeyCode);
 
-};
-
-
-
-
-
-UCLASS()
-class OUNIVERSE_API UInputManagerProxy : public UObject
-{
-	GENERATED_BODY()
-
-public:
-
-	void Init(InputManager* Input);
-
-	InputManager* Relay;
-
-	void TypeMode(int bEnabled);
-	void PrimeTypeMode(int bEnabled);
 };

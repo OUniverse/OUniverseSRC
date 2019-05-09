@@ -4,6 +4,8 @@
 
  */
 
+#include "CoreMinimal.h"
+
 #pragma once
 
 class OUNIVERSE_API Version

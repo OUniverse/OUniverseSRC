@@ -18,7 +18,7 @@ class UInputManager;
 class SCohtmlInputForward;
 
 
-class PathManager;
+class PathsC;
 class InputManager;
 
 UCLASS()

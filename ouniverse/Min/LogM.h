@@ -13,4 +13,7 @@ Wrapper around the LOG singleton.
 #define GEN 0
 #define BOOT 1
 #define HOT 2
-#define LOG (type,verb,indent,text) OTLogger::Get()->Write(type,verb,indent,text)
+#define LOG (type,verb,indent,text) LogC::Get()->Write(type,verb,indent,text);
+
+#define IFS (InInt) FString::FromInt(InInt)
+#define FFS (InFloat) FString::SanitizeFloat(InFloat)

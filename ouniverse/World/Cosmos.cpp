@@ -1,13 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-/**
+#include "World/Cosmos.h"
 
- */
 
-#pragma once
-
-class DebugMin
+CosmosC::CosmosC()
 {
 
-
-};
+}

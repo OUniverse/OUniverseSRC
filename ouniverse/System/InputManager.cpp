@@ -3,11 +3,11 @@
 #include "System/InputManager.h"
 #include "Containers/Ticker.h"
 #include "System/Command.h"
-#include "System/PTKey.h"
+#include "System/CharKey.h"
 #include "System/Major.h"
 
 #include "System/DisplayManager.h"
-#include "System/PathManager.h"
+#include "System/Paths.h"
 
 #include "Util/FileFriend.h"
 
@@ -28,9 +28,6 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 {
 	Ui = InUi;
 	UiNative = InNativeUi;
-
-	Proxy = NewObject<UInputManagerProxy>();
-	Proxy->Init(this);
 
 	bRebindMode = false;
 	bTypeMode = false;
@@ -67,8 +64,7 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 	Count = JArr.Num();
 	for (int i = 0; i < Count; i++)
 	{
-		UPTKey* NewPTK = NewObject<UPTKey>();
-		NewPTK->ID = JArr[i]->AsObject()->GetStringField("i");
+		CharKey* NewPTK = new CharKey(JArr[i]->AsObject()->GetStringField("i"));
 		PTKeyMap.insert({ JArr[i]->AsObject()->GetIntegerField("k"), NewPTK } );
 	}
 
@@ -76,8 +72,8 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 
 void InputManager::BindUI()
 {
-	Ui->GetView()->BindCall("inputMNG.typeMode", cohtml::MakeHandler(Proxy, &UInputManagerProxy::TypeMode));
-	Ui->GetView()->BindCall("inputMNG.typeModePrime", cohtml::MakeHandler(Proxy, &UInputManagerProxy::PrimeTypeMode));
+	Ui->GetView()->BindCall("inputMNG.typeMode", cohtml::MakeHandler(this, &InputManager::TypeMode));
+	Ui->GetView()->BindCall("inputMNG.typeModePrime", cohtml::MakeHandler(this, &InputManager::PrimeTypeMode));
 }
 
 CommandC* InputManager::GetCommand(FString CommandName)
@@ -101,7 +97,7 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 
 	if (bPrimeTypeMode)
 	{
-			UPTKey* PTK = PTKeyMap.find(KeyCode)->second;
+			CharKey* PTK = PTKeyMap.find(KeyCode)->second;
 			if (PTK != nullptr)
 			{
 				Ui->GetView()->TriggerEvent("inputMNG.onPTKey", PTK->ID);
@@ -220,24 +216,4 @@ void InputManager::TypeMode(int bEnabled)
 		bTypeMode = false;
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Type Mode Canceled");
 	}
-}
-
-
-
-void UInputManagerProxy::Init(InputManager* Input)
-{
-	Relay = Input;
-	//Prevent Garbage Collection, MAKE SURE TO DELETE if you ever delete this singleton
-	this->AddToRoot();
-}
-
-
-void UInputManagerProxy::TypeMode(int bEnabled)
-{
-	Relay->TypeMode(bEnabled);
-}
-
-void UInputManagerProxy::PrimeTypeMode(int bEnabled)
-{
-	Relay->PrimeTypeMode(bEnabled);
 }

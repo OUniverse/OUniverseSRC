@@ -3,8 +3,6 @@
 
 
 #include "System/Major.h"
-#include "GameFramework/PlayerController.h"
-
 
 namespace GlobalSingleton
 {
@@ -22,7 +20,26 @@ MajorC* MajorC::Create()
 	return &GlobalSingleton::gMajor;
 }
 
-PathManager* MajorC::Path()			{ return Path_; }
+void MajorC::Test1()
+{
+	//DelegateS* NewDel = new DelegateS();
+	//NewDel->d = DelegateClean::from_method<MajorC, & MajorC::Test2>(this);
+	//NewDel->Execute();
+
+
+	//TestDelegate d = TestDelegate::from_method<MajorC, &MajorC::Test2>(this);
+	//d();
+
+	HTTP("https://ouniverse.com/client/hs/ou1.hs", this, &MajorC::Test2);
+}
+
+
+void MajorC::Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Response->GetContentAsString());
+}
+
+PathsC* MajorC::Path()				{ return Path_; }
 UserManager* MajorC::User()			{ return User_; }
 ConfigManager* MajorC::Config()		{ return Config_; }
 UiManager* MajorC::Ui()				{ return Ui_; }

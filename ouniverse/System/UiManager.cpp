@@ -2,8 +2,7 @@
 
 #include "System/UiManager.h"
 
-#include "System/Major.h"
-#include "System/PathManager.h"
+#include "System/Paths.h"
 
 #include "Ui/AchieveI.h"
 #include "Ui/AreaI.h"
@@ -29,6 +28,7 @@
 #include "CohtmlFStringBinder.h"
 #include "CohtmlUTypeBinder.h"
 
+#include "Min/MajorM.h"
 
 UiManager* UiManager::Create(UCohtmlHUD* InUi)
 {

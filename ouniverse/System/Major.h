@@ -23,10 +23,10 @@ A majority of the e
 #pragma once
 
 #include "CoreMinimal.h"
-
+#include "Min/HttpM.h"
 
 class LogC;
-class PathManager;
+class PathsC;
 class UserManager;
 class InputManager;
 class DisplayManager;
@@ -43,8 +43,6 @@ class SystemManager;
 
 class UBoot;
 
-#define MAJOR_IN_USAGE
-#define MAJOR MajorC::Get()
 
 class OUNIVERSE_API MajorC
 {
@@ -56,8 +54,11 @@ public:
 	static MajorC* Get();
 	static MajorC* Create();
 
+	void Test1();
+	void Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
 	LogC*				Log();
-	PathManager*		Path();
+	PathsC*				Path();
 	UserManager*		User();
 	ConfigManager*		Config();
 	SystemManager*		System();
@@ -73,7 +74,7 @@ public:
 private:
 
 	LogC*				Log_;
-	PathManager*		Path_;
+	PathsC*				Path_;
 	UserManager*		User_;
 	ConfigManager*		Config_;
 	UiManager*			Ui_;

@@ -11,7 +11,7 @@ If something wants to register for a keypress they add their trigger function to
 #pragma once
 
 #include "CoreMinimal.h"
-#include "System/Delegates.h"
+#include "Delegates/IDelegateInstance.h"
 
 
 struct StrokeS

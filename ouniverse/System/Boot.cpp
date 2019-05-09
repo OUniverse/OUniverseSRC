@@ -4,7 +4,7 @@
 
 #include "System/Boot.h"
 #include "System/Major.h"
-#include "System/PathManager.h"
+#include "System/Paths.h"
 #include "System/Log.h"
 #include "System/ConfigManager.h"
 #include "System/UserManager.h"
@@ -22,54 +22,54 @@
 #include "Engine/World.h"
 #include "Form/Payload.h"
 
+#include "Min/DebugM.h"
+
 void UBoot::Boot(UObject* WorldContextObject)
 {
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("We have booted!"));
+	DBUG("Standard Boot Activated.");
 
 	MajorC::Create();
 	MajorC* M = MajorC::Get();
 
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
-	//If Major (this) is returning as nullptr it means this specialty GameViewPortClient class got removed from the Editor Project Settings as default.
+	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
 	M->Viewport_ = Cast<UViewportClient>(M->Scope()->GetGameInstance()->GetGameViewportClient());
 
-
-	//Make sure the gamemode is correct. If not post a message so it's clear.
 	if(M->Scope()->GetAuthGameMode()->GetClass()!=AMode::StaticClass())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("The game mode is not set to the correct class. Should be AMode..."));
+		DBUGC(RGB_ERR,"The game mode is not set to the correct class. Should be AMode...");
 		return;
 	}
 
-	M->Path_	= PathManager::Create();
+	M->Path_	= PathsC::Create();
 	M->Log_		= LogC::Create(M->Path()->DGlobalLogs());
 	M->Config_	= ConfigManager::Create(M->Path()->DUsers(),"FIXTHIS");
 	M->User_	= UserManager::Create(M->Config(),NULL);
 
 	M->Control_ = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
 	
-	//AWorldSettings* WorldSettings = M->Scope()->GetWorldSettings();
-	//WorldSettings->DefaultGameMode = AMode::StaticClass();
-
-	//AddLog(ELog::Primary, UDU_GlobalLogsPath + FString(LOG_NAME_PRIMARY));
-
 	M->Display_ = Cast<ADisplayManager>(M->Control()->GetHUD());
 	M->Display()->PrepareInputs(M->Path()->DUiServer());
 
 	M->Audio_ = AudioManager::Create(M->Scope());
 	
-	//DEBUGPRINT(FColor::Turquoise, "Major Boot()...");
+	DBUG("Waiting for CUI...");
 }
+
 
 void UBoot::TestBoot(UObject* WorldContextObject)
 {
-	new PayloadC(TCHAR_TO_ANSI(*(PathManager::Create()->DContent() + "testfolder/")));
+	DBUG("Test Boot Activated.");
+	MajorC::Create();
+	MajorC* M = MajorC::Get();
+	M->Test1();
+	//new PayloadC(TCHAR_TO_ANSI(*(PathsC::Create()->DContent() + "testfolder/")));
 }
 
 void UBoot::CoherentReady()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("COHERENT READY"));
+	DBUG("CUI Ready...");
 
 	MajorC* M	= MajorC::Get();
 	M->System_	= SystemManager::Create();

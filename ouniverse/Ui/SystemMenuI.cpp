@@ -4,11 +4,9 @@
 #include "Ui/Io.h"
 #include "CohtmlHUD.h"
 
-#include "System/Major.h"
-
 
 #include "System/UserManager.h"
-#include "System/PathManager.h"
+#include "System/Paths.h"
 
 #include "Ui/SystemMenu/CreationISM.h"
 #include "Ui/SystemMenu/CreditsISM.h"
@@ -27,6 +25,8 @@
 #include "CohtmlFStringBinder.h"
 #include "CohtmlUTypeBinder.h"
 #include "CohtmlTArrayBinder.h"
+
+#include "Min/MajorM.h"
 
 SystemMenuIO::SystemMenuIO(UCohtmlHUD* InUi) : Io(InUi)
 {

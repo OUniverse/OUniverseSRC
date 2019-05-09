@@ -18,7 +18,6 @@ Boot works by calling the UBoot::Boot function from any level in UE4 blueprints.
 #include "Boot.generated.h"
 
 
-
 UCLASS()
 class UBoot : public UBlueprintFunctionLibrary
 {
@@ -34,6 +33,5 @@ public:
 
 	UFUNCTION()
 	static void CoherentReady();
-
 
 };
