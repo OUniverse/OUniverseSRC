@@ -56,6 +56,7 @@ void UBoot::Boot(UObject* WorldContextObject)
 	DBUG("Waiting for CUI...");
 }
 
+#include "Interface/File.h"
 
 void UBoot::TestBoot(UObject* WorldContextObject)
 {
@@ -63,6 +64,19 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 	MajorC::Create();
 	MajorC* M = MajorC::Get();
 	M->Test1();
+	
+	M->Path_ = PathsC::Create();
+
+
+	FileReadS FileReader = FileReadS(TCHAR_TO_ANSI(*(M->Path()->DContent() + "test.txt")));
+	//DBUG("OK");
+
+	FileC::Empty(M->Path()->DContent() + "test2.txt");
+
+	FileC::Append(TCHAR_TO_ANSI(*(M->Path()->DContent() + "test2.txt")), FileReader.AsFString());
+	
+	FileC::Delete(M->Path()->DContent() + "test2.txt");
+
 	//new PayloadC(TCHAR_TO_ANSI(*(PathsC::Create()->DContent() + "testfolder/")));
 }
 

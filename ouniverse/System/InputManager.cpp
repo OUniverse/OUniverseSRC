@@ -9,7 +9,8 @@
 #include "System/HudUE.h"
 #include "System/Paths.h"
 
-#include "Util/FileFriend.h"
+#include "Interface/File.h"
+#include "Interface/Json.h"
 
 #include "CohtmlHUD.h"
 #include "cohtml/Binding/Binding.h"
@@ -33,41 +34,10 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 	bTypeMode = false;
 	bPrimeTypeMode = false;
 
-	FFileReader FileReader = FFileReader(PathToReg + REG_INPUTMANAGER);
-	FileReader.ToJson();
+	FileReadS* FileReader = new FileReadS(TCHAR_TO_ANSI(*(PathToReg + REG_INPUTMANAGER)));
 
-
-	const TArray<TSharedPtr<FJsonValue>> *ArrDatri;
-
-	FileReader.Json()->TryGetArrayField("command", ArrDatri);
-	auto JArr = *ArrDatri;
-
-	int Count;
-
-	Count = JArr.Num();
-	for (int i = 0; i < Count; i++)
-	{
-		FName CommandID = FName(*JArr[i]->AsObject()->GetStringField("i"));
-		int KeyCode = JArr[i]->AsObject()->GetIntegerField("k");
-		CommandC* NewCommand = new CommandC();
-		NewCommand->ID = CommandID;
-		CommandMap.insert({ CommandID, NewCommand });
-		InputMap.insert({ KeyCode, NewCommand});
-
-
-		NewCommand->BoundKeyCode = KeyCode;
-	}
-
-	FileReader.Json()->TryGetArrayField("primetype", ArrDatri);
-	JArr = *ArrDatri;
-
-	Count = JArr.Num();
-	for (int i = 0; i < Count; i++)
-	{
-		CharKey* NewPTK = new CharKey(JArr[i]->AsObject()->GetStringField("i"));
-		PTKeyMap.insert({ JArr[i]->AsObject()->GetIntegerField("k"), NewPTK } );
-	}
-
+	JsonS* InputReg = new JsonS(FileReader->AsChar());
+	//InputReg[];
 }
 
 void InputManager::BindUI()

@@ -3,7 +3,7 @@
 #include "Form/Payload.h"
 #include "Form/Atlas.h"
 
-#include "Util/FileFriend.h"
+#include "Interface/File.h"
 
 #include "Form/FormF.h"
 #include "Form/RefF.h"
