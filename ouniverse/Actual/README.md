@@ -5,7 +5,7 @@ The boots would have their base stats such as weight, description and a pointer 
 
 ### FORMULA
 
-* All **Actual** classes are suffixed by the letter A. Example:
+* All **Actual** classes are suffixed by the letter **A**. Example:
 	* ActorA
 	* RefA
 * **Actuals** all are part of a inheritance chain so that each step of the chain can handle the unpacking of their related data. Example:
