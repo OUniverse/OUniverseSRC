@@ -1,0 +1,4 @@
+# MIN
+This project's style guide allows for Global Singleton instances to control services. The rule is that they are wrapped in a minified file which holds macros to access their functionality. These minified files are what should be included to access the Global Singletons. This allows some swapping of functionality and provides a point for indirection while at least showing some information in the #includes on what Global Singletons are being used by a translation.
+
+The style guide supports the usage of Global Singletons only when Dependency Injection can not elegantly solve a problem. If a service is being passed through to many unrelated things and there is no logical workaround then a Singleton may be accessed.

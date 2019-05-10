@@ -1,0 +1,2 @@
+# STATE
+Manages controls and setups for significantly different interactive states the game might involve. For example a differentiation between being in the opening System Menu where the User selects what User they are as opposed to moving a character in 3D space in the open world.
