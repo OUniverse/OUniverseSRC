@@ -1,111 +1,62 @@
-# OUniverse C++ Style Guide
 
-Style is chosen to be similar to Epic's UE4 style but not mimic it exactly so that it's clear which code is our own This helps distinguish what parts require garbage collection and UE4 Macro assignments.
-
-### Principles
-* Readability is greatly valued over speed of writing but meaningful performance gains is valued the most. 
-* Increases compile time speed is valued if it doesn't involve to much confusion or breaking from the rules.
-
-## Default
-All classes and variables are named in a way that describes their purpose in an object sense. No special characters are used inside the name such as an underscore. The first letter of every word is capitalized.
+# Code Functionality Overview
+This document is a summary of how the components of the source code function and how the project is organized.
 
 
-* AtlasLibrary
-* AudioGroup
+## Data Driven
+OUniverse is Data Driven and loads all of it's game content during the opening menus. It loads data from (mostly) JSON based text documents which function like mods. Which documents are used is semi configurable by the user through UI menus.
 
-## Member Variables
-Suffixed with an underscore when the name collides with a Getter function
+## Actual & Form
+These 2 class types are the core elements of OUniverse's Data Driven system. Forms are base data and Actuals are instances made from the base data. To explain more in depth:
 
-*Log_
-*DataManager_
+### Form
+When the Data is loaded by OUniverse for each entry in the document a "Form" is created.  A Form is JSON marshaled into a C++ class. The Form classes use inheritance and all extend from a basic Form class. Their JSON data is handed down through their parents to clearly initialize themselves.
 
-## Parameters
-Uses In before the Parameter name:
-```c++
-WirteToLog(LogC* InLog)
-{
-Log_ = InLog;
-}
-```
-## const vs Macro
-Prefer using the Preproccessor over const to isolate efficiency measures from the code itself. 
+> **FORMS** link to other forms so in order to not have to store string based representation of links in instanced classes all Forms are unpacked first and assigned an ID before being Marshaled. This way all links only need a single pointer worth of storage to hold the address of the linked FORM.
+> 
+### Actual
+**ACTUAL** classes closely mirror form classes. They represent an instance of a form. In the example of an item like a pair of boots: The boots  would have their base stats such as weight, description and a pointer to the 3D model stored in the **FORM** but if they are actually manifested in the world as in being owned by a character or placed somewhere in the world then an actual is made which represents an instance of a form.
 
-## Class
+## Folders
 
-Followed by the letter "C" if it's name will collide with it's logical parameter name. This unlocks the ability to use Capitals similar to Epic but differentiating by using a signifying suffix instead of a prefix. Personally my eye can read these at a glance much quicker with a suffixed letter as opposed to a prefix.
+### ACTUAL
+Holds all the **"ACTUAL"** classes used to make instances of  Forms.
+* All ACTUAL classes are suffixed by the letter A.
+*  Intended to extend other Actuals mirrored in their Form inheritance in an OOP style.
+*  Their final inheritance must be the base Actual class. 
+### FORM
+Holds all the **FORM** classes which are marshal containers for loaded in Json data.
+* All ACTUAL classes are suffixed by the letter A.
+* All FORM classes are suffixed by the letter F.
+*  Mirrors the "ACTUAL" files.
+* Their final inheritance must be the base Form class.
+### INTERFACE
+Holds access to some broader / generic system. These classes are designed to function like wrappers so that they have their internals changed to other approaches / 3rd parties without breaking functionality.
+* **File** is basic OS file system functionality like read, write, delete, and gather files or folders in directories.
+* **Json** wraps around Json parsing functionality. The current implementation is using **rapidjson**. JSON writing is handled separately using  my our JsonWriter utility so that complex Temporary structs for marshaling are not needed.
+### MATH
+Any pure math structures or functions go here. 
+### MIN
+This project's style guide allows for Global Singleton instances to control services. The rule is that they are wrapped in a minified file which  holds macros to access their functionality. These minified files are what should be included to access the Global Singletons. This allows some swapping of functionality and provides a point for indirection while at least showing some information in the #includes on what Global Singletons are being used by a translation. 
+> The style guide supports the usage of Global Singletons only when Dependency Injection can not elegantly solve a problem. If a service is being passed through to many unrelated things and there is no logical workaround then a Singleton may be accessed. 
+### SECURE
+Hidden files that should not be uploaded to public repos.
+### SUPPORT
+Currently just serving as a grab bag, most likely it will be removed.
+### SYSTEM
+Core systems and services and facilitators of the boot process. A majority of the major functionality of OUniverse is in here.
+### UI
+Each UI file is a sister script to a JavaScript object in the UI. They serve as a pathway to relay functionality to the C++. 
+* Suffixed with either IO or I depending on circumstance.* ### UTIL
+Various helper scripts that haven't found a clear home yet. 
+### WORLD
+A majority of these might to be moved to actual but for now serve to hold the OOP structure of Worlds, Regions and Areas.  
+* Includes world feature management like **Populace** which manages the day by day routines of Actors or **Climate** which manages weather systems.
 
-* class LogC
-* LogC*
-* PopulaceEngineC
-
-## Struct
-
-Struct-like classes with abstract names can be simply named as they are but could use an S prefix as well:
-* ColorRBG
-* JsonWriter
-* VersionS
-* StrokeS
-
-
-
-#### Specialty Cases
-Certain repetitive purpose classes can have their own suffix. For example States are prefixed with State and UI element interfaces are followed by IO.
-
-* OpenWorldState
-* SystemMenuState
-* InventoryIO
-* DialogueIO
-
-##### Form
-Any class extending the basic Form type uses the F suffix.
-
-* AbilityF
-* EquippableF
-* RefF
-* ActorF
-
-## Macros
-All upper case only used for efficiency purposes and as wrappers around Singletons.
-
-## Templates
-Not used except for UE4's 
-
-## Nested Classes and Structs
-Used if they really have no usage outside of their placement and are not very complex. Primarily with structs that are data containers.
-## Virtual
-Anywhere inheritance is needed for the desired functionality.
-## Operator Overrides
-Used only if the functionality is very obvious and the code gains enough cuteness to warrant it.
-## Patterns
-
-#### Injection
-Greatly prefer injection anytime the code can be elegantly presented as a logical tree of objects and components. 
-
-#### Global Variables
-Simple global variables on their own are not used however globally accessible singleton instances are used sparingly in specific situations.
-
-#### Singleton
-
-It's our belief that game development requires some exceptions from OOP injection principles. A majority of it works perfectly with OOP however certain things do wind up having to reach far across the scope of the program no matter what. To allow more complex and interesting features we opt into minimal usage of singletons through a service locator designated **Major**. 
-
-> The log also is a singleton but with it's own access outside of the service locator.
-
-A second aspect favoring global usage in a limited capacity is the boot initialization process which requires loading many data documents that are parsed. For performance reasons in certain cases it very much appears ideal to load and hold onto the needed data in a singleton-esque fashion.
-
-Code however that can suit Injection should always prefer it and on the flip side dependencies being passed without use through many scopes will be implemented as singletons if there's no further clear logical upgrades for the code structure to suit an elegant injection.
-
-#### Singleton Rules
-* Singletons can be implemented as classes that have private static Get() and Create() functions and the class is friended to the UBoot script and any procedeural testing script only.
-* Singletons come with a an additional header file which serves as a Minified access point for other classes to access it. 
-##### Singleton's Minified Header
-
-* The "Minimal" header matches the Singleton's class header's file name but is suffixed with a **M**. It has the Get() function wrapped in a Marcro #define and in certain cases like logging has additional macros to access certain logs:
-
-
-```c++
-#define GENERAL 0
-#define BOOT 1
-#define HOT 1
-
-#define LOG (type,verb,indent,text) LogC::Get()->Write(type,verb,indent,text)
-```
+## Boot Process
+OUniverse is set up by a procedeural boot script.
+1. **UBoot::Boot** (in System/Boot.h) is called by the default UE4 level. It has a test variant also for unit testing isolated parts without having to comment out a lot of the boot process.
+2. Boot sets up and configures most of the singletons.
+3. **StateManager** is then given control which combined with the **UiManager** swap between the different interactive states of the program.
+4. The user is allowed to set up their data via menu and once confirmed all the data is loaded into Forms.
+5. The game is ready to start at this point.
