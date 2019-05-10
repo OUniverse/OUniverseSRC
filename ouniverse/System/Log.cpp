@@ -62,7 +62,7 @@ void LogC::Print()
 	for (int i = Cursor; i < Count; i++)
 	{
 		LogAmendment += "#" + FString::FromInt(i) + " | " + EntryVector[i]->Output();
-		LogAmendment += FileC::LineBreak();
+		LogAmendment += FileC::LineBreak().c_str();
 		Cursor++;
 	}
 	

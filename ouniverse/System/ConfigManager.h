@@ -12,43 +12,122 @@ Primarily it loads, unpacks, and resaves configuration files.
 
 #define INI_NAME_GLOBAL "global.ini"
 #define INI_NULLSTRING "$"
-#define OINI_LAST_USER "lastUserID"
-#define OINI_FIRST_RUN "bFirstRun"
-#define OINI_SKIP_INTRO "bSkipIntro"
-#define OINI_AUTOLOG_SINGLE_USER "bAutoLoginSingleUser"
-#define OINI_AUTOLOG_LAST_USER "bAutoLoginLastUser"
 
-#define UINI_LAST_PLAYTHROUGH "lastPlaythroughID"
 
-class IniBeacon;
+struct IniS;
+
+
+namespace IniKey
+{
+
+	namespace Global
+	{
+		namespace Bool
+		{
+			enum Entry
+			{
+				FirstRun,
+				SkipIntro,
+				LoginSingleUser,
+				LoginLastUser,
+				MAX,
+			};
+		}
+
+		namespace Int
+		{
+			enum Entry
+			{
+				MAX,
+			};
+		}
+
+		namespace Float
+		{
+			enum Entry
+			{
+				MAX,
+			};
+		}
+
+		namespace String
+		{
+			enum Entry
+			{
+				LastUser,
+				MAX,
+			};
+		}
+	}
+
+	namespace User
+	{
+		namespace Bool
+		{
+			enum Entry
+			{
+				MAX,
+			};
+		}
+
+		namespace Int
+		{
+			enum Entry
+			{
+				MAX,
+			};
+		}
+
+		namespace Float
+		{
+			enum Entry
+			{
+				MAX,
+			};
+		}
+
+		namespace String
+		{
+			enum Entry
+			{
+				LastPlaythrough,
+				MAX,
+			};
+		}
+	}
+
+}
 
 class OUNIVERSE_API ConfigManager
 {
 
 private:
 
-	ConfigManager(FString ConfigIniPath, FString UserIniPath);
+	ConfigManager(FString* ConfigIniDirPTR, FString* UserIniDirPTR);
 
 public:
-
-	static ConfigManager* Create(FString ConfigIniPath, FString UserIniPath);
 
 	enum IniTypes : uint8
 	{
 		Global,
 		User,
+		MAX,
 	};
 
-	std::vector <IniBeacon*> IniVector;
-
-	IniBeacon* GetIni(IniTypes Type);
-
-	FString GetAsString(IniTypes Type, FString Key);
-	int GetAsInt(IniTypes Type, FString Key);
-	float GetAsFloat(IniTypes Type, FString Key);
-	bool GetAsBool(IniTypes Type, FString Key);
+	static ConfigManager* Create(FString* ConfigIniDirPTR, FString* UserIniDirPTR);
 
 
-	void LoadUserINI(FString ActiveUserPath);
+
+	std::vector <IniS*> IniVector;
+
+	IniS* GetIni(IniTypes Type);
+
+	std::string GetString(IniTypes Type, int Key);
+	int GetInt(IniTypes Type, int Key);
+	float GetFloat(IniTypes Type, int Key);
+	bool GetBool(IniTypes Type, int Key);
+
+
+	void LoadUserINI();
 
 };

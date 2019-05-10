@@ -45,7 +45,7 @@ void UserISM::King()
 			return;
 		}
 		
-		if (UserP->bSingleUserFound() && ConfigP->GetAsBool(ConfigManager::IniTypes::Global,OINI_AUTOLOG_SINGLE_USER))
+		if (UserP->bSingleUserFound() && ConfigP->GetBool(ConfigManager::IniTypes::Global,IniKey::Global::Bool::LoginSingleUser))
 		{
 			//If there is only 1 user and bAutologSingleUser == true in global ini.
 			//LOG(LBOOT, 1, "IO-User: Bypassing UserSelect: "+FString(OINI_AUTOLOG_SINGLE_USER)+" is true and single user is found.");
@@ -53,7 +53,7 @@ void UserISM::King()
 			return;
 		}
 		
-		if (UserP->bLastSessionUserFound() && ConfigP->GetAsBool(ConfigManager::IniTypes::Global, OINI_AUTOLOG_LAST_USER))
+		if (UserP->bLastSessionUserFound() && ConfigP->GetBool(ConfigManager::IniTypes::Global, IniKey::Global::Bool::LoginLastUser))
 		{
 			//If bAutoLogLastUser == true in global ini and that User ID is currently findable by the UserManager.
 			//LOG(LBOOT, 1, "IO-User: Bypassing UserSelect: " + FString(OINI_AUTOLOG_LAST_USER) + " is true and a user is found.");			

@@ -1,77 +1,69 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/ConfigManager.h"
-#include "System/Ini.h"
+#include "Interface/Ini.h"
 
 
 
-ConfigManager* ConfigManager::Create(FString ConfigIniPath, FString UserIniPath)
+ConfigManager* ConfigManager::Create(FString* ConfigIniPath, FString* UserIniDirPTR)
 {
-	return new ConfigManager(ConfigIniPath, UserIniPath);
+	return new ConfigManager(ConfigIniPath, UserIniDirPTR);
 }
 
 
 
-ConfigManager::ConfigManager(FString ConfigIniPath, FString UserIniPath)
+ConfigManager::ConfigManager(FString* ConfigIniDirPTR, FString* UserIniDirPTR)
 {
 	//Major->FileManager->GetPath(EPath::UDU_Config)
 
-	IniVector.assign(2, NULL);
+	IniVector.assign(IniTypes::MAX, NULL);
 
-	IniBeacon* GlobalIni = new IniBeacon();
-	GlobalIni->SetPath(ConfigIniPath + INI_NAME_GLOBAL);
-	GlobalIni->Add(OINI_LAST_USER, INI_NULLSTRING, false);
-	GlobalIni->Add(OINI_FIRST_RUN, "1", false);
-	GlobalIni->Add(OINI_SKIP_INTRO, "1", false);
-	GlobalIni->Add(OINI_AUTOLOG_SINGLE_USER, "1", false);
-	GlobalIni->Add(OINI_AUTOLOG_LAST_USER, "1", false);
-	GlobalIni->ParseIni();
-	GlobalIni->SaveIni();
+
+	IniS* GlobalIni = new IniS(ConfigIniDirPTR, "settings.ini", IniKey::Global::Bool::MAX, IniKey::Global::Int::MAX, IniKey::Global::Float::MAX, IniKey::Global::String::MAX);
+	GlobalIni->AddString(IniKey::Global::String::LastUser,		IniS::String::Create("lastUserID",			INI_NULLSTRING));
+	GlobalIni->AddBool(IniKey::Global::Bool::FirstRun,			IniS::Bool::Create("bFirstRun",				true));
+	GlobalIni->AddBool(IniKey::Global::Bool::SkipIntro,			IniS::Bool::Create("bSkipIntro",			false));
+	GlobalIni->AddBool(IniKey::Global::Bool::LoginLastUser,		IniS::Bool::Create("bAutoLoginLastUser",	true));
+	GlobalIni->AddBool(IniKey::Global::Bool::LoginSingleUser,	IniS::Bool::Create("bAutoLoginSingleUser",	true));
+	GlobalIni->Parse();
+	GlobalIni->Save();
 
 	IniVector[IniTypes::Global] = GlobalIni;
 	
-	IniBeacon* UserIni = new IniBeacon();
-	UserIni->SetPath(UserIniPath);
-	UserIni->Add(UINI_LAST_PLAYTHROUGH, INI_NULLSTRING, false);
+	
+	IniS* UserIni = new IniS(UserIniDirPTR, "user.ini", IniKey::User::Bool::MAX, IniKey::User::Int::MAX, IniKey::User::Float::MAX, IniKey::User::String::MAX);
+	GlobalIni->AddString(IniKey::User::String::LastPlaythrough,	IniS::String::Create("lastPlaythroughID", INI_NULLSTRING));
 
 	IniVector[IniTypes::User] = UserIni;
 	//LOG(LBOOT, 1, "ConfigManager: On");
 }
 
-void ConfigManager::LoadUserINI(FString ActiveUserPath)
+void ConfigManager::LoadUserINI()
 {
-	IniBeacon* UserIni = IniVector[IniTypes::User];
-
-	//FString DirUsers = Major->FileManager->GetPath(EPath::UDO_Users);
-	//FString IniPath = UserIni.IniPath+UserID+"/"+FOLDER_USER_THISOUNIV+"/user.ini";
-
-	//LOG(LBOOT, 1, "User ini loaded: "+ IniPath);
-
-	UserIni->Reset();
-	UserIni->SetPath(ActiveUserPath);
-	UserIni->ParseIni();
-	UserIni->SaveIni();
+	IniVector[IniTypes::User]->Reset();
+	IniVector[IniTypes::User]->Parse();
+	IniVector[IniTypes::User]->Save();
 }
 
-IniBeacon* ConfigManager::GetIni(IniTypes Type)
+IniS* ConfigManager::GetIni(IniTypes Type)
 {
 	return IniVector[Type];
 }
 
-FString ConfigManager::GetAsString(IniTypes Type, FString Key)
+std::string ConfigManager::GetString(IniTypes Type, int Key)
 {
-	return GetIni(Type)->GetAsString(Key);
+	return GetIni(Type)->GetString(Key);
 }
 
-int ConfigManager::GetAsInt(IniTypes Type, FString Key)
+int ConfigManager::GetInt(IniTypes Type, int Key)
 {
-	return GetIni(Type)->GetAsInt(Key);
+	return GetIni(Type)->GetInt(Key);
 }
-float ConfigManager::GetAsFloat(IniTypes Type, FString Key)
+float ConfigManager::GetFloat(IniTypes Type, int Key)
 {
-	return GetIni(Type)->GetAsFloat(Key);
+	return GetIni(Type)->GetFloat(Key);
 }
-bool ConfigManager::GetAsBool(IniTypes Type, FString Key)
+bool ConfigManager::GetBool(IniTypes Type, int Key)
 {
-	return GetIni(Type)->GetAsBool(Key);
+	return GetIni(Type)->GetBool(Key);
 }
