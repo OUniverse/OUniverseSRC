@@ -13,7 +13,11 @@ Wrapper around the LOG singleton.
 #define GEN 0
 #define BOOT 1
 #define HOT 2
-#define LOG (type,verb,indent,text) LogC::Get()->Write(type,verb,indent,text);
+#define LOG(Type,Verb,Indent,Text) LogC::Get()->Write(Type,Verb,Indent,Text);
+#define LOGP LogC::Get()->Print();
+#define LOGD(Type,Verb,Indent,Text) LogC::Get()->Write(Type,Verb,Indent,Text);LogC::Get()->Print();
 
-#define IFS (InInt) FString::FromInt(InInt)
-#define FFS (InFloat) FString::SanitizeFloat(InFloat)
+#if !defined IFS
+#define IFS(InInt) FString::FromInt(InInt)
+#define FFS(InFloat) FString::SanitizeFloat(InFloat)
+#endif

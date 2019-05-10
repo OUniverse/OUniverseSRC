@@ -13,5 +13,7 @@ Shortcuts to onscreen debugging messages.
 #define DBUG(Text) GEngine->AddOnScreenDebugMessage(-1, 15.0f, RGB_STD, Text);
 #define DBUGC(Color,Text) GEngine->AddOnScreenDebugMessage(-1, 15.0f, Color, Text);
 
+#if !defined IFS
 #define IFS(InInt) FString::FromInt(InInt)
 #define FFS(InFloat) FString::SanitizeFloat(InFloat)
+#endif

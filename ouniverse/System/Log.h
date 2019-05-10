@@ -26,9 +26,9 @@ public:
 
 private:
 		
-	LogC(FString PathToLogCs);
+	LogC(FString DirLogs);
 
-	static LogC* Create(FString PathToLogC);
+	static LogC* Create(FString DirLogs);
 
 	int Cursor;
 	int Count;

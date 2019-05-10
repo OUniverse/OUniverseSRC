@@ -22,11 +22,13 @@
 #include "Form/Payload.h"
 
 #include "Min/DebugM.h"
+#include "Min/LogM.h"
 
 void UBoot::Boot(UObject* WorldContextObject)
 {
 	if (GEngine)
-	DBUG("Standard Boot Activated.");
+	DBUG("Standard Boot Activated.")
+
 
 	MajorC::Create();
 	MajorC* M = MajorC::Get();
@@ -35,25 +37,39 @@ void UBoot::Boot(UObject* WorldContextObject)
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
 	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
 
+	bool bModeFail = false;
 	if(M->Scope()->GetAuthGameMode()->GetClass()!=AMode::StaticClass())
 	{
-		DBUGC(RGB_ERR,"The game mode is not set to the correct class. Should be AMode...");
-		return;
+		bModeFail = true;
 	}
 
 	M->Path_	= PathsC::Create();
-	M->Log_		= LogC::Create(M->Path()->DGlobalLogs());
-	M->Config_	= ConfigManager::Create(M->Path()->DUsers(),"FIXTHIS");
-	M->User_	= UserManager::Create(M->Config(),NULL);
+	M->Log_		= LogC::Create(M->Path()->Logs());
 
-	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
-	
-	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
-	M->Hud()->PrepareInputs(M->Path()->DUiServer());
+	LOG(BOOT, 0, 0, "Standard Boot... ^")
+	LOG(BOOT, 0, 0, "Major Created ^")
+	LOG(BOOT, 0, 0, "Path Created ^")
+	LOG(BOOT, 0, 0, "Log Created")
+	LOGP
 
-	M->Audio_ = AudioManager::Create(M->Scope());
+	if (bModeFail)
+	{
+		DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
+		LOGD(BOOT, 0, 0, "ERROR: The game mode is not correct. It should be AMode...")
+		return;
+	}
+
+	//M->Config_	= ConfigManager::Create(M->Path()->Users(),"FIXTHIS");
+	//M->User_	= UserManager::Create(M->Config(),NULL);
+
+	//M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
-	DBUG("Waiting for CUI...");
+	//M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+	//M->Hud()->PrepareInputs(M->Path()->UiServer());
+
+	//M->Audio_ = AudioManager::Create(M->Scope());
+	
+	DBUG("Waiting for CUI...")
 }
 
 #include "Interface/File.h"
@@ -68,14 +84,14 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 	M->Path_ = PathsC::Create();
 
 
-	FileReadS FileReader = FileReadS(TCHAR_TO_ANSI(*(M->Path()->DContent() + "test.txt")));
+	FileReadS FileReader = FileReadS(TCHAR_TO_ANSI(*(M->Path()->Content() + "test.txt")));
 	//DBUG("OK");
 
-	FileC::Empty(M->Path()->DContent() + "test2.txt");
+	FileC::Empty(M->Path()->Content() + "test2.txt");
 
-	FileC::Append(TCHAR_TO_ANSI(*(M->Path()->DContent() + "test2.txt")), FileReader.AsFString());
+	FileC::Append(TCHAR_TO_ANSI(*(M->Path()->Content() + "test2.txt")), FileReader.AsFString());
 	
-	FileC::Delete(M->Path()->DContent() + "test2.txt");
+	//FileC::Delete(M->Path()->DContent() + "test2.txt");
 
 	//new PayloadC(TCHAR_TO_ANSI(*(PathsC::Create()->DContent() + "testfolder/")));
 }
@@ -86,7 +102,7 @@ void UBoot::CoherentReady()
 
 	MajorC* M	= MajorC::Get();
 	M->System_	= SystemManager::Create();
-	M->Input_	= InputManager::Create(M->Hud()->GetUi(), M->Hud()->GetNativeUiInput(), M->Path()->DContentReg());
+	M->Input_	= InputManager::Create(M->Hud()->GetUi(), M->Hud()->GetNativeUiInput(), M->Path()->Reg());
 	M->Ui_		= UiManager::Create(M->Hud()->GetUi());
 	M->State_	= StateManager::Create();
 }

@@ -54,7 +54,7 @@ void SystemMenuIO::Activate()
 
 	Ui->GetView()->BindCall("sysmenu.onMenuClose", cohtml::MakeHandler(this, &SystemMenuIO::OnMenuClose));
 
-	FFileReader FileReader = FFileReader(MAJOR->Path()->DContentReg() + REG_I_SYSMENU_OVERLAY);
+	FFileReader FileReader = FFileReader(MAJOR->Path()->Reg() + REG_I_SYSMENU_OVERLAY);
 	FileReader.ToJson();
 
 		const TArray<TSharedPtr<FJsonValue>> *ArrDatri;

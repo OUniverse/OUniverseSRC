@@ -48,7 +48,7 @@ UiManager::UiManager(UCohtmlHUD* InUi)
 	//For example the GLYPH and INTERAKT system are set up this way.
 
 	TArray<FString> FolderFiles;
-	FString Path = MAJOR->Path()->DContentReg() + FString("*");
+	FString Path = MAJOR->Path()->Reg() + FString("*");
 	IFileManager& FileManager = IFileManager::Get();
 	FileManager.FindFiles(FolderFiles, *Path, true, false);
 
@@ -61,7 +61,7 @@ UiManager::UiManager(UCohtmlHUD* InUi)
 		if (FPaths::GetExtension(FolderFiles[i], true) == ".glyphreg")
 		{
 			FString RegText;
-			FFileHelper::LoadFileToString(RegText, *(MAJOR->Path()->DContentReg() + FolderFiles[i]));
+			FFileHelper::LoadFileToString(RegText, *(MAJOR->Path()->Reg() + FolderFiles[i]));
 
 			TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(RegText);
 			if (FJsonSerializer::Deserialize(JsonReader, JData))
