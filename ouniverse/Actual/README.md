@@ -12,6 +12,9 @@ The boots would have their base stats such as weight, description and a pointer 
 	* ActorA >> ObjectA >> FormA
 
 * Their final inheritance must be the base **FormA** class.
+
+### BASE CLASS
+* FormA
 	
 ### UNIQUES
 This folder has no unique oversight files. All of them currently are formulaic inheritance based *Actuals*.
