@@ -43,50 +43,7 @@ UiManager::UiManager(UCohtmlHUD* InUi)
 	Ui = InUi;
 	IoVector.assign(IoTypes::MAX, NULL);
 
-	//Load various data documents in the content/ui/reg folder
-	//This helps setup systems by making a library of data objects in the UI
-	//For example the GLYPH and INTERAKT system are set up this way.
 
-	TArray<FString> FolderFiles;
-	FString Path = MAJOR->Path()->Reg() + FString("*");
-	IFileManager& FileManager = IFileManager::Get();
-	FileManager.FindFiles(FolderFiles, *Path, true, false);
-
-	int16 Count = FolderFiles.Num();
-	TSharedPtr<FJsonObject> JData;
-
-	for (int i = 0; i < Count; i++)
-	{
-
-		if (FPaths::GetExtension(FolderFiles[i], true) == ".glyphreg")
-		{
-			FString RegText;
-			FFileHelper::LoadFileToString(RegText, *(MAJOR->Path()->Reg() + FolderFiles[i]));
-
-			TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(RegText);
-			if (FJsonSerializer::Deserialize(JsonReader, JData))
-			{
-				const TArray<TSharedPtr<FJsonValue>>* ArrDatri;
-				JData->TryGetArrayField("glyph", ArrDatri);
-				auto Datri = *ArrDatri;
-
-				//Major->Log(LBOOT, 1, "Valid GlyphReg found: " + FolderFiles[i]);
-
-				int InnerCount = Datri.Num();
-				for (int j = 0; j < InnerCount; j++)
-				{
-					FUiGlyph NewGlyph = FUiGlyph();
-					NewGlyph.ID = Datri[j]->AsObject()->GetStringField("i");
-					NewGlyph.Graphic = Datri[j]->AsObject()->GetStringField("g");
-					NewGlyph.Name = Datri[j]->AsObject()->GetStringField("n");
-					NewGlyph.Description = Datri[j]->AsObject()->GetStringField("d");
-					NewGlyph.Context = Datri[j]->AsObject()->GetStringField("c");
-
-					Ui->GetView()->TriggerEvent("glyphlib_add", &NewGlyph);
-				}
-			}
-		}
-	}
 
 	SystemMenuIOM = new SystemMenuIO(Ui);
 	RegisterIO(IoTypes::SystemMenu, SystemMenuIOM);

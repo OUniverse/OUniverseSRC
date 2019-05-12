@@ -33,6 +33,8 @@ If Coherent doesn't consume the input then InputManager processes it.
 #include "Runtime/SlateCore/Public/Input/Events.h"
 
 
+struct DirS;
+
 class CommandC;
 class CharKey;
 
@@ -46,11 +48,11 @@ class OUNIVERSE_API InputManager
 
 private:
 
-	InputManager(UCohtmlHUD* InUi,TSharedPtr<class SCohtmlInputForward> InNativeUi,FString PathToReg);
+	InputManager(UCohtmlHUD* InUi,TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg);
 
 public:
 
-	static InputManager* Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, FString PathToReg);
+	static InputManager* Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg);
 
 	void TypeMode(int bEnabled);
 	void PrimeTypeMode(int bEnabled);

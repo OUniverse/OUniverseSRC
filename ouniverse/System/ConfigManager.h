@@ -8,18 +8,18 @@ Primarily it loads, unpacks, and resaves configuration files.
 #pragma once
 
 #include "CoreMinimal.h"
-#include <vector>
+#include "Interface/String.h"
+#include "Interface/Array.h"
 
 #define INI_NAME_GLOBAL "global.ini"
 #define INI_NULLSTRING "$"
 
 
 struct IniS;
-
+struct DirS;
 
 namespace IniKey
 {
-
 	namespace Global
 	{
 		namespace Bool
@@ -103,7 +103,7 @@ class OUNIVERSE_API ConfigManager
 
 private:
 
-	ConfigManager(FString* ConfigIniDirPTR, FString* UserIniDirPTR);
+	ConfigManager(DirS* ConfigIniDirPTR, DirS* UserIniDirPTR);
 
 public:
 
@@ -114,15 +114,15 @@ public:
 		MAX,
 	};
 
-	static ConfigManager* Create(FString* ConfigIniDirPTR, FString* UserIniDirPTR);
+	static ConfigManager* Create(DirS* ConfigIniDirPTR, DirS* UserIniDirPTR);
 
 
 
-	std::vector <IniS*> IniVector;
+	ArrayC<IniS*> IniVector;
 
 	IniS* GetIni(IniTypes Type);
 
-	std::string GetString(IniTypes Type, int Key);
+	StringC GetString(IniTypes Type, int Key);
 	int GetInt(IniTypes Type, int Key);
 	float GetFloat(IniTypes Type, int Key);
 	bool GetBool(IniTypes Type, int Key);

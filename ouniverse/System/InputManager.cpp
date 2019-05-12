@@ -20,12 +20,12 @@
 #include "SCohtmlInputForward.h"
 
 
-InputManager* InputManager::Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, FString PathToReg)
+InputManager* InputManager::Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg)
 {
-	return new InputManager(InUi, InNativeUi, PathToReg);
+	return new InputManager(InUi, InNativeUi, PathReg);
 }
 
-InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, FString PathToReg)
+InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg)
 {
 	Ui = InUi;
 	UiNative = InNativeUi;
@@ -34,9 +34,9 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 	bTypeMode = false;
 	bPrimeTypeMode = false;
 
-	FileReadS* FileReader = new FileReadS(TCHAR_TO_ANSI(*(PathToReg + REG_INPUTMANAGER)));
+	//FileReadS* FileReader = new FileReadS(TCHAR_TO_ANSI(*(PathToReg + REG_INPUTMANAGER)));
 
-	JsonS* InputReg = new JsonS(FileReader->AsChar());
+	//JsonS* InputReg = new JsonS(FileReader->AsChar());
 	//InputReg[];
 }
 

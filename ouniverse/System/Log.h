@@ -7,11 +7,12 @@ LogC.
 #pragma once
 
 class UBoot;
+extern struct DirS;
 
 #include "CoreMinimal.h"
-#include <vector>
 #include "Util/ColorRGB.h"
-
+#include "Interface/String.h"
+#include "Interface/Array.h"
 
 class OUNIVERSE_API LogC
 {
@@ -26,27 +27,27 @@ public:
 
 private:
 		
-	LogC(FString DirLogs);
+	LogC(DirS* InDirLogs);
 
-	static LogC* Create(FString DirLogs);
+	static LogC* Create(DirS* InDirLogs);
 
 	int Cursor;
 	int Count;
-	FString Path;
+	DirS* DirLogs;
 	
 	struct Entry
 	{
 	public:
 
 		FDateTime Time;
-		FString Text;
+		StringC Text;
 		uint8 Type;
 		uint8 Verbosity;
 		ColorRGB Color;
 
-		Entry(uint8 InType, uint8 InVerb, uint8 InIndent, FString InText, ColorRGB InColor);
+		Entry(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText, ColorRGB InColor);
 
-		FString Output();
+		StringC Output();
 	};
 
 	enum Type
@@ -58,9 +59,9 @@ private:
 		MAX,
 	};
 
-	std::vector <Entry*> EntryVector;
+	ArrayC<Entry*> EntryVector;
 
-	void Write(uint8 InType, uint8 InVerb, uint8 InIndent, FString InText);
+	void Write(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText);
 
 	void Print();
 };

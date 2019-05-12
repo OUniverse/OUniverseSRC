@@ -21,6 +21,8 @@
 #include "Engine/World.h"
 #include "Form/Payload.h"
 
+
+#include "Interface/Dir.h"
 #include "Min/DebugM.h"
 #include "Min/LogM.h"
 
@@ -43,8 +45,11 @@ void UBoot::Boot(UObject* WorldContextObject)
 		bModeFail = true;
 	}
 
+	
 	M->Path_	= PathsC::Create();
 	M->Log_		= LogC::Create(M->Path()->Logs());
+
+	//M->Config_ = ConfigManager::Create(M->Path()->Users*, M->Path()->ActiveUser*);
 
 	LOG(BOOT, 0, 0, "Standard Boot... ^")
 	LOG(BOOT, 0, 0, "Major Created ^")
@@ -59,7 +64,8 @@ void UBoot::Boot(UObject* WorldContextObject)
 		return;
 	}
 
-	//M->Config_	= ConfigManager::Create(M->Path()->Users(),"FIXTHIS");
+	//M->Config_ = ConfigManager::Create(*M->Path()->Users, *M->Path()->ActiveUser);
+	
 	//M->User_	= UserManager::Create(M->Config(),NULL);
 
 	//M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
@@ -82,14 +88,23 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 	M->Test1();
 	
 	M->Path_ = PathsC::Create();
+	M->Log_ = LogC::Create(M->Path()->Logs());
+
+	LOG(BOOT, 0, 0, "Standard Boot... ^")
+		LOG(BOOT, 0, 0, "Major Created ^")
+		LOG(BOOT, 0, 0, "Path Created ^")
+		LOG(BOOT, 0, 0, "Log Created")
+		LOGP
 
 
-	FileReadS FileReader = FileReadS(TCHAR_TO_ANSI(*(M->Path()->Content() + "test.txt")));
+	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
+
+	//FileReadS FileReader = FileReadS(TCHAR_TO_ANSI(*(M->Path()->Content() + "test.txt")));
 	//DBUG("OK");
 
-	FileC::Empty(M->Path()->Content() + "test2.txt");
+	//FileC::Empty(M->Path()->Content() + "test2.txt");
 
-	FileC::Append(TCHAR_TO_ANSI(*(M->Path()->Content() + "test2.txt")), FileReader.AsFString());
+	//FileC::Append(TCHAR_TO_ANSI(*(M->Path()->Content() + "test2.txt")), FileReader.AsFString());
 	
 	//FileC::Delete(M->Path()->DContent() + "test2.txt");
 

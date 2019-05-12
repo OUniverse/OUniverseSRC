@@ -2,21 +2,21 @@
 
 #include "System/ConfigManager.h"
 #include "Interface/Ini.h"
+#include "Interface/Dir.h"
+#include "Min/DebugM.h"
 
-
-
-ConfigManager* ConfigManager::Create(FString* ConfigIniPath, FString* UserIniDirPTR)
+ConfigManager* ConfigManager::Create(DirS* ConfigIniPath, DirS* UserIniDirPTR)
 {
 	return new ConfigManager(ConfigIniPath, UserIniDirPTR);
 }
 
 
 
-ConfigManager::ConfigManager(FString* ConfigIniDirPTR, FString* UserIniDirPTR)
+ConfigManager::ConfigManager(DirS* ConfigIniDirPTR, DirS* UserIniDirPTR)
 {
 	//Major->FileManager->GetPath(EPath::UDU_Config)
 
-	IniVector.assign(IniTypes::MAX, NULL);
+	IniVector.Init(IniTypes::MAX, NULL);
 
 
 	IniS* GlobalIni = new IniS(ConfigIniDirPTR, "settings.ini", IniKey::Global::Bool::MAX, IniKey::Global::Int::MAX, IniKey::Global::Float::MAX, IniKey::Global::String::MAX);
@@ -29,7 +29,6 @@ ConfigManager::ConfigManager(FString* ConfigIniDirPTR, FString* UserIniDirPTR)
 	GlobalIni->Save();
 
 	IniVector[IniTypes::Global] = GlobalIni;
-	
 	
 	IniS* UserIni = new IniS(UserIniDirPTR, "user.ini", IniKey::User::Bool::MAX, IniKey::User::Int::MAX, IniKey::User::Float::MAX, IniKey::User::String::MAX);
 	GlobalIni->AddString(IniKey::User::String::LastPlaythrough,	IniS::String::Create("lastPlaythroughID", INI_NULLSTRING));
@@ -50,7 +49,7 @@ IniS* ConfigManager::GetIni(IniTypes Type)
 	return IniVector[Type];
 }
 
-std::string ConfigManager::GetString(IniTypes Type, int Key)
+StringC ConfigManager::GetString(IniTypes Type, int Key)
 {
 	return GetIni(Type)->GetString(Key);
 }

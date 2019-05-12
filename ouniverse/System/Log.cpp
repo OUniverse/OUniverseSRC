@@ -2,11 +2,13 @@
 
 #include "System/Log.h"
 #include "Interface/File.h"
+#include "Interface/Dir.h"
 #include "Util/ColorRGB.h"
 
 #include "Min/DebugM.h"
 
 #define LOGC_FILENAME "log.txt"
+
 namespace GlobalSingleton
 {
 	LogC Log;
@@ -17,32 +19,33 @@ LogC* LogC::Get()
 	return &GlobalSingleton::Log;
 }
 
-LogC* LogC::Create(FString DirLogs)
+LogC* LogC::Create(DirS* InDirLogs)
 {
-	GlobalSingleton::Log = *(new LogC(DirLogs));
+	GlobalSingleton::Log = *(new LogC(InDirLogs));
 	return &GlobalSingleton::Log;
 }
 
 LogC::LogC() {}
 
-LogC::LogC(FString DirLogs)
+LogC::LogC(DirS* InDirLogs)
 {
 	Cursor = 0;
 	Count = 0;
-	Path = DirLogs + LOGC_FILENAME;
+	DirLogs = InDirLogs;
+
 	//PaceVector.assign(Pace::MAX, NULL);
-	FileC::Empty(Path);
+	FileC::Empty((DirLogs->Get()/"Logs.txt").ToChar());
 }
 
 
-void LogC::Write(uint8 InType, uint8 InVerb, uint8 InIndent, FString InText)
+void LogC::Write(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText)
 {
 	Count++;
-	EntryVector.push_back(new Entry(InType, InVerb, InIndent, InText, ColorRGB(255, 255, 255)));
+	EntryVector+=(new Entry(InType, InVerb, InIndent, InText, ColorRGB(255, 255, 255)));
 }
 
 
-LogC::Entry::Entry(uint8 InType, uint8 InVerb, uint8 InIndent, FString InText, ColorRGB InColor)
+LogC::Entry::Entry(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText, ColorRGB InColor)
 {
 	Text = InText;
 	Type = InType;
@@ -50,21 +53,21 @@ LogC::Entry::Entry(uint8 InType, uint8 InVerb, uint8 InIndent, FString InText, C
 	Color = InColor;
 }
 
-FString LogC::Entry::Output()
+StringC LogC::Entry::Output()
 {
 	return Text;
 }
 
 void LogC::Print()
 {
-	FString LogAmendment = "";
+	StringC LogAmendment = "";
 
 	for (int i = Cursor; i < Count; i++)
 	{
-		LogAmendment += "#" + FString::FromInt(i) + " | " + EntryVector[i]->Output();
+		LogAmendment + "#"+"FUCK"+i+" | "+EntryVector[i]->Output();
 		LogAmendment += FileC::LineBreak().c_str();
 		Cursor++;
 	}
-	
-	FileC::Append(*Path, LogAmendment);
+
+	FileC::Append(DirLogs->Get()/"Logs.txt", LogAmendment);
 }

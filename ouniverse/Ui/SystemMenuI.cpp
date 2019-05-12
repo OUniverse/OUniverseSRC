@@ -54,24 +54,7 @@ void SystemMenuIO::Activate()
 
 	Ui->GetView()->BindCall("sysmenu.onMenuClose", cohtml::MakeHandler(this, &SystemMenuIO::OnMenuClose));
 
-	FFileReader FileReader = FFileReader(MAJOR->Path()->Reg() + REG_I_SYSMENU_OVERLAY);
-	FileReader.ToJson();
-
-		const TArray<TSharedPtr<FJsonValue>> *ArrDatri;
-		FileReader.Json()->TryGetArrayField("option", ArrDatri);
-		auto Datri = *ArrDatri;
-
-		int Count = Datri.Num();
-		for (int i = 0; i < Count; i++)
-		{
-			USystemMenuOption* Option = NewObject<USystemMenuOption>();
-			Option->ID = Datri[i]->AsObject()->GetStringField("i");
-			Option->Title = Datri[i]->AsObject()->GetStringField("n");
-			Option->Icon = Datri[i]->AsObject()->GetStringField("g");
-			Option->Lock = false;
-			Option->Hide = false;
-			Options.Add(Option);
-		}
+	
 	
 	CreationISM* IsmCreation = new CreationISM(Ui,this);
 	SubMenuVector[SubMenus::Creation] = IsmCreation;
