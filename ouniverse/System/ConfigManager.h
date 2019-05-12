@@ -12,7 +12,7 @@ Primarily it loads, unpacks, and resaves configuration files.
 #include "Interface/Array.h"
 
 #define INI_NAME_GLOBAL "global.ini"
-#define INI_NULLSTRING "$"
+#define INI_NULLSTRING "$NULL"
 
 
 struct IniS;

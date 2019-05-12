@@ -33,7 +33,8 @@ LogC::LogC(DirS* InDirLogs)
 	DirLogs = InDirLogs;
 
 	//PaceVector.assign(Pace::MAX, NULL);
-	FileC::Empty((DirLogs->Get()/"Logs.txt").ToChar());
+	FileC LogFile = FileC(DirLogs, "logs.txt");
+	LogFile.Empty();
 }
 
 
@@ -67,5 +68,6 @@ void LogC::Print()
 		Cursor++;
 	}
 
-	FileC::Append(DirLogs->Get()/"Logs.txt", LogAmendment);
+	FileC LogFile = FileC(DirLogs, "logs.txt");
+	LogFile.Append(LogAmendment);
 }
