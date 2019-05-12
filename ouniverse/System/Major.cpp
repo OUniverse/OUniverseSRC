@@ -37,14 +37,6 @@ void MajorC::Test1()
 
 
 	
-	
-	EventC<Void,bool,int>* CoolEvent = new EventC<Void,bool,int>();
-	EventC<Void, bool, int>::Listener2C* Listener = CoolEvent->Create(this, &MajorC::Test3);
-	Listener->Bind();
-
-	CoolEvent->Trigger(false, 25);
-
-
 	EventC<int, bool, int>* CoolEvent2 = new EventC<int, bool, int>();
 	EventC<int, bool, int>::Listener2C* Listener2 = CoolEvent2->Create(this, &MajorC::Test4);
 	Listener2->Bind();
@@ -60,12 +52,6 @@ void MajorC::Test1()
 	}
 	
 }
-
-Void MajorC::Test3(bool why, int ok)
-{
-	return Void();
-}
-
 
 int MajorC::Test4(bool why, int ok)
 {

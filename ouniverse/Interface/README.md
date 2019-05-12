@@ -1,4 +1,5 @@
 
+
 # INTERFACE
 The goal is to include as much core interface functionality into carefully planned Interface wrappers. This will benefit speed of working and having proprietary reusable classes that accomplish what we need now and into the future. When dealing with an engine and 3rd parties there are a sometimes inevitable conversions (IE: UE4's FString) so having full control of automated conversions saves a lot of time.
 
@@ -70,3 +71,6 @@ Translation files will use something similar to INIs but are only expected to ha
 
 ## Json
 An interface for reading JSON data that currently is a wrapper around **rapidjson**.
+
+## Void
+Events are struggling returning a void so a requirement for delegates is that functions used by the Event interface must returning something not void. Initially I was returning and int as 0 but this was confusing in some cases in knowing if the return value is actually important or just a placeholder for void. Void is intended to communicate that the function's return value is not important.

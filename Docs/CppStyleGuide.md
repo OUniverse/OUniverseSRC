@@ -15,7 +15,7 @@ Wrap as many core interfaces as possible in interface classes so that the core f
 * Interface/Map.h  (MapC)
 * Interface/HashMap.h (HashMapC)
 * Interface/Event.h (EventC)
-* 
+
 ## Default
 All classes and variables are named in a way that describes their purpose in an object sense. No special characters are used inside the name such as an underscore. The first letter of every word is capitalized.
 
@@ -102,6 +102,7 @@ Used if they really have no usage outside of their placement and are not very co
 * Interface/Ini.h (IniC)
 * Interface/Event.h (EventC) (Template Usage)
 * Form/Atlas.h (AtlasC)
+
 ## Virtual
 Anywhere inheritance is needed for the desired functionality.
 

@@ -46,7 +46,6 @@ public:
 
 	void Test1();
 	void Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	Void Test3(bool why, int ok);
 	int Test4(bool why, int ok);
 	int Test5(bool why, int ok);
 
