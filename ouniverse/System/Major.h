@@ -13,6 +13,7 @@ Major will not be passed through constructors and will instead be reached by a G
 
 #include "CoreMinimal.h"
 #include "Min/HttpM.h"
+#include "Interface/Event.h"
 
 class LogC;
 class PathsC;
@@ -45,7 +46,9 @@ public:
 
 	void Test1();
 	void Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	void Test3(bool why, int ok);
+	Void Test3(bool why, int ok);
+	int Test4(bool why, int ok);
+	int Test5(bool why, int ok);
 
 	LogC*				Log();
 	PathsC*				Path();

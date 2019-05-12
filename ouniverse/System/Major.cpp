@@ -3,8 +3,9 @@
 
 
 #include "System/Major.h"
-#include "Interface/Event.h"
 #include "Min/DebugM.h"
+#include "Interface/String.h"
+
 
 namespace GlobalSingleton
 {
@@ -34,16 +35,46 @@ void MajorC::Test1()
 
 	//HTTP("https://ouniverse.com/client/hs/ou1.hs", this, &MajorC::Test2);
 
-	//Listener0C<this, MajorC::Test3> MyEvent;
-	//MyEvent.Fire();
-	EventC<bool,int>* CoolEvent = new EventC<bool,int>();
-	CoolEvent->Listen(this, &MajorC::Test3);
-	CoolEvent->Trigger(false, 55);
+
+	
+	
+	EventC<Void,bool,int>* CoolEvent = new EventC<Void,bool,int>();
+	EventC<Void, bool, int>::Listener2C* Listener = CoolEvent->Create(this, &MajorC::Test3);
+	Listener->Bind();
+
+	CoolEvent->Trigger(false, 25);
+
+
+	EventC<int, bool, int>* CoolEvent2 = new EventC<int, bool, int>();
+	EventC<int, bool, int>::Listener2C* Listener2 = CoolEvent2->Create(this, &MajorC::Test4);
+	Listener2->Bind();
+	EventC<int, bool, int>::Listener2C* Listener3 = CoolEvent2->Create(this, &MajorC::Test5);
+	Listener3->Bind();
+
+	CoolEvent2->Trigger(false, 25);
+	ArrayC<int> MyResponses = CoolEvent2->Gather(false, 25);
+	
+	for (int i = 0; i < MyResponses.Len(); i++)
+	{
+		DBUG(StringC(MyResponses[i]).ToChar())
+	}
+	
 }
 
-void MajorC::Test3(bool why, int ok)
+Void MajorC::Test3(bool why, int ok)
 {
-	DBUG("THIS TEST WAS A WIN... OK?")
+	return Void();
+}
+
+
+int MajorC::Test4(bool why, int ok)
+{
+	return ok*2;
+}
+
+int MajorC::Test5(bool why, int ok)
+{
+	return ok;
 }
 
 void MajorC::Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
