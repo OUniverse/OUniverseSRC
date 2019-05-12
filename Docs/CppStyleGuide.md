@@ -1,3 +1,4 @@
+
 # OUniverse C++ Style Guide
 
 Style is chosen to be similar to Epic's UE4 style but not mimic it exactly so that it's clear which code is our own This helps distinguish what parts require garbage collection and UE4 Macro assignments.
@@ -6,21 +7,30 @@ Style is chosen to be similar to Epic's UE4 style but not mimic it exactly so th
 * Readability is greatly valued over speed of writing but meaningful performance gains is valued the most. 
 * Increases compile time speed is valued if it doesn't involve to much confusion or breaking from the rules.
 
+
+### Interface Wrap
+Wrap as many core interfaces as possible in interface classes so that the core functionality can be switched out if needed. Examples:
+
+* Interface/Array.h (ArrayC)
+* Interface/Map.h  (MapC)
+* Interface/HashMap.h (HashMapC)
+* Interface/Event.h (EventC)
+* 
 ## Default
 All classes and variables are named in a way that describes their purpose in an object sense. No special characters are used inside the name such as an underscore. The first letter of every word is capitalized.
 
 
 * AtlasLibrary
 * AudioGroup
-
+ 
 ## Member Variables
-Suffixed with an underscore when the name collides with a Getter function
+Suffixed with an underscore when the name collides with something like a ***Class*** or *Get()* function
 
 *Log_
 *DataManager_
 
 ## Parameters
-Uses In before the Parameter name:
+Prefer In+Name as a naming pattern for parameters. For example "Log" passed as a parameter is "InLog":
 ```c++
 WirteToLog(LogC* InLog)
 {
@@ -56,6 +66,14 @@ Certain repetitive purpose classes can have their own suffix. For example States
 * InventoryIO
 * DialogueIO
 
+##### Actual
+Any class extending the basic Actual type (FormA) uses the A suffix.
+
+* AbilityA
+* HairA
+* ArmorA
+* ActorA
+
 ##### Form
 Any class extending the basic Form type uses the F suffix.
 
@@ -64,18 +82,35 @@ Any class extending the basic Form type uses the F suffix.
 * RefF
 * ActorF
 
+
 ## Macros
 All upper case only used for efficiency purposes and as wrappers around Singletons.
 
 ## Templates
-Not used except for UE4's 
+Currently used by most of the custom interfaces. They follow the same style guides as everything else. 
+Examples of usage:
+
+* Interface/Array.h (ArrayC)
+* Interface/Map.h  (MapC)
+* Interface/HashMap.h (HashMapC)
+* Interface/Event.h (EventC)
 
 ## Nested Classes and Structs
-Used if they really have no usage outside of their placement and are not very complex. Primarily with structs that are data containers.
+Used if they really have no usage outside of their placement and are not very complex. Primarily with structs that are data containers. 
+##### Examples of usage:
+
+* Interface/Ini.h (IniC)
+* Interface/Event.h (EventC) (Template Usage)
+* Form/Atlas.h (AtlasC)
 ## Virtual
 Anywhere inheritance is needed for the desired functionality.
+
 ## Operator Overrides
-Used only if the functionality is very obvious and the code gains enough cuteness to warrant it.
+Mainly used in interface. Use only if:
+* Behavior is expected, ie: in the custom String interface. Expected behavior is for +, +=, ==, != and [] to work as well as < for map comparisons.
+* 
+ Used only if the functionality is very obvious and the code gains enough cuteness to warrant it.
+
 ## Patterns
 
 #### Injection
