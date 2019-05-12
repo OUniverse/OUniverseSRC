@@ -5,7 +5,6 @@
 #include "Interface/Dir.h"
 #include "Util/ColorRGB.h"
 
-#include "Min/DebugM.h"
 
 #define LOGC_FILENAME "log.txt"
 
@@ -64,8 +63,7 @@ void LogC::Print()
 
 	for (int i = Cursor; i < Count; i++)
 	{
-		LogAmendment + "#"+"FUCK"+i+" | "+EntryVector[i]->Output();
-		LogAmendment += FileC::LineBreak().c_str();
+		LogAmendment + "#"+i+" | "+EntryVector[i]->Output().NewLine();
 		Cursor++;
 	}
 
