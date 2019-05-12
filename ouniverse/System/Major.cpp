@@ -3,6 +3,8 @@
 
 
 #include "System/Major.h"
+#include "Interface/Event.h"
+#include "Min/DebugM.h"
 
 namespace GlobalSingleton
 {
@@ -30,9 +32,19 @@ void MajorC::Test1()
 	//TestDelegate d = TestDelegate::from_method<MajorC, &MajorC::Test2>(this);
 	//d();
 
-	HTTP("https://ouniverse.com/client/hs/ou1.hs", this, &MajorC::Test2);
+	//HTTP("https://ouniverse.com/client/hs/ou1.hs", this, &MajorC::Test2);
+
+	//Listener0C<this, MajorC::Test3> MyEvent;
+	//MyEvent.Fire();
+	EventC<bool,int>* CoolEvent = new EventC<bool,int>();
+	CoolEvent->Listen(this, &MajorC::Test3);
+	CoolEvent->Trigger(false, 55);
 }
 
+void MajorC::Test3(bool why, int ok)
+{
+	DBUG("THIS TEST WAS A WIN... OK?")
+}
 
 void MajorC::Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {

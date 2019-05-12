@@ -45,6 +45,7 @@ public:
 
 	void Test1();
 	void Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void Test3(bool why, int ok);
 
 	LogC*				Log();
 	PathsC*				Path();
