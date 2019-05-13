@@ -5,6 +5,7 @@
 #include "Interface/Dir.h"
 #include "Util/ColorRGB.h"
 
+#include "Min/DebugM.h"
 
 #define LOGC_FILENAME "log.txt"
 
@@ -33,7 +34,7 @@ LogC::LogC(DirS* InDirLogs)
 	DirLogs = InDirLogs;
 
 	//PaceVector.assign(Pace::MAX, NULL);
-	FileC LogFile = FileC(DirLogs, "logs.txt");
+	FileC LogFile = FileC(DirLogs->Get(), "logs.txt");
 	LogFile.Empty();
 }
 
@@ -67,7 +68,9 @@ void LogC::Print()
 		LogAmendment + "#"+i+" | "+EntryVector[i]->Output().NewLine();
 		Cursor++;
 	}
+	//DBUG(DirLogs->Get().ToChar())
+	//DBUG(LogAmendment.ToChar())
 
-	FileC LogFile = FileC(DirLogs, "logs.txt");
+	FileC LogFile = FileC(DirLogs->Get() , "logs.txt");
 	LogFile.Append(LogAmendment);
 }

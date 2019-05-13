@@ -16,9 +16,9 @@ PayloadC::PayloadC(DirS* InDirAtlas)
 	DirAtlas = InDirAtlas;
 
 	FactoryArray.Init(FormTypes::MAX, NULL);
-	FactoryArray[FormTypes::Form]	 = FormF::Create;
-	FactoryArray[FormTypes::Ref]	 = RefF::Create;
-	FactoryArray[FormTypes::Object] = ObjectF::Create;
+	FactoryArray[FormTypes::Form]		= FormF::Create;
+	FactoryArray[FormTypes::Ref]		= RefF::Create;
+	FactoryArray[FormTypes::Object]		= ObjectF::Create;
 	
 	FileQueryS Fi = FileQueryS(DirAtlas->Get());
 

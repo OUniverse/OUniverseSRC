@@ -25,6 +25,10 @@ public:
 
 	static LogC* Get();
 
+	void Write(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText);
+
+	void Print();
+
 private:
 		
 	LogC(DirS* InDirLogs);
@@ -61,7 +65,4 @@ private:
 
 	ArrayC<Entry*> EntryVector;
 
-	void Write(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText);
-
-	void Print();
 };

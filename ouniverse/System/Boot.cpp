@@ -72,10 +72,15 @@ void UBoot::Boot(UObject* WorldContextObject)
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+
+	M->User()->LoadUsers();
+	M->User()->SetUser(65535);
+
 	//M->Hud()->PrepareInputs(M->Path()->UiServer());
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 	
+	LOGP
 	DBUG("Waiting for CUI...")
 }
 

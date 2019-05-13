@@ -5,7 +5,7 @@
 #include "System/Major.h"
 #include "System/UserLib.h"
 #include "System/UiManager.h"
-#include "System/User.h"
+#include "System/UserFolder.h"
 #include "System/ConfigManager.h"
 
 #include "Ui/SystemMenuI.h"
@@ -36,7 +36,7 @@ void UserISM::Activate()
 void UserISM::King()
 {
 
-	if (!UserP->bActiveUserFound())
+	if (!UserP->IsUserChosen())
 	{
 		if (UserP->Num() < 1)
 		{
@@ -45,7 +45,7 @@ void UserISM::King()
 			return;
 		}
 		
-		if (UserP->bSingleUserFound() && ConfigP->GetBool(ConfigManager::IniTypes::Global,IniKey::Global::Bool::LoginSingleUser))
+		if (UserP->HasSoloUser() && ConfigP->GetBool(ConfigManager::IniTypes::Global,IniKey::Global::Bool::LoginSingleUser))
 		{
 			//If there is only 1 user and bAutologSingleUser == true in global ini.
 			//LOG(LBOOT, 1, "IO-User: Bypassing UserSelect: "+FString(OINI_AUTOLOG_SINGLE_USER)+" is true and single user is found.");
@@ -53,7 +53,7 @@ void UserISM::King()
 			return;
 		}
 		
-		if (UserP->bLastSessionUserFound() && ConfigP->GetBool(ConfigManager::IniTypes::Global, IniKey::Global::Bool::LoginLastUser))
+		if (UserP->HasLastUser() && ConfigP->GetBool(ConfigManager::IniTypes::Global, IniKey::Global::Bool::LoginLastUser))
 		{
 			//If bAutoLogLastUser == true in global ini and that User ID is currently findable by the UserManager.
 			//LOG(LBOOT, 1, "IO-User: Bypassing UserSelect: " + FString(OINI_AUTOLOG_LAST_USER) + " is true and a user is found.");			
@@ -104,8 +104,8 @@ void UserISM::OnActiveUserChanged()
 
 void UserISM::OnUserSelected(int UserSN)
 {
-	UserP->SetUserBySN(UserSN);	
-	SystemMenuP->OnSubMenuConcluded();
+	//UserP->SetUserBySN(UserSN);	
+	//SystemMenuP->OnSubMenuConcluded();
 }
 
 void UserISM::OnUserAdded()
