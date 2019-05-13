@@ -9,9 +9,9 @@
 #include <rapidjson/document.h>
 
 
-bool AtlasC::Extension(const FString InExtension)
+bool AtlasC::Extension(StringC InExtension)
 {
-	if (InExtension == "atlas")
+	if (InExtension == StringC("atlas"))
 	{
 		return true;
 	}
@@ -51,12 +51,12 @@ AtlasC::QuantityS::QuantityS(const char* JSerialized)
 	Credit		= d["credit"].GetInt();
 }
 
-AtlasC::AtlasC(FString InPath)
+AtlasC::AtlasC(StringC InPath)
 {
 	Path = InPath;
 	std::string Line;
 	std::ifstream File;
-	File.open(*Path);
+	File.open(InPath.ToChar());
 
 	if (!File.is_open()) {
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Loading Atlas FAILED"));
@@ -78,7 +78,7 @@ void AtlasC::Scan(PayloadC* P)
 {
 	std::string Line;
 	std::ifstream File;
-	File.open(*Path);
+	File.open(Path.ToChar());
 
 	if (!File.is_open()) {
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Loading Atlas FAILED"));

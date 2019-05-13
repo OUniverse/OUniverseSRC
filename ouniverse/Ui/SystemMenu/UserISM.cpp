@@ -3,7 +3,7 @@
 #include "Ui/SystemMenu/UserISM.h"
 
 #include "System/Major.h"
-#include "System/UserManager.h"
+#include "System/UserLib.h"
 #include "System/UiManager.h"
 #include "System/User.h"
 #include "System/ConfigManager.h"
@@ -17,7 +17,7 @@
 #include "CohtmlTArrayBinder.h"
 #include "CohtmlUTypeBinder.h"
 
-UserISM::UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserManager* InUser, ConfigManager* InConfig) : IoSM(InUi, InSymu)
+UserISM::UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig) : IoSM(InUi, InSymu)
 {
 	UserP = InUser;
 	ConfigP = InConfig;
@@ -38,7 +38,7 @@ void UserISM::King()
 
 	if (!UserP->bActiveUserFound())
 	{
-		if (UserP->UserCount < 1)
+		if (UserP->Num() < 1)
 		{
 			//LOG(LBOOT, 1, "IO-User: No Users found in directory. Prompting to create new user.");
 			Open(Modes::Create);
@@ -104,7 +104,7 @@ void UserISM::OnActiveUserChanged()
 
 void UserISM::OnUserSelected(int UserSN)
 {
-	UserP->SetActiveUserFromSN(UserSN);	
+	UserP->SetUserBySN(UserSN);	
 	SystemMenuP->OnSubMenuConcluded();
 }
 

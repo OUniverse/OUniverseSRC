@@ -7,7 +7,7 @@
 #include "System/Paths.h"
 #include "System/Log.h"
 #include "System/ConfigManager.h"
-#include "System/UserManager.h"
+#include "System/UserLib.h"
 #include "System/HudUE.h"
 #include "System/SystemManager.h"
 #include "System/UiManager.h"
@@ -63,13 +63,15 @@ void UBoot::Boot(UObject* WorldContextObject)
 		return;
 	}
 
-	//M->Config_ = ConfigManager::Create(*M->Path()->Users, *M->Path()->ActiveUser);
-	
-	//M->User_	= UserManager::Create(M->Config(),NULL);
+	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
+	LOG(BOOT, 0, 0, "Config Created")
 
-	//M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
-	//M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+	M->User_	= UserLib::Create(M->Path()->Users());
+
+	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
+	
+	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 	//M->Hud()->PrepareInputs(M->Path()->UiServer());
 
 	//M->Audio_ = AudioManager::Create(M->Scope());

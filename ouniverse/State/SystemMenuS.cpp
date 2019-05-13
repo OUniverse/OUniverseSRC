@@ -2,10 +2,10 @@
 
 #include "State/SystemMenuS.h"
 #include "System/UiManager.h"
-#include "System/UserManager.h"
+#include "System/UserLib.h"
 #include "UI/SystemMenuI.h"
 
-SystemMenuState::SystemMenuState(UiManager* InUi, UserManager* InUser)
+SystemMenuState::SystemMenuState(UiManager* InUi, UserLib* InUser)
 {
 	UiP = InUi;
 	UserP = InUser;
@@ -14,7 +14,7 @@ SystemMenuState::SystemMenuState(UiManager* InUi, UserManager* InUser)
 void SystemMenuState::Activate()
 {
 	//LOG(LBOOT,1,"Protocol Activated: SystemMenu");
-	UserP->GetAllUsers();
+	//UserP->GetAllUsers();
 	//UiP->IoSystemMenu()->King();
 
 	//Major->DataManager->LoadData();

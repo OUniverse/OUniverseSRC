@@ -17,7 +17,7 @@ Major will not be passed through constructors and will instead be reached by a G
 
 class LogC;
 class PathsC;
-class UserManager;
+class UserLib;
 class InputManager;
 class DisplayManager;
 class ConfigManager;
@@ -51,7 +51,7 @@ public:
 
 	LogC*				Log();
 	PathsC*				Path();
-	UserManager*		User();
+	UserLib*		User();
 	ConfigManager*		Config();
 	SystemManager*		System();
 	InputManager*		Input();
@@ -67,7 +67,7 @@ private:
 
 	LogC*				Log_;
 	PathsC*				Path_;
-	UserManager*		User_;
+	UserLib*		User_;
 	ConfigManager*		Config_;
 	UiManager*			Ui_;
 	StateManager*		State_;

@@ -12,7 +12,7 @@ Protocol for handling the MainMenu.
 
 
 class UiManager;
-class UserManager;
+class UserLib;
 
 class OUNIVERSE_API SystemMenuState : public State
 {
@@ -20,10 +20,10 @@ class OUNIVERSE_API SystemMenuState : public State
 
 private:
 
-	SystemMenuState(UiManager* InUi, UserManager* InUser);
+	SystemMenuState(UiManager* InUi, UserLib* InUser);
 
 	UiManager* UiP;
-	UserManager* UserP;
+	UserLib* UserP;
 
 	virtual void Activate() override;
 

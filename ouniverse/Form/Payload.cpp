@@ -3,36 +3,37 @@
 #include "Form/Payload.h"
 #include "Form/Atlas.h"
 
-#include "Interface/File.h"
+#include "Interface/FileQuery.h"
+#include "Interface/Dir.h"
 
 #include "Form/FormF.h"
 #include "Form/RefF.h"
 #include "Form/ObjectF.h"
 
-PayloadC::PayloadC(const char* AtlasDirectory)
+PayloadC::PayloadC(DirS* InDirAtlas)
 {
 	FormCount = 0;
-	Path = AtlasDirectory;
+	DirAtlas = InDirAtlas;
 
-	FactoryVector.assign(FormTypes::MAX, NULL);
-	FactoryVector[FormTypes::Form]	 = FormF::Create;
-	FactoryVector[FormTypes::Ref]	 = RefF::Create;
-	FactoryVector[FormTypes::Object] = ObjectF::Create;
+	FactoryArray.Init(FormTypes::MAX, NULL);
+	FactoryArray[FormTypes::Form]	 = FormF::Create;
+	FactoryArray[FormTypes::Ref]	 = RefF::Create;
+	FactoryArray[FormTypes::Object] = ObjectF::Create;
 	
-	DirFiles Fi = DirFiles(Path);
+	FileQueryS Fi = FileQueryS(DirAtlas->Get());
 
-	for (int i = 0; i < Fi.Count; i++)
+	for (int i = 0; i < Fi.Num(); i++)
 	{
 		if (AtlasC::Extension(Fi.Extension(i)))
 		{
-			AtlasC* NewAtlas = new AtlasC(Fi.FullPath(i));
-			AtlasVector.push_back(NewAtlas);
+			AtlasC* NewAtlas = new AtlasC(Fi.Full(i));
+			AtlasArray.Add(NewAtlas);
 			NewAtlas->Scan(this);
 			
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Not Atlas");
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Not Atlas");
 		}
 	}
 }
@@ -43,7 +44,7 @@ FormF* PayloadC::AddForm(const std::string InProprietary)
 	uint32 UID = std::atoi(InProprietary.substr(0, 10).c_str());
 	uint8 Type = std::atoi(InProprietary.substr(10, 3).c_str());
 
-	FormF* NewForm = FactoryVector[Type]();
+	FormF* NewForm = FactoryArray[Type]();
 	NewForm->UID = UID;
 	NewForm->Serialized = InProprietary.substr(13, -1).c_str();
 	Map.insert( { UID , NewForm } );

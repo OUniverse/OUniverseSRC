@@ -7,6 +7,7 @@ Atlas
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Interface/String.h"
 
 class PayloadC;
 
@@ -16,11 +17,11 @@ class AtlasC
 
 public: 
 
-	static bool Extension(const FString InExtension);
+	static bool Extension(StringC InExtension);
 
 private:
 
-	AtlasC(FString InPath);	
+	AtlasC(StringC InPath);
 
 	struct VersionS
 	{
@@ -41,18 +42,18 @@ private:
 
 	struct DetailsS
 	{
-		FString ID;
-		FString Name;
-		FString Author;
-		FString Description;
-		FString Website;
-		FString Icon;
-		FString Date;
+		StringC ID;
+		StringC Name;
+		StringC Author;
+		StringC Description;
+		StringC Website;
+		StringC Icon;
+		StringC Date;
 
 		DetailsS(const char* JSerialized);
 	};
 
-	FString Path;
+	StringC Path;
 
 	VersionS* Version;
 	QuantityS* Quantity;

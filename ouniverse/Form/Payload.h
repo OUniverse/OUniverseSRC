@@ -14,9 +14,11 @@ Payload is the top level unpacked of the Atlas data system.
 
 #include <vector>
 #include <unordered_map>
+#include "Interface/Array.h"
 
 class FormF;
 class AtlasC;
+struct DirS;
 
 class PayloadC
 {
@@ -24,7 +26,7 @@ public:
 
 	FormF* AddForm(const std::string InProprietary);
 
-	PayloadC(const char* AtlasDirectory);
+	PayloadC(DirS* InDirAtlas);
 
 private:
 
@@ -35,14 +37,14 @@ private:
 		MAX,
 	};
 
-	std::vector<FormF* (*)()> FactoryVector;
+	ArrayC<FormF* (*)()> FactoryArray;
 
-	const char* Path;
+	DirS* DirAtlas;
 
 	int FormCount;
 
 	std::unordered_map <uint32, FormF*> Map;
 
-	std::vector <AtlasC*> AtlasVector;
+	ArrayC<AtlasC*> AtlasArray;
 
 };

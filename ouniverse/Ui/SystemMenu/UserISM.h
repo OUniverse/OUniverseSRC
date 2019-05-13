@@ -11,7 +11,7 @@ MainMenu - User
 #include "CoreMinimal.h"
 
 class ConfigManager;
-class UserManager;
+class UserLib;
 
 class OUNIVERSE_API UserISM : public IoSM
 {
@@ -26,12 +26,12 @@ private:
 		Edit,
 	};
 
-	UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserManager* InUser, ConfigManager* InConfig);
+	UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig);
 
 	bool bOpen;
 	bool bSentUsers;
 
-	UserManager* UserP;
+	UserLib* UserP;
 	ConfigManager* ConfigP;
 	Modes Mode;
 	void King() override;

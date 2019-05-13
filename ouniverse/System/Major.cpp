@@ -69,7 +69,7 @@ void MajorC::Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWas
 }
 
 PathsC* MajorC::Path()			{ return Path_; }
-UserManager* MajorC::User()		{ return User_; }
+UserLib* MajorC::User()		{ return User_; }
 ConfigManager* MajorC::Config()	{ return Config_; }
 UiManager* MajorC::Ui()			{ return Ui_; }
 StateManager* MajorC::State()	{ return State_; }
