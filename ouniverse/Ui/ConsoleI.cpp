@@ -24,7 +24,7 @@ void ConsoleIO::Activate()
 	Ui->GetView()->BindCall("console_attemptConsoleString", cohtml::MakeHandler(this, &ConsoleIO::AttemptConsoleString));
 	Ui->GetView()->BindCall("console_onClose", cohtml::MakeHandler(this, &ConsoleIO::OnClose));
 	Ui->GetView()->BindCall("console_onOpen", cohtml::MakeHandler(this, &ConsoleIO::OnOpen));
-	InputP->GetCommand("console")->Call.BindRaw(this, &ConsoleIO::OnCommand);
+	//InputP->GetCommand("console")->Call.BindRaw(this, &ConsoleIO::OnCommand);
 }
 
 

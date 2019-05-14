@@ -12,6 +12,7 @@ If something wants to register for a keypress they add their trigger function to
 
 #include "CoreMinimal.h"
 #include "Delegates/IDelegateInstance.h"
+#include "Interface/Event.h"
 
 
 struct StrokeS
@@ -29,7 +30,7 @@ struct StrokeS
 	}
 };
 
-DECLARE_DELEGATE_OneParam(DelegateCommand, StrokeS);
+EVENT1(CommandE,CommandEL, void, StrokeS)
 
 class OUNIVERSE_API CommandC
 {
@@ -37,10 +38,19 @@ class OUNIVERSE_API CommandC
 public:
 
 	CommandC();
-	DelegateCommand Call;
-	FName ID;
-	int32 BoundKeyCode;
-	bool bAllowDuringTypeMode;
-	void Send(StrokeS InStroke);
-	//Beacon
+
+	int BoundKey();
+	
+	void SetBoundKey(int InBoundKey);
+	
+	void Trigger(StrokeS InStroke);
+	
+private:
+
+
+	CommandE Event_;
+
+	bool AllowDuringTypeMode_;
+	
+	int BoundKeyCode_;
 };

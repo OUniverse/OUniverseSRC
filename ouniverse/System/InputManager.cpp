@@ -53,12 +53,12 @@ CommandC* InputManager::GetCommand(FString CommandName)
 
 void InputManager::BindCommandToKey(CommandC* CommandToBind, int32 KeyCode)
 {
-	if (CommandToBind->BoundKeyCode != -1)
+	if (CommandToBind->BoundKey() != -1)
 	{
 		InputMap.erase(KeyCode);
 	}
 
-	CommandToBind->BoundKeyCode = KeyCode;
+	CommandToBind->SetBoundKey(KeyCode);
 }
 
 void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
@@ -89,7 +89,7 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 		{
 
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			it->second->Send(StrokeS(true));
+			it->second->Trigger(StrokeS(true));
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}
@@ -120,7 +120,7 @@ void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEv
 		{
 
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			it->second->Send(StrokeS(false));
+			it->second->Trigger(StrokeS(false));
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}

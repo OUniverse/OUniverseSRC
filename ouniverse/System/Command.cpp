@@ -4,11 +4,21 @@
 
 CommandC::CommandC()
 {
-	BoundKeyCode = -1;
+	BoundKeyCode_ = -1;
 }
 
-void CommandC::Send(StrokeS InStroke)
+void CommandC::SetBoundKey(int InBoundKey)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ID.ToString());
-	Call.ExecuteIfBound(InStroke);
+	BoundKeyCode_ = InBoundKey;
+}
+
+int CommandC::BoundKey()
+{
+	return BoundKeyCode_;
+}
+
+void CommandC::Trigger(StrokeS InStroke)
+{
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ID.ToString());
+	Event_->Trigger(InStroke);
 }
