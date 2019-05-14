@@ -10,7 +10,7 @@
 #include "SCohtmlInputForward.h"
 #include "System/Boot.h"
 
-void AHudUE::PrepareInputs(FString UiServerPath)
+void AHudUE::PrepareInputs(StringC UiServerPath)
 {
 	SAssignNew(InputNet,SInput).GameHUD(this);
 	if (GEngine && GEngine->GameViewport)
@@ -19,7 +19,8 @@ void AHudUE::PrepareInputs(FString UiServerPath)
 
 		Viewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(InputNet.ToSharedRef()));
 	}
-	SetupView(UiServerPath+"ui.html",true,true);
+
+	SetupView((UiServerPath/"ui.html").ToFString(),true,true);
 
 	FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);

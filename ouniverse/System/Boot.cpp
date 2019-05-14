@@ -76,7 +76,7 @@ void UBoot::Boot(UObject* WorldContextObject)
 	M->User()->LoadUsers();
 	M->User()->SetUser(65535);
 
-	//M->Hud()->PrepareInputs(M->Path()->UiServer());
+	M->Hud()->PrepareInputs(M->Path()->UiServer()->Get());
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 	

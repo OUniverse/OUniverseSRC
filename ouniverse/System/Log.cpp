@@ -34,7 +34,7 @@ LogC::LogC(DirS* InDirLogs)
 	DirLogs = InDirLogs;
 
 	//PaceVector.assign(Pace::MAX, NULL);
-	FileC LogFile = FileC(DirLogs->Get(), "logs.txt");
+	FileC LogFile = FileC(DirLogs->Get()/"logs.txt");
 	LogFile.Empty();
 }
 
@@ -65,12 +65,14 @@ void LogC::Print()
 
 	for (int i = Cursor; i < Count; i++)
 	{
-		LogAmendment + "#"+i+" | "+EntryVector[i]->Output().NewLine();
+		LogAmendment += "#";
+		LogAmendment += i;  
+		LogAmendment += " | ";
+		LogAmendment += EntryVector[i]->Output().NewLine();
+
 		Cursor++;
 	}
-	//DBUG(DirLogs->Get().ToChar())
-	//DBUG(LogAmendment.ToChar())
 
-	FileC LogFile = FileC(DirLogs->Get() , "logs.txt");
+	FileC LogFile = FileC(DirLogs->Get()/"logs.txt");
 	LogFile.Append(LogAmendment);
 }

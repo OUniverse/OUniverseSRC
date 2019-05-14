@@ -47,7 +47,7 @@ AudioGroup* AudioManager::RegisterAudioGroup(FString ID, AudioGroups Group, Audi
 	AudioGroup* NewGroup = new AudioGroup();
 	NewGroup->ID = ID;
 
-	if (Parent!=NULL)
+	if (Parent!=nullptr)
 	{
 		NewGroup->SetParent(Parent);
 	}

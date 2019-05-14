@@ -37,10 +37,10 @@ void MajorC::Test1()
 
 
 	
-	EventC<int, bool, int>* CoolEvent2 = new EventC<int, bool, int>();
-	EventC<int, bool, int>::Listener2C* Listener2 = CoolEvent2->Create(this, &MajorC::Test4);
+	Event2C<int, bool, int>* CoolEvent2 = new Event2C<int, bool, int>();
+	Event2C<int, bool, int>::Listener2C* Listener2 = CoolEvent2->Create(this, &MajorC::Test4);
 	Listener2->Bind();
-	EventC<int, bool, int>::Listener2C* Listener3 = CoolEvent2->Create(this, &MajorC::Test5);
+	Event2C<int, bool, int>::Listener2C* Listener3 = CoolEvent2->Create(this, &MajorC::Test5);
 	Listener3->Bind();
 
 	CoolEvent2->Trigger(false, 25);
