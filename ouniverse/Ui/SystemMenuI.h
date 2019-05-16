@@ -13,7 +13,7 @@ Contains SubMenu IOs (IoM) which are in the Ui/MainMenu folder.
 #include "SystemMenuI.generated.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 class IoSM;
 
 class CreationISM;
@@ -90,7 +90,7 @@ public:
 private:
 
 
-	SystemMenuIO(UCohtmlHUD* InUi);
+	SystemMenuIO(GlassC* InGlass);
 
 	bool bOverlayEnabled;
 

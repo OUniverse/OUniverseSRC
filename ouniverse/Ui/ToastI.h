@@ -9,7 +9,7 @@ Toaster notification, meant to convey game context related messages.
 #include "Ui/Io.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 
 class OUNIVERSE_API ToastIO : public Io
@@ -18,6 +18,6 @@ class OUNIVERSE_API ToastIO : public Io
 
 private:
 
-	ToastIO(UCohtmlHUD* InUi);
+	ToastIO(GlassC* InGlass);
 
 };

@@ -2,9 +2,9 @@
 
 #include "Ui/SystemMenu/DetailsISM.h"
 #include "Ui/SystemMenuI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-DetailsISM::DetailsISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu) : IoSM(InUi, InSymu)
+DetailsISM::DetailsISM(GlassC* InGlass, SystemMenuIO* InSymu) : IoSM(InGlass, InSymu)
 {
 
 }

@@ -20,7 +20,7 @@ class OUNIVERSE_API ConsoleIO : public Io
 
 private:
 
-	ConsoleIO(UCohtmlHUD* InUi, InputManager* InInputP);
+	ConsoleIO(GlassC* InGlass, InputManager* InInputP);
 
 	bool bOpen;
 

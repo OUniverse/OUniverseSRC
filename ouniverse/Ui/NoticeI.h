@@ -11,7 +11,7 @@ Ex: Battery power in a controller is low etc.
 #include "Ui/Io.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 
 class OUNIVERSE_API NoticeIO : public Io
@@ -20,6 +20,6 @@ class OUNIVERSE_API NoticeIO : public Io
 
 private:
 
-	NoticeIO(UCohtmlHUD* InUi);
+	NoticeIO(GlassC* InGlass);
 
 };

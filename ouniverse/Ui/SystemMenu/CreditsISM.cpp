@@ -2,9 +2,9 @@
 
 #include "Ui/SystemMenu/CreditsISM.h"
 #include "Ui/SystemMenuI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-CreditsISM::CreditsISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu) : IoSM(InUi, InSymu)
+CreditsISM::CreditsISM(GlassC* InGlass, SystemMenuIO* InSymu) : IoSM(InGlass, InSymu)
 {
 
 }

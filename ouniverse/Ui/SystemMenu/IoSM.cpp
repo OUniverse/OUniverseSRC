@@ -3,10 +3,10 @@
 #include "Ui/SystemMenu/IoSM.h"
 #include "Ui/Io.h"
 #include "Ui/SystemMenuI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 
-IoSM::IoSM(UCohtmlHUD* InUi, SystemMenuIO* InSyMenu) : Io(InUi)
+IoSM::IoSM(GlassC* InGlass, SystemMenuIO* InSyMenu) : Io(InGlass)
 {
 	SystemMenuP = InSyMenu;
 }

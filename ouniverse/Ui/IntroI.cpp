@@ -1,10 +1,10 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/IntroI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 
-IntroIO::IntroIO(UCohtmlHUD* InUi) : Io(InUi)
+IntroIO::IntroIO(GlassC* InGlass) : Io(InGlass)
 {
 	bOpen = false;
 }

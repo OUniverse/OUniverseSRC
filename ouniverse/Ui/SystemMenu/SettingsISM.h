@@ -16,7 +16,7 @@ class OUNIVERSE_API SettingsISM : public IoSM
 
 private:
 
-	SettingsISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	SettingsISM(GlassC* InGlass, SystemMenuIO* InSymu);
 	
 	void Activate() override;
 	void King() override;

@@ -16,7 +16,7 @@ class OUNIVERSE_API TitleISM : public IoSM
 
 private:
 
-	TitleISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	TitleISM(GlassC* InGlass, SystemMenuIO* InSymu);
 	
 	void Activate() override;
 	void King() override;

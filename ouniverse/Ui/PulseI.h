@@ -10,7 +10,7 @@ Throbber when waiting for a thread to finish running or content to finish loadin
 #include <vector>
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 
 class PulseHandler
@@ -26,7 +26,7 @@ class OUNIVERSE_API PulseIO : public Io
 
 private:
 
-	PulseIO(UCohtmlHUD* InUi);
+	PulseIO(GlassC* InGlass);
 
 	bool bPulsing;
 	bool bPendingEnd;

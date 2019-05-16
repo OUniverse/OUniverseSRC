@@ -16,7 +16,7 @@ class OUNIVERSE_API DataISM : public IoSM
 
 private:
 
-	DataISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	DataISM(GlassC* InGlass, SystemMenuIO* InSymu);
 	
 	void Activate() override;
 	void King() override;

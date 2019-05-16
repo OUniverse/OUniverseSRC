@@ -11,7 +11,7 @@ Special on screen alert for critical errors.
 #include "Ui/Io.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 
 class OUNIVERSE_API ErrorIO : public Io
@@ -20,5 +20,5 @@ class OUNIVERSE_API ErrorIO : public Io
 
 private:
 	
-	ErrorIO(UCohtmlHUD* InUi);
+	ErrorIO(GlassC* InGlass);
 };

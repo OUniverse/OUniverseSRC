@@ -18,7 +18,7 @@ class OUNIVERSE_API IoSM : public Io
 
 protected:
 	
-	IoSM(UCohtmlHUD* InUi, SystemMenuIO* InSyMenu);
+	IoSM(GlassC* InGlass, SystemMenuIO* InSyMenu);
 
 	SystemMenuIO* SystemMenuP;
 

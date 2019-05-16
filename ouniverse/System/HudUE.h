@@ -22,6 +22,8 @@ class SCohtmlInputForward;
 
 class InputManager;
 
+class GlassC;
+
 UCLASS()
 class OUNIVERSE_API AHudUE : public ACohtmlGameHUD
 {
@@ -33,13 +35,14 @@ public:
 	void ActivateInputs(InputManager* Input);
 
 
-	UCohtmlHUD* GetUi();
-	TSharedPtr<class SCohtmlInputForward> GetNativeUiInput();
-
 	UFUNCTION()//Has to be UFunction for Coherent's PreBind function call.
 	void CoherentReady();
 
 	UGameViewportClient* Viewport;
 	TSharedPtr<class SInput> InputNet;
-	TSharedPtr<class SCohtmlInputForward> UiNet;
+
+	GlassC* Glass_;
+
+	GlassC* GetGlass();
+
 };

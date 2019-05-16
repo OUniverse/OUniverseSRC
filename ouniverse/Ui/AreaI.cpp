@@ -2,9 +2,9 @@
 
 #include "Ui/AreaI.h"
 #include "System/UiManager.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-AreaIO::AreaIO(UCohtmlHUD* InUi) : Io(InUi)
+AreaIO::AreaIO(GlassC* InGlass) : Io(InGlass)
 {
 	bInProgress = false;
 }

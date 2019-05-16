@@ -72,6 +72,7 @@ void UBoot::Boot(UObject* WorldContextObject)
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+	
 
 	M->User()->LoadUsers();
 	M->User()->SetUser(65535);
@@ -123,7 +124,7 @@ void UBoot::CoherentReady()
 
 	MajorC* M	= MajorC::Get();
 	M->System_	= SystemManager::Create();
-	M->Input_	= InputManager::Create(M->Hud()->GetUi(), M->Hud()->GetNativeUiInput(), M->Path()->Reg());
-	M->Ui_		= UiManager::Create(M->Hud()->GetUi());
+	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
+	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->State_	= StateManager::Create();
 }

@@ -18,7 +18,7 @@ class OUNIVERSE_API AreaIO : public Io
 
 private:
 
-	AreaIO(UCohtmlHUD* InUi);
+	AreaIO(GlassC* InGlass);
 
 	bool bInProgress;
 

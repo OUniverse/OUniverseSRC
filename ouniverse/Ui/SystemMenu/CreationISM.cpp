@@ -2,9 +2,9 @@
 
 #include "Ui/SystemMenu/CreationISM.h"
 #include "Ui/SystemMenuI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-CreationISM::CreationISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu) : IoSM(InUi, InSymu)
+CreationISM::CreationISM(GlassC* InGlass, SystemMenuIO* InSymu) : IoSM(InGlass, InSymu)
 {
 
 }

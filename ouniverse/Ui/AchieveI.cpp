@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/AchieveI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 #include "System/UiManager.h"
 
@@ -9,7 +9,7 @@
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlFStringBinder.h"
 
-AchieveIO::AchieveIO(UCohtmlHUD* InUi) : Io(InUi)
+AchieveIO::AchieveIO(GlassC* InGlass) : Io(InGlass)
 {
 	bActive = false;
 }
@@ -17,7 +17,7 @@ AchieveIO::AchieveIO(UCohtmlHUD* InUi) : Io(InUi)
 
 void AchieveIO::Activate()
 {
-	Ui->GetView()->BindCall("achieve_OnEnd", cohtml::MakeHandler(this, &AchieveIO::OnEnd));
+	GBIND("achieve_OnEnd", this, &AchieveIO::OnEnd);
 }
 
 void AchieveIO::Award(AchieveTemp* NewAward)
@@ -26,7 +26,7 @@ void AchieveIO::Award(AchieveTemp* NewAward)
 	if (bActive == false)
 	{
 		bActive = true;
-		Ui->GetView()->TriggerEvent("achieve_award");
+		GSEND0("achieve_award");
 		AchieveQue.erase(AchieveQue.begin());
 	}
 }
@@ -35,7 +35,7 @@ void AchieveIO::OnEnd()
 {
 	if (AchieveQue.size() > 0)
 	{
-		Ui->GetView()->TriggerEvent("achieve_award");
+		GSEND0("achieve_award");
 		AchieveQue.erase(AchieveQue.begin());
 	}
 	else

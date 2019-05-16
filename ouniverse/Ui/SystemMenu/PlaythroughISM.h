@@ -16,7 +16,7 @@ class OUNIVERSE_API PlaythroughISM : public IoSM
 
 private:
 
-	PlaythroughISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	PlaythroughISM(GlassC* InGlass, SystemMenuIO* InSymu);
 
 	void Activate() override;
 	void King() override;

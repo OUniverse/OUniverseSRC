@@ -2,9 +2,9 @@
 
 #include "Ui/SystemMenu/DataISM.h"
 #include "Ui/SystemMenuI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-DataISM::DataISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu) : IoSM(InUi, InSymu)
+DataISM::DataISM(GlassC* InGlass, SystemMenuIO* InSymu) : IoSM(InGlass, InSymu)
 {
 
 }

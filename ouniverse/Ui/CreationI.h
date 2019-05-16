@@ -18,7 +18,7 @@ class OUNIVERSE_API CreationIO : public Io
 
 private:
 
-	CreationIO(UCohtmlHUD* InUi);
+	CreationIO(GlassC* InGlass);
 	
 	void Activate() override;
 };

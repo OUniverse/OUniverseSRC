@@ -2,9 +2,9 @@
 
 #include "Ui/SystemMenu/PlaythroughISM.h"
 #include "Ui/SystemMenuI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-PlaythroughISM::PlaythroughISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu) : IoSM(InUi, InSymu)
+PlaythroughISM::PlaythroughISM(GlassC* InGlass, SystemMenuIO* InSymu) : IoSM(InGlass, InSymu)
 {
 
 }

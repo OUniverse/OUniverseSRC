@@ -1,12 +1,12 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Io.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 
-Io::Io(UCohtmlHUD* InUi)
+Io::Io(GlassC* InGlass)
 {
-	Ui = InUi;
+	Ui = InGlass;
 }
 
 

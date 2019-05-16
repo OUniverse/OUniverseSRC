@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/ConsoleI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 #include "System/InputManager.h"
 #include "System/Command.h"
@@ -11,7 +11,7 @@
 #include "CohtmlFStringBinder.h"
 
 
-ConsoleIO::ConsoleIO(UCohtmlHUD* InUi, InputManager* InInput) : Io(InUi)
+ConsoleIO::ConsoleIO(GlassC* InGlass, InputManager* InInput) : Io(InGlass)
 {
 	InputP = InInput;
 	bOpen = false;
@@ -21,9 +21,9 @@ ConsoleIO::ConsoleIO(UCohtmlHUD* InUi, InputManager* InInput) : Io(InUi)
 
 void ConsoleIO::Activate()
 {
-	Ui->GetView()->BindCall("console_attemptConsoleString", cohtml::MakeHandler(this, &ConsoleIO::AttemptConsoleString));
-	Ui->GetView()->BindCall("console_onClose", cohtml::MakeHandler(this, &ConsoleIO::OnClose));
-	Ui->GetView()->BindCall("console_onOpen", cohtml::MakeHandler(this, &ConsoleIO::OnOpen));
+	GBIND("console_attemptConsoleString", this, &ConsoleIO::AttemptConsoleString);
+	GBIND("console_onClose", this, &ConsoleIO::OnClose);
+	GBIND("console_onOpen", this, &ConsoleIO::OnOpen);
 	//InputP->GetCommand("console")->Call.BindRaw(this, &ConsoleIO::OnCommand);
 }
 
@@ -61,12 +61,12 @@ void ConsoleIO::OnCommand(StrokeS InStroke)
 			if (bOpen)
 			{
 				bPendingClose = true;
-				Ui->GetView()->TriggerEvent("console_close");
+				GSEND0("console_close");
 			}
 			else
 			{
 				bPendingOpen = true;
-				Ui->GetView()->TriggerEvent("console_open");
+				GSEND0("console_open");
 			}
 		}
 	}

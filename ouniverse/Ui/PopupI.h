@@ -12,7 +12,7 @@ This includes PopUp notifications that require confirmation or tutorial windows.
 #include <vector>
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 struct PopupSchema;
 
 class OUNIVERSE_API PopupIO : public Io
@@ -29,7 +29,7 @@ public:
 
 private:
 
-	PopupIO(UCohtmlHUD* InUi);
+	PopupIO(GlassC* InGlass);
 
 	std::vector <PopupSchema*> Popups;
 

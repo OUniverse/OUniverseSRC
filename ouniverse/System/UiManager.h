@@ -32,7 +32,7 @@ class PopupIO;
 class PulseIO;
 class ToastIO;
 
-class UCohtmlHUD;
+class GlassC;
 
 
 USTRUCT()
@@ -72,13 +72,13 @@ class OUNIVERSE_API UiManager
 
 private:
 
-	static UiManager* Create(UCohtmlHUD* InUi);
-	UiManager(UCohtmlHUD* InUi);
+	static UiManager* Create(GlassC* InGlass);
+	UiManager(GlassC* InGlass);
 	
 
 public:
 
-	UCohtmlHUD* Ui;
+	GlassC* Glass_;
 
 
 	enum IoTypes : uint8

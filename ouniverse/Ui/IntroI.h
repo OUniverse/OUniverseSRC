@@ -11,7 +11,7 @@ Initial Trailers and movies.
 #include "Ui/Io.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 
 class OUNIVERSE_API IntroIO : public Io
@@ -20,6 +20,6 @@ class OUNIVERSE_API IntroIO : public Io
 
 private:
 	
-	IntroIO(UCohtmlHUD* InUi);
+	IntroIO(GlassC* InGlass);
 	bool bOpen;
 };

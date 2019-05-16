@@ -1,13 +1,13 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/PulseI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 #include "cohtml/Binding/Binding.h"
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlFStringBinder.h"
 
-PulseIO::PulseIO(UCohtmlHUD* InUi) : Io(InUi)
+PulseIO::PulseIO(GlassC* InGlass) : Io(InGlass)
 {
 	bPulsing = false;
 	bPendingEnd = false;
@@ -15,7 +15,7 @@ PulseIO::PulseIO(UCohtmlHUD* InUi) : Io(InUi)
 
 void PulseIO::Activate()
 {
-	Ui->GetView()->BindCall("pulse_onEnd", cohtml::MakeHandler(this, &PulseIO::OnEnd));
+	GBIND("pulse_onEnd", this, &PulseIO::OnEnd);
 }
 
 PulseHandler* PulseIO::AddPulse()
@@ -27,7 +27,7 @@ PulseHandler* PulseIO::AddPulse()
 		if (!bPendingEnd)
 		{
 			bPulsing = true;
-			Ui->GetView()->TriggerEvent("pulse_start");
+			GSEND0("pulse_start");
 		}
 	}
 	return NewPulse;
@@ -39,7 +39,7 @@ void PulseIO::EndPulse(PulseHandler* Pulse)
 
 	if (Pulses.size() == 0)
 	{
-		Ui->GetView()->TriggerEvent("pulse_end");
+		GSEND0("pulse_end");
 		bPendingEnd = true;
 	}
 }
@@ -51,6 +51,6 @@ void PulseIO::OnEnd()
 	if (Pulses.size() > 0)
 	{
 		bPulsing = true;
-		Ui->GetView()->TriggerEvent("pulse_start");
+		GSEND0("pulse_start");
 	}
 }

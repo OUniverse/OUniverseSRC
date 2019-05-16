@@ -25,7 +25,7 @@ class OUNIVERSE_API AchieveIO : public Io
 
 private:
 
-	AchieveIO(UCohtmlHUD* InUi);
+	AchieveIO(GlassC* InGlass);
 
 	bool bActive;
 	std::vector <AchieveTemp*> AchieveQue;

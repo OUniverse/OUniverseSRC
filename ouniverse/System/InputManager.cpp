@@ -12,7 +12,9 @@
 #include "Interface/File.h"
 #include "Interface/Json.h"
 
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
+
+
 #include "cohtml/Binding/Binding.h"
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlUTypeBinder.h"
@@ -20,16 +22,16 @@
 #include "SCohtmlInputForward.h"
 
 
-InputManager* InputManager::Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg)
+
+InputManager* InputManager::Create(DirS* InDirReg, GlassC* InGlass)
 {
-	return new InputManager(InUi, InNativeUi, PathReg);
+	return new InputManager(InDirReg, InGlass);
 }
 
-InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg)
+InputManager::InputManager(DirS* InDirReg, GlassC* InGlass)
 {
-	Ui = InUi;
-	UiNative = InNativeUi;
-
+	Glass_ = InGlass;
+	
 	bRebindMode = false;
 	bTypeMode = false;
 	bPrimeTypeMode = false;
@@ -38,24 +40,29 @@ InputManager::InputManager(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForwar
 
 	//JsonS* InputReg = new JsonS(FileReader->AsChar());
 	//InputReg[];
+
+	CommandC* NewCommand = new CommandC();
+	CommandArray.Init(Commands::COMMANDS_MAX, NULL);
+	CommandArray.Add(NewCommand);
+
 }
 
 void InputManager::BindUI()
 {
-	Ui->GetView()->BindCall("inputMNG.typeMode", cohtml::MakeHandler(this, &InputManager::TypeMode));
-	Ui->GetView()->BindCall("inputMNG.typeModePrime", cohtml::MakeHandler(this, &InputManager::PrimeTypeMode));
+	GBIND("inputMNG.typeMode", this, &InputManager::TypeMode)
+	GBIND("inputMNG.typeModePrime", this, &InputManager::PrimeTypeMode)
 }
 
-CommandC* InputManager::GetCommand(FString CommandName)
+CommandC* InputManager::GetCommand(int InCommand)
 {
-	return CommandMap.find(*CommandName)->second;
+	return CommandArray[InCommand];
 }
 
 void InputManager::BindCommandToKey(CommandC* CommandToBind, int32 KeyCode)
 {
 	if (CommandToBind->BoundKey() != -1)
 	{
-		InputMap.erase(KeyCode);
+		InputMap.Remove(KeyCode);
 	}
 
 	CommandToBind->SetBoundKey(KeyCode);
@@ -67,10 +74,10 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 
 	if (bPrimeTypeMode)
 	{
-			CharKey* PTK = PTKeyMap.find(KeyCode)->second;
+			CharKey* PTK = PTKeyMap[KeyCode];
 			if (PTK != nullptr)
 			{
-				Ui->GetView()->TriggerEvent("inputMNG.onPTKey", PTK->ID);
+				GSEND1("inputMNG.onPTKey", PTK->ID);
 			}
 	}
 	else if(bRebindMode)
@@ -79,18 +86,15 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 		return;
 	} else {
 
-		UiNative->OnKeyDown(MyGeometry, InKeyEvent);
+		Glass_->Native()->OnKeyDown(MyGeometry, InKeyEvent);
 
-		//Fires off Mod generated custom keys via a second TMap
-		std::map<int32, CommandC*>::iterator it;
-		it = InputMap.find(KeyCode);
-
-		if (it != InputMap.end())
+		CommandC* Command;
+		if (InputMap.Try(KeyCode, Command))
 		{
-
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			it->second->Trigger(StrokeS(true));
+			Command->Trigger(StrokeS(true));
 		}
+
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}
 }
@@ -109,19 +113,19 @@ void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEv
 			return;
 		}
 
-		UiNative->OnKeyUp(MyGeometry, InKeyEvent);
+		Glass_->Native()->OnKeyUp(MyGeometry, InKeyEvent);
 
 		//Fires off Mod generated custom keys via a second TMap
 
-		std::map <int32, CommandC*>::iterator it;
-		it = InputMap.find(KeyCode);
-
-		if (it != InputMap.end())
+		CommandC* Command;
+		if (InputMap.Try(KeyCode, Command))
 		{
 
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			it->second->Trigger(StrokeS(false));
+			Command->Trigger(StrokeS(true));
+		
 		}
+
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}
 
@@ -131,32 +135,32 @@ void InputManager::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent&
 {
 	if (bPrimeTypeMode)
 	{
-		Ui->GetView()->TriggerEvent("inputMNG.onChar", FString().AppendChar(InCharacterEvent.GetCharacter()));
+		GSEND1("inputMNG.onChar", FString().AppendChar(InCharacterEvent.GetCharacter()));
 	}
 	else {
-		UiNative->OnKeyChar(MyGeometry, InCharacterEvent);
+		Glass_->Native()->OnKeyChar(MyGeometry, InCharacterEvent);
 	}
 	
 }
 void InputManager::OnMouseMove(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 
-	UiNative->OnMouseMove(MyGeometry,MouseEvent);
+	Glass_->Native()->OnMouseMove(MyGeometry,MouseEvent);
 }
 
 void InputManager::OnMouseButtonDown(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	UiNative->OnMouseButtonDown(MyGeometry, MouseEvent);
+	Glass_->Native()->OnMouseButtonDown(MyGeometry, MouseEvent);
 }
 
 void InputManager::OnMouseButtonUp(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	UiNative->OnMouseButtonUp(MyGeometry, MouseEvent);
+	Glass_->Native()->OnMouseButtonUp(MyGeometry, MouseEvent);
 }
 
 void InputManager::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	UiNative->OnMouseWheel(MyGeometry,MouseEvent);
+	Glass_->Native()->OnMouseWheel(MyGeometry,MouseEvent);
 }
 
 

@@ -16,7 +16,7 @@ class OUNIVERSE_API DetailsISM : public IoSM
 
 private:
 
-	DetailsISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	DetailsISM(GlassC* InGlass, SystemMenuIO* InSymu);
 	
 	void Activate() override;
 	void King() override;

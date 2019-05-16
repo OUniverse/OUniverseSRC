@@ -19,7 +19,7 @@ class OUNIVERSE_API CreationISM : public IoSM
 
 private:
 
-	CreationISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	CreationISM(GlassC* InGlass, SystemMenuIO* InSymu);
 
 	void Activate() override;
 	void King() override;		

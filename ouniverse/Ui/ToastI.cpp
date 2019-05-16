@@ -2,10 +2,10 @@
 
 #include "Ui/ToastI.h"
 #include "Ui/Io.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 
-ToastIO::ToastIO(UCohtmlHUD* InUi) : Io(InUi)
+ToastIO::ToastIO(GlassC* InGlass) : Io(InGlass)
 {
 
 }

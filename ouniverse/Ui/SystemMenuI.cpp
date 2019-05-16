@@ -2,7 +2,7 @@
 
 #include "Ui/SystemMenuI.h"
 #include "Ui/Io.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
 
 #include "System/UserLib.h"
@@ -28,7 +28,7 @@
 
 #include "Min/MajorM.h"
 
-SystemMenuIO::SystemMenuIO(UCohtmlHUD* InUi) : Io(InUi)
+SystemMenuIO::SystemMenuIO(GlassC* InGlass) : Io(InGlass)
 {
 
 	MAJOR_IN_USAGE//In Activate()
@@ -52,7 +52,7 @@ void SystemMenuIO::Activate()
 
 
 
-	Ui->GetView()->BindCall("sysmenu.onMenuClose", cohtml::MakeHandler(this, &SystemMenuIO::OnMenuClose));
+	GBIND("sysmenu.onMenuClose", this, &SystemMenuIO::OnMenuClose);
 
 	
 	
@@ -71,7 +71,7 @@ void SystemMenuIO::Activate()
 
 void SystemMenuIO::King()
 {
-	Ui->GetView()->TriggerEvent("sysmenu.open");
+	GSEND0("sysmenu.open");
 	EvaluateOptions();
 
 	if (!MajorC::Get()->User()->IsUserChosen())
@@ -102,7 +102,7 @@ void SystemMenuIO::SetMenu(SubMenus NewMode)
 	{
 		Io* LastMenu = ActiveMenu;
 		ActiveMenu = GetMenu(NewMode);
-		Ui->GetView()->TriggerEvent("sysmenu.closeActiveSubMenu");
+		GSEND0("sysmenu.closeActiveSubMenu");
 	}
 	else {
 		ActiveMenu = GetMenu(NewMode);
@@ -123,7 +123,7 @@ void SystemMenuIO::OnSubMenuConcluded()
 
 void SystemMenuIO::EvaluateOptions()
 {
-	Ui->GetView()->TriggerEvent("sysmenu.updateOptions", Options);
+	GSEND1("sysmenu.updateOptions", Options);
 }
 
 void SystemMenuIO::SetOverlayEnabled(bool bEnable)
@@ -133,5 +133,5 @@ void SystemMenuIO::SetOverlayEnabled(bool bEnable)
 
 void SystemMenuIO::OpenSubMenu(FString MenuID, FString OpenMode)
 {
-	Ui->GetView()->TriggerEvent("sysmenu.openSubMenu", MenuID, OpenMode);
+	GSEND2("sysmenu.openSubMenu", MenuID, OpenMode);
 }

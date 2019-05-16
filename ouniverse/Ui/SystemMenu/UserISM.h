@@ -26,7 +26,7 @@ private:
 		Edit,
 	};
 
-	UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig);
+	UserISM(GlassC* InGlass, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig);
 
 	bool bOpen;
 	bool bSentUsers;

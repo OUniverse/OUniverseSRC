@@ -24,7 +24,6 @@ If Coherent doesn't consume the input then InputManager processes it.
 
 #include "CoreMinimal.h"
 #include "Delegates/IDelegateInstance.h"
-#include <map>
 
 #include "UObject/NoExportTypes.h"
 #include "cohtml/View.h"
@@ -33,14 +32,17 @@ If Coherent doesn't consume the input then InputManager processes it.
 #include "Runtime/SlateCore/Public/Input/Events.h"
 
 
+#include "Interface/Array.h"
+#include "Interface/Map.h"
+
 struct DirS;
 
 class CommandC;
 class CharKey;
 
-class UCohtmlBaseComponent;
-class UCohtmlHUD;
+
 class SCohtmlInputForward;
+class GlassC;
 
 class OUNIVERSE_API InputManager
 {
@@ -48,11 +50,11 @@ class OUNIVERSE_API InputManager
 
 private:
 
-	InputManager(UCohtmlHUD* InUi,TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg);
+	InputManager(DirS* InDirReg, GlassC* InGlass);
 
 public:
 
-	static InputManager* Create(UCohtmlHUD* InUi, TSharedPtr<class SCohtmlInputForward> InNativeUi, DirS* PathReg);
+	static InputManager* Create(DirS* InDirReg, GlassC* InGlass);
 
 	void TypeMode(int bEnabled);
 	void PrimeTypeMode(int bEnabled);
@@ -67,7 +69,7 @@ public:
 	void OnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 	void OnMouseWheel(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 
-	CommandC* GetCommand(FString CommandName);
+	CommandC* GetCommand(int InCommand);
 
 
 private:
@@ -82,8 +84,7 @@ private:
 
 	//Major->UiManager->Ui->GetView()
 	//UCohtmlBaseComponent* UiView
-	UCohtmlHUD* Ui;
-	TSharedPtr<class SCohtmlInputForward> UiNative;
+	GlassC* Glass_;
 
 
 
@@ -92,9 +93,16 @@ private:
 	bool bPrimeTypeMode;
 
 
-	std::map <FName,CommandC*> CommandMap;
-	std::map <int32,CommandC*> InputMap;
-	std::map <int32, CharKey*> PTKeyMap;
+	ArrayC<CommandC*> CommandArray;
+
+	enum Commands
+	{
+		Console,
+		COMMANDS_MAX,
+	};
+
+	MapC<int32,CommandC*> InputMap;
+	MapC<int32, CharKey*> PTKeyMap;
 
 	void BindUI();
 

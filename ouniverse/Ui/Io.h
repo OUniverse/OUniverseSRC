@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 
 
-class UCohtmlHUD;
+class GlassC;
 class UiManager;
 
 class OUNIVERSE_API Io
@@ -15,10 +15,10 @@ class OUNIVERSE_API Io
 
 protected:
 
-	Io(UCohtmlHUD* InUi);
+	Io(GlassC* InGlass);
 
 	virtual ~Io() {};
-	UCohtmlHUD* Ui;
+	GlassC* Ui;
 	UiManager* UiManagerPTR;
 
 	virtual void InitializeBinds();

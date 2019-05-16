@@ -9,7 +9,7 @@ HUD on screen markers at locations.
 #include "Ui/Io.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 class OUNIVERSE_API MarkersIO : public Io
 {
@@ -18,6 +18,6 @@ class OUNIVERSE_API MarkersIO : public Io
 
 private:
 
-	MarkersIO(UCohtmlHUD* InUi);
+	MarkersIO(GlassC* InGlass);
 
 };

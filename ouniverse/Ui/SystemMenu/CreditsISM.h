@@ -16,7 +16,7 @@ class OUNIVERSE_API CreditsISM : public IoSM
 
 private:
 
-	CreditsISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu);
+	CreditsISM(GlassC* InGlass, SystemMenuIO* InSymu);
 	
 	void Activate() override;
 	void King() override;

@@ -10,6 +10,8 @@
 #include "SCohtmlInputForward.h"
 #include "System/Boot.h"
 
+#include "System/Glass.h"
+
 void AHudUE::PrepareInputs(StringC UiServerPath)
 {
 	SAssignNew(InputNet,SInput).GameHUD(this);
@@ -28,7 +30,6 @@ void AHudUE::PrepareInputs(StringC UiServerPath)
 	ACohtmlInputActor* UiInputActor = GetWorld()->SpawnActor<ACohtmlInputActor>(Location, Rotation, SpawnInfo);
 	UiInputActor->Initialize();
 	//UiInputActor->AlwaysAcceptMouseInput(true);
-	UiNet = UiInputActor->GetWidget();
 	UiInputActor->SetCohtmlViewFocus(GetCohtmlHUD());
 	//UiInputActor->SetCohtmlInputFocus(true);
 	FSlateApplication::Get().SetKeyboardFocus(InputNet);
@@ -38,8 +39,13 @@ void AHudUE::PrepareInputs(StringC UiServerPath)
 	FInputModeUIOnly Mode;
 	Mode.SetWidgetToFocus(InputNet);
 	GetOwningPlayerController()->SetInputMode(Mode);
-}
 
+
+	Glass_ = new GlassC();
+	Glass_->Ui_ = GetCohtmlHUD();
+	Glass_->NativeInput_ = UiInputActor->GetWidget();
+
+}
 
 void AHudUE::CoherentReady()
 {
@@ -52,12 +58,7 @@ void AHudUE::ActivateInputs(InputManager* Input)
 	InputNet->InputRelay = Input;
 }
 
-UCohtmlHUD* AHudUE::GetUi()
+GlassC* AHudUE::GetGlass()
 {
-	return GetCohtmlHUD();
-}
-
-TSharedPtr<class SCohtmlInputForward> AHudUE::GetNativeUiInput()
-{
-	return UiNet;
+	return Glass_;
 }

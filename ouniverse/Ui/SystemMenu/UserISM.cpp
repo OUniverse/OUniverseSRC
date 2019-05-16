@@ -10,14 +10,14 @@
 
 #include "Ui/SystemMenuI.h"
 
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 #include "cohtml/Binding/Binding.h"
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlFStringBinder.h"
 #include "CohtmlTArrayBinder.h"
 #include "CohtmlUTypeBinder.h"
 
-UserISM::UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig) : IoSM(InUi, InSymu)
+UserISM::UserISM(GlassC* InGlass, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig) : IoSM(InGlass, InSymu)
 {
 	UserP = InUser;
 	ConfigP = InConfig;
@@ -27,10 +27,10 @@ UserISM::UserISM(UCohtmlHUD* InUi, SystemMenuIO* InSymu, UserLib* InUser, Config
 
 void UserISM::Activate()
 {
-	Ui->GetView()->BindCall("sysmenu.user.onSelected", cohtml::MakeHandler(this, &UserISM::OnUserSelected));
-	Ui->GetView()->BindCall("sysmenu.user.onDeleted", cohtml::MakeHandler(this, &UserISM::OnUserDeleted));
-	Ui->GetView()->BindCall("sysmenu.user.onEdited", cohtml::MakeHandler(this, &UserISM::OnUserEdited));
-	Ui->GetView()->BindCall("sysmenu.user.onAdded", cohtml::MakeHandler(this, &UserISM::OnUserAdded));
+	GBIND("sysmenu.user.onSelected", this, &UserISM::OnUserSelected);
+	GBIND("sysmenu.user.onDeleted", this, &UserISM::OnUserDeleted);
+	GBIND("sysmenu.user.onEdited", this, &UserISM::OnUserEdited);
+	GBIND("sysmenu.user.onAdded", this, &UserISM::OnUserAdded);
 }
 
 void UserISM::King()

@@ -1,9 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/MarkersI.h"
-#include "CohtmlHUD.h"
+#include "System/Glass.h"
 
-MarkersIO::MarkersIO(UCohtmlHUD* InUi) : Io(InUi)
+MarkersIO::MarkersIO(GlassC* InGlass) : Io(InGlass)
 {
 
 }

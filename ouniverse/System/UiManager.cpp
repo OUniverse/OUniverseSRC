@@ -22,7 +22,8 @@
 
 #include "System/InputManager.h"
 
-#include "CohtmlHUD.h"
+#include "System/Glass.h "
+
 #include "cohtml/Binding/Binding.h"
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlFStringBinder.h"
@@ -30,55 +31,55 @@
 
 #include "Min/MajorM.h"
 
-UiManager* UiManager::Create(UCohtmlHUD* InUi)
+UiManager* UiManager::Create(GlassC* InGlass)
 {
-	return new UiManager(InUi);
+	return new UiManager(InGlass);
 }
 
 
-UiManager::UiManager(UCohtmlHUD* InUi)
+UiManager::UiManager(GlassC* InGlass)
 {
 	MAJOR_IN_USAGE
 
-	Ui = InUi;
+	Glass_ = InGlass;
 	IoVector.assign(IoTypes::MAX, NULL);
 
 
 
-	SystemMenuIOM = new SystemMenuIO(Ui);
+	SystemMenuIOM = new SystemMenuIO(Glass_);
 	RegisterIO(IoTypes::SystemMenu, SystemMenuIOM);
 
-	AchieveIOM = new AchieveIO(Ui);
+	AchieveIOM = new AchieveIO(Glass_);
 	RegisterIO(IoTypes::Achieve, AchieveIOM);
 
-	AreaIOM = new AreaIO(Ui);
+	AreaIOM = new AreaIO(Glass_);
 	RegisterIO(IoTypes::Area, AreaIOM);
 
-	ConsoleIOM = new ConsoleIO(Ui, MAJOR->Input());
+	ConsoleIOM = new ConsoleIO(Glass_, MAJOR->Input());
 	RegisterIO(IoTypes::Console, ConsoleIOM);
 
-	ErrorIOM = new ErrorIO(Ui);
+	ErrorIOM = new ErrorIO(Glass_);
 	RegisterIO(IoTypes::Error, ErrorIOM);
 
-	DataIOM = new DataIO(Ui);
+	DataIOM = new DataIO(Glass_);
 	RegisterIO(IoTypes::Data, DataIOM);
 
-	IntroIOM = new IntroIO(Ui);
+	IntroIOM = new IntroIO(Glass_);
 	RegisterIO(IoTypes::SystemMenu, IntroIOM);
 
-	MarkersIOM = new MarkersIO(Ui);
+	MarkersIOM = new MarkersIO(Glass_);
 	RegisterIO(IoTypes::Markers, MarkersIOM);
 
-	NoticeIOM = new NoticeIO(Ui);
+	NoticeIOM = new NoticeIO(Glass_);
 	RegisterIO(IoTypes::Notice, NoticeIOM);
 
-	PopupIOM = new PopupIO(Ui);
+	PopupIOM = new PopupIO(Glass_);
 	RegisterIO(IoTypes::Popup, PopupIOM);
 
-	PulseIOM = new PulseIO(Ui);
+	PulseIOM = new PulseIO(Glass_);
 	RegisterIO(IoTypes::Pulse, PulseIOM);
 
-	ToastIOM = new ToastIO(Ui);
+	ToastIOM = new ToastIO(Glass_);
 	RegisterIO(IoTypes::Toast, ToastIOM);
 
 

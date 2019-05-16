@@ -12,7 +12,7 @@ Allows the player to manage and activate their Atlas Mods.
 #include "Ui/Io.h"
 
 class UiManager;
-class UCohtmlHUD;
+class GlassC;
 
 
 class OUNIVERSE_API DataIO : public Io
@@ -22,6 +22,6 @@ class OUNIVERSE_API DataIO : public Io
 
 private:
 	
-	DataIO(UCohtmlHUD* InUi);
+	DataIO(GlassC* InGlass);
 
 };
