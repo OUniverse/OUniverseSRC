@@ -13,17 +13,17 @@ from none 3D tasks like managing the populace and what characters should be exis
 
 class UBoot;
 
-class OUNIVERSE_API TerraC
+class OUNIVERSE_API CosmosC
 {
 	friend UBoot;
 
 private:
 
-	static TerraC* Create();
+	static CosmosC* Create();
 
 public:
 
-	static TerraC* Get();
-	TerraC();
+	static CosmosC* Get();
+	CosmosC();
 
 };

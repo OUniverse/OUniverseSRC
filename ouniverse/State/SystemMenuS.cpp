@@ -5,7 +5,7 @@
 #include "System/UserLib.h"
 #include "UI/SystemMenuI.h"
 
-SystemMenuState::SystemMenuState(UiManager* InUi, UserLib* InUser)
+SystemMenuState::SystemMenuState(UiC* InUi, UserLib* InUser)
 {
 	UiP = InUi;
 	UserP = InUser;

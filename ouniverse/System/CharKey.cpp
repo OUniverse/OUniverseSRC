@@ -3,7 +3,7 @@
 #include "System/CharKey.h"
 
 
-CharKey::CharKey(FString InID)
+CharKey::CharKey(StringC InID)
 {
-	ID = InID;
+	ID = InID.ToFString();
 }

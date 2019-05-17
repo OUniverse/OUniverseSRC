@@ -19,6 +19,7 @@ class LogC;
 class PathsC;
 class DataC;
 class CosmosC;
+class TerraC;
 class UserLib;
 class InputManager;
 class DisplayManager;
@@ -32,7 +33,6 @@ class UViewportUE;
 class AHudUE;
 class AControlUE;
 class SystemManager;
-class TerraC;
 
 class UBoot;
 

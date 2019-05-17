@@ -6,15 +6,13 @@ CharKey is a relay of a key press event to the UI so that certain commands can b
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "System/Delegates.h"
-
+#include "Interface/String.h"
 
 class OUNIVERSE_API CharKey
 {
 
 public:
 
-	CharKey(FString InID);
+	CharKey(StringC InID);
 	FString ID;
 };

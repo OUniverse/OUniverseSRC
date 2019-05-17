@@ -1,11 +1,11 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "System/Input.h"
+#include "System/InputCatch.h"
 #include "System/InputManager.h"
 #include "Widgets/SOverlay.h"
 #include "Widgets/Text/STextBlock.h"
 
-void SInput::Construct(const FArguments& InArgs)
+void SInputCatch::Construct(const FArguments& InArgs)
 {
 	GameHUD = InArgs._GameHUD;
 	ChildSlot
@@ -29,39 +29,39 @@ void SInput::Construct(const FArguments& InArgs)
 	];
 }
 
-FReply SInput::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
+FReply SInputCatch::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
 	InputRelay->OnKeyDown(MyGeometry,InKeyEvent);
 	return FReply::Handled();
 }
 
-FReply SInput::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
+FReply SInputCatch::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("KeyUp"));
 	InputRelay->OnKeyUp(MyGeometry, InKeyEvent);
 	return FReply::Handled();
 }
 
-FReply SInput::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent& InCharacterEvent)
+FReply SInputCatch::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent& InCharacterEvent)
 {
 	InputRelay->OnKeyChar(MyGeometry, InCharacterEvent);
 	return FReply::Handled();
 }
 
-FReply SInput::OnMouseButtonDown(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
+FReply SInputCatch::OnMouseButtonDown(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MouseEvent.GetEffectingButton().ToString());
 	InputRelay->OnMouseButtonDown(MyGeometry,MouseEvent);
 	return FReply::Handled();
 }
 
-FReply SInput::OnMouseButtonUp(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
+FReply SInputCatch::OnMouseButtonUp(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 	InputRelay->OnMouseButtonUp(MyGeometry,MouseEvent);
 	return FReply::Handled();
 }
 
-FReply SInput::OnMouseMove(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
+FReply SInputCatch::OnMouseMove(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("MouseMove"));
 	if (InputRelay!=NULL)
@@ -71,7 +71,7 @@ FReply SInput::OnMouseMove(const FGeometry & MyGeometry, const FPointerEvent & M
 	return FReply::Handled();
 }
 
-FReply SInput::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
+FReply SInputCatch::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("MouseWheel"));
 	InputRelay->OnMouseWheel(MyGeometry,MouseEvent);
@@ -79,7 +79,7 @@ FReply SInput::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & 
 }
 
 //This is required to overide the UE4 function to enable keyboard forcus.
-bool SInput::SupportsKeyboardFocus() const
+bool SInputCatch::SupportsKeyboardFocus() const
 {
 	return true;
 }

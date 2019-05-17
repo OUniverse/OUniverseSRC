@@ -39,7 +39,7 @@ public:
 	void CoherentReady();
 
 	UGameViewportClient* Viewport;
-	TSharedPtr<class SInput> InputNet;
+	TSharedPtr<class SInputCatch> InputNet;
 
 	GlassC* Glass_;
 

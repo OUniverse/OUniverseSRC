@@ -21,7 +21,7 @@
 #include "Engine/World.h"
 
 #include "System/Data.h"
-#include "World/Cosmos.h"
+#include "System/Cosmos.h"
 #include "System/Terra.h"
 
 #include "Interface/Dir.h"
@@ -132,7 +132,6 @@ void UBoot::CoherentReady()
 	M->State_	= StateManager::Create();
 	M->Data_	= DataC::Create(M->Path()->Atlas());
 	M->Cosmos_	= CosmosC::Create();
-	M->Terra_	= TerraC::Create();
-
+	M->Terra_	 = TerraC::Create();
 	LOGP
 }

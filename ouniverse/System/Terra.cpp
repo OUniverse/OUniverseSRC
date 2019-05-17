@@ -2,20 +2,21 @@
 
 #include "System/Terra.h"
 
+
 namespace GlobalSingleton
 {
-	TerraC Terra;
+	TerraC Cosmos;
 }
 
 TerraC* TerraC::Get()
 {
-	return &GlobalSingleton::Terra;
+	return &GlobalSingleton::Cosmos;
 }
 
 TerraC* TerraC::Create()
 {
-	GlobalSingleton::Terra = *(new TerraC());
-	return &GlobalSingleton::Terra;
+	GlobalSingleton::Cosmos = *(new TerraC());
+	return &GlobalSingleton::Cosmos;
 }
 
 TerraC::TerraC()

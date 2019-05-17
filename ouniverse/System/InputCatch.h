@@ -14,10 +14,10 @@ Upon recieving the interactions it forwards them to the InputManager to handle t
 class InputManager;
 
 
-class OUNIVERSE_API SInput : public SCompoundWidget
+class OUNIVERSE_API SInputCatch : public SCompoundWidget
 {
 
-	SLATE_BEGIN_ARGS(SInput)
+	SLATE_BEGIN_ARGS(SInputCatch)
 	{
 	}
 

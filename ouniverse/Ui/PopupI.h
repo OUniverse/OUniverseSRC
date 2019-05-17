@@ -7,9 +7,8 @@ This includes PopUp notifications that require confirmation or tutorial windows.
  */
 
 #include "CoreMinimal.h"
-#include "System/Delegates.h"
 #include "Ui/Io.h"
-#include <vector>
+#include "Interface/Array.h"
 
 class UiManager;
 class GlassC;
@@ -31,7 +30,7 @@ private:
 
 	PopupIO(GlassC* InGlass);
 
-	std::vector <PopupSchema*> Popups;
+	ArrayC<PopupSchema*> Popups;
 
 };
 
@@ -40,6 +39,5 @@ struct OUNIVERSE_API PopupSchema
 
 public:
 
-	DelegateSimple Call;
 	PopupIO::Types Type;
 };

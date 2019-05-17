@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/HudUE.h"
-#include "System/Input.h"
+#include "System/InputCatch.h"
 #include "Widgets/SWeakWidget.h"
 #include "Engine/GameViewportClient.h"
 #include "GameFramework/PlayerController.h"
@@ -14,7 +14,7 @@
 
 void AHudUE::PrepareInputs(StringC UiServerPath)
 {
-	SAssignNew(InputNet,SInput).GameHUD(this);
+	SAssignNew(InputNet,SInputCatch).GameHUD(this);
 	if (GEngine && GEngine->GameViewport)
 	{
 		Viewport = GEngine->GameViewport;
