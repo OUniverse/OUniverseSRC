@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 
-#include <rapidjson/document.h>
+#include "Interface/Json.h"
 
 
 bool AtlasC::Extension(StringC InExtension)
@@ -20,35 +20,33 @@ bool AtlasC::Extension(StringC InExtension)
 
 AtlasC::VersionS::VersionS(const char* JSerialized)
 {
-	rapidjson::Document d;
-	d.Parse(JSerialized);
+	JsonS J = JsonS(JSerialized);
 
-	Incremental		= d["inc"].GetInt();
-	Compatability	= d["cmp"].GetInt();
+	Incremental		= J.Int("inc");
+	Compatability	= J.Int("cmp");
 }
 
 AtlasC::DetailsS::DetailsS(const char*  JSerialized)
 {
-	rapidjson::Document d;
-	d.Parse(JSerialized);
+	JsonS J = JsonS(JSerialized);
 
-	ID			= d["id"].GetString();
-	Name		= d["name"].GetString();
-	Description	= d["desc"].GetString();
-	Author		= d["author"].GetString();
-	Icon		= d["icon"].GetString();
-	Date		= d["date"].GetString();
-	Website		= d["web"].GetString();
+	ID			= J.Int("id");
+	Name		= J.String("name");
+	Icon		= J.String("icon");
+	Description	= J.String("desc");
+	Author		= J.String("author");
+	Website		= J.String("web");
+	Date		= J.String("date");
+
 }
 
 AtlasC::QuantityS::QuantityS(const char* JSerialized)
 {
-	rapidjson::Document d;
-	d.Parse(JSerialized);
+	JsonS J = JsonS(JSerialized);
 
-	Form		= d["form"].GetInt();
-	Translation = d["translation"].GetInt();
-	Credit		= d["credit"].GetInt();
+	Form		= J.Int("form");
+	Translation = J.Int("translation");
+	Credit		= J.Int("credit");
 }
 
 AtlasC::AtlasC(StringC InPath)
@@ -58,18 +56,25 @@ AtlasC::AtlasC(StringC InPath)
 	std::ifstream File;
 	File.open(InPath.ToChar());
 
+
 	if (!File.is_open()) {
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Loading Atlas FAILED"));
 	}
+	else
+	{
 
-	//while (std::getline(File, Line)) {
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, InPath.ToFString());
+
+		//while (std::getline(File, Line)) {
 
 		std::getline(File, Line);
-	    Version = new VersionS(Line.c_str());
+		Version = new VersionS(Line.c_str());
 		std::getline(File, Line);
 		Details = new DetailsS(Line.c_str());
 		std::getline(File, Line);
 		Quantity = new QuantityS(Line.c_str());
+	}
+
 
 	File.close();
 }

@@ -18,7 +18,7 @@ protected:
 	Io(GlassC* InGlass);
 
 	virtual ~Io() {};
-	GlassC* Ui;
+	GlassC* Glass_;
 	UiManager* UiManagerPTR;
 
 	virtual void InitializeBinds();

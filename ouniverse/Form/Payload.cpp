@@ -10,6 +10,9 @@
 #include "Form/RefF.h"
 #include "Form/ObjectF.h"
 
+
+#include "Min/LogM.h"
+
 PayloadC::PayloadC(DirS* InDirAtlas)
 {
 	FormCount = 0;
@@ -22,18 +25,23 @@ PayloadC::PayloadC(DirS* InDirAtlas)
 	
 	FileQueryS Fi = FileQueryS(DirAtlas->Get());
 
+
+	LOG(BOOT, 0, 0, StringC("Scanning Atlas Folder: ") + DirAtlas->Get()+"/")
+	
 	for (int i = 0; i < Fi.Num(); i++)
 	{
+		LOG(BOOT, 0, 0, StringC("File Found: ") + Fi.File(i))
+
 		if (AtlasC::Extension(Fi.Extension(i)))
 		{
+			LOG(BOOT, 0, 0, StringC("Is an Atlas! "))
 			AtlasC* NewAtlas = new AtlasC(Fi.Full(i));
-			AtlasArray.Add(NewAtlas);
-			NewAtlas->Scan(this);
-			
+			//AtlasArray.Add(NewAtlas);
+		//	NewAtlas->Scan(this);
 		}
 		else
 		{
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Not Atlas");
+			LOG(BOOT, 0, 0, StringC("Not an Atlas!"))
 		}
 	}
 }

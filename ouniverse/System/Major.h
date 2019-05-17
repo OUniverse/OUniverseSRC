@@ -17,6 +17,8 @@ Major will not be passed through constructors and will instead be reached by a G
 
 class LogC;
 class PathsC;
+class DataC;
+class CosmosC;
 class UserLib;
 class InputManager;
 class DisplayManager;
@@ -44,39 +46,37 @@ public:
 	static MajorC* Get();
 	static MajorC* Create();
 
-	void Test1();
-	void Test2(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	int Test4(bool why, int ok);
-	int Test5(bool why, int ok);
-
-	LogC*				Log();
-	PathsC*				Path();
+	LogC*			Log();
+	PathsC*			Path();
 	UserLib*		User();
-	ConfigManager*		Config();
-	SystemManager*		System();
-	InputManager*		Input();
-	AudioManager*		Audio();
-	AControlUE*			Control();
-	UiManager*			Ui();
-	StateManager*		State();
-	AHudUE*				Hud();
-	UWorld*				Scope();
+	ConfigManager*	Config();
+	SystemManager*	System();
+	InputManager*	Input();
+	AudioManager*	Audio();
+	AControlUE*		Control();
+	UiManager*		Ui();
+	StateManager*	State();
+	AHudUE*			Hud();
+	UWorld*			Scope();
 	UViewportUE*	Viewport();
+	DataC*			Data();
+	CosmosC*		Cosmos();
 
 private:
 
-	LogC*				Log_;
-	PathsC*				Path_;
+	LogC*			Log_;
+	PathsC*			Path_;
 	UserLib*		User_;
-	ConfigManager*		Config_;
-	UiManager*			Ui_;
-	StateManager*		State_;
-	SystemManager*		System_;
-	AudioManager*		Audio_;
-	InputManager*		Input_;
-	UWorld*				Scope_;
-	UViewportUE*		Viewport_;
-	AHudUE*				Hud_;
-	AControlUE*			Control_;
-	
+	ConfigManager*	Config_;
+	UiManager*		Ui_;
+	StateManager*	State_;
+	SystemManager*	System_;
+	AudioManager*	Audio_;
+	InputManager*	Input_;
+	UWorld*			Scope_;
+	UViewportUE*	Viewport_;
+	AHudUE*			Hud_;
+	AControlUE*		Control_;
+	DataC*			Data_;
+	CosmosC*		Cosmos_;
 };

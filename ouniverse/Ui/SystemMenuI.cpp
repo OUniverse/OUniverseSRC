@@ -56,14 +56,14 @@ void SystemMenuIO::Activate()
 
 	
 	
-	CreationISM* IsmCreation = new CreationISM(Ui,this);
+	CreationISM* IsmCreation = new CreationISM(Glass_,this);
 	SubMenuVector[SubMenus::Creation] = IsmCreation;
 
-	UserISM* IsmUser = new UserISM(Ui, this, MAJOR->User(), MAJOR->Config());
+	UserISM* IsmUser = new UserISM(Glass_, this, MAJOR->User(), MAJOR->Config());
 	SubMenuVector[SubMenus::User] = IsmUser;
 	IsmUser->Activate();
 	
-	TitleISM* IsmTitle = new TitleISM(Ui, this);
+	TitleISM* IsmTitle = new TitleISM(Glass_, this);
 	SubMenuVector[SubMenus::Title] = IsmTitle;
 	IsmTitle->Activate();
 

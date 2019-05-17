@@ -19,7 +19,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "System/Mode.h"
 #include "Engine/World.h"
-#include "Form/Payload.h"
+
+#include "System/Data.h"
+#include "World/Cosmos.h"
 
 #include "Interface/Dir.h"
 #include "Min/DebugM.h"
@@ -92,7 +94,6 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 	DBUG("Test Boot Activated.");
 	MajorC::Create();
 	MajorC* M = MajorC::Get();
-	M->Test1();
 	
 	M->Path_ = PathsC::Create();
 	M->Log_ = LogC::Create(M->Path()->Logs());
@@ -121,10 +122,15 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 void UBoot::CoherentReady()
 {
 	DBUG("CUI Ready...");
+	LOG(BOOT, 0, 0, "CUI Ready...")
 
 	MajorC* M	= MajorC::Get();
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
 	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->State_	= StateManager::Create();
+	M->Data_	= DataC::Create(M->Path()->Atlas());
+	M->Cosmos_	= CosmosC::Create();
+
+	LOGP
 }

@@ -6,11 +6,20 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #pragma once
 
+class UBoot;
+
 class OUNIVERSE_API CosmosC
 {
+	friend UBoot;
+
+private:
+
+	static CosmosC* Create();
 
 public:
 
+	static CosmosC* Get();
+	
 	CosmosC();
 
 };

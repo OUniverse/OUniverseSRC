@@ -42,7 +42,7 @@ private:
 
 	struct DetailsS
 	{
-		StringC ID;
+		int ID;
 		StringC Name;
 		StringC Author;
 		StringC Description;

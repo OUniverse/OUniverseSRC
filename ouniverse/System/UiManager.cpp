@@ -83,12 +83,12 @@ UiManager::UiManager(GlassC* InGlass)
 	RegisterIO(IoTypes::Toast, ToastIOM);
 
 
-	SystemMenuIOM->Activate();
-	ConsoleIOM->Activate();
-	PulseIOM->Activate();
-	PopupIOM->Activate();
-	PulseIOM->AddPulse();
-	AchieveIOM->Activate();
+	//SystemMenuIOM->Activate();
+	//ConsoleIOM->Activate();
+	//PulseIOM->Activate();
+	//PopupIOM->Activate();
+	//PulseIOM->AddPulse();
+	//AchieveIOM->Activate();
 }
 
 void UiManager::RegisterIO(IoTypes Type, Io* Io)

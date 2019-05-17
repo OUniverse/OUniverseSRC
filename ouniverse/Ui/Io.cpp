@@ -6,7 +6,7 @@
 
 Io::Io(GlassC* InGlass)
 {
-	Ui = InGlass;
+	Glass_ = InGlass;
 }
 
 
