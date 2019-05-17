@@ -1,13 +1,23 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-WorldManager is a Singleton extension to MAJOR (GameInstance) and manages all loaded 3D data.
 
-This is a massive section and needs to be further subdivided:
-World Manager has to handle weather / region and time calculations as well as NPC locations.
-As a result of this world manager will be split up into a few levels to separate the streaming of levels
-from none 3D tasks like managing the populace and what characters should be existing in what areas.
+## Terra
+
+> **Singleton Service: Created once only by the boot process.**
+
+A service singleton which handles worlds, universes, zones etc in an OOP style.
+
+#### Tasks:
+* Calculates the activities of citizens, the weather, and world events.
+* Unpacks the form data for what objects should be placed in the 3D world.
+* Does not spawn the 3D world itself but communicates with CosmosC to output the world.
+
+**Creator:** UBoot
+**Holder:** Major
+
  */
+
 
 #pragma once
 

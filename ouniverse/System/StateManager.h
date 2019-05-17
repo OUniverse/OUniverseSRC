@@ -1,12 +1,23 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-ProtocolManager is a Singleton extension to MAJOR (GameInstance) and handles different modes the game can be in.
-For example the login or title screen requires different logic compared to playing the game.
-Protocols serves as the base logic and drive for different modes the game can be in.
 
-- Handles the load/unload of Protocols.
-- Synchronizes a change in Protocols by ensuring an old one is unloaded before loading in a new one.
+## StateManager
+
+> **Singleton Service: Created once only by the boot process.**
+
+A service singleton that handle the logic of different modes the game can be in.
+
+An example of different states would be the System Menu compared to Open World. The usage in either state is significantly different from each other.
+
+#### Tasks
+* Loads the State subclasses like a cartridge to run which change the logic.
+* Handles the loading and unloading of States.
+* Synchronizes a change in States by ensuring an old one is unloaded before loading in a new one.
+
+**Creator:** UBoot
+**Holder:** Major
+ 
  */
 
 #pragma once

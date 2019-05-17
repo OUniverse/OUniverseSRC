@@ -1,8 +1,16 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Default game mode assigned to the global level.
- */
+
+## Mode
+
+Extends UE4's AGameMode and holds default game mode assignments.
+
+#### Current Swaps:
+* APlayerController to AControLUE
+* AHud to AHudUE
+
+*/
 
 #pragma once
 

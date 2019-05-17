@@ -1,7 +1,15 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-LogC.
+
+## Log
+
+Logging class, primarily intended to be created once by the boot process and used as a singleton.
+> Here it's created once at startup by the boot script but can be instanced if needed.
+
+**Creator:** UBoot
+**Holder:** Major
+
  */
 
 #pragma once

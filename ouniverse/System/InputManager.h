@@ -1,22 +1,26 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-The InputManager is a Singleton extension to MAJOR and manages forwarding of all inputs.
-Receives all inputs like keyboard and mouse interactions from a SlatePanel attached to the DisplayManager.
 
-Has two maps:
-InputMap pairs the DxScan int of a keypress with a CommandC object (system/command.h)
-A command object holds a delegate which can be triggered and an ID.
+## InputManager
 
-CommandMap is where all the possible game commands get registered as CommandC Objects.
+> **Singleton Service: Created once only by the boot process.**
 
-With this system keypresses can easily be registered to broadcast events.
-Keybinds also are much easier because they only require changing the InputMap pair by moving the 
-COMMAND object to be paired with the DxScan code of a different key.
+A service singleton the manages all input events.
+Receives all inputs like keyboard and mouse interactions from the SInputCatch widget.
 
-There's some wonky pointers here that are pointing inputs from a Slate Widget SInput. 
-Once InputManager receives the input it sends it to the UI Slate Widget (Coherent)
-If Coherent doesn't consume the input then InputManager processes it.
+#### CommandArray
+- Creates all the input Commands used by the game by setting up a class with Event Delegates inside.
+- Command's event delegates can be registered for.
+- Creates a ENUM based map for easy access by the C++ code and also a keycode map to convert key presses to commands
+- The keycode map allows for easy rebinding as well.
+
+#### CharKeyArray
+- Same as CommandArray but handles Char Key presses while in typing mode.
+
+**Creator:** UBoot
+**Holder:** Major
+
  */
 
 

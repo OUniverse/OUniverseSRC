@@ -1,9 +1,13 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-The DisplayManager is an extension to UE4s GameHUD.
-- Sets the main UI panel.
-- Adds the SInput widget which collects all keypresses and interactions.
+
+## ControlUE
+
+AControlUE is an exension to UE4's APlayerController.
+
+> Currently does nothing as the SInputCatch and InputManager are doing most of it's responsibilities.
+
  */
 
 #pragma once

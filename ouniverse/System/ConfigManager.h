@@ -1,8 +1,19 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-The ConfigManager is a Singleton extension to MAJOR and manages global user and game configuration settings.
-Primarily it loads, unpacks, and resaves configuration files.
+
+## ConfigManager
+
+> **Singleton Service: Created once only by the boot process.**
+
+A service singleton which loads the configuration ini files at boot and stores them for use throughout the lifetime.
+
+**Additionals:**
+**IniKey:** Namespace control over an enum system for each possible ini entry.
+
+**Creator:** UBoot
+**Holder:** Major
+
  */
 
 #pragma once

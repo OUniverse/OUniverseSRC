@@ -1,8 +1,16 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-CharKey is a relay of a key press event to the UI so that certain commands can be reacted too in typing mode such as Backspace.
- */
+
+## CharKey
+CharKey are command relays of certain presses while in typing mode using CHAR style input.
+* Instead of sending the Char as a code it sends commands for special keys such as Backspace, Escape, Delete etc.
+
+**Creator:** InputManager
+**Holder:** InputManager
+**Related:** CommandC
+
+*/
 
 #pragma once
 

@@ -1,8 +1,16 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-The AudioManager is a Singleton extension to MAJOR (GameInstance) and manages global audio settings and playback.
- */
+
+> **Singleton Service: Created once only by the boot process.**
+
+A service singleton which manages audio settings and handles playback.
+* Created once in the boot process.
+
+**Creator:** UBoot
+**Holder:** Major
+
+*/
 
 #pragma once
 

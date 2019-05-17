@@ -1,12 +1,19 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Major is a Service Locator singleton and also holds the only memory pointers to the system's services.
 
-Major will be sparingly dropped in locations where Dependency Injection is causing to much pressure and not logically feeling great.
-Generally if parameters are being passed around only to hand off with no relevance to the receiver it will be omitted from injection and retrieved when needed from Major.
+## Major
+> **Service Locator: Created once only by the boot process.**
 
-Major will not be passed through constructors and will instead be reached by a Global Get() from a Macro wrapper minimal script.
+> **Accessed through a Minimal Macro Wrapper MajorM.**
+
+A service locator singleton that holds the pointers to all the services.
+
+*Major will be sparingly dropped in locations where Dependency Injection is causing too much pressure and not logically feeling great. Generally if parameters are being passed around only to hand off with no relevance to the receiver it will be omitted from injection and retrieved when needed from Major.*
+
+**Creator:** UBoot
+**Holder:** GlobalSingletons namespace as a global var
+
  */
 
 #pragma once

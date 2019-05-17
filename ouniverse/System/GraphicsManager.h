@@ -1,8 +1,17 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-The GraphicsManager is a Singleton extension to MAJOR and manages global graphics settings.
- */
+
+## GraphicsManager
+
+> **Singleton Service: Created once only by the boot process.**
+
+A service singleton which stores global graphics settings for use throughout the lifetime.
+
+**Creator:** UBoot
+**Holder:** Major
+
+*/
 
 #pragma once
 

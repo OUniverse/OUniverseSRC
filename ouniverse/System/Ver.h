@@ -2,6 +2,11 @@
 
 /**
 
+## Version
+Static constant access to version information of the program.
+
+> Will most likely require access functions to pull versioning info from the UI and from UE4.
+
  */
 
 #include "CoreMinimal.h"

@@ -1,8 +1,20 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-SInput is a full screen blank widget which gathers all keypresses and inputs.
-Upon recieving the interactions it forwards them to the InputManager to handle the keypress.
+
+## InputCatch
+
+A full screen blank widget which gathers all input events.
+Upon receiving the interactions it forwards them to the InputManager to handle the press/click.
+
+**This is a bandaid to get around the shortcomings of UE4's control system.**
+
+#### Benefits:
+* Easy access to rebinding.
+* Full control over what keypresses and inputs are doing.
+* Distinction between Char Typing and Input commands.
+* Allows for a more OOP approach to controls.
+
  */
 
 #pragma once
