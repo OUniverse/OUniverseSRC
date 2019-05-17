@@ -11,15 +11,19 @@ from none 3D tasks like managing the populace and what characters should be exis
 
 #pragma once
 
-class ACosm;
+class UBoot;
 
-
-class OUNIVERSE_API CosmosManager
+class OUNIVERSE_API TerraC
 {
+	friend UBoot;
+
+private:
+
+	static TerraC* Create();
 
 public:
 
-	//TArray<ACosm*> LoadedCosms;
+	static TerraC* Get();
 
-	void TravelToWorld();
+	TerraC();
 };

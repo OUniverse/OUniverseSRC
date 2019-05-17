@@ -38,3 +38,4 @@ AHudUE* MajorC::Hud()			{ return Hud_; }
 UViewportUE* MajorC::Viewport()	{ return Viewport_; }
 CosmosC* MajorC::Cosmos()		{ return Cosmos_; }
 DataC* MajorC::Data()			{ return Data_; }
+TerraC* MajorC::Terra()			{ return Terra_; }

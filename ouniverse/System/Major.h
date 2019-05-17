@@ -32,6 +32,7 @@ class UViewportUE;
 class AHudUE;
 class AControlUE;
 class SystemManager;
+class TerraC;
 
 class UBoot;
 
@@ -61,6 +62,7 @@ public:
 	UViewportUE*	Viewport();
 	DataC*			Data();
 	CosmosC*		Cosmos();
+	TerraC*			Terra();
 
 private:
 
@@ -79,4 +81,5 @@ private:
 	AControlUE*		Control_;
 	DataC*			Data_;
 	CosmosC*		Cosmos_;
+	TerraC*			Terra_;
 };

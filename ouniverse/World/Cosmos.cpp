@@ -22,5 +22,8 @@ CosmosC* CosmosC::Create()
 
 CosmosC::CosmosC()
 {
-
+	//ACosm* NewLevel = Major->GetWorld()->SpawnActor<ACosm>(ACosm::StaticClass());
+//NewLevel->Infuse(Major->GetData("ou.c_areaTest"));
+//LoadedCosms.Emplace(NewLevel);
+//NewLevel->NewLevel();
 }
