@@ -1,76 +1,157 @@
-
-
 # INTERFACE
 The goal is to include as much core interface functionality into carefully planned Interface wrappers. This will benefit speed of working and having proprietary reusable classes that accomplish what we need now and into the future. When dealing with an engine and 3rd parties there are a sometimes inevitable conversions (IE: UE4's FString) so having full control of automated conversions saves a lot of time.
 
-## String
-Custom string interface
+## Array
+
+**Class:** ArrayC
+
+Generic array implementation.
+> Wrapper around a std::vector
 
 ## Dir
-Custom OOP Folder (Directory) class.
 
-## File
-Custom OOP File class.
+**Struct:** DirS
 
-## Array
-Currently a wrapper around a **std::vector**.
+Represents a directory in an OOP sense.
 
-* **Init (Amount, Default)**
-* **Add (NewType)**
-* **operator[Index]** Returns the value at Index.
-* **+=** ***NewType***   Adds to the Array via std:;vector.push_back
-* **Len**  Gets the size of the Array
-  
-## Map
-Currently a wrapper around a **std::map**.
+* Allows paths to be passed around and dynamically updated if changed.
+* Has a few helper functions for directory management built in.
 
-* **Add (NewKey , NewType)**
-* **Find (KeyName)**'
-* **Try (KeyName , REF)** Returns true/false if it finds something with the key and sets REF to what it finds.
-* **contains(Key)** true/false if it has the key.
-* **operator[KeyName]** Returns value paired with KeyName
-* **Len**  Gets the size of the Array
-* **IsEmpty**  true/false if empty
-* **At(Index)**  Sorts the map in order and gets an index, used for iterating through all entries in the Map. 
-> Map.At(Index) might be a really messy implementation but I couldn't figure out a better way to do this for now.
+> Possibly this should be changed to a class.
 
-## HashMap
-** INCOMPLETE **
-Currently a wrapper around a std::unordered_map
+## DirQuery
 
-## Delegate
-**REMOVED**
-Originally was a wrapper around a *Infinitely Fast Delegate* but the documentation on usage was too thin when dealing with them in Events template style and my brain almost exploded writing the Template for an Event Handler that uses a nested custom Listener class. Some performance benchmarks were showing that std::function is about the same speed so it's unclear for now without further testing if it really matters. 
+**Struct:** DirQueryS
 
-> If there comes a time when  committing to *infinitely fast* makes sense we can use the interface wrapper to swap them out.
-> 
+Functionality for querying directories within a directory.
+
+* Can return the name all folders within a directory.
+* Can return the full path of all folders within a diretory.
+* Can return the number of folders in a directory.
+
 ## Event
 
-Custom templated code I wrote using an EventListener (EventC) and a Listener (ListenerC). 
+**Class:** Event0C / Listener0C
+**Class:** Event1C / Listener1C
+**Class:** Event2C / Listener2C
 
-#### Gather()
-Makes the EventListener gather return values from all it's listeners.
-#### Trigger()
-Fires all the Listener delegates and ignores their return values.
+Specialized event delegates interface.
 
-The inner Listener class serves a few purposes:
-* Aids in easily registering and binding to the interface
-* Is a easy to use handle to unregister or adjust the delegate
-* Allows for custom flags to be set, like if it should be a thread or if it should unregister itself on use.
+* Registerable event which methods can sign up for.
+* Uses a tokenesque sign up so that registry can be canceled from the token itself
+* Gather fires events and gets return values
+* Trigger fires events and ignores return values
+* Can register multiple methods
+
+#### Macros
+
+Typedefs the Event and the Listener for easy use.
+
+* EVENT0 (EventType,ListenerType,ReturnVar)
+* EVENT1 (EventType,ListenerType,ReturnVar,Param1)
+* EVENT2 (EventType,ListenerType,ReturnVar,Param1,Param2)
+
+## File
+**Class:**  FileC
+Custom OOP File class with some helper functionality.
+
+## FileQuery
+
+**Struct:** FileQueryS
+
+Functionality for querying files within a directory.
+
+* Can return the name all files within a directory.
+* Can return the full path of all files within a diretory.
+* Can return the number of files in a directory.
+* Can filter by extension.
+* Check if file exists.
+
+## Gemini
+
+**Class:**  GeminiC
+
+A commonly used pairing of int + int as a dual map key representing the Atlas ID + Form ID.
+This was converted to an interface due to it's core functionality in OUniverse's Data/Atlas strategy.
+
+* Represents a map of a map both with int keys which returns a form.
+
+> Might be changed to return an atlas which then has it's own map.
+
+## HashMap
+
+**Class:**  HashMapC
+
+Not yet implemented, will be a wrapper around a std::unordered_map.
+
+
+## Increment
+
+**Struct:**  IncrementS
+
+Self contained incrementing INT with a cursor to the next available number for dealing unique ID values.
 
 ## Ini
 
-Fairly complex ini interface for retrieving pointers to variables (so they reflect changes when checked). These return the exact expected types so no casting is required.
+**Class:**  IniC
 
-#### TODO
+Loads and saves ini documents from a path.
 
-##### OnChange:
-Might add events to the ini or create inherited ones that have events so that OnChange events can be registered for.
-##### Lang:
-Translation files will use something similar to INIs but are only expected to have strings ever, so a lighter weight ini might be created that only handles IO of strings.
+#### Features
+* Can restore any value to default.
+* Only writes altered values.
+* Access values by exact type.
+
+#### Additions
+**Entry:**  Abstract Ini Entry.
+**String:**  Entry extension which contains a StringC.
+**Float:**  Entry extension which contains a float.
+**Int:**  Entry extension which contains an int.
+**Bool:**  Entry extension which contains a bool.
 
 ## Json
-An interface for reading JSON data that currently is a wrapper around **rapidjson**.
+
+**Struct:**  JsonS
+
+Json reader only interface which is a wrapper around rapidjson
+
+## JsonWriter
+
+**Struct:**  JsonWriterS
+
+Custom JSON serializer for fast minimal output without having to create marshal structs.
+
+## Map
+
+**Class:** MapC
+
+Generic map implementation.
+> Wrapper around a std::map
+
+## String
+
+**Class:** StringC
+
+Generic string implementation.
+> Wrapper around a std::string with some custom functionality.
+
+## Thread
+
+**Class:** ThreadC
+
+No interface needed since std::thread is so straightforward.
+Currently just a static function for detecting hardware max thread.
+
+## Twin
+
+**Struct:** TwinS
+
+Commonly used storage system by the Atlas/Form data system of OUniverse..
+Holds a pair of int64s.
+
 
 ## Void
-Events are struggling returning a void so a requirement for delegates is that functions used by the Event interface must returning something not void. Initially I was returning and int as 0 but this was confusing in some cases in knowing if the return value is actually important or just a placeholder for void. Void is intended to communicate that the function's return value is not important.
+
+**Struct:** Void
+
+For templates when a void can not be used as a return value this custom Void can be used.
