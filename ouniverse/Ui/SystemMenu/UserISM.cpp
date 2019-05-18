@@ -5,7 +5,7 @@
 #include "System/Major.h"
 #include "System/UserLib.h"
 #include "System/UiManager.h"
-#include "System/UserFolder.h"
+#include "System/User.h"
 #include "System/ConfigManager.h"
 
 #include "Ui/SystemMenuI.h"

@@ -2,10 +2,11 @@
 
 /**
 
+## AudioManager
+
 > **Singleton Service: Created once only by the boot process.**
 
 A service singleton which manages audio settings and handles playback.
-* Created once in the boot process.
 
 **Creator:** UBoot
 **Holder:** Major
