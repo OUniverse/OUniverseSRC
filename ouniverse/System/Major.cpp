@@ -39,3 +39,4 @@ UViewportUE* MajorC::Viewport()	{ return Viewport_; }
 CosmosC* MajorC::Cosmos()		{ return Cosmos_; }
 TerraC* MajorC::Terra()			{ return Terra_; }
 DataC* MajorC::Data()			{ return Data_; }
+SessionC* MajorC::Session()		{ return Session_; }

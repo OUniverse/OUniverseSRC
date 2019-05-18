@@ -27,6 +27,7 @@ class PathsC;
 class DataC;
 class CosmosC;
 class TerraC;
+class SessionC;
 class UserLib;
 class InputManager;
 class DisplayManager;
@@ -40,6 +41,7 @@ class UViewportUE;
 class AHudUE;
 class AControlUE;
 class SystemManager;
+
 
 class UBoot;
 
@@ -70,6 +72,7 @@ public:
 	DataC*			Data();
 	CosmosC*		Cosmos();
 	TerraC*			Terra();
+	SessionC*		Session();
 
 private:
 
@@ -89,4 +92,5 @@ private:
 	DataC*			Data_;
 	CosmosC*		Cosmos_;
 	TerraC*			Terra_;
+	SessionC*		Session_;
 };

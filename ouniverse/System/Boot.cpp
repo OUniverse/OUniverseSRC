@@ -6,6 +6,7 @@
 #include "System/Major.h"
 #include "System/Paths.h"
 #include "System/Log.h"
+#include "System/Session.h"
 #include "System/ConfigManager.h"
 #include "System/UserLib.h"
 #include "System/HudUE.h"
@@ -69,17 +70,11 @@ void UBoot::Boot(UObject* WorldContextObject)
 	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
 	LOG(BOOT, 0, 0, "Config Created")
 
-	
-	M->User_	= UserLib::Create(M->Path()->Users());
 
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 	
-
-	M->User()->LoadUsers();
-	M->User()->SetUser(65535);
-
 	M->Hud()->PrepareInputs(M->Path()->UiServer()->Get());
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
@@ -126,6 +121,12 @@ void UBoot::CoherentReady()
 	LOG(BOOT, 0, 0, "CUI Ready...")
 
 	MajorC* M	= MajorC::Get();
+
+	M->Session_ = SessionC::Create();
+	M->User_ = UserLib::Create(M->Path()->Users(),M->Session());
+	M->User()->LoadUsers();
+	M->User()->SetUser(65535);
+
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
 	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
