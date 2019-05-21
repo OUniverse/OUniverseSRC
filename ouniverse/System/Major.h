@@ -27,8 +27,9 @@ class PathsC;
 class DataC;
 class CosmosC;
 class TerraC;
-class SessionC;
+class KernelC;
 class UserLib;
+class SessionLib;
 class InputManager;
 class DisplayManager;
 class ConfigManager;
@@ -58,7 +59,7 @@ public:
 
 	LogC*			Log();
 	PathsC*			Path();
-	UserLib*		User();
+	UserLib*		UserL();
 	ConfigManager*	Config();
 	SystemManager*	System();
 	InputManager*	Input();
@@ -72,13 +73,13 @@ public:
 	DataC*			Data();
 	CosmosC*		Cosmos();
 	TerraC*			Terra();
-	SessionC*		Session();
+	KernelC*		Kernel();
 
 private:
 
 	LogC*			Log_;
 	PathsC*			Path_;
-	UserLib*		User_;
+	UserLib*		UserLib_;
 	ConfigManager*	Config_;
 	UiManager*		Ui_;
 	StateManager*	State_;
@@ -92,5 +93,5 @@ private:
 	DataC*			Data_;
 	CosmosC*		Cosmos_;
 	TerraC*			Terra_;
-	SessionC*		Session_;
+	KernelC*		Kernel_;
 };

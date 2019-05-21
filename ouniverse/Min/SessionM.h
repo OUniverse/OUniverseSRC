@@ -14,6 +14,6 @@ Boot works by calling the UBoot::Boot function from any level in UE4 blueprints.
 
 #pragma once
 
-#include "System/Session.h"
+#include "System/Kernel.h"
 
-#define SESSION SessionC::Get()
+#define SESSION KernelC::Get()

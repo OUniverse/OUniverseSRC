@@ -57,7 +57,7 @@ void SystemMenuIO::Activate()
 	CreationISM* IsmCreation = new CreationISM(Glass_,this);
 	SubMenuVector[SubMenus::Creation] = IsmCreation;
 
-	UserISM* IsmUser = new UserISM(Glass_, this, MAJOR->User(), MAJOR->Config());
+	UserISM* IsmUser = new UserISM(Glass_, this, MAJOR->UserL(), MAJOR->Config());
 	SubMenuVector[SubMenus::User] = IsmUser;
 	IsmUser->Activate();
 	
@@ -72,7 +72,7 @@ void SystemMenuIO::King()
 	GSEND0("sysmenu.open");
 	EvaluateOptions();
 
-	if (!MajorC::Get()->User()->IsUserChosen())
+	if (!MajorC::Get()->UserL()->IsUserChosen())
 	{
 		SetOverlayEnabled(false);
 		GetMenu(SubMenus::User)->King();

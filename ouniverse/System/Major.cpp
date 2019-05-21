@@ -24,7 +24,7 @@ MajorC* MajorC::Create()
 }
 
 PathsC* MajorC::Path()			{ return Path_; }
-UserLib* MajorC::User()			{ return User_; }
+UserLib* MajorC::UserL()		{ return UserLib_; }
 ConfigManager* MajorC::Config()	{ return Config_; }
 UiManager* MajorC::Ui()			{ return Ui_; }
 StateManager* MajorC::State()	{ return State_; }
@@ -39,4 +39,4 @@ UViewportUE* MajorC::Viewport()	{ return Viewport_; }
 CosmosC* MajorC::Cosmos()		{ return Cosmos_; }
 TerraC* MajorC::Terra()			{ return Terra_; }
 DataC* MajorC::Data()			{ return Data_; }
-SessionC* MajorC::Session()		{ return Session_; }
+KernelC* MajorC::Kernel()		{ return Kernel_; }

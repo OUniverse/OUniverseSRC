@@ -6,7 +6,7 @@
 #include "System/Major.h"
 #include "System/Paths.h"
 #include "System/Log.h"
-#include "System/Session.h"
+#include "System/Kernel.h"
 #include "System/ConfigManager.h"
 #include "System/UserLib.h"
 #include "System/HudUE.h"
@@ -122,8 +122,8 @@ void UBoot::CoherentReady()
 
 	MajorC* M	= MajorC::Get();
 
-	M->Session_ = SessionC::Create();
-	M->User_ = UserLib::Create(M->Path()->Users(),M->Session());
+	M->Kernel_ = KernelC::Create();
+	M->UserLib_ = UserLib::Create(M->Path()->Users(),M->Kernel());
 
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
@@ -131,10 +131,10 @@ void UBoot::CoherentReady()
 	M->State_	= StateManager::Create();
 	M->Data_	= DataC::Create(M->Path()->Atlas());
 	M->Cosmos_	= CosmosC::Create();
-	M->Terra_	 = TerraC::Create();
+	M->Terra_	= TerraC::Create();
 
-	M->User()->LoadUsers();
-	M->User()->SetUser(65535);
+	M->UserL()->LoadUsers();
+	M->UserL()->SetUser(65535);
 
 	LOGP
 }
