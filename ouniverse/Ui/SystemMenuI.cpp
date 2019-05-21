@@ -18,8 +18,6 @@
 #include "Ui/SystemMenu/TitleISM.h"
 #include "Ui/SystemMenu/UserISM.h"
 
-#include "Util/FileFriend.h"
-
 #include "cohtml/Binding/Binding.h"
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlFStringBinder.h"

@@ -124,8 +124,6 @@ void UBoot::CoherentReady()
 
 	M->Session_ = SessionC::Create();
 	M->User_ = UserLib::Create(M->Path()->Users(),M->Session());
-	M->User()->LoadUsers();
-	M->User()->SetUser(65535);
 
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
@@ -134,5 +132,9 @@ void UBoot::CoherentReady()
 	M->Data_	= DataC::Create(M->Path()->Atlas());
 	M->Cosmos_	= CosmosC::Create();
 	M->Terra_	 = TerraC::Create();
+
+	M->User()->LoadUsers();
+	M->User()->SetUser(65535);
+
 	LOGP
 }
