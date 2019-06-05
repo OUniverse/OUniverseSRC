@@ -4,7 +4,7 @@
 #include "System/UserLib.h"
 #include "System/Kernel.h"
 
-#include "Min/DebugM.h"
+#include "Min/LogM.h"
 
 SystemP::SystemP(KernelC* InKernel, UserLibC* InUserLib)
 {
@@ -16,10 +16,8 @@ SystemP::SystemP(KernelC* InKernel, UserLibC* InUserLib)
 
 void SystemP::Activate()
 {
-	DBUG("GOT HERE1")
 	if (First_)
 	{
-		DBUG("GOT HERE2")
 		GoUser();
 		return;
 	}
@@ -28,16 +26,19 @@ void SystemP::Activate()
 void SystemP::GoUser()
 {
 	UserLib_->SetUser(65535);
+	LOGP
 	GoTitle();
 }
 
 void SystemP::GoTitle()
 {
 	Kernel_->SetLoadout(0);
+	LOGP
 	GoSession();
 }
 
 void SystemP::GoSession()
 {
 	Kernel_->SetSession(41290);
+	LOGP
 }
