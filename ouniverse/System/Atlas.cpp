@@ -16,19 +16,7 @@
 
 #include "Interface/TitleParse.h"
 
-bool AtlasC::HasExtension(StringC InExtension)
-{
-	if (InExtension == StringC(Extension()))
-	{
-		return true;
-	}
-	return false;
-}
-
-StringC AtlasC::Extension()
-{
-	return "atlas";
-}
+const char* AtlasC::EXT = "atlas";
 
 
 AtlasC::DetailsS::DetailsS(const char*  JSerialized)
@@ -51,7 +39,7 @@ AtlasC::AtlasC(StringC InPath)
 	Valid_ = false;
 
 
-	FileQueryS Fi = FileQueryS(Path_,Extension());
+	FileQueryS Fi = FileQueryS(Path_, AtlasC::EXT);
 
 	LOG(BOOT, 0, 0, StringC("Scanning Atlas Folder: ") + InPath + "/")
 
@@ -86,7 +74,6 @@ bool AtlasC::Header()
 	File.open(Path_.ToChar());
 
 	std::getline(File, Line);
-	Scribe_ = ScribeS(Line);
 
 	Details_ = DetailsS(Line.c_str());
 

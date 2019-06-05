@@ -27,8 +27,6 @@ WorldD::WorldD(AtlasC* InAtlas, StringC InFile)
 	std::ifstream File;
 	File.open((InAtlas->Path() + InFile).ToChar());
 
-	std::getline(File, Line);
-	Scribe_ = ScribeS(Line);
 
 	std::getline(File, Line);
 	Header_ = HeaderS(Line);

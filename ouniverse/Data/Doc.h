@@ -7,7 +7,6 @@ Atlas
 #pragma once
 
 #include "Interface/String.h"
-#include "Interface/Header.h"
 #include "System/Atlas.h"
 
 class AtlasC;
@@ -23,7 +22,6 @@ public:
 
 protected:
 
-	ScribeS Scribe_;
 	int UID_;
 	AtlasC* Atlas_;
 	

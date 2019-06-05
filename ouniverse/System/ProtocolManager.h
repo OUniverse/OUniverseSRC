@@ -42,7 +42,6 @@ public:
 
 	enum Types
 	{
-		User,
 		System,
 		Creation,
 		OpenWorld,

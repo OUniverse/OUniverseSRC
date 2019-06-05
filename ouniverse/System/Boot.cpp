@@ -140,7 +140,7 @@ void UBoot::CoherentReady()
 
 	M->UserL()->LoadUsers();
 
-	M->Protocol()->Activate(ProtocolManager::Types::User);
+	M->Protocol()->Activate(ProtocolManager::Types::System);
 
 	LOGP
 }

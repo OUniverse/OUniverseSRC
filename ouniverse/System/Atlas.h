@@ -7,7 +7,6 @@ Atlas
 #pragma once
 
 #include "Interface/String.h"
-#include "Interface/Header.h"
 #include "Interface/Map.h"
 
 class WorldD;
@@ -16,7 +15,7 @@ class PayloadC;
 
 class AtlasFullC
 {
-
+	
 public:
 
 	AtlasFullC(AtlasC* InAtlas);
@@ -30,13 +29,12 @@ private:
 
 class AtlasC
 {
+	static const char* EXT;
+
 	friend PayloadC;
 
 
 public: 
-
-	static bool HasExtension(StringC InExtension);
-	static StringC Extension();
 
 	StringC Path();
 
@@ -65,8 +63,7 @@ private:
 	bool Valid_;
 
 	StringC Path_;
-	
-	ScribeS Scribe_;
+
 	DetailsS Details_;
 
 	void Promote();

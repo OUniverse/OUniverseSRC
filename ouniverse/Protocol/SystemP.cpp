@@ -1,23 +1,43 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Protocol/SystemP.h"
-#include "System/UiManager.h"
 #include "System/UserLib.h"
-#include "UI/SystemMenuI.h"
+#include "System/Kernel.h"
 
-SystemP::SystemP()
+#include "Min/DebugM.h"
+
+SystemP::SystemP(KernelC* InKernel, UserLibC* InUserLib)
 {
-	AtlasLocked_ = false;
-	//UiP = InUi;
-	//UserP = InUser;
+	First_ = true;
+	Kernel_ = InKernel;
+	UserLib_ = InUserLib;
+
 }
 
 void SystemP::Activate()
 {
-	//LOG(LBOOT,1,"Protocol Activated: SystemMenu");
-	//UserP->GetAllUsers();
-	//UiP->IoSystemMenu()->King();
+	DBUG("GOT HERE1")
+	if (First_)
+	{
+		DBUG("GOT HERE2")
+		GoUser();
+		return;
+	}
+}
 
-	//Major->DataManager->LoadData();
-	//Major->WorldManager->TravelToWorld();
+void SystemP::GoUser()
+{
+	UserLib_->SetUser(65535);
+	GoTitle();
+}
+
+void SystemP::GoTitle()
+{
+	Kernel_->SetLoadout(0);
+	GoSession();
+}
+
+void SystemP::GoSession()
+{
+	Kernel_->SetSession(41290);
 }

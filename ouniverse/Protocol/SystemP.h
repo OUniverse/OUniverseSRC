@@ -8,8 +8,8 @@ Protocol for handling the MainMenu.
 
 #include "Protocol/ProtocolP.h"
 
-class UiC;
 class UserLibC;
+class KernelC;
 
 class OUNIVERSE_API SystemP : public ProtocolP
 {
@@ -17,10 +17,19 @@ class OUNIVERSE_API SystemP : public ProtocolP
 
 private:
 
-	SystemP();
+	bool First_;
 
-	bool AtlasLocked_;
+	SystemP(KernelC* InKernel, UserLibC* InUserLib);
 
 	virtual void Activate() override;
+
+	KernelC* Kernel_;
+	UserLibC* UserLib_;
+	
+	void GoUser();
+
+	void GoTitle();
+
+	void GoSession();
 
 };
