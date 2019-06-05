@@ -6,22 +6,28 @@ Form: Abstract base form.
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Interface/String.h"
+#include "Interface/Json.h"
 
-class PayloadC;
-struct JsonS;
+class FactoryF;
 
 class FormF
 {
-	friend PayloadC;
+	friend FactoryF;
+
+public:
+
+	static FormF Create();
+
+	FormF();
+		
+	virtual void Marshal(JsonS* J);
+		
+	virtual ~FormF() {};
 
 protected:
 
-	FormF();
-	uint32 UID;
-	FString Serialized;
-	static FormF* Create();
+	StringC Serialized;	
 	
-	virtual void Marshal(JsonS* J);
-	virtual ~FormF() {};
+	
 };

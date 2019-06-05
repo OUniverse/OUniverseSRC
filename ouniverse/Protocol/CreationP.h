@@ -6,14 +6,13 @@ Protocol for handling the UserSelection menus.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "State/State.h"
+#include "Protocol/ProtocolP.h"
 
 
-class OUNIVERSE_API CreationState : public State
+class OUNIVERSE_API CreationP : public ProtocolP
 {
 
-	friend StateManager;
+	friend ProtocolManager;
 
 private:
 

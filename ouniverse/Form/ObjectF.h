@@ -9,11 +9,11 @@ Object Form: Base level of anything that is placed in the world.
 
 class ObjectF : public FormF
 {
-	friend PayloadC;
+	friend FactoryF;
 
 public:
 
-	static FormF* Create();
+	static FormF Create();
 	ObjectF();
 
 	virtual void Marshal(JsonS* J) override;

@@ -5,7 +5,7 @@
 
 FormF::FormF() {}
 
-FormF* FormF::Create() { return new FormF(); }
+FormF FormF::Create() { return FormF(); }
 
 void FormF::Marshal(JsonS* J)
 {

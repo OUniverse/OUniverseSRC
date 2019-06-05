@@ -12,7 +12,7 @@
 #include "System/HudUE.h"
 #include "System/SystemManager.h"
 #include "System/UiManager.h"
-#include "System/StateManager.h"
+#include "System/ProtocolManager.h"
 #include "System/InputManager.h"
 #include "System/AudioManager.h"
 #include "System/ViewportUE.h"
@@ -117,24 +117,30 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 
 void UBoot::CoherentReady()
 {
+
 	DBUG("CUI Ready...");
 	LOG(BOOT, 0, 0, "CUI Ready...")
 
 	MajorC* M	= MajorC::Get();
 
-	M->Kernel_ = KernelC::Create();
-	M->UserLib_ = UserLib::Create(M->Path()->Users(),M->Kernel());
 
+	M->Session_ = KernelC::Create();
+	M->UserLib_ = UserLibC::Create(M->Path()->Users(),M->Kernel());
+
+	
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
 	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
-	M->State_	= StateManager::Create();
+	M->Protocol_= ProtocolManager::Create(M);
+	
 	M->Data_	= DataC::Create(M->Path()->Atlas());
+
 	M->Cosmos_	= CosmosC::Create();
 	M->Terra_	= TerraC::Create();
 
 	M->UserL()->LoadUsers();
-	M->UserL()->SetUser(65535);
+
+	M->Protocol()->Activate(ProtocolManager::Types::User);
 
 	LOGP
 }

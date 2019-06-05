@@ -6,7 +6,7 @@
 
 ObjectF::ObjectF(){}
 
-FormF* ObjectF::Create() { return new ObjectF(); }
+FormF ObjectF::Create() { return ObjectF(); }
 
 void ObjectF::Marshal(JsonS* J)
 {

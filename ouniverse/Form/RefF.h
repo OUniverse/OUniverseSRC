@@ -10,11 +10,12 @@ Ref Form: A placement in 3D space.
 
 class RefF : public FormF
 {
+	friend FactoryF;
 
 public:
 
 	RefF();
-	static FormF* Create();
+	static FormF Create();
 
 	virtual void Marshal(JsonS* J) override;
 };

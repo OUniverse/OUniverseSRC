@@ -14,16 +14,16 @@ This is the abstract Protocol class which all actual Protocols extend from.
 
 #pragma once
 
-class StateManager;
+class ProtocolManager;
 
-class OUNIVERSE_API State
+class OUNIVERSE_API ProtocolP
 {
 
-	friend StateManager;
+	friend ProtocolManager;
 
 protected:
 
-	State();
+	ProtocolP();
 
 	virtual void Activate();
 

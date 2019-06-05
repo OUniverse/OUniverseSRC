@@ -22,36 +22,39 @@ An example of different states would be the System Menu compared to Open World. 
 
 #pragma once
 
-#include <vector>
+#include "Interface/Array.h"
+#include "Protocol/ProtocolP.h"
 
-class State;
 class UBoot;
+class MajorC;
 
-class OUNIVERSE_API StateManager
+class OUNIVERSE_API ProtocolManager
 {
 
 	friend UBoot;
 
 private:
 
-	static StateManager* Create();
-	StateManager();
+	static ProtocolManager* Create(MajorC* Major);
+	ProtocolManager(MajorC* Major);
 
 public:
 
 	enum Types
 	{
-		SystemMenu,
+		User,
+		System,
 		Creation,
+		OpenWorld,
 		MAX,
 	};
 
-	State* Activate(Types Type);
+	ProtocolP* Activate(Types Type);
 
 private:
 
-	State* GetState(Types Type);
+	ProtocolP* GetProtocol(Types Type);
 
-	std::vector <State*> StateVector;
+	ArrayC<ProtocolP*> Map_;
 
 };

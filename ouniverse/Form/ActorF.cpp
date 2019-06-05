@@ -6,9 +6,9 @@
 
 ActorF::ActorF(){}
 
-FormF* ActorF::Create() { return new ActorF(); }
+FormF ActorF::Create() { return ActorF(); }
 
 void ActorF::Marshal(JsonS* J)
 {
-	FormF::Marshal(J);
+	ObjectF::Marshal(J);
 }

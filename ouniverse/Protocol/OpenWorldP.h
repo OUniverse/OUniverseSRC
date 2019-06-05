@@ -6,14 +6,13 @@ Protocol for handling the MainMenu.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "State/State.h"
+#include "Protocol/ProtocolP.h"
 
 
-class OUNIVERSE_API OpenWorldState : public State
+class OUNIVERSE_API OpenWorldP : public ProtocolP
 {
 
-	friend StateManager;
+	friend ProtocolManager;
 
 private:
 

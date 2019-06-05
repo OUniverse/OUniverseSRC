@@ -1,17 +1,18 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "State/SystemMenuS.h"
+#include "Protocol/SystemP.h"
 #include "System/UiManager.h"
 #include "System/UserLib.h"
 #include "UI/SystemMenuI.h"
 
-SystemMenuState::SystemMenuState(UiC* InUi, UserLib* InUser)
+SystemP::SystemP()
 {
-	UiP = InUi;
-	UserP = InUser;
+	AtlasLocked_ = false;
+	//UiP = InUi;
+	//UserP = InUser;
 }
 
-void SystemMenuState::Activate()
+void SystemP::Activate()
 {
 	//LOG(LBOOT,1,"Protocol Activated: SystemMenu");
 	//UserP->GetAllUsers();

@@ -12,39 +12,42 @@ Payload is the top level unpacked of the Atlas data system.
 
 #pragma once
 
-#include <vector>
-#include <unordered_map>
+
+#include "Interface/String.h"
+#include "Interface/String.h"
 #include "Interface/Array.h"
+#include "Interface/Map.h"
+
+class FactoryF;
 
 class FormF;
 class AtlasC;
 struct DirS;
 
+class ActraD;
+class CrossD;
+class LifeD;
+class SoloD;
+class WorldD;
+class SubWorldD;
+
 class PayloadC
 {
 public:
-
-	FormF* AddForm(const std::string InProprietary);
 
 	PayloadC(DirS* InDirAtlas);
 
 private:
 
-	enum FormTypes {
-		Form,
-		Ref,
-		Object,
-		MAX,
-	};
 
-	ArrayC<FormF* (*)()> FactoryArray;
+	FactoryF* Factory;
 
 	DirS* DirAtlas;
 
-	int FormCount;
+	MapC<int,AtlasC*> AtlasMap;
 
-	std::unordered_map <uint32, FormF*> Map;
+	void Scan(StringC InPath);
 
-	ArrayC<AtlasC*> AtlasArray;
+
 
 };

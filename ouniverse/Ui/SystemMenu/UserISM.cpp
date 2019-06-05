@@ -17,7 +17,7 @@
 #include "CohtmlTArrayBinder.h"
 #include "CohtmlUTypeBinder.h"
 
-UserISM::UserISM(GlassC* InGlass, SystemMenuIO* InSymu, UserLib* InUser, ConfigManager* InConfig) : IoSM(InGlass, InSymu)
+UserISM::UserISM(GlassC* InGlass, SystemMenuIO* InSymu, UserLibC* InUser, ConfigManager* InConfig) : IoSM(InGlass, InSymu)
 {
 	UserP = InUser;
 	ConfigP = InConfig;

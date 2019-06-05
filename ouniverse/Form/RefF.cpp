@@ -4,7 +4,7 @@
 #include "Interface/Json.h"
 
 RefF::RefF(){}
-FormF* RefF::Create() { return new RefF(); }
+FormF RefF::Create() { return RefF(); }
 void RefF::Marshal(JsonS* J)
 {
 	FormF::Marshal(J);
