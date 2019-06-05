@@ -16,7 +16,7 @@ WorldD::WorldD(AtlasC* InAtlas, StringC InFile)
 {
 	DocD::DocD(InAtlas);
 
-	int Result = TitleParseC::TryUID(InFile, Int::MaxU16(), UID_);
+	int Result = TitleParseC::TryUID(InFile, Int::MaxU16, UID_);
 
 	if (!Result)
 	{

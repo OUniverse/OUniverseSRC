@@ -62,7 +62,7 @@ AtlasC::AtlasC(StringC InPath)
 		return;
 	}
 
-	int Result = TitleParseC::TryUID(Fi.File(1), Int::MaxU64(), UID_);
+	int Result = TitleParseC::TryUID(Fi.File(1), Int::MaxU64, UID_);
 
 	if (!Result)
 	{
