@@ -33,6 +33,7 @@ void UserP::GoUser()
 
 void UserP::GoTitle()
 {
+	Kernel_->SetLoadout(0);
 	GoSession();
 }
 
