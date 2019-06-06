@@ -90,20 +90,6 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 
 	LOG(10001, Void(), "Test Boot Activated. MajorC, PathsC, and LogC services have been created.")
 	LOGP
-
-
-	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-
-	//FileReadS FileReader = FileReadS(TCHAR_TO_ANSI(*(M->Path()->Content() + "test.txt")));
-	//DBUG("OK");
-
-	//FileC::Empty(M->Path()->Content() + "test2.txt");
-
-	//FileC::Append(TCHAR_TO_ANSI(*(M->Path()->Content() + "test2.txt")), FileReader.AsFString());
-	
-	//FileC::Delete(M->Path()->DContent() + "test2.txt");
-
-	//new PayloadC(TCHAR_TO_ANSI(*(PathsC::Create()->DContent() + "testfolder/")));
 }
 
 void UBoot::CoherentReady()
@@ -114,8 +100,9 @@ void UBoot::CoherentReady()
 
 	MajorC* M	= MajorC::Get();
 
+	M->Data_ = DataC::Create(M->Path()->Atlas()->Get());
+	M->Kernel_ = KernelC::Create(M->Data());
 
-	M->Session_ = KernelC::Create();
 	M->UserLib_ = UserLibC::Create(M->Path()->Users(),M->Kernel());
 
 	
@@ -124,7 +111,7 @@ void UBoot::CoherentReady()
 	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->Protocol_= ProtocolManager::Create(M);
 	
-	M->Data_	= DataC::Create(M->Path()->Atlas());
+
 
 	M->Cosmos_	= CosmosC::Create();
 	M->Terra_	= TerraC::Create();

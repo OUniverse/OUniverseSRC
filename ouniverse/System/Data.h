@@ -17,9 +17,11 @@ Data is a singleton which loads all the atlas style game data.
 
 #pragma once
 
+#include "Interface/String.h"
+
 class UBoot;
 class PayloadC;
-struct DirS;
+class LoadoutC;
 
 class OUNIVERSE_API DataC
 {
@@ -27,20 +29,18 @@ class OUNIVERSE_API DataC
 
 private:
 
-	static DataC* Create(DirS* InDirAtlas);
+	static DataC* Create(StringC InPath);
 	
-	DataC(DirS* InAtlasDir);
+	DataC(StringC InPath);
 	
 	PayloadC* Payload_;
 
-	DirS* DirAtlas_;
+	StringC Path_;
 
 public:
 
 	static DataC* Get();
 	DataC();
 
-	void Scan();
-
-
+	void ResetPayload(LoadoutC* InLoadout);
 };

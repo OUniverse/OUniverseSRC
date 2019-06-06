@@ -67,7 +67,7 @@ private:
 	private:
 		
 		int Code32_;
-		FDateTime Time_;
+		U64 Time_;
 
 
 	};

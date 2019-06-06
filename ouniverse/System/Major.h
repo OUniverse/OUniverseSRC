@@ -94,5 +94,5 @@ private:
 	DataC*				Data_;
 	CosmosC*			Cosmos_;
 	TerraC*				Terra_;
-	KernelC*			Session_;
+	KernelC*			Kernel_;
 };

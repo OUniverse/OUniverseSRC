@@ -4,6 +4,7 @@
 #include "Interface/File.h"
 #include "Interface/Dir.h"
 
+#include "Misc/DateTime.h"
 
 const char* LogC::FILE_NAME = "log.txt";
 
@@ -58,7 +59,7 @@ void LogC::Stamp(LogC::Entry* Entry)
 
 StringC LogC::Entry::Brass()
 {
-	return StringC(Code32_);
+	return StringC(Time_) & StringC(Code32_);
 }
 
 
@@ -72,7 +73,7 @@ StringC LogC::Entry::Brass()
 LogC::Entry::Entry(int Code32)
 {
 	Code32_ = Code32;
-	//Set Timestamp;
+	Time_ = FDateTime::Now().GetTicks();
 }
 
 StringC LogC::Entry::Output()

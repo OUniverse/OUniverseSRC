@@ -3,7 +3,9 @@
 #include "System/Data.h"
 
 #include "System/Payload.h"
-#include "Interface/Dir.h"
+
+#include "System/Log.h"
+#include "System/Loadout.h"
 
 namespace GlobalSingleton
 {
@@ -15,16 +17,16 @@ DataC* DataC::Get()
 	return &GlobalSingleton::Data;
 }
 
-DataC* DataC::Create(DirS* InDirAtlas)
+DataC* DataC::Create(StringC InPath)
 {
-	GlobalSingleton::Data = *(new DataC(InDirAtlas));
+	GlobalSingleton::Data = *(new DataC(InPath));
 	return &GlobalSingleton::Data;
 }
 
-DataC::DataC(DirS* InDirAtlas)
+DataC::DataC(StringC InPath)
 {
-	DirAtlas_ = InDirAtlas;
-	Payload_ = new PayloadC(DirAtlas_);
+	Path_ = InPath;
+	Payload_ = new PayloadC(Path_);
 }
 
 DataC::DataC()
@@ -32,7 +34,7 @@ DataC::DataC()
 
 }
 
-void DataC::Scan()
+void DataC::ResetPayload(LoadoutC* InLoadout)
 {
-
+	Payload_->Reset(InLoadout);
 }

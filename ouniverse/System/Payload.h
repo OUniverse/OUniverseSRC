@@ -14,40 +14,27 @@ Payload is the top level unpacked of the Atlas data system.
 
 
 #include "Interface/String.h"
-#include "Interface/String.h"
-#include "Interface/Array.h"
 #include "Interface/Map.h"
 
 class FactoryF;
 
-class FormF;
 class AtlasC;
-struct DirS;
-
-class ActraD;
-class CrossD;
-class LifeD;
-class SoloD;
-class WorldD;
-class SubWorldD;
+class LoadoutC;
 
 class PayloadC
 {
 public:
 
-	PayloadC(DirS* InDirAtlas);
+	PayloadC(StringC InPath);
+
+	void Reset(LoadoutC* InLoadout);
 
 private:
 
+	StringC Path_;
 
 	FactoryF* Factory;
 
-	DirS* DirAtlas;
-
-	MapC<int,AtlasC*> AtlasMap;
-
-	void Scan(StringC InPath);
-
-
+	MapC<U64,AtlasC*> AtlasMap;
 
 };
