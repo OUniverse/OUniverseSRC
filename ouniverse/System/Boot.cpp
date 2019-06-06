@@ -6,7 +6,6 @@
 #include "System/Major.h"
 #include "System/Paths.h"
 #include "System/Log.h"
-#include "System/Scribe.h"
 #include "System/Kernel.h"
 #include "System/ConfigManager.h"
 #include "System/UserLib.h"
@@ -28,8 +27,7 @@
 
 #include "Interface/Dir.h"
 #include "Min/DebugM.h"
-#include "Min/LogM.h"
-#include "Min/ScribeM.h"
+#include "System/Log.h"
 
 void UBoot::Boot(UObject* WorldContextObject)
 {
@@ -52,33 +50,21 @@ void UBoot::Boot(UObject* WorldContextObject)
 
 	
 	M->Path_	= PathsC::Create();
-	M->Log_		= LogC::Create(M->Path()->Logs());
-	M->Scribe_	= ScribeC::Create(M->Path()->Logs());
+	M->Log_	= LogC::Create(M->Path()->Logs());
 
-	LOG(BOOT, 0, 0, "Standard Boot... ^")
-		LOG(BOOT, 0, 0, "Major Created ^")
-		LOG(BOOT, 0, 0, "Path Created ^")
-		LOG(BOOT, 0, 0, "Log Created")
-		LOGP
-
-	SCRIBE(0,Void());
-	SCRIBE(0, false)
-	SCRIBE(0, "WHY NOT WORK?")
-	SCRIBE(0, 1.242152f)
-	SCRIBE(0, 14811125)
-	SCRIBE(0, U64(111111111111111111))
-	SCRIBEP
+	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
 
 	if (bModeFail)
 	{
 		DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
-		LOGD(BOOT, 0, 0, "ERROR: The game mode is not correct. It should be AMode...")
+
+		LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
+
 		return;
 	}
 
 	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-	LOG(BOOT, 0, 0, "Config Created")
-
+	LOG(28164, Void(), "ConfigC service activated.")
 
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 	
@@ -89,7 +75,6 @@ void UBoot::Boot(UObject* WorldContextObject)
 	//M->Audio_ = AudioManager::Create(M->Scope());
 	
 	LOGP
-	DBUG("Waiting for CUI...")
 }
 
 #include "Interface/File.h"
@@ -103,11 +88,8 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 	M->Path_ = PathsC::Create();
 	M->Log_ = LogC::Create(M->Path()->Logs());
 
-	LOG(BOOT, 0, 0, "Standard Boot... ^")
-		LOG(BOOT, 0, 0, "Major Created ^")
-		LOG(BOOT, 0, 0, "Path Created ^")
-		LOG(BOOT, 0, 0, "Log Created")
-		LOGP
+	LOG(10001, Void(), "Test Boot Activated. MajorC, PathsC, and LogC services have been created.")
+	LOGP
 
 
 	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
@@ -128,7 +110,7 @@ void UBoot::CoherentReady()
 {
 
 	DBUG("CUI Ready...");
-	LOG(BOOT, 0, 0, "CUI Ready...")
+	LOG(40448, Void(), "UI is ready for bindings.")
 
 	MajorC* M	= MajorC::Get();
 

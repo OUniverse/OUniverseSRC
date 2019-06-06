@@ -10,7 +10,7 @@
 #include "Interface/Json.h"
 #include "Interface/FileQuery.h"
 
-#include "Min/LogM.h"
+#include "System/Log.h"
 
 #include "Data/World.h"
 
@@ -41,26 +41,27 @@ AtlasC::AtlasC(StringC InPath)
 
 	FileQueryS Fi = FileQueryS(Path_, AtlasC::EXT);
 
-	LOG(BOOT, 0, 0, StringC("Scanning Atlas Folder: ") + InPath + "/")
+	LOG(29333, InPath + "/", "Scanning Atlas Folder at path: $V$")
 
 
 	if (Fi.Num() != 1)
 	{
-		LOG(BOOT, 0, 0, StringC("ERROR: Multiple or no atlas files found in folder."))
+		LOG(23985, Void(), "Multiple or no Atlas files found inside.")
 		return;
 	}
 
-	int Result = TitleParseC::TryUID(Fi.File(1), Int::MaxU64, UID_);
+	int  ErrCode = TitleParseC::TryUID(Fi.File(1), Int::MaxU64, UID_);
 
-	if (!Result)
+	if (ErrCode)
 	{
-		LOG(BOOT, 0, 0, StringC("Atlas file name is incorrect. Code: ")+StringC(Result))
-		return;
+		LOG(13451, ErrCode, "Name is incorrect. 1:Prefix Wrong, 2:Name can't become an Integer, 3:Integer of name is larger then max allowed size.  Error Code: $V$")
+			return;
 	}
 
-	if(!Header())
+	if (!Header())
 	{
-		return;
+		LOG(16946, Void(), "The file's header information is not valid.")
+			return;
 	}
 
 	Valid_ = true;

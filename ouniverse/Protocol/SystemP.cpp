@@ -4,7 +4,7 @@
 #include "System/UserLib.h"
 #include "System/Kernel.h"
 
-#include "Min/LogM.h"
+#include "System/Log.h"
 
 SystemP::SystemP(KernelC* InKernel, UserLibC* InUserLib)
 {

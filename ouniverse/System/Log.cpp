@@ -3,11 +3,9 @@
 #include "System/Log.h"
 #include "Interface/File.h"
 #include "Interface/Dir.h"
-#include "Util/ColorRGB.h"
 
-#include "Min/DebugM.h"
 
-#define LOGC_FILENAME "log.txt"
+const char* LogC::FILE_NAME = "log.txt";
 
 namespace GlobalSingleton
 {
@@ -33,31 +31,10 @@ LogC::LogC(DirS* InDirLogs)
 	Count = 0;
 	DirLogs = InDirLogs;
 
-	//PaceVector.assign(Pace::MAX, NULL);
-	FileC LogFile = FileC(DirLogs->Get()/"logs.txt");
+	FileC LogFile = FileC(DirLogs->Get()/LogC::FILE_NAME);
 	LogFile.Empty();
 }
 
-
-void LogC::Write(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText)
-{
-	Count++;
-	EntryVector+=(new Entry(InType, InVerb, InIndent, InText, ColorRGB(255, 255, 255)));
-}
-
-
-LogC::Entry::Entry(uint8 InType, uint8 InVerb, uint8 InIndent, StringC InText, ColorRGB InColor)
-{
-	Text = InText;
-	Type = InType;
-	Verbosity = InVerb;
-	Color = InColor;
-}
-
-StringC LogC::Entry::Output()
-{
-	return Text;
-}
 
 void LogC::Print()
 {
@@ -65,14 +42,166 @@ void LogC::Print()
 
 	for (int i = Cursor; i < Count; i++)
 	{
-		LogAmendment += "#";
-		LogAmendment += i;  
-		LogAmendment += " | ";
-		LogAmendment += EntryVector[i]->Output().NewLine();
-
+		LogAmendment += EntryArray[i]->Output().NewLine();
 		Cursor++;
 	}
 
-	FileC LogFile = FileC(DirLogs->Get()/"logs.txt");
+	FileC LogFile = FileC(DirLogs->Get() / LogC::FILE_NAME);
 	LogFile.Append(LogAmendment);
+}
+
+void LogC::Stamp(LogC::Entry* Entry)
+{
+	Count++;
+	EntryArray += Entry;
+}
+
+StringC LogC::Entry::Brass()
+{
+	return StringC(Code32_);
+}
+
+
+
+
+
+
+
+
+
+LogC::Entry::Entry(int Code32)
+{
+	Code32_ = Code32;
+	//Set Timestamp;
+}
+
+StringC LogC::Entry::Output()
+{
+	return Brass();
+}
+
+void LogC::Write(int Code32, Void Nothing)
+{
+	Stamp(new LogC::Entry(Code32));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+LogC::EntryBool::EntryBool(int Code32, bool InAux) : LogC::Entry(Code32)
+{
+	Aux_ = InAux;
+}
+
+StringC LogC::EntryBool::Output()
+{
+	return Brass() & StringC(Aux_);
+}
+
+void LogC::Write(int Code32, bool InAux)
+{
+	Stamp(new LogC::EntryBool(Code32,InAux));
+}
+
+
+
+
+
+
+
+
+LogC::EntryString::EntryString(int Code32, StringC InAux) : LogC::Entry(Code32)
+{
+	Aux_ = InAux;
+}
+
+StringC LogC::EntryString::Output()
+{
+	return Brass() & StringC(Aux_);
+}
+
+void LogC::Write(int Code32, const char* InAux)
+{
+	Write(Code32, StringC(InAux));
+}
+
+void LogC::Write(int Code32, StringC InAux)
+{
+	Stamp(new LogC::EntryString(Code32, InAux));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+LogC::EntryFloat::EntryFloat(int Code32, float InAux) : LogC::Entry(Code32)
+{
+	Aux_ = InAux;
+}
+
+StringC LogC::EntryFloat::Output()
+{
+	return Brass() & StringC(Aux_);
+}
+
+void LogC::Write(int Code32, float InAux)
+{
+	Stamp(new LogC::EntryFloat(Code32, InAux));
+}
+
+
+
+
+
+
+
+LogC::EntryInt::EntryInt(int Code32, int InAux) : LogC::Entry(Code32)
+{
+	Aux_ = InAux;
+}
+
+StringC LogC::EntryInt::Output()
+{
+	return Brass() & StringC(Aux_);
+}
+
+void LogC::Write(int Code32, int InAux)
+{
+	Stamp(new LogC::EntryInt(Code32, InAux));
+}
+
+
+
+
+
+
+
+LogC::EntryU64::EntryU64(int Code32, U64 InAux) : LogC::Entry(Code32)
+{
+	Aux_ = InAux;
+}
+
+StringC LogC::EntryU64::Output()
+{
+	return Brass() & StringC(Aux_);
+}
+
+void LogC::Write(int Code32, U64 InAux)
+{
+	Stamp(new LogC::EntryU64(Code32, InAux));
 }

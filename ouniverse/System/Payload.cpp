@@ -14,18 +14,20 @@
 
 #include "Data/World.h"
 
-#include "Min/LogM.h"
+#include "System/Log.h"
 
 #include "Form/FactoryF.h"
 
 PayloadC::PayloadC(DirS* InDirAtlas)
 {
+	LOG(30000, "PayloadC:", "Initializing $V$.")
+
 	DirAtlas = InDirAtlas;
 
 	Factory = new FactoryF();
 
 	DirQueryS Fo = DirQueryS(DirAtlas->Get());
-	LOG(BOOT, 0, 0, StringC("Scanning Atlas Directory: ") + DirAtlas->Get() + "/")
+	LOG(31258,  DirAtlas->Get() + "/", Scanning directory : $V$)
 	
 	for (int i = 0; i < Fo.Num(); i++)
 	{

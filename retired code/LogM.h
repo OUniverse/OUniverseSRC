@@ -13,9 +13,9 @@ Wrapper around the LOG singleton.
 #define GEN 0
 #define BOOT 1
 #define HOT 2
-#define LOG(Type,Verb,Indent,Text) LogC::Get()->Write(Type,Verb,Indent,Text);
-#define LOGP LogC::Get()->Print();
-#define LOGD(Type,Verb,Indent,Text) LogC::Get()->Write(Type,Verb,Indent,Text);LogC::Get()->Print();
+#define LOG(Type,Verb,Indent,Text) LogDeleteC::Get()->Write(Type,Verb,Indent,Text);
+#define LOGP LogDeleteC::Get()->Print();
+#define LOGD(Type,Verb,Indent,Text) LogDeleteC::Get()->Write(Type,Verb,Indent,Text);LogDeleteC::Get()->Print();
 
 #if !defined IFS
 #define IFS(InInt) FString::FromInt(InInt)
