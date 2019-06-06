@@ -6,6 +6,7 @@
 #include "System/Major.h"
 #include "System/Paths.h"
 #include "System/Log.h"
+#include "System/Scribe.h"
 #include "System/Kernel.h"
 #include "System/ConfigManager.h"
 #include "System/UserLib.h"
@@ -28,6 +29,7 @@
 #include "Interface/Dir.h"
 #include "Min/DebugM.h"
 #include "Min/LogM.h"
+#include "Min/ScribeM.h"
 
 void UBoot::Boot(UObject* WorldContextObject)
 {
@@ -51,14 +53,21 @@ void UBoot::Boot(UObject* WorldContextObject)
 	
 	M->Path_	= PathsC::Create();
 	M->Log_		= LogC::Create(M->Path()->Logs());
-
-	//M->Config_ = ConfigManager::Create(M->Path()->Users*, M->Path()->ActiveUser*);
+	M->Scribe_	= ScribeC::Create(M->Path()->Logs());
 
 	LOG(BOOT, 0, 0, "Standard Boot... ^")
-	LOG(BOOT, 0, 0, "Major Created ^")
-	LOG(BOOT, 0, 0, "Path Created ^")
-	LOG(BOOT, 0, 0, "Log Created")
-	LOGP
+		LOG(BOOT, 0, 0, "Major Created ^")
+		LOG(BOOT, 0, 0, "Path Created ^")
+		LOG(BOOT, 0, 0, "Log Created")
+		LOGP
+
+	SCRIBE(0,Void());
+	SCRIBE(0, false)
+	SCRIBE(0, "WHY NOT WORK?")
+	SCRIBE(0, 1.242152f)
+	SCRIBE(0, 14811125)
+	SCRIBE(0, U64(111111111111111111))
+	SCRIBEP
 
 	if (bModeFail)
 	{

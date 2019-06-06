@@ -31,6 +31,7 @@ ProtocolManager* MajorC::Protocol()	{ return Protocol_; }
 SystemManager* MajorC::System()		{ return System_; }
 InputManager* MajorC::Input()		{ return Input_; }
 LogC* MajorC::Log()					{ return Log_; }
+ScribeC* MajorC::Scribe()			{ return Scribe_; }
 AudioManager* MajorC::Audio()		{ return Audio_; }
 AControlUE* MajorC::Control()		{ return Control_; }
 UWorld* MajorC::Scope()				{ return Scope_; }

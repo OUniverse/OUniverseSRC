@@ -23,6 +23,7 @@ A service locator singleton that holds the pointers to all the services.
 #include "Interface/Event.h"
 
 class LogC;
+class ScribeC;
 class PathsC;
 class DataC;
 class CosmosC;
@@ -58,6 +59,7 @@ public:
 	static MajorC* Create();
 
 	LogC*				Log();
+	ScribeC*			Scribe();
 	PathsC*				Path();
 	UserLibC*			UserL();
 	ConfigManager*		Config();
@@ -78,6 +80,7 @@ public:
 private:
 
 	LogC*				Log_;
+	ScribeC*			Scribe_;
 	PathsC*				Path_;
 	UserLibC*			UserLib_;
 	ConfigManager*		Config_;
