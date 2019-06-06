@@ -5,8 +5,6 @@
 
 #include "Interface/DirQuery.h"
 
-#include "Data/World.h"
-
 #include "System/Log.h"
 
 #include "Form/FactoryF.h"
@@ -47,7 +45,7 @@ PayloadC::PayloadC(StringC InPath)
 
 	for (int i = 0; i < L; i++)
 	{
-		AtlasMap.At(i)->CheckSofts(&AtlasMap);
+		AtlasMap.At(i)->Bloom(&AtlasMap);
 	}
 }
 

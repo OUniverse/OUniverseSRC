@@ -13,9 +13,13 @@ class FactoryF;
 
 class FormF
 {
+	static const char* K_UID;
+
 	friend FactoryF;
 
 public:
+
+	static const char* K_NAME;
 
 	static FormF Create();
 
@@ -25,9 +29,10 @@ public:
 		
 	virtual ~FormF() {};
 
+	U32 UID();
+
 protected:
 
-	StringC Serialized;	
-	
-	
+	U32 UID_;
+	StringC Serialized;		
 };

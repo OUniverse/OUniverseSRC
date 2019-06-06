@@ -10,25 +10,9 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Array.h"
 
-class WorldD;
+class EpochD;
 class AtlasC;
 class PayloadC;
-
-class AtlasFullC
-{
-	
-public:
-
-	AtlasFullC(AtlasC* InAtlas);
-
-	MapC<int, WorldD*>WorldDocs;
-
-private:
-
-	AtlasC* Atlas_;
-};
-
-
 
 
 class AtlasC
@@ -78,7 +62,7 @@ public:
 	int Inc_;
 
 	bool CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap);
-	void CheckSofts(MapC<U64, AtlasC*>* InAtlasMap);
+	void Bloom(MapC<U64, AtlasC*>* InAtlasMap);
 
 private:
 
@@ -115,9 +99,11 @@ private:
 
 	StringC Path_;
 
-	AtlasFullC* Full_;
-
 	ArrayC<AtlasC::Link> LinksHard;
 	ArrayC<AtlasC::Link> LinksSoft;
 	ArrayC<AtlasC::Link> LinksPref;
+
+	MapC<U8,EpochD*> EpochDocs;
+	
+
 };

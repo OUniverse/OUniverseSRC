@@ -13,11 +13,16 @@
 
 #include "System/Log.h"
 
-#include "Data/World.h"
+#include "Atlas/EpochD.h"
+
 
 #include "Interface/TitleParse.h"
 
-const char* AtlasC::FILE_NAME = "header.atlas";
+
+
+
+const char* AtlasC::FILE_NAME = "_header.atlas";
+
 
 const char* AtlasC::K_ID			= "i";
 const char* AtlasC::K_NAME			= "n";
@@ -38,6 +43,8 @@ const char* AtlasC::K_FLAGS			= "f";
 
 AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 {
+	Path_ = InFullPath;
+
 	Valid_ = false;
 	Promoted_ = false;
 	Requirements_ = false;
@@ -123,13 +130,11 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 void AtlasC::Promote()
 {
 	Promoted_ = true;
-	Full_ = new AtlasFullC(this);
 }
 
 void AtlasC::Demote()
 {
 	Promoted_ = false;
-	delete Full_;
 }
 
 
@@ -193,7 +198,7 @@ bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
 	return Requirements_;
 }
 
-void AtlasC::CheckSofts(MapC<U64, AtlasC*>* InAtlasMap)
+void AtlasC::Bloom(MapC<U64, AtlasC*>* InAtlasMap)
 {
 
 		AtlasC* LinkTarget;
@@ -222,29 +227,26 @@ void AtlasC::CheckSofts(MapC<U64, AtlasC*>* InAtlasMap)
 			}
 		}
 
-}
 
+		FileQueryS Fi = FileQueryS(Path_/"", EpochD::EXT_EPOCH);
 
-AtlasFullC::AtlasFullC(AtlasC* InAtlas)
-{
+		L = Fi.Num();
 
-	Atlas_ = InAtlas;
-	FileQueryS Fi = FileQueryS(Atlas_->Path());
-
-	int Count = Fi.Num();
-	for (int i = 0; i < Count; i++)
-	{
-		if (Fi.Extension(i) == WorldD::Extension())
+		for (int i = 0; i < L; i++)
 		{
-			WorldD* NewWorld = new WorldD(Atlas_,Fi.File(i));
+			EpochD* NewEpoch = new EpochD(Fi.File(i),Fi.Full(i));
 
+			if (NewEpoch->Valid())
+			{
+				EpochDocs.Add(NewEpoch->UID(), NewEpoch);
+			}
+			else
+			{
+				delete NewEpoch;
+			}
 		}
-	}
+
 }
-
-
-
-
 
 
 
