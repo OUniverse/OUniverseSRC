@@ -29,6 +29,8 @@ public:
 
 	void Reset(LoadoutC* InLoadout);
 
+	bool TryAtlas(U64 InUID, AtlasC*& OutAtlas);
+
 private:
 
 	StringC Path_;
@@ -36,5 +38,6 @@ private:
 	FactoryF* Factory;
 
 	MapC<U64,AtlasC*> AtlasMap;
+
 
 };

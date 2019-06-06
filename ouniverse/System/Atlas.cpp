@@ -40,7 +40,11 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 {
 	Valid_ = false;
 	Promoted_ = false;
-
+	Requirements_ = false;
+	RequirementsChecked_ = false;
+	FoundLinksHard_ = false;
+	FoundLinksSoft_ = false;
+	FoundLinksPref_ = false;
 	
 	LOG(29333, InFullPath, "Validating Atlas folder at path: $V$")
 
@@ -91,21 +95,21 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 	int L = CurLinks.Len();
 	for (int i = 0; i < L; i++)
 	{
-		LinksHard.Add(CurLinks[i].UInt64());
+		LinksHard.Add(Link(CurLinks[i].UInt64()));
 	}
 
 	CurLinks = Links[AtlasC::K_LINKS_SOFT];
 	L = CurLinks.Len();
 	for (int i = 0; i < L; i++)
 	{
-		LinksSoft.Add(CurLinks[i].UInt64());
+		LinksSoft.Add(Link(CurLinks[i].UInt64()));
 	}
 
 	CurLinks = Links[AtlasC::K_LINKS_PREF];
 	L = CurLinks.Len();
 	for (int i = 0; i < L; i++)
 	{
-		LinksPref.Add(CurLinks[i].UInt64());
+		LinksPref.Add(Link(CurLinks[i].UInt64()));
 	}
 
 	LOG(5587, UID_, "Atlas approved: $V$")
@@ -115,7 +119,6 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 	Valid_ = true;
 
 }
-
 
 void AtlasC::Promote()
 {
@@ -152,6 +155,43 @@ U64 AtlasC::UID()
 
 
 
+bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
+{
+	if (!RequirementsChecked_)
+	{
+		bool OK = true;
+
+		AtlasC* LinkTarget;
+
+		int L = LinksHard.Len();
+		for (int i = 0; i < L; i++)
+		{
+			if(InAtlasMap->Try(LinksHard[i].UID(), LinkTarget))
+			{
+				if(!LinkTarget->CheckRequirements(InAtlasMap))
+				{
+					OK = false;
+				}
+				else
+				{
+					LinksHard[i].Found();
+				}
+			}
+			else
+			{
+				OK = false;
+			}
+		}
+
+		RequirementsChecked_ = true;
+		Requirements_ = OK;
+
+		LOG(60875, Name_, "Checking requirements for: $V$")
+		LOG(50166, OK, "Requirements result: $V$")
+	}
+
+	return Requirements_;
+}
 
 
 
@@ -171,4 +211,36 @@ AtlasFullC::AtlasFullC(AtlasC* InAtlas)
 
 		}
 	}
+}
+
+
+
+
+
+
+
+AtlasC::Link::Link()
+{
+	UID_ = 0;
+	Exists_ = false;
+}
+
+AtlasC::Link::Link(U64 InUID)
+{
+	UID_ = InUID;
+}
+
+void AtlasC::Link::Found()
+{
+	Exists_ = true;
+}
+
+bool AtlasC::Link::Exists()
+{
+	return Exists_;
+}
+
+U64 AtlasC::Link::UID()
+{
+	return UID_;
 }

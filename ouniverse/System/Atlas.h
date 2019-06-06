@@ -77,22 +77,45 @@ public:
 	StringC Ver_;
 	int Inc_;
 
+	bool CheckRequirements(MapC<U64, AtlasC*>* InPayload);
+
 private:
 
 	AtlasC(StringC InFolderName, StringC InFullPath);
 
+	struct Link
+	{
 
+		Link();
+
+		Link(U64 InUID);
+
+		U64 UID();
+		void Found();
+		bool Exists();
+
+	private:
+		
+		U64 UID_;
+		bool Exists_;
+
+	};
+	
 	U64 UID_;
+	
 	bool Valid_;
 	bool Promoted_;
+	bool RequirementsChecked_;
+	bool Requirements_;
+	bool FoundLinksHard_;
+	bool FoundLinksSoft_;
+	bool FoundLinksPref_;
 
 	StringC Path_;
 
-	bool Header();
-
 	AtlasFullC* Full_;
 
-	ArrayC<U64> LinksHard;
-	ArrayC<U64> LinksSoft;
-	ArrayC<U64> LinksPref;
+	ArrayC<AtlasC::Link> LinksHard;
+	ArrayC<AtlasC::Link> LinksSoft;
+	ArrayC<AtlasC::Link> LinksPref;
 };

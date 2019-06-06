@@ -37,7 +37,16 @@ PayloadC::PayloadC(StringC InPath)
 			delete NewAtlas;
 		}		
 	}
+
+
+	int L = AtlasMap.Len();
+
+	for (int i = 0; i < L; i++)
+	{
+		AtlasMap.At(i)->CheckRequirements(&AtlasMap);
+	}
 }
+
 
 void PayloadC::Reset(LoadoutC* InLoadout)
 {
