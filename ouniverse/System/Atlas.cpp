@@ -193,7 +193,36 @@ bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
 	return Requirements_;
 }
 
+void AtlasC::CheckSofts(MapC<U64, AtlasC*>* InAtlasMap)
+{
 
+		AtlasC* LinkTarget;
+
+		int L = LinksSoft.Len();
+		for (int i = 0; i < L; i++)
+		{
+			if (InAtlasMap->Try(LinksHard[i].UID(), LinkTarget))
+			{
+				if (LinkTarget->CheckRequirements(InAtlasMap))
+				{
+					LinksSoft[i].Found();
+				}
+			}
+		}
+
+		L = LinksPref.Len();
+		for (int i = 0; i < L; i++)
+		{
+			if (InAtlasMap->Try(LinksPref[i].UID(), LinkTarget))
+			{
+				if (LinkTarget->CheckRequirements(InAtlasMap))
+				{
+					LinksPref[i].Found();
+				}
+			}
+		}
+
+}
 
 
 AtlasFullC::AtlasFullC(AtlasC* InAtlas)

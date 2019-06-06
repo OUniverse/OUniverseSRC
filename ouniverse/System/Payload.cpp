@@ -38,12 +38,16 @@ PayloadC::PayloadC(StringC InPath)
 		}		
 	}
 
-
 	int L = AtlasMap.Len();
 
 	for (int i = 0; i < L; i++)
 	{
 		AtlasMap.At(i)->CheckRequirements(&AtlasMap);
+	}
+
+	for (int i = 0; i < L; i++)
+	{
+		AtlasMap.At(i)->CheckSofts(&AtlasMap);
 	}
 }
 

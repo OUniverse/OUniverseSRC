@@ -77,7 +77,8 @@ public:
 	StringC Ver_;
 	int Inc_;
 
-	bool CheckRequirements(MapC<U64, AtlasC*>* InPayload);
+	bool CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap);
+	void CheckSofts(MapC<U64, AtlasC*>* InAtlasMap);
 
 private:
 
@@ -106,6 +107,7 @@ private:
 	bool Valid_;
 	bool Promoted_;
 	bool RequirementsChecked_;
+
 	bool Requirements_;
 	bool FoundLinksHard_;
 	bool FoundLinksSoft_;
