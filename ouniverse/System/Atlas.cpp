@@ -13,8 +13,9 @@
 
 #include "System/Log.h"
 
-#include "Atlas/EpochD.h"
+#include "Atlas/BoostD.h"
 
+#include "System/FormLib.h"
 
 #include "Interface/TitleParse.h"
 
@@ -198,57 +199,52 @@ bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
 	return Requirements_;
 }
 
-void AtlasC::Bloom(MapC<U64, AtlasC*>* InAtlasMap)
+
+
+
+void AtlasC::Survey(MapC<U64, AtlasC*>* InAtlasMap)
 {
 
-		AtlasC* LinkTarget;
+	AtlasC* LinkTarget;
 
-		int L = LinksSoft.Len();
-		for (int i = 0; i < L; i++)
+	int L = LinksSoft.Len();
+	for (int i = 0; i < L; i++)
+	{
+		if (InAtlasMap->Try(LinksSoft[i].UID(), LinkTarget))
 		{
-			if (InAtlasMap->Try(LinksHard[i].UID(), LinkTarget))
+			if (LinkTarget->CheckRequirements(InAtlasMap))
 			{
-				if (LinkTarget->CheckRequirements(InAtlasMap))
-				{
-					LinksSoft[i].Found();
-				}
+				LinksSoft[i].Found();
 			}
 		}
+	}
 
-		L = LinksPref.Len();
-		for (int i = 0; i < L; i++)
+	L = LinksPref.Len();
+	for (int i = 0; i < L; i++)
+	{
+		if (InAtlasMap->Try(LinksPref[i].UID(), LinkTarget))
 		{
-			if (InAtlasMap->Try(LinksPref[i].UID(), LinkTarget))
+			if (LinkTarget->CheckRequirements(InAtlasMap))
 			{
-				if (LinkTarget->CheckRequirements(InAtlasMap))
-				{
-					LinksPref[i].Found();
-				}
+				LinksPref[i].Found();
 			}
 		}
-
-
-		FileQueryS Fi = FileQueryS(Path_/"", EpochD::EXT_EPOCH);
-
-		L = Fi.Num();
-
-		for (int i = 0; i < L; i++)
-		{
-			EpochD* NewEpoch = new EpochD(Fi.File(i),Fi.Full(i));
-
-			if (NewEpoch->Valid())
-			{
-				EpochDocs.Add(NewEpoch->UID(), NewEpoch);
-			}
-			else
-			{
-				delete NewEpoch;
-			}
-		}
+	}
 
 }
 
 
+void AtlasC::BoostMount()
+{
+		FormLib_ = new FormLibC();
+		Boost_->Mount(FormLib_);
+}
+
+void AtlasC::BoostLink(PayloadC* InPayload)
+{
+
+	FormLib_->Link(InPayload);
+}
 
 AtlasC::Link::Link()
 {

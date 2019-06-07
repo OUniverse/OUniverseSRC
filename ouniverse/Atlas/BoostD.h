@@ -11,12 +11,14 @@ Atlas
 #include "Interface/Map.h"
 
 
+class FormLibC;
+
 class BoostD : public DocD
 {
 
 public:
 
-	static const char* EXT_Boost;
+	static const char* EXT;
 	static const char* PFX;
 
 	BoostD(StringC InFile, StringC InPath);
@@ -24,6 +26,8 @@ public:
 	bool Valid();
 
 	U8 UID();
+
+	void Mount(FormLibC* InFormLib);
 
 private:
 

@@ -7,7 +7,6 @@ Atlas
 #pragma once
 
 #include "Interface/String.h"
-#include "System/Atlas.h"
 
 class AtlasC;
 
@@ -16,13 +15,12 @@ class DocD
 
 public: 
 
-	DocD() {};
-
-	DocD(AtlasC* InAtlas);
+	DocD();
 
 protected:
 
 	int UID_;
-	AtlasC* Atlas_;
+	
+	StringC Path_;
 	
 };

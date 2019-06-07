@@ -1,6 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "Atlas/GaiaD.h"
+#include "Atlas/CredD.h"
 #include <fstream>
 #include <string>
 #include "Interface/Int.h"
@@ -12,17 +12,17 @@
 #include "Min/DebugM.h"
 
 
-const char* GaiaD::EXT = "gaia";
-const char* GaiaD::PFX = "G";
+const char* CredD::EXT = "Cred";
+const char* CredD::PFX = "G";
 
-GaiaD::GaiaD(StringC InFile, StringC InPath)
+CredD::CredD(StringC InFile, StringC InPath)
 {
 
 	Valid_ = false;
 
-	LOG(35187, InPath, "Validating Gaia file at path: $V$")
+	LOG(35187, InPath, "Validating Cred file at path: $V$")
 
-		int ErrCode = TitleParseC::TryPrefixedUID(InFile.TrimExtension(), GaiaD::PFX, Int::MaxU8, UID_);
+		int ErrCode = TitleParseC::TryPrefixedUID(InFile.TrimExtension(), CredD::PFX, Int::MaxU8, UID_);
 
 	if (ErrCode)
 	{
@@ -43,20 +43,20 @@ GaiaD::GaiaD(StringC InFile, StringC InPath)
 	}
 
 	std::getline(File, Line);
-	//GaiaF NewGaiaForm = GaiaF(StringC(Line));
-	//GaiaMap.Add(NewGaiaForm.UID(), NewGaiaForm);
+	//CredF NewCredForm = CredF(StringC(Line));
+	//CredMap.Add(NewCredForm.UID(), NewCredForm);
 
-	LOG(30398, int(UID_), "Gaia is valid: $V$")
+	LOG(30398, int(UID_), "Cred is valid: $V$")
 		Valid_ = true;
 
 }
 
-U8 GaiaD::UID()
+U8 CredD::UID()
 {
 	return UID_;
 }
 
-bool GaiaD::Valid()
+bool CredD::Valid()
 {
 	return Valid_;
 }

@@ -3,9 +3,18 @@
 #include "Form/RefF.h"
 #include "Interface/Json.h"
 
-RefF::RefF(){}
-FormF RefF::Create() { return RefF(); }
-void RefF::Marshal(JsonS* J)
+RefF::RefF(JsonS& InJ) : FormF(J)
 {
-	FormF::Marshal(J);
+
+}
+
+RefF* RefF::Create(JsonS& InJ)
+{ 
+	return new RefF(InJ);
+}
+
+
+void RefF::Marshal()
+{
+	FormF::Marshal();
 }

@@ -10,10 +10,11 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Array.h"
 
-class EpochD;
-class AtlasC;
+class FormF;
+class BoostD;
+class ExtraD;
 class PayloadC;
-
+class FormLibC;
 
 class AtlasC
 {
@@ -62,7 +63,10 @@ public:
 	int Inc_;
 
 	bool CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap);
-	void Bloom(MapC<U64, AtlasC*>* InAtlasMap);
+	void Survey(MapC<U64, AtlasC*>* InAtlasMap);
+
+	void BoostMount();
+	void BoostLink(PayloadC* InPayload);
 
 private:
 
@@ -103,7 +107,7 @@ private:
 	ArrayC<AtlasC::Link> LinksSoft;
 	ArrayC<AtlasC::Link> LinksPref;
 
-	MapC<U8,EpochD*> EpochDocs;
-	
+	FormLibC* FormLib_;
 
+	BoostD* Boost_;
 };

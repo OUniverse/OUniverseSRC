@@ -11,14 +11,16 @@
 
 #include "Min/DebugM.h"
 
+#include "System/FormLib.h"
 
-const char* BoostD::EXT_Boost = "boost";
+const char* BoostD::EXT = "boost";
 const char* BoostD::PFX = "B";
 
 BoostD::BoostD(StringC InFile, StringC InPath)
 {
 
 	Valid_ = false;
+	Path_ = InPath;
 
 	LOG(35187, InPath, "Validating Boost file at path: $V$")
 
@@ -59,4 +61,18 @@ U8 BoostD::UID()
 bool BoostD::Valid()
 {
 	return Valid_;
+}
+
+void BoostD::Mount(FormLibC* InFormLib)
+{
+	std::string Line;
+	std::ifstream File;
+	File.open(Path_.ToChar());
+
+	std::getline(File, Line);
+	std::getline(File, Line);
+	InFormLib->AddSerializedList(StringC(Line));
+
+	//BoostF NewBoostForm = BoostF(StringC(Line));
+	//BoostMap.Add(NewBoostForm.UID(), NewBoostForm);
 }

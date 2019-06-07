@@ -14,10 +14,7 @@
 PayloadC::PayloadC(StringC InPath)
 {
 	LOG(30000, "PayloadC", "Initializing $V$.")
-
 	Path_ = InPath;
-
-	Factory = new FactoryF();
 
 	DirQueryS Fo = DirQueryS(Path_);
 	LOG(31258,  Path_/""," Scanning directory : $V$")
@@ -45,7 +42,7 @@ PayloadC::PayloadC(StringC InPath)
 
 	for (int i = 0; i < L; i++)
 	{
-		AtlasMap.At(i)->Bloom(&AtlasMap);
+		AtlasMap.At(i)->Survey(&AtlasMap);
 	}
 }
 

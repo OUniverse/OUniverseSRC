@@ -9,23 +9,21 @@ Form: Abstract base form.
 #include "Interface/String.h"
 #include "Interface/Json.h"
 
-class FactoryF;
+
 
 class FormF
 {
 	static const char* K_UID;
 
-	friend FactoryF;
-
 public:
 
 	static const char* K_NAME;
 
-	static FormF Create();
+	static FormF* Create(JsonS& InJ);
 
-	FormF();
+	FormF(JsonS& InJ);
 		
-	virtual void Marshal(JsonS* J);
+	virtual void Marshal();
 		
 	virtual ~FormF() {};
 
@@ -34,5 +32,5 @@ public:
 protected:
 
 	U32 UID_;
-	StringC Serialized;		
+	JsonS J;		
 };

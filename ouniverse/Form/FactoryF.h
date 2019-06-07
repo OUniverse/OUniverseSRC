@@ -14,30 +14,3 @@ Payload is the top level unpacked of the Atlas data system.
 
 #include "Interface/Array.h"
 #include "Interface/String.h"
-
-class FormF;
-
-class FactoryF
-{
-
-public:
-
-	FactoryF();
-	ArrayC<FormF (*)()> FAC;
-
-private:
-	
-	enum Types
-	{
-		Error,
-		Form,
-		Ref,
-		Object,
-		Actor,
-		MAX,
-	};
-
-	
-
-
-};

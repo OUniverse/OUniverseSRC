@@ -9,9 +9,9 @@ Atlas
 #include "Atlas/Doc.h"
 
 #include "Interface/Map.h"
-#include "Form/EpochF.h"
 
-class GaiaD : public DocD
+
+class ExtraD : public DocD
 {
 
 public:
@@ -19,7 +19,7 @@ public:
 	static const char* EXT;
 	static const char* PFX;
 
-	GaiaD(StringC InFile, StringC InPath);
+	ExtraD(StringC InFile, StringC InPath);
 
 	bool Valid();
 
@@ -31,6 +31,6 @@ private:
 
 	bool Valid_;
 
-	//MapC<U32, EpochF> EpochMap;
+	//MapC<U32, ExtraF> ExtraMap;
 
 };

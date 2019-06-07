@@ -11,15 +11,15 @@ Atlas
 #include "Interface/Map.h"
 
 
-class SubWorldD : public DocD
+class CredD : public DocD
 {
 
 public:
 
-	static const char* EXT_SubWorld;
+	static const char* EXT;
 	static const char* PFX;
 
-	SubWorldD(StringC InFile, StringC InPath);
+	CredD(StringC InFile, StringC InPath);
 
 	bool Valid();
 
@@ -31,6 +31,5 @@ private:
 
 	bool Valid_;
 
-	//MapC<U32, SubWorldF> SubWorldMap;
 
 };

@@ -5,19 +5,23 @@
 
 #include "Min/DebugM.h"
 
+
 const char* FormF::K_UID		= "u";
 const char* FormF::K_NAME		= "n";
 
-FormF::FormF() {}
 
-FormF FormF::Create() { return FormF(); }
-
-void FormF::Marshal(JsonS* J)
+FormF::FormF(JsonS& InJ)
 {
+	J = InJ;
+	UID_ = J.UInt32(FormF::K_UID);
+}
 
-	UID_ = J->UInt32(FormF::K_UID);
+FormF* FormF::Create(JsonS& InJ)
+{ 
+	return new FormF(InJ); 
+}
 
-}	
+void FormF::Marshal() {}	
 
 U32 FormF::UID()
 {

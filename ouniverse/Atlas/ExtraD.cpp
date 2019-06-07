@@ -1,6 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "Atlas/EpochD.h"
+#include "Atlas/ExtraD.h"
 #include <fstream>
 #include <string>
 #include "Interface/Int.h"
@@ -12,28 +12,28 @@
 #include "Min/DebugM.h"
 
 
-const char* EpochD::EXT_EPOCH = "epoch";
-const char* EpochD::PFX = "E";
+const char* ExtraD::EXT = "Extra";
+const char* ExtraD::PFX = "A";
 
-EpochD::EpochD(StringC InFile, StringC InPath)
+ExtraD::ExtraD(StringC InFile, StringC InPath)
 {
 
 	Valid_ = false;
 
-	LOG(35187, InPath, "Validating Epoch file at path: $V$")
+	LOG(35187, InPath, "Validating Extra file at path: $V$")
 
-	int ErrCode = TitleParseC::TryPrefixedUID(InFile.TrimExtension(), EpochD::PFX, Int::MaxU8, UID_);
+		int ErrCode = TitleParseC::TryPrefixedUID(InFile.TrimExtension(), ExtraD::PFX, Int::MaxU8, UID_);
 
 	if (ErrCode)
 	{
 		LOG(13451, ErrCode, "Name is incorrect. 1:Prefix Wrong, 2:Name can't become an Integer, 3:Integer of name is larger than max allowed size.  Error Code: $V$")
-		return;
+			return;
 	}
 
 	std::string Line;
 	std::ifstream File;
 	File.open(InPath.ToChar());
-		
+
 	std::getline(File, Line);
 	U8 WriterVer = StringC(Line).ToU8ZeroFail();
 	if (!WriterVer)
@@ -43,20 +43,20 @@ EpochD::EpochD(StringC InFile, StringC InPath)
 	}
 
 	std::getline(File, Line);
-	EpochF NewEpochForm = EpochF(StringC(Line));
-	EpochMap.Add(NewEpochForm.UID(), NewEpochForm);
-	
-	LOG(30398, int(UID_), "Epoch is valid: $V$")
-	Valid_ = true;
+	//ExtraF NewExtraForm = ExtraF(StringC(Line));
+	//ExtraMap.Add(NewExtraForm.UID(), NewExtraForm);
+
+	LOG(30398, int(UID_), "Extra is valid: $V$")
+		Valid_ = true;
 
 }
 
-U8 EpochD::UID()
+U8 ExtraD::UID()
 {
 	return UID_;
 }
 
-bool EpochD::Valid()
+bool ExtraD::Valid()
 {
 	return Valid_;
 }

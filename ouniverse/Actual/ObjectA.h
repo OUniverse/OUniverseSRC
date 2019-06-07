@@ -15,6 +15,5 @@ class OUNIVERSE_API ObjectA : public FormA
 
 public:
 
-	ObjectA(ObjectF* InObjectF);
 
 };
