@@ -16,7 +16,7 @@ Payload is the top level unpacked of the Atlas data system.
 #include "Interface/String.h"
 #include "Interface/Map.h"
 
-class AtlasC;
+class AtlasLibC;
 class LoadoutC;
 
 class PayloadC
@@ -31,7 +31,7 @@ private:
 
 	StringC Path_;
 
-	MapC<U64,AtlasC*> AtlasMap;
+	AtlasLibC* AtlasLib_;
 
 
 };

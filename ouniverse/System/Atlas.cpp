@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string>
 
+#include "System/AtlasLib.h"
+
 #include "Interface/Int.h"
 #include "Interface/Json.h"
 #include "Interface/FileQuery.h"
@@ -161,22 +163,22 @@ U64 AtlasC::UID()
 
 
 
-bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
+bool AtlasC::CheckRequirements(AtlasLibC* InAtlasMap)
 {
 	if (!RequirementsChecked_)
 	{
-		bool OK = true;
+		bool IsAllowed = true;
 
-		AtlasC* LinkTarget;
+		AtlasC* RequiredAtlas = NULL;
 
 		int L = LinksHard.Len();
 		for (int i = 0; i < L; i++)
 		{
-			if(InAtlasMap->Try(LinksHard[i].UID(), LinkTarget))
+			if(InAtlasMap->Try(LinksHard[i].UID(), RequiredAtlas))
 			{
-				if(!LinkTarget->CheckRequirements(InAtlasMap))
+				if(!RequiredAtlas->CheckRequirements(InAtlasMap))
 				{
-					OK = false;
+					IsAllowed = false;
 				}
 				else
 				{
@@ -185,15 +187,15 @@ bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
 			}
 			else
 			{
-				OK = false;
+				IsAllowed = false;
 			}
 		}
 
 		RequirementsChecked_ = true;
-		Requirements_ = OK;
+		Requirements_ = IsAllowed;
 
 		LOG(60875, Name_, "Checking requirements for: $V$")
-		LOG(50166, OK, "Requirements result: $V$")
+		LOG(50166, IsAllowed, "Requirements result: $V$")
 	}
 
 	return Requirements_;
@@ -202,10 +204,10 @@ bool AtlasC::CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap)
 
 
 
-void AtlasC::Survey(MapC<U64, AtlasC*>* InAtlasMap)
+void AtlasC::Survey(AtlasLibC* InAtlasMap)
 {
 
-	AtlasC* LinkTarget;
+	AtlasC* LinkTarget = NULL;
 
 	int L = LinksSoft.Len();
 	for (int i = 0; i < L; i++)

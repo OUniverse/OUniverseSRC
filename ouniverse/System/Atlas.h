@@ -15,6 +15,8 @@ class BoostD;
 class ExtraD;
 class PayloadC;
 class FormLibC;
+class AtlasLibC;
+
 
 class AtlasC
 {
@@ -36,9 +38,11 @@ class AtlasC
 	static const char* K_LINKS_PREF;
 
 	static const char* K_FLAGS;
-	friend PayloadC;
 
 
+
+	friend AtlasLibC;
+	
 public: 
 
 	StringC Path();
@@ -62,8 +66,8 @@ public:
 	StringC Ver_;
 	int Inc_;
 
-	bool CheckRequirements(MapC<U64, AtlasC*>* InAtlasMap);
-	void Survey(MapC<U64, AtlasC*>* InAtlasMap);
+	bool CheckRequirements(AtlasLibC* InAtlasMap);
+	void Survey(AtlasLibC* InAtlasMap);
 
 	void BoostMount();
 	void BoostLink(PayloadC* InPayload);

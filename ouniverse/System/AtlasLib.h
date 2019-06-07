@@ -11,26 +11,35 @@ Atlas
 
 
 class AtlasC;
+class LoadoutC;
 
 class AtlasLibC
 {
 
 public:
 
-	AtlasLibC();
+	AtlasLibC(StringC InPath);
+
 	AtlasC* operator[](U64 InValue);
+
+	AtlasC* At(int Index);
+
+	void Add(U64 InUID, AtlasC* InAtlas);
+
+	int Len();
+
+	bool Try(U64 InUID, AtlasC* Out);
+
+	void Reset();
+
+	void Promote(LoadoutC* InLoadout);
 
 private:
 
-	enum Types {
-		Form,
-		Ref,
-		Object,
-		TYPES_MAX,
-	};
+	StringC Path_;
 
-	int Num_;
-
+	int Len_;
+	
 	MapC<U64, AtlasC*> Lib_;
 
 };
