@@ -18,6 +18,7 @@
 #include "Atlas/BoostD.h"
 
 #include "System/FormLib.h"
+#include "System/CreditLib.h"
 
 #include "Interface/TitleParse.h"
 
@@ -67,7 +68,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 	}
 
 	
-	StringC SearchPath = InFullPath/AtlasC::FILE_NAME;
+	StringC SearchPath = (InFullPath / AtlasC::FILE_NAME);
 
 	if (!FileC(SearchPath).Exists())
 	{

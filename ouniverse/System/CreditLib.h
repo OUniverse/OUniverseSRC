@@ -12,6 +12,7 @@ Credit
 
 class CreditC;
 class LoadoutC;
+struct JsonS;
 
 class CreditLibC
 {
@@ -30,6 +31,8 @@ public:
 
 	bool Try(U64 InUID, CreditC* Out);
 	
+	void GetCreditsFromAtlas(StringC InAtlasPath);
+
 private:
 
 	int Len_;

@@ -7,6 +7,7 @@
 #include "System/Loadout.h"
 #include "System/AtlasLib.h"
 
+
 PayloadC::PayloadC(StringC InPath)
 {
 	LOG(30000, "PayloadC", "Initializing $V$.")

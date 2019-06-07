@@ -17,8 +17,15 @@ class CreditC
 	
 public: 
 
-	U64 UID();
+	static const char* FILE_NAME;
 
+	static const char* K_UID;
+	static const char* K_ID;
+	static const char* K_AUTHORITY;
+	static const char* K_ITERATION;
+
+	CreditC(JsonS* InJ);
+	
 	bool Valid();
 
 	StringC ID_;
@@ -27,13 +34,25 @@ public:
 	StringC Desc_;
 	StringC Author_;
 	StringC Website_ ;
-	StringC Date_;
 
-	U64 Recency;
+	int Authority_;
+	int Iteration_;
+	
+	void Update(JsonS* InJ);
+
+	void Compare(JsonS* InJ);
+
+	enum AuthorityLevels {
+		Error,
+		Unknown,
+		Rough,
+		Ref,
+		TeamMember,
+		Actual,
+	};
+
 
 private:
-
-	U64 UID_;
 
 	bool Valid_;
 

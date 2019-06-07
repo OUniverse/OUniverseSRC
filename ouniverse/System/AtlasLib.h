@@ -12,6 +12,7 @@ Atlas
 
 class AtlasC;
 class LoadoutC;
+class CreditLibC;
 
 class AtlasLibC
 {
@@ -41,5 +42,7 @@ private:
 	int Len_;
 	
 	MapC<U64, AtlasC*> Lib_;
+
+	CreditLibC* CreditLib_;
 
 };

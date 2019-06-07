@@ -3,6 +3,7 @@
 #include "System/AtlasLib.h"
 #include "System/Atlas.h"
 #include "System/Loadout.h"
+#include "System/CreditLib.h"
 
 #include "Interface/DirQuery.h"
 
@@ -12,6 +13,7 @@ AtlasLibC::AtlasLibC(StringC InPath)
 {
 	Len_ = 0;
 	Path_ = InPath;
+	CreditLib_ = new CreditLibC();
 
 	DirQueryS Fo = DirQueryS(Path_);
 	LOG(31258, Path_ / "", " Scanning directory : $V$")
@@ -37,8 +39,12 @@ AtlasLibC::AtlasLibC(StringC InPath)
 
 	for (int i = 0; i < Len_; i++)
 	{
-		Lib_.At(i)->Survey(this);
+		AtlasC* Seek = NULL;
+		Seek = Lib_.At(i);
+		Seek->Survey(this);
+		CreditLib_->GetCreditsFromAtlas(Seek->Path());
 	}
+
 }
 
 

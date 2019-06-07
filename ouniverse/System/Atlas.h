@@ -16,7 +16,7 @@ class ExtraD;
 class PayloadC;
 class FormLibC;
 class AtlasLibC;
-
+class CreditLibC;
 
 class AtlasC
 {

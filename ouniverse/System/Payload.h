@@ -33,5 +33,4 @@ private:
 
 	AtlasLibC* AtlasLib_;
 
-
 };
