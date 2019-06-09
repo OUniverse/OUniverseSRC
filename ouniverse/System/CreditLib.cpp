@@ -47,7 +47,7 @@ void CreditLibC::GetCreditsFromAtlas(StringC InAtlasPath)
 
 	if (!FileC(SearchPath).Exists())
 	{
-		LOG(13789, SearchPath, "File missing: $V$")
+		LOG(404, SearchPath, "File missing")
 			return;
 	}
 
@@ -59,7 +59,7 @@ void CreditLibC::GetCreditsFromAtlas(StringC InAtlasPath)
 	U8 WriterVer = StringC(Line).ToU8ZeroFail();
 	if (!WriterVer)
 	{
-		LOG(51687, Void(), "Error with Writer Version.");
+		LOG(505, Void(), "Error with Writer Version.");
 		return;
 	}
 

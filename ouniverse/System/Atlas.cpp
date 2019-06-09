@@ -16,16 +16,18 @@
 #include "System/Log.h"
 
 #include "Atlas/BoostD.h"
+#include "Atlas/ExtraD.h"
 
 #include "System/FormLib.h"
 #include "System/CreditLib.h"
+#include "System/Cosmos.h"
 
 #include "Interface/TitleParse.h"
 
 
 
 
-const char* AtlasC::FILE_NAME = "_header.atlas";
+const char* AtlasC::FILE_NAME = "_.atlas";
 
 
 const char* AtlasC::K_ID			= "i";
@@ -45,9 +47,9 @@ const char* AtlasC::K_LINKS_PREF	= "p";
 
 const char* AtlasC::K_FLAGS			= "f";
 
-AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
+AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 {
-	Path_ = InFullPath;
+	Path_ = InPath;
 
 	Valid_ = false;
 	Promoted_ = false;
@@ -56,8 +58,9 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 	FoundLinksHard_ = false;
 	FoundLinksSoft_ = false;
 	FoundLinksPref_ = false;
-	
-	LOG(29333, InFullPath, "Validating Atlas folder at path: $V$")
+	Evolved_ = false;
+
+	LOG(29333, InPath, "Validating Atlas folder at path: $V$")
 
 	int ErrCode = TitleParseC::TryUID(InFolderName, Int::MaxU64, UID_);
 
@@ -68,13 +71,19 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 	}
 
 	
-	StringC SearchPath = (InFullPath / AtlasC::FILE_NAME);
+	LOG(35000, UID_, "Loading ATLAS document: $V$")
+	Valid_ = false;
 
-	if (!FileC(SearchPath).Exists())
-	{
-		LOG(13789, SearchPath, "File missing: $V$")
-		return;
-	}
+
+	StringC SearchPath = (InPath / AtlasC::FILE_NAME);
+	LOG(105, InPath, "Path: $V$")
+
+
+		if (!FileC(SearchPath).Exists())
+		{
+			LOG(404, SearchPath, "File missing")
+				return;
+		}
 
 	std::string Line;
 	std::ifstream File;
@@ -84,7 +93,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 	U8 WriterVer = StringC(Line).ToU8ZeroFail();
 	if (!WriterVer)
 	{
-		LOG(51687, Void(), "Error with Writer Version.");
+		LOG(505, Void(), "Error with Writer Version.");
 		return;
 	}
 
@@ -123,16 +132,17 @@ AtlasC::AtlasC(StringC InFolderName,StringC InFullPath)
 		LinksPref.Add(Link(CurLinks[i].UInt64()));
 	}
 
-	LOG(5587, UID_, "Atlas approved: $V$")
-
 	LOG(10293, Name_, "Is Valid: $V$")
-
 	Valid_ = true;
 
 }
 
 void AtlasC::Promote()
 {
+	FormLib_ = new FormLibC();
+	BoostD BoostDoc = BoostD(Path_, Name_);
+	JsonS Forms = JsonS(BoostDoc.GetForms());
+	FormLib_->AddList(&Forms);
 	Promoted_ = true;
 }
 
@@ -145,6 +155,24 @@ void AtlasC::Demote()
 bool AtlasC::Promoted()
 {
 	return Promoted_;
+}
+
+void AtlasC::Evolve(CosmosC* InCosmos)
+{
+	ExtraD ExtraDoc = ExtraD(Path_, Name_);
+	ExtraDoc.Mount(FormLib_);
+	Evolved_ = true;
+}
+
+void AtlasC::Devolve()
+{
+	Evolved_ = false;
+}
+
+
+bool AtlasC::Evolved()
+{
+	return Evolved_;
 }
 
 StringC AtlasC::Path()
@@ -237,17 +265,16 @@ void AtlasC::Survey(AtlasLibC* InAtlasMap)
 }
 
 
-void AtlasC::BoostMount()
+void AtlasC::LinkBoost(AtlasLibC* InAtlasLib)
 {
-		FormLib_ = new FormLibC();
-		Boost_->Mount(FormLib_);
+	FormLib_->LinkBoost(InAtlasLib);
 }
 
-void AtlasC::BoostLink(PayloadC* InPayload)
+void AtlasC::LinkExtra(AtlasLibC* InAtlasLib)
 {
-
-	FormLib_->Link(InPayload);
+	FormLib_->LinkExtra(InAtlasLib);
 }
+
 
 AtlasC::Link::Link()
 {

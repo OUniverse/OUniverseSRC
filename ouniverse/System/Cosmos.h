@@ -19,19 +19,13 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 #pragma once
 
-class UBoot;
+class SessionC;
 
 class OUNIVERSE_API CosmosC
 {
-	friend UBoot;
-
-private:
-
-	static CosmosC* Create();
 
 public:
 
-	static CosmosC* Get();
-	CosmosC();
+	CosmosC(SessionC* InSession);
 
 };

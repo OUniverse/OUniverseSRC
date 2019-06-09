@@ -13,6 +13,7 @@ Atlas
 class AtlasC;
 class LoadoutC;
 class CreditLibC;
+class CosmosC;
 
 class AtlasLibC
 {
@@ -25,7 +26,7 @@ public:
 
 	AtlasC* At(int Index);
 
-	void Add(U64 InUID, AtlasC* InAtlas);
+	int PreLen();
 
 	int Len();
 
@@ -33,14 +34,24 @@ public:
 
 	void Reset();
 
+	void Evolve(CosmosC* InCosmos);
+
 	void Promote(LoadoutC* InLoadout);
+
+	void AddAtlas(AtlasC* NewAtlas);
+
+	void AddPreAtlas(AtlasC* NewAtlas);
 
 private:
 
 	StringC Path_;
 
+	int PreLen_;
+
 	int Len_;
 	
+	MapC<U64, AtlasC*> PreLib_;
+
 	MapC<U64, AtlasC*> Lib_;
 
 	CreditLibC* CreditLib_;

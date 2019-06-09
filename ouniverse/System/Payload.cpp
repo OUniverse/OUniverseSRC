@@ -23,3 +23,8 @@ void PayloadC::Reset(LoadoutC* InLoadout)
 	AtlasLib_->Reset();
 	AtlasLib_->Promote(InLoadout);
 }
+
+void PayloadC::Evolve(CosmosC* InCosmos)
+{
+	AtlasLib_->Evolve(InCosmos);
+}

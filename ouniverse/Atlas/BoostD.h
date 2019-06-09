@@ -18,23 +18,16 @@ class BoostD : public DocD
 
 public:
 
-	static const char* EXT;
-	static const char* PFX;
+	static const char* FILE_NAME;
 
-	BoostD(StringC InFile, StringC InPath);
+	BoostD(StringC InPath, StringC InLogID);
 
 	bool Valid();
 
-	U8 UID();
-
-	void Mount(FormLibC* InFormLib);
+	StringC GetForms();
 
 private:
 
-	U8 UID_;
-
 	bool Valid_;
-
-	//MapC<U32, BoostF> BoostMap;
 
 };

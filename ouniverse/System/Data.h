@@ -22,6 +22,7 @@ Data is a singleton which loads all the atlas style game data.
 class UBoot;
 class PayloadC;
 class LoadoutC;
+class CosmosC;
 
 class OUNIVERSE_API DataC
 {
@@ -42,5 +43,6 @@ public:
 	static DataC* Get();
 	DataC();
 
-	void ResetPayload(LoadoutC* InLoadout);
+	void Reset(LoadoutC* InLoadout);
+	void Evolve(CosmosC* InLoadout);
 };

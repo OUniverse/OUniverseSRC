@@ -18,6 +18,7 @@ Payload is the top level unpacked of the Atlas data system.
 
 class AtlasLibC;
 class LoadoutC;
+class CosmosC;
 
 class PayloadC
 {
@@ -26,6 +27,8 @@ public:
 	PayloadC(StringC InPath);
 
 	void Reset(LoadoutC* InLoadout);
+
+	void Evolve(CosmosC* InCosmos);
 
 private:
 

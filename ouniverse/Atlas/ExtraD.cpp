@@ -6,27 +6,29 @@
 #include "Interface/Int.h"
 #include "Interface/TitleParse.h"
 #include "Interface/Json.h"
+#include "Interface/File.h"
 
 #include "System/Log.h"
 
 #include "Min/DebugM.h"
 
 
-const char* ExtraD::EXT = "Extra";
-const char* ExtraD::PFX = "A";
+const char* ExtraD::FILE_NAME = "_.extra";
 
-ExtraD::ExtraD(StringC InFile, StringC InPath)
+
+ExtraD::ExtraD(StringC InPath, StringC InLogID)
 {
 
+	LOG(35002, InLogID, "Loading EXTRA document: $V$")
 	Valid_ = false;
 
-	LOG(35187, InPath, "Validating Extra file at path: $V$")
+	StringC SearchPath = (InPath / ExtraD::FILE_NAME);
+	LOG(105, InPath, "Path: $V$")
 
-		int ErrCode = TitleParseC::TryPrefixedUID(InFile.TrimExtension(), ExtraD::PFX, Int::MaxU8, UID_);
 
-	if (ErrCode)
+	if (!FileC(SearchPath).Exists())
 	{
-		LOG(13451, ErrCode, "Name is incorrect. 1:Prefix Wrong, 2:Name can't become an Integer, 3:Integer of name is larger than max allowed size.  Error Code: $V$")
+		LOG(404, SearchPath, "File missing")
 			return;
 	}
 
@@ -38,7 +40,7 @@ ExtraD::ExtraD(StringC InFile, StringC InPath)
 	U8 WriterVer = StringC(Line).ToU8ZeroFail();
 	if (!WriterVer)
 	{
-		LOG(51687, Void(), "Error with Writer Version.");
+		LOG(505, Void(), "Error with Writer Version.");
 		return;
 	}
 
@@ -46,14 +48,14 @@ ExtraD::ExtraD(StringC InFile, StringC InPath)
 	//ExtraF NewExtraForm = ExtraF(StringC(Line));
 	//ExtraMap.Add(NewExtraForm.UID(), NewExtraForm);
 
-	LOG(30398, int(UID_), "Extra is valid: $V$")
-		Valid_ = true;
+	LOG(600, Void(), "Doc is valid")
+	Valid_ = true;
 
 }
 
-U8 ExtraD::UID()
+void ExtraD::Mount(FormLibC* InFormLib)
 {
-	return UID_;
+	
 }
 
 bool ExtraD::Valid()

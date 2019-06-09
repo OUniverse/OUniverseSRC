@@ -11,12 +11,11 @@ Atlas
 #include "Interface/Array.h"
 
 class FormF;
-class BoostD;
-class ExtraD;
 class PayloadC;
 class FormLibC;
 class AtlasLibC;
 class CreditLibC;
+class CosmosC;
 
 class AtlasC
 {
@@ -39,8 +38,6 @@ class AtlasC
 
 	static const char* K_FLAGS;
 
-
-
 	friend AtlasLibC;
 	
 public: 
@@ -50,9 +47,16 @@ public:
 	bool Valid();
 	
 	void Promote();
+
 	void Demote();
 
 	bool Promoted();
+
+	void Evolve(CosmosC* InCosmos);
+
+	void Devolve();
+
+	bool Evolved();
 
 	U64 UID();
 
@@ -62,19 +66,20 @@ public:
 	StringC Desc_;
 	StringC Author_;
 	StringC Website_ ;
-	StringC Date_;
+	StringC Date_;	
 	StringC Ver_;
 	int Inc_;
 
 	bool CheckRequirements(AtlasLibC* InAtlasMap);
 	void Survey(AtlasLibC* InAtlasMap);
 
-	void BoostMount();
-	void BoostLink(PayloadC* InPayload);
+	void LinkBoost(AtlasLibC* InLib);
+
+	void LinkExtra(AtlasLibC* InLib);
 
 private:
 
-	AtlasC(StringC InFolderName, StringC InFullPath);
+	AtlasC(StringC InFolderName, StringC InPath);
 
 	struct Link
 	{
@@ -99,6 +104,7 @@ private:
 	bool Valid_;
 	bool Promoted_;
 	bool RequirementsChecked_;
+	bool Evolved_;
 
 	bool Requirements_;
 	bool FoundLinksHard_;
@@ -106,12 +112,11 @@ private:
 	bool FoundLinksPref_;
 
 	StringC Path_;
-
+	
 	ArrayC<AtlasC::Link> LinksHard;
 	ArrayC<AtlasC::Link> LinksSoft;
 	ArrayC<AtlasC::Link> LinksPref;
 
 	FormLibC* FormLib_;
 
-	BoostD* Boost_;
 };

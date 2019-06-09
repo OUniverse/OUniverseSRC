@@ -26,7 +26,6 @@ A service locator singleton that holds the pointers to all the services.
 class LogC;
 class PathsC;
 class DataC;
-class CosmosC;
 class TerraC;
 class KernelC;
 class UserLibC;
@@ -72,7 +71,6 @@ public:
 	UWorld*				Scope();
 	UViewportUE*		Viewport();
 	DataC*				Data();
-	CosmosC*			Cosmos();
 	TerraC*				Terra();
 	KernelC*			Kernel();
 
@@ -92,7 +90,6 @@ private:
 	AHudUE*				Hud_;
 	AControlUE*			Control_;
 	DataC*				Data_;
-	CosmosC*			Cosmos_;
 	TerraC*				Terra_;
 	KernelC*			Kernel_;
 };

@@ -32,7 +32,7 @@ void SystemP::GoUser()
 
 void SystemP::GoTitle()
 {
-	Kernel_->SetLoadout(0);
+	Kernel_->SetLoadout(1);
 	LOGP
 	GoSession();
 }

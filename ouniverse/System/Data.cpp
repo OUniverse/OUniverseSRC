@@ -3,6 +3,7 @@
 #include "System/Data.h"
 
 #include "System/Payload.h"
+#include "System/Cosmos.h"
 
 #include "System/Log.h"
 #include "System/Loadout.h"
@@ -34,7 +35,12 @@ DataC::DataC()
 
 }
 
-void DataC::ResetPayload(LoadoutC* InLoadout)
+void DataC::Reset(LoadoutC* InLoadout)
 {
 	Payload_->Reset(InLoadout);
+}
+
+void DataC::Evolve(CosmosC* InLoadout)
+{
+	Payload_->Evolve(InLoadout);
 }

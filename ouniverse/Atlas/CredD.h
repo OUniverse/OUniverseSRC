@@ -16,20 +16,14 @@ class CredD : public DocD
 
 public:
 
-	static const char* EXT;
-	static const char* PFX;
+	static const char* FILE_NAME;
 
-	CredD(StringC InFile, StringC InPath);
+	CredD(StringC InPath, StringC InLogID);
 
 	bool Valid();
 
-	U8 UID();
-
 private:
 
-	U8 UID_;
-
 	bool Valid_;
-
 
 };

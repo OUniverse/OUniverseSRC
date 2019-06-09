@@ -13,7 +13,8 @@ Atlas
 #include "Form/FormF.h"
 
 
-class PayloadC;
+class AtlasLibC;
+struct JsonS;
 
 class FormLibC
 {
@@ -22,10 +23,13 @@ public:
 
 	FormLibC();
 
-	void AddSerializedList(StringC InSer);
+
 	FormF* operator[](U32 InValue);
 
-	void Link(PayloadC* InPayload);
+	void AddList(JsonS* InJ);
+
+	void LinkBoost(AtlasLibC* InAtlasLib);
+	void LinkExtra(AtlasLibC* InAtlasLib);
 
 private:
 
@@ -40,6 +44,6 @@ private:
 
 	ArrayC<FormF* (*)(JsonS&)> FactoryArray;
 
-	MapC<U32, FormF*> Lib_;
+	MapC<U32, FormF*> PreLib_;
 
 };

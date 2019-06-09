@@ -4,6 +4,7 @@
 #include "System/Atlas.h"
 #include "System/Loadout.h"
 #include "System/CreditLib.h"
+#include "System/Cosmos.h"
 
 #include "Interface/DirQuery.h"
 
@@ -11,6 +12,7 @@
 
 AtlasLibC::AtlasLibC(StringC InPath)
 {
+	PreLen_ = 0;
 	Len_ = 0;
 	Path_ = InPath;
 	CreditLib_ = new CreditLibC();
@@ -24,7 +26,7 @@ AtlasLibC::AtlasLibC(StringC InPath)
 
 			if (New->Valid())
 			{
-				Lib_.Add(New->UID(), New);
+				AddPreAtlas(New);
 			}
 			else
 			{
@@ -32,15 +34,15 @@ AtlasLibC::AtlasLibC(StringC InPath)
 			}
 		}
 
-	for (int i = 0; i < Len_; i++)
+	for (int i = 0; i < PreLen_; i++)
 	{
-		Lib_.At(i)->CheckRequirements(this);
+		PreLib_.At(i)->CheckRequirements(this);
 	}
 
-	for (int i = 0; i < Len_; i++)
+	for (int i = 0; i < PreLen_; i++)
 	{
 		AtlasC* Seek = NULL;
-		Seek = Lib_.At(i);
+		Seek = PreLib_.At(i);
 		Seek->Survey(this);
 		CreditLib_->GetCreditsFromAtlas(Seek->Path());
 	}
@@ -48,20 +50,31 @@ AtlasLibC::AtlasLibC(StringC InPath)
 }
 
 
+void AtlasLibC::AddPreAtlas(AtlasC* NewAtlas)
+{
+	PreLen_++;
+	PreLib_.Add(NewAtlas->UID(), NewAtlas);
+}
+
+void AtlasLibC::AddAtlas(AtlasC* NewAtlas)
+{
+	Len_++;
+	Lib_.Add(NewAtlas->UID(), NewAtlas);
+}
+
 AtlasC* AtlasLibC::operator[](U64 InValue)
 {
-	return Lib_[InValue];
+	return PreLib_[InValue];
 }
 
 AtlasC* AtlasLibC::At(int Index)
 {
-	return Lib_.At(Index);
+	return PreLib_.At(Index);
 }
 
-void AtlasLibC::Add(U64 InUID, AtlasC* InAtlas)
+int AtlasLibC::PreLen()
 {
-	Len_++;
-	Lib_.Add(InUID, InAtlas);
+	return PreLen_;
 }
 
 int AtlasLibC::Len()
@@ -71,15 +84,24 @@ int AtlasLibC::Len()
 
 bool AtlasLibC::Try(U64 InUID, AtlasC* Out)
 {
-	return Lib_.Try(InUID, Out);
+	return PreLib_.Try(InUID, Out);
 }
 
 void AtlasLibC::Reset()
 {
-	for (int m = 0; m < Len_; m++)
+	for (int m = 0; m < PreLen_; m++)
 	{
 		//LOG(12838, TryAtlas->UID(), "Demoting Atlas: $V$")
-		Lib_.At(m)->Demote();
+		PreLib_.At(m)->Demote();
+	}
+}
+
+void AtlasLibC::Evolve(CosmosC* InCosmos)
+{
+	for (int m = 0; m < PreLen_; m++)
+	{
+		//LOG(12838, TryAtlas->UID(), "Demoting Atlas: $V$")
+		PreLib_.At(m)->Evolve(InCosmos);
 	}
 }
 
@@ -92,10 +114,16 @@ void AtlasLibC::Promote(LoadoutC* InLoadout)
 
 	for (int i = 0; i < L; i++)
 	{
-		if (Lib_.Try(InLoadout->Atlases_[i].UID_, TryAtlas))
+		if (PreLib_.Try(InLoadout->Atlases_[i].UID_, TryAtlas))
 		{
 			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
+			AddAtlas(TryAtlas);
 			TryAtlas->Promote();
 		}
+	}
+
+	for (int i = 0; i < Len_; i++)
+	{
+		Lib_.At(i)->LinkBoost(this);
 	}
 }

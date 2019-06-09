@@ -11,26 +11,23 @@ Atlas
 #include "Interface/Map.h"
 
 
+class FormLibC;
+
 class ExtraD : public DocD
 {
 
 public:
 
-	static const char* EXT;
-	static const char* PFX;
+	static const char* FILE_NAME;
 
-	ExtraD(StringC InFile, StringC InPath);
+	ExtraD(StringC InPath, StringC InLogID);
 
 	bool Valid();
 
-	U8 UID();
+	void Mount(FormLibC* InFormLib);
 
 private:
 
-	U8 UID_;
-
 	bool Valid_;
-
-	//MapC<U32, ExtraF> ExtraMap;
 
 };

@@ -22,7 +22,6 @@
 #include "Engine/World.h"
 
 #include "System/Data.h"
-#include "System/Cosmos.h"
 #include "System/Terra.h"
 
 #include "Interface/Dir.h"
@@ -111,9 +110,6 @@ void UBoot::CoherentReady()
 	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->Protocol_= ProtocolManager::Create(M);
 	
-
-
-	M->Cosmos_	= CosmosC::Create();
 	M->Terra_	= TerraC::Create();
 
 	M->UserL()->LoadUsers();

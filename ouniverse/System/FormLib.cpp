@@ -18,30 +18,33 @@ FormLibC::FormLibC()
 }
 
 
-void FormLibC::AddSerializedList(StringC InSer)
+void FormLibC::AddList(JsonS* InJ)
 {
-	JsonS JTotal = JsonS(InSer);
-	
-	int Type;
 
-	int L = JTotal.Len();
+	//int Type;
 
-	for (int i = 0; i < L; i++)
-	{
-		JsonS J = JTotal[i];
-		Type = J.Int("t");				
-		FormF* Form = FactoryArray[Type](J);
-		Lib_.Add(Form->UID(), Form);
-	}
+	//int L = InJ->Len();
+
+	//for (int i = 0; i < L; i++)
+	//{
+	//	JsonS J = JTotal[i];
+	//	Type = J.Int("t");
+	//	FormF* Form = FactoryArray[Type](J);
+	//	PreLib_.Add(Form->UID(), Form);
+	//}
 }
-
 
 FormF* FormLibC::operator[](U32 InValue)
 {
-	return Lib_[InValue];
+	return PreLib_[InValue];
 }
 
-void FormLibC::Link(PayloadC* InPayload)
+void FormLibC::LinkBoost(AtlasLibC* InAtlasLib)
+{
+
+}
+
+void FormLibC::LinkExtra(AtlasLibC* InAtlasLib)
 {
 
 }

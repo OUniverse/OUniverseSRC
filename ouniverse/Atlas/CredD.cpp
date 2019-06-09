@@ -6,39 +6,42 @@
 #include "Interface/Int.h"
 #include "Interface/TitleParse.h"
 #include "Interface/Json.h"
+#include "Interface/File.h"
 
 #include "System/Log.h"
 
 #include "Min/DebugM.h"
 
 
-const char* CredD::EXT = "Cred";
-const char* CredD::PFX = "G";
+const char* CredD::FILE_NAME = "_.cred";
 
-CredD::CredD(StringC InFile, StringC InPath)
+
+CredD::CredD(StringC InPath, StringC InLogID)
 {
-
+	LOG(35003, InLogID, "Loading CRED document: $V$")
 	Valid_ = false;
 
-	LOG(35187, InPath, "Validating Cred file at path: $V$")
 
-		int ErrCode = TitleParseC::TryPrefixedUID(InFile.TrimExtension(), CredD::PFX, Int::MaxU8, UID_);
+	StringC SearchPath = (InPath / CredD::FILE_NAME);
+	LOG(105, InPath, "Path: $V$")
 
-	if (ErrCode)
+	
+
+	if (!FileC(SearchPath).Exists())
 	{
-		LOG(13451, ErrCode, "Name is incorrect. 1:Prefix Wrong, 2:Name can't become an Integer, 3:Integer of name is larger than max allowed size.  Error Code: $V$")
-			return;
+		LOG(404, SearchPath, "File missing")
+		return;
 	}
 
 	std::string Line;
 	std::ifstream File;
-	File.open(InPath.ToChar());
+	File.open(SearchPath.ToChar());
 
 	std::getline(File, Line);
 	U8 WriterVer = StringC(Line).ToU8ZeroFail();
 	if (!WriterVer)
 	{
-		LOG(51687, Void(), "Error with Writer Version.");
+		LOG(505, Void(), "Error with Writer Version.");
 		return;
 	}
 
@@ -46,14 +49,9 @@ CredD::CredD(StringC InFile, StringC InPath)
 	//CredF NewCredForm = CredF(StringC(Line));
 	//CredMap.Add(NewCredForm.UID(), NewCredForm);
 
-	LOG(30398, int(UID_), "Cred is valid: $V$")
-		Valid_ = true;
+	LOG(600, Void(), "Doc is valid")
+	Valid_ = true;
 
-}
-
-U8 CredD::UID()
-{
-	return UID_;
 }
 
 bool CredD::Valid()
