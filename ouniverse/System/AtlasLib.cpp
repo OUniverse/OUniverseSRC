@@ -124,6 +124,7 @@ void AtlasLibC::Promote(LoadoutC* InLoadout)
 
 	for (int i = 0; i < Len_; i++)
 	{
+		LOG(34817, Void(), "Linking FORMS in the BOOST phase.")
 		Lib_.At(i)->LinkBoost(this);
 	}
 }

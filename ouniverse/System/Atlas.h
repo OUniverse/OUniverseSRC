@@ -70,7 +70,10 @@ public:
 	StringC Ver_;
 	int Inc_;
 
+
+	//Uses the Atlas Lib to check if each requirement of this atlas exists
 	bool CheckRequirements(AtlasLibC* InAtlasMap);
+
 	void Survey(AtlasLibC* InAtlasMap);
 
 	void LinkBoost(AtlasLibC* InLib);

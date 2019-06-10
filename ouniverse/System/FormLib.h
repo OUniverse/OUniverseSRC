@@ -21,29 +21,36 @@ class FormLibC
 
 public:
 
+	static const char* K_TYPE;
+
 	FormLibC();
 
+	int Len();
 
 	FormF* operator[](U32 InValue);
+
+	void Add(FormF* NewForm);
 
 	void AddList(JsonS* InJ);
 
 	void LinkBoost(AtlasLibC* InAtlasLib);
+	
 	void LinkExtra(AtlasLibC* InAtlasLib);
 
 private:
 
 	enum Types {
+		Error,
 		Form,
 		Ref,
 		Object,
 		TYPES_MAX,
 	};
 
-	int Num_;
+	int Len_;
 
 	ArrayC<FormF* (*)(JsonS&)> FactoryArray;
 
-	MapC<U32, FormF*> PreLib_;
+	MapC<U32, FormF*> Lib_;
 
 };

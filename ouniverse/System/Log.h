@@ -150,6 +150,7 @@ public:
 		void Write(int Code32, int InAux);
 		void Write(int Code32, float InAux);
 		void Write(int Code32, U64 InAux);
+		void Write(int Code32, U32 InAux);
 
 		void Print();
 

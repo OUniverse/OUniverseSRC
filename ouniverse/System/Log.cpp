@@ -206,3 +206,11 @@ void LogC::Write(int Code32, U64 InAux)
 {
 	Stamp(new LogC::EntryU64(Code32, InAux));
 }
+
+
+
+
+void LogC::Write(int Code32, U32 InAux)
+{
+	Stamp(new LogC::EntryInt(Code32, InAux.Ref()));
+}

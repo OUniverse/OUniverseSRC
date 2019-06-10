@@ -7,9 +7,13 @@
 
 #include "System/Payload.h"
 
+#include "System/Log.h"
+
+const char* FormLibC::K_TYPE = "t";
+
 FormLibC::FormLibC()
 {
-	Num_ = 0;
+	Len_ = 0;
 
 	FactoryArray.Init(Types::TYPES_MAX, NULL);
 	FactoryArray[Types::Form]	= FormF::Create;
@@ -18,25 +22,37 @@ FormLibC::FormLibC()
 }
 
 
+int FormLibC::Len()
+{
+	return Len_;
+}
+
 void FormLibC::AddList(JsonS* InJ)
 {
 
-	//int Type;
+	int L = InJ->Len();
 
-	//int L = InJ->Len();
 
-	//for (int i = 0; i < L; i++)
-	//{
-	//	JsonS J = JTotal[i];
-	//	Type = J.Int("t");
-	//	FormF* Form = FactoryArray[Type](J);
-	//	PreLib_.Add(Form->UID(), Form);
-	//}
+	for (int i = 0; i < L; i++)
+	{
+		JsonS NewForm = InJ->At(i);
+		int Type = NewForm.Int(FormLibC::K_TYPE);
+		FormF* Form = FactoryArray[Type](NewForm);
+		Add(Form);
+	}
+}
+
+
+void FormLibC::Add(FormF* NewForm)
+{
+	Len_++;
+	LOG(54439, NewForm->UID(), "Adding Form: $V$")
+	Lib_.Add(NewForm->UID(), NewForm);
 }
 
 FormF* FormLibC::operator[](U32 InValue)
 {
-	return PreLib_[InValue];
+	return Lib_[InValue];
 }
 
 void FormLibC::LinkBoost(AtlasLibC* InAtlasLib)
