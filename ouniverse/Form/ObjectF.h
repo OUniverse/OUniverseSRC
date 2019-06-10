@@ -14,7 +14,7 @@ class ObjectF : public FormF
 public:
 
 	ObjectF(JsonS& InJ);
-	static ObjectF* Create(JsonS& InJ);
+	static FormF* Create(JsonS& InJ);
 
 	virtual void Marshal() override;
 };

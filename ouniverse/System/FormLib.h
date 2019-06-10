@@ -44,6 +44,9 @@ private:
 		Form,
 		Ref,
 		Object,
+		Actor,
+		Epoch,
+		Actra,
 		TYPES_MAX,
 	};
 

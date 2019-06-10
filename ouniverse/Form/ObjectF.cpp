@@ -8,7 +8,7 @@ ObjectF::ObjectF(JsonS& InJ) : FormF(J)
 
 }
 
-ObjectF* ObjectF::Create(JsonS& InJ)
+FormF* ObjectF::Create(JsonS& InJ)
 { 
 	return new ObjectF(InJ);
 }

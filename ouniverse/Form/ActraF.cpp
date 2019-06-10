@@ -8,7 +8,7 @@ ActraF::ActraF(JsonS& InJ) : FormF(J)
 
 }
 
-ActraF* ActraF::Create(JsonS& InJ)
+FormF* ActraF::Create(JsonS& InJ)
 { 
 	return new ActraF(InJ);
 }

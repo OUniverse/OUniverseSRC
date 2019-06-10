@@ -14,7 +14,7 @@ class ActraF : public FormF
 public:
 
 	ActraF(JsonS& InJ);
-	static ActraF* Create(JsonS& InJ);
+	static FormF* Create(JsonS& InJ);
 
 	virtual void Marshal() override;
 };

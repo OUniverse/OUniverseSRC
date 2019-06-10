@@ -4,6 +4,12 @@
 
 #include "Form/FormF.h"
 #include "Form/RefF.h"
+#include "Form/ObjectF.h"
+#include "Form/ActorF.h"
+#include "Form/EpochF.h"
+#include "Form/ActraF.h"
+
+
 
 #include "System/Payload.h"
 
@@ -17,7 +23,11 @@ FormLibC::FormLibC()
 
 	FactoryArray.Init(Types::TYPES_MAX, NULL);
 	FactoryArray[Types::Form]	= FormF::Create;
-	//FactoryArray[Types::Ref]	= RefF::Create;
+	FactoryArray[Types::Ref]	= RefF::Create;
+	FactoryArray[Types::Object]	= ObjectF::Create;
+	FactoryArray[Types::Actor]	= ActorF::Create;
+	FactoryArray[Types::Epoch]	= EpochF::Create;
+	FactoryArray[Types::Actra]	= ActraF::Create;
 
 }
 

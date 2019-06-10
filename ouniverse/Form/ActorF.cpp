@@ -8,7 +8,7 @@ ActorF::ActorF(JsonS& InJ) : ObjectF(J)
 
 }
 
-ActorF* ActorF::Create(JsonS& InJ)
+FormF* ActorF::Create(JsonS& InJ)
 { 
 	return new ActorF(InJ);
 }

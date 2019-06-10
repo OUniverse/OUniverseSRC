@@ -8,7 +8,7 @@ RefF::RefF(JsonS& InJ) : FormF(J)
 
 }
 
-RefF* RefF::Create(JsonS& InJ)
+FormF* RefF::Create(JsonS& InJ)
 { 
 	return new RefF(InJ);
 }

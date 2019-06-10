@@ -8,7 +8,7 @@ EpochF::EpochF(JsonS& InJ) : FormF(J)
 
 }
 
-EpochF* EpochF::Create(JsonS& InJ)
+FormF* EpochF::Create(JsonS& InJ)
 { 
 	return new EpochF(InJ);
 }

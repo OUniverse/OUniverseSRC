@@ -14,7 +14,7 @@ class RefF : public FormF
 public:
 
 	RefF(JsonS& InJ);
-	static RefF* Create(JsonS& InJ);
+	static FormF* Create(JsonS& InJ);
 
 	virtual void Marshal() override;
 };
