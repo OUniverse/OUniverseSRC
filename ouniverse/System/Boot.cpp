@@ -107,7 +107,7 @@ void UBoot::CoherentReady()
 	
 	M->System_	= SystemManager::Create();
 	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
-	M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
+	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->Protocol_= ProtocolManager::Create(M);
 	
 	M->Terra_	= TerraC::Create();

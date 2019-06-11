@@ -49,8 +49,8 @@ InputManager::InputManager(DirS* InDirReg, GlassC* InGlass)
 
 void InputManager::BindUI()
 {
-	GBIND("inputMNG.typeMode", this, &InputManager::TypeMode)
-	GBIND("inputMNG.typeModePrime", this, &InputManager::PrimeTypeMode)
+	//GBIND("inputMNG.typeMode", this, &InputManager::TypeMode)
+	//GBIND("inputMNG.typeModePrime", this, &InputManager::PrimeTypeMode)
 }
 
 CommandC* InputManager::GetCommand(int InCommand)
@@ -77,7 +77,7 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 			CharKey* PTK = PTKeyMap[KeyCode];
 			if (PTK != nullptr)
 			{
-				GSEND1("inputMNG.onPTKey", PTK->ID);
+				//GSEND1("inputMNG.onPTKey", PTK->ID);
 			}
 	}
 	else if(bRebindMode)
@@ -135,7 +135,7 @@ void InputManager::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent&
 {
 	if (bPrimeTypeMode)
 	{
-		GSEND1("inputMNG.onChar", FString().AppendChar(InCharacterEvent.GetCharacter()));
+		//GSEND1("inputMNG.onChar", FString().AppendChar(InCharacterEvent.GetCharacter()));
 	}
 	else {
 		Glass_->Native()->OnKeyChar(MyGeometry, InCharacterEvent);

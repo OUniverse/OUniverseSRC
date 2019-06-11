@@ -41,7 +41,7 @@ void AHudUE::PrepareInputs(StringC UiServerPath)
 	GetOwningPlayerController()->SetInputMode(Mode);
 
 
-	Glass_ = new GlassC();
+	Glass_ = GlassC::Create();
 	Glass_->Ui_ = GetCohtmlHUD();
 	Glass_->NativeInput_ = UiInputActor->GetWidget();
 

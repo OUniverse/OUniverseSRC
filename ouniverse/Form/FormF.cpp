@@ -6,7 +6,7 @@
 #include "Min/DebugM.h"
 
 
-const char* FormF::K_UID		= "u";
+const char* FormF::K_UID		= "@";
 const char* FormF::K_NAME		= "n";
 
 

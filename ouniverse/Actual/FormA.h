@@ -6,6 +6,7 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #pragma once
 
+
 class FormF;
 
 class OUNIVERSE_API FormA

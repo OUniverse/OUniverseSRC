@@ -15,6 +15,10 @@ class OUNIVERSE_API SystemP : public ProtocolP
 {
 	friend ProtocolManager;
 
+public:
+
+	void EndTitle();
+
 private:
 
 	bool First_;

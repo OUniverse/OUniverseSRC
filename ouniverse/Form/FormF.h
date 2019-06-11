@@ -10,7 +10,6 @@ Form: Abstract base form.
 #include "Interface/Json.h"
 
 
-
 class FormF
 {
 	static const char* K_UID;
