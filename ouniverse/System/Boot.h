@@ -37,9 +37,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "OUniverse", meta = (WorldContext = "WorldContextObject", ShowWorldContextPin))
 	static void TestBoot(UObject* WorldContextObject);
 
-
-	//Reply from Coherent Labs Gameface which signifies that the UI is activated and ready for bindings.
-	UFUNCTION()
-	static void CoherentReady();
+	static void UiReady();
 
 };

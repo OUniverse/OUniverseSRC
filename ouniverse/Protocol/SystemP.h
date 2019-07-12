@@ -36,4 +36,8 @@ private:
 
 	void GoSession();
 
+	void ForwardUser();
+
+	void ForwardTitle();
+
 };

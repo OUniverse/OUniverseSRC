@@ -22,13 +22,16 @@ This is an extension of Coherent Lab's extension for further control.
 #include "GameFramework/HUD.h"
 #include "CohtmlGameHUD.h"
 #include "Interface/String.h"
+#include "SCohtmlInputForward.h"
+
+#include "Interface/Event.h"
+
 #include "HudUE.generated.h"
 
 
 
 class UGameViewportClient;
 class UInputManager;
-class SCohtmlInputForward;
 
 class InputManager;
 
@@ -41,18 +44,22 @@ class OUNIVERSE_API AHudUE : public ACohtmlGameHUD
 
 public:
 
-	void PrepareInputs(StringC UiServerPath);
+	void PrepareInputs();
 	void ActivateInputs(InputManager* Input);
 
 
 	UFUNCTION()//Has to be UFunction for Coherent's PreBind function call.
-	void CoherentReady();
+	void ViewReady();
 
 	UGameViewportClient* Viewport;
 	TSharedPtr<class SInputCatch> InputNet;
 
-	GlassC* Glass_;
+	UPROPERTY()
+	UCohtmlHUD* CoHud_;
 
-	GlassC* GetGlass();
+	TSharedPtr<class SCohtmlInputForward> CoBridge_;
 
+	void SetView(const char* InURL);
+
+	Event0C<EventLife> OnViewReady_;
 };

@@ -21,17 +21,15 @@
 #include "CohtmlFStringBinder.h"
 #include "SCohtmlInputForward.h"
 
+#include "Min/DebugM.h"
 
-
-InputManager* InputManager::Create(DirS* InDirReg, GlassC* InGlass)
+InputManager* InputManager::Create(DirS* InDirReg)
 {
-	return new InputManager(InDirReg, InGlass);
+	return new InputManager(InDirReg);
 }
 
-InputManager::InputManager(DirS* InDirReg, GlassC* InGlass)
-{
-	Glass_ = InGlass;
-	
+InputManager::InputManager(DirS* InDirReg)
+{	
 	bRebindMode = false;
 	bTypeMode = false;
 	bPrimeTypeMode = false;
@@ -86,7 +84,7 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 		return;
 	} else {
 
-		Glass_->Native()->OnKeyDown(MyGeometry, InKeyEvent);
+		GlassC::Bridge()->OnKeyDown(MyGeometry, InKeyEvent);
 
 		CommandC* Command;
 		if (InputMap.Try(KeyCode, Command))
@@ -113,7 +111,7 @@ void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEv
 			return;
 		}
 
-		Glass_->Native()->OnKeyUp(MyGeometry, InKeyEvent);
+		GlassC::Bridge()->OnKeyUp(MyGeometry, InKeyEvent);
 
 		//Fires off Mod generated custom keys via a second TMap
 
@@ -138,29 +136,28 @@ void InputManager::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent&
 		//GSEND1("inputMNG.onChar", FString().AppendChar(InCharacterEvent.GetCharacter()));
 	}
 	else {
-		Glass_->Native()->OnKeyChar(MyGeometry, InCharacterEvent);
+		GlassC::Bridge()->OnKeyChar(MyGeometry, InCharacterEvent);
 	}
 	
 }
 void InputManager::OnMouseMove(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-
-	Glass_->Native()->OnMouseMove(MyGeometry,MouseEvent);
+	GlassC::Bridge()->OnMouseMove(MyGeometry,MouseEvent);
 }
 
 void InputManager::OnMouseButtonDown(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	Glass_->Native()->OnMouseButtonDown(MyGeometry, MouseEvent);
+	GlassC::Bridge()->OnMouseButtonDown(MyGeometry, MouseEvent);
 }
 
 void InputManager::OnMouseButtonUp(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	Glass_->Native()->OnMouseButtonUp(MyGeometry, MouseEvent);
+	GlassC::Bridge()->OnMouseButtonUp(MyGeometry, MouseEvent);
 }
 
 void InputManager::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	Glass_->Native()->OnMouseWheel(MyGeometry,MouseEvent);
+	GlassC::Bridge()->OnMouseWheel(MyGeometry,MouseEvent);
 }
 
 

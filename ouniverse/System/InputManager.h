@@ -54,11 +54,11 @@ class OUNIVERSE_API InputManager
 
 private:
 
-	InputManager(DirS* InDirReg, GlassC* InGlass);
+	InputManager(DirS* InDirReg);
 
 public:
 
-	static InputManager* Create(DirS* InDirReg, GlassC* InGlass);
+	static InputManager* Create(DirS* InDirReg);
 
 	void TypeMode(int bEnabled);
 	void PrimeTypeMode(int bEnabled);
@@ -84,12 +84,6 @@ private:
 		Multi,
 		Character,
 	};
-
-
-	//Major->UiManager->Ui->GetView()
-	//UCohtmlBaseComponent* UiView
-	GlassC* Glass_;
-
 
 
 	bool bRebindMode;

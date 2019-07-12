@@ -12,45 +12,33 @@
 
 #include "System/Glass.h"
 
-void AHudUE::PrepareInputs(StringC UiServerPath)
+
+#include "Min/DebugM.h"
+
+void AHudUE::PrepareInputs()
 {
-	SAssignNew(InputNet,SInputCatch).GameHUD(this);
-	if (GEngine && GEngine->GameViewport)
-	{
-		Viewport = GEngine->GameViewport;
-
-		Viewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(InputNet.ToSharedRef()));
-	}
-
-	SetupView((UiServerPath/"ui.html").ToFString(),true,true);
-
 	FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
 	FActorSpawnParameters SpawnInfo;
 	ACohtmlInputActor* UiInputActor = GetWorld()->SpawnActor<ACohtmlInputActor>(Location, Rotation, SpawnInfo);
 	UiInputActor->Initialize();
-	//UiInputActor->AlwaysAcceptMouseInput(true);
-	UiInputActor->SetCohtmlViewFocus(GetCohtmlHUD());
-	//UiInputActor->SetCohtmlInputFocus(true);
-	FSlateApplication::Get().SetKeyboardFocus(InputNet);
+	UiInputActor->AlwaysAcceptMouseInput(true);
+	UiInputActor->SetCohtmlViewFocus(CoHud_);
+	UiInputActor->SetCohtmlInputFocus(true);
+	CoBridge_ = UiInputActor->GetWidget();
+	CoHud_ = GetCohtmlHUD();
 
-	GetCohtmlHUD()->ReadyForBindings.AddDynamic(this, &AHudUE::CoherentReady);
+	SAssignNew(InputNet, SInputCatch).GameHUD(this);
+	if (GEngine && GEngine->GameViewport)
+	{
+		Viewport = GEngine->GameViewport;
+		Viewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(InputNet.ToSharedRef()));
+	}
 
-	FInputModeUIOnly Mode;
-	Mode.SetWidgetToFocus(InputNet);
-	GetOwningPlayerController()->SetInputMode(Mode);
+	//FSlateApplication::Get().SetKeyboardFocus(InputNet);
 
-
-	Glass_ = GlassC::Create();
-	Glass_->Ui_ = GetCohtmlHUD();
-	Glass_->NativeInput_ = UiInputActor->GetWidget();
-
-}
-
-void AHudUE::CoherentReady()
-{
-	//Has to be UFunction for Coherent's PreBind function call.
-	UBoot::CoherentReady();
+	GlassC::Create(this);
+	SetView("coui://ui//sym.html");
 }
 
 void AHudUE::ActivateInputs(InputManager* Input)
@@ -58,7 +46,17 @@ void AHudUE::ActivateInputs(InputManager* Input)
 	InputNet->InputRelay = Input;
 }
 
-GlassC* AHudUE::GetGlass()
+void AHudUE::SetView(const char* InURL)
 {
-	return Glass_;
+	//UiServerPath / "ui.html"
+	SetupView(InURL, true, true);
+	GetCohtmlHUD()->ReadyForBindings.AddDynamic(this, &AHudUE::ViewReady);
+}
+
+void AHudUE::ViewReady()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "View Ready Triggered!");
+	//Has to be UFunction for Coherent's PreBind function call.
+	OnViewReady_.Trigger();
+	UBoot::UiReady();
 }

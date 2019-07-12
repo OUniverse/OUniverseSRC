@@ -20,6 +20,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "System/Mode.h"
 #include "Engine/World.h"
+#include "System/Glass.h"
 
 #include "System/Data.h"
 #include "System/Terra.h"
@@ -27,6 +28,8 @@
 #include "Interface/Dir.h"
 #include "Min/DebugM.h"
 #include "System/Log.h"
+
+#include "Ui/Ui.h"
 
 void UBoot::Boot(UObject* WorldContextObject)
 {
@@ -69,10 +72,15 @@ void UBoot::Boot(UObject* WorldContextObject)
 	
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 	
-	M->Hud()->PrepareInputs(M->Path()->UiServer()->Get());
+	M->Hud()->PrepareInputs();
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 	
+
+	//Ui* UiTest = new Ui();
+	//UiTest->Activate();
+	//GlassC::SetView("curl://ui/ui.html");
+
 	LOGP
 }
 
@@ -91,10 +99,12 @@ void UBoot::TestBoot(UObject* WorldContextObject)
 	LOGP
 }
 
-void UBoot::CoherentReady()
+void UBoot::UiReady()
 {
 
 	DBUG("CUI Ready...");
+	//GSEND0("ui.o")
+
 	LOG(40448, Void(), "UI is ready for bindings.")
 
 	MajorC* M	= MajorC::Get();
@@ -106,7 +116,7 @@ void UBoot::CoherentReady()
 
 	
 	M->System_	= SystemManager::Create();
-	M->Input_	= InputManager::Create(M->Path()->Reg(),M->Hud()->GetGlass());
+	M->Input_	= InputManager::Create(M->Path()->Reg());
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->Protocol_= ProtocolManager::Create(M);
 	
@@ -114,6 +124,7 @@ void UBoot::CoherentReady()
 
 	M->UserL()->LoadUsers();
 
+	M->Hud()->ActivateInputs(M->Input());
 	M->Protocol()->Activate(ProtocolManager::Types::System);
 
 	LOGP

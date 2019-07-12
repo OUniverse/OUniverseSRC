@@ -25,16 +25,28 @@ SystemP::SystemP(KernelC* InKernel, UserLibC* InUserLib)
 void SystemP::Activate()
 {
 	GSEND0("sym.o");
+	GSEND1("sym.openUser", UserLib_->Users().Vector());
 
 	if (First_)
 	{
-		GSEND1("sym.user.o", UserLib_->Users().Vector())
+		//GSEND1("sym.user.o", UserLib_->Users().Vector())
 
 		//GoUser();
 		//return;
 	}
 
 	//GBIND("sym.oTitle", this, &SystemP::EndTitle);
+
+}
+
+void SystemP::ForwardUser()
+{
+	GSEND1("sym.openTitle");
+
+}
+
+void SystemP::ForwardTitle()
+{
 
 }
 
