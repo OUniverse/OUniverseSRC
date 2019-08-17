@@ -14,7 +14,6 @@
 
 #include "System/Glass.h"
 
-
 #include "cohtml/Binding/Binding.h"
 #include "cohtml/Binding/EventHandler.h"
 #include "CohtmlUTypeBinder.h"
@@ -22,6 +21,10 @@
 #include "SCohtmlInputForward.h"
 
 #include "Min/DebugM.h"
+
+#include <cohtml\Binding\String.h>
+
+
 
 InputManager* InputManager::Create(DirS* InDirReg)
 {
@@ -31,24 +34,31 @@ InputManager* InputManager::Create(DirS* InDirReg)
 InputManager::InputManager(DirS* InDirReg)
 {	
 	bRebindMode = false;
-	bTypeMode = false;
-	bPrimeTypeMode = false;
+	bQuill = false;
+	bCTR = false;
+	bALT = false;
 
 	//FileReadS* FileReader = new FileReadS(TCHAR_TO_ANSI(*(PathToReg + REG_INPUTMANAGER)));
 
 	//JsonS* InputReg = new JsonS(FileReader->AsChar());
 	//InputReg[];
 
+	QuillKeyMap.Add(8, new CharKey(8, CharKey::Handler::Auto, CharKey::Modifier::None, "bs"));//BackSpace
+	QuillKeyMap.Add(13, new CharKey(13, CharKey::Handler::Auto, CharKey::Modifier::None, "en"));//Enter
+	QuillKeyMap.Add(38, new CharKey(38, CharKey::Handler::Auto, CharKey::Modifier::None, "du"));//DPadUp
+	QuillKeyMap.Add(40, new CharKey(40, CharKey::Handler::Auto, CharKey::Modifier::None, "dd"));//DPadDown
+	QuillKeyMap.Add(37, new CharKey(37, CharKey::Handler::Auto, CharKey::Modifier::None, "dl"));//DPadLeft
+	QuillKeyMap.Add(39, new CharKey(39, CharKey::Handler::Auto, CharKey::Modifier::None, "dr"));//DPadRight
+	QuillKeyMap.Add(67, new CharKey(67, CharKey::Handler::Switch, CharKey::Modifier::CTR, "copy"));//control c
+	QuillKeyMap.Add(86, new CharKey(86, CharKey::Handler::Switch, CharKey::Modifier::CTR, "paste"));//control v
+	QuillKeyMap.Add(65, new CharKey(65, CharKey::Handler::Switch, CharKey::Modifier::CTR, "seleall"));//control a
+
 	CommandC* NewCommand = new CommandC();
 	CommandArray.Init(Commands::COMMANDS_MAX, NULL);
 	CommandArray.Add(NewCommand);
 
-}
-
-void InputManager::BindUI()
-{
-	//GBIND("inputMNG.typeMode", this, &InputManager::TypeMode)
-	//GBIND("inputMNG.typeModePrime", this, &InputManager::PrimeTypeMode)
+	GBIND("InputM.QuillStart", this, &InputManager::QuillStart)
+	GBIND("InputM.QuillEnd", this, &InputManager::QuillEnd)
 }
 
 CommandC* InputManager::GetCommand(int InCommand)
@@ -70,13 +80,28 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 {
 	int32 KeyCode = InKeyEvent.GetKeyCode();
 
-	if (bPrimeTypeMode)
+	if (KeyCode == 162)
 	{
-			CharKey* PTK = PTKeyMap[KeyCode];
-			if (PTK != nullptr)
-			{
-				//GSEND1("inputMNG.onPTKey", PTK->ID);
-			}
+		bCTR = true;
+	}
+
+	if (KeyCode == 164)
+	{
+		bALT = true;
+	}
+
+
+	if (bQuill)
+	{
+		//DBUG(IFS(KeyCode))
+		CharKey* CK;
+		if (QuillKeyMap.Try(KeyCode, CK))
+		{
+				if (CK->IsValid(bCTR, bALT))
+				{
+					GSEND1("quill.onKeyDown", CK->ID_.ToChar());
+				}
+		}
 	}
 	else if(bRebindMode)
 	{
@@ -89,21 +114,31 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 		CommandC* Command;
 		if (InputMap.Try(KeyCode, Command))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
 			Command->Trigger(StrokeS(true));
 		}
 
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}
 }
 
 void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
 
+	int32 KeyCode = InKeyEvent.GetKeyCode();
 
-	if (!bPrimeTypeMode && !bRebindMode)
+	if (KeyCode == 162)
 	{
-		int32 KeyCode = InKeyEvent.GetKeyCode();
+			bCTR = false;
+	}
+
+	if (KeyCode == 164)
+	{
+		bALT = false;
+	}
+
+	if (!bQuill && !bRebindMode)
+	{
 
 		if (bRebindMode)
 		{
@@ -119,21 +154,28 @@ void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEv
 		if (InputMap.Try(KeyCode, Command))
 		{
 
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
 			Command->Trigger(StrokeS(true));
 		
 		}
 
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(KeyCode));
 	}
 
 }
 
 void InputManager::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent& InCharacterEvent)
 {
-	if (bPrimeTypeMode)
+	if (bQuill)
 	{
-		//GSEND1("inputMNG.onChar", FString().AppendChar(InCharacterEvent.GetCharacter()));
+		StringC ThisChar = StringC(FString().AppendChar(InCharacterEvent.GetCharacter()));
+
+		if (ThisChar.ContainsOnly(QuillChars))
+		{
+			//GSEND1("quill.onChar", FString().AppendChar(Result));
+			GSEND1("quill.onChar", ThisChar.ToChar());
+		}
+		
 	}
 	else {
 		GlassC::Bridge()->OnKeyChar(MyGeometry, InCharacterEvent);
@@ -155,36 +197,28 @@ void InputManager::OnMouseButtonUp(const FGeometry & MyGeometry, const FPointerE
 	GlassC::Bridge()->OnMouseButtonUp(MyGeometry, MouseEvent);
 }
 
+void InputManager::OnMouseButtonDoubleClick(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
+{
+	GlassC::Bridge()->OnMouseButtonDoubleClick(MyGeometry, MouseEvent);
+}
+
 void InputManager::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 	GlassC::Bridge()->OnMouseWheel(MyGeometry,MouseEvent);
 }
 
 
-void InputManager::PrimeTypeMode(int bEnabled)
+void InputManager::QuillStart(std::string InChars)
 {
-	if (bEnabled == 1)
-	{
-		bPrimeTypeMode = true;
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "PrimeType Mode Enabled");
-	}
-	else
-	{
-		bPrimeTypeMode = false;
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "PrimeType Mode Canceled");
-	}
+		bQuill = true;
+		QuillChars = StringC(InChars);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Quill Mode Enabled");
+
 }
 
-void InputManager::TypeMode(int bEnabled)
+void InputManager::QuillEnd()
 {
-	if (bEnabled == 1)
-	{
-		bTypeMode = true;
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Type Mode Enabled");
-	}
-	else
-	{
-		bTypeMode = false;
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Type Mode Canceled");
-	}
+		bQuill = false;
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Quill Mode Canceled");
+	
 }

@@ -45,6 +45,7 @@ public:
 		System,
 		Creation,
 		OpenWorld,
+		Scribe,
 		MAX,
 	};
 

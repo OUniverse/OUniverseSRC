@@ -44,7 +44,9 @@ class OUNIVERSE_API AHudUE : public ACohtmlGameHUD
 
 public:
 
-	void PrepareInputs();
+	bool AltPath_;
+
+	void PrepareInputs(bool Alt, const char* AltPath);
 	void ActivateInputs(InputManager* Input);
 
 

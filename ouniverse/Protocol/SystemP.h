@@ -7,7 +7,7 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/ProtocolP.h"
-
+#include <string>
 class UserLibC;
 class KernelC;
 
@@ -30,14 +30,62 @@ private:
 	KernelC* Kernel_;
 	UserLibC* UserLib_;
 	
+	void GoPhasePreUser();
+	void GoPhasePreData();
+	void GoPhasePreLoad();
+
+	void SetupPhasePreUser();
+	void SetupPhasePreData();
+	void SetupPhasePreLoad();
+
+
 	void GoUser();
+	
+	void SetupUser();
 
-	void GoTitle();
+	void UserOnward();
 
-	void GoSession();
 
-	void ForwardUser();
 
-	void ForwardTitle();
+	void TitleGo();
+
+	void TitleSetup();
+
+	void TitleForward(int InUID);
+
+	void TitleOnward();
+
+
+
+	void SessionGo();
+
+	void SessionSetup();
+
+	void SessionSelected();
+
+
+	void PageClosed();
+
+	void PhaseClosed();
+
+	void UserSelected(int InUID);
+
+	enum Pages {
+		User,
+		Title,
+		Session,
+		PAGES_MAX,
+	};
+
+	enum Phases {
+		PreUser,
+		PreData,
+		PreLoad,
+		PHASES_MAX,
+	};
+
+	SystemP::Pages ActivePage;
+
+	SystemP::Phases ActivePhase;
 
 };

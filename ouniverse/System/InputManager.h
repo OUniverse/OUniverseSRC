@@ -38,6 +38,7 @@ Receives all inputs like keyboard and mouse interactions from the SInputCatch wi
 
 #include "Interface/Array.h"
 #include "Interface/Map.h"
+#include "Interface/String.h"
 
 struct DirS;
 
@@ -47,6 +48,7 @@ class CharKey;
 
 class SCohtmlInputForward;
 class GlassC;
+
 
 class OUNIVERSE_API InputManager
 {
@@ -60,9 +62,8 @@ public:
 
 	static InputManager* Create(DirS* InDirReg);
 
-	void TypeMode(int bEnabled);
-	void PrimeTypeMode(int bEnabled);
-	
+	void QuillStart(std::string InChars);
+	void QuillEnd();
 
 	void OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent);
 	void OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent);
@@ -71,10 +72,10 @@ public:
 	void OnMouseMove(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 	void OnMouseButtonUp(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 	void OnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
+	void OnMouseButtonDoubleClick(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 	void OnMouseWheel(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 
 	CommandC* GetCommand(int InCommand);
-
 
 private:
 
@@ -85,11 +86,12 @@ private:
 		Character,
 	};
 
+	bool bCTR;
+	bool bALT;
 
 	bool bRebindMode;
-	bool bTypeMode;
-	bool bPrimeTypeMode;
-
+	bool bQuill;
+	StringC QuillChars;
 
 	ArrayC<CommandC*> CommandArray;
 
@@ -100,10 +102,7 @@ private:
 	};
 
 	MapC<int32,CommandC*> InputMap;
-	MapC<int32, CharKey*> PTKeyMap;
-
-	void BindUI();
+	MapC<int, CharKey*> QuillKeyMap;
 
 	void BindCommandToKey(CommandC* CommandToBind, int32 KeyCode);
-
 };

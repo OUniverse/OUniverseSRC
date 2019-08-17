@@ -20,6 +20,17 @@ Tasks:
 #include "Boot.generated.h"
 
 
+
+UENUM(BlueprintType)
+enum class EBootMethod : uint8
+{
+	Standard 	UMETA(DisplayName = "Standard"),
+	Test 		UMETA(DisplayName = "Test"),
+	UiIso		UMETA(DisplayName = "UiIso"),
+	Scribe		UMETA(DisplayName = "Scribe")
+};
+
+
 UCLASS()
 class UBoot : public UBlueprintFunctionLibrary
 {
@@ -28,15 +39,19 @@ class UBoot : public UBlueprintFunctionLibrary
 public:
 
 
+	static void StandardBoot(UObject* WorldContextObject);
+	static void TestBoot(UObject* WorldContextObject);
+	static void ScribeBoot(UObject* WorldContextObject);
+	static void UiIsoBoot(UObject* WorldContextObject);
+
 	//Call this from any level blueprint to begin the OUniverse boot process. Must be called only once.
 	UFUNCTION(BlueprintCallable, Category = "OUniverse", meta = (WorldContext = "WorldContextObject", ShowWorldContextPin))
-	static void Boot(UObject* WorldContextObject);
+	static void Boot(EBootMethod BootMethod, UObject* WorldContextObject);
 
 
-	//Call this from any level blueprint to begin the OUniverse customized test boot process. Must be called only once.
-	UFUNCTION(BlueprintCallable, Category = "OUniverse", meta = (WorldContext = "WorldContextObject", ShowWorldContextPin))
-	static void TestBoot(UObject* WorldContextObject);
+	
 
 	static void UiReady();
+	static void UiReadyIsoBoot();
 
 };

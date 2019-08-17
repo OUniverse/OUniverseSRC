@@ -9,7 +9,7 @@ Protocol for handling the UserSelection menus.
 #include "Protocol/ProtocolP.h"
 
 
-class OUNIVERSE_API CreationP : public ProtocolP
+class OUNIVERSE_API ScribeP : public ProtocolP
 {
 
 	friend ProtocolManager;

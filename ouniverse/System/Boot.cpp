@@ -31,10 +31,37 @@
 
 #include "Ui/Ui.h"
 
-void UBoot::Boot(UObject* WorldContextObject)
+
+namespace GlobalVars
+{
+	EBootMethod BootMethod;
+}
+
+void UBoot::Boot(EBootMethod BootMethod, UObject* WorldContextObject)
+{
+	GlobalVars::BootMethod = BootMethod;
+
+	switch (BootMethod) {
+	case EBootMethod::Standard:
+		StandardBoot(WorldContextObject);
+		break;
+	case EBootMethod::Test:
+		TestBoot(WorldContextObject);
+		break;
+	case EBootMethod::UiIso:
+		UiIsoBoot(WorldContextObject);
+		break;
+	case EBootMethod::Scribe:
+		StandardBoot(WorldContextObject);
+		break;
+	}
+}
+
+
+void UBoot::StandardBoot(UObject* WorldContextObject)
 {
 	if (GEngine)
-	DBUG("Standard Boot Activated.")
+		DBUG("Standard Boot Activated.")
 
 
 	MajorC::Create();
@@ -45,37 +72,37 @@ void UBoot::Boot(UObject* WorldContextObject)
 	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
 
 	bool bModeFail = false;
-	if(M->Scope()->GetAuthGameMode()->GetClass()!=AMode::StaticClass())
+	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
 	{
 		bModeFail = true;
 	}
 
-	
-	M->Path_	= PathsC::Create();
-	M->Log_	= LogC::Create(M->Path()->Logs());
+
+	M->Path_ = PathsC::Create();
+	M->Log_ = LogC::Create(M->Path()->Logs());
 
 	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
 
-	if (bModeFail)
-	{
-		DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
+		if (bModeFail)
+		{
+			DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
 
-		LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
+				LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
 
-		return;
-	}
+				return;
+		}
 
 	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
 	LOG(28164, Void(), "ConfigC service activated.")
 
-	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
-	
+		M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
+
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
-	
-	M->Hud()->PrepareInputs();
+
+	M->Hud()->PrepareInputs(false,"");
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
-	
+
 
 	//Ui* UiTest = new Ui();
 	//UiTest->Activate();
@@ -84,48 +111,114 @@ void UBoot::Boot(UObject* WorldContextObject)
 	LOGP
 }
 
-#include "Interface/File.h"
-
-void UBoot::TestBoot(UObject* WorldContextObject)
-{
-	DBUG("Test Boot Activated.");
-	MajorC::Create();
-	MajorC* M = MajorC::Get();
-	
-	M->Path_ = PathsC::Create();
-	M->Log_ = LogC::Create(M->Path()->Logs());
-
-	LOG(10001, Void(), "Test Boot Activated. MajorC, PathsC, and LogC services have been created.")
-	LOGP
-}
-
 void UBoot::UiReady()
 {
 
-	DBUG("CUI Ready...");
+	//DBUG("CUI Ready...");
 	//GSEND0("ui.o")
 
 	LOG(40448, Void(), "UI is ready for bindings.")
 
-	MajorC* M	= MajorC::Get();
+		MajorC* M = MajorC::Get();
 
 	M->Data_ = DataC::Create(M->Path()->Atlas()->Get());
 	M->Kernel_ = KernelC::Create(M->Data());
 
-	M->UserLib_ = UserLibC::Create(M->Path()->Users(),M->Kernel());
+	M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
 
-	
-	M->System_	= SystemManager::Create();
-	M->Input_	= InputManager::Create(M->Path()->Reg());
+
+	M->System_ = SystemManager::Create();
+	M->Input_ = InputManager::Create(M->Path()->Reg());
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
-	M->Protocol_= ProtocolManager::Create(M);
-	
-	M->Terra_	= TerraC::Create();
+	M->Protocol_ = ProtocolManager::Create(M);
+
+	M->Terra_ = TerraC::Create();
 
 	M->UserL()->LoadUsers();
 
 	M->Hud()->ActivateInputs(M->Input());
-	M->Protocol()->Activate(ProtocolManager::Types::System);
+
+	if (GlobalVars::BootMethod != EBootMethod::Scribe)
+	{
+		M->Protocol()->Activate(ProtocolManager::Types::System);
+	}
+	else
+	{
+		M->Protocol()->Activate(ProtocolManager::Types::Scribe);
+	}
+	LOGP
+}
+
+
+
+
+void UBoot::TestBoot(UObject* WorldContextObject)
+{
+
+}
+
+
+
+
+
+
+void UBoot::UiIsoBoot(UObject* WorldContextObject)
+{
+	if (GEngine)
+		//DBUG("Standard Boot Activated.")
+
+
+	MajorC::Create();
+	MajorC* M = MajorC::Get();
+
+	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
+	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
+	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
+
+	bool bModeFail = false;
+	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
+	{
+		bModeFail = true;
+	}
+
+
+	M->Path_ = PathsC::Create();
+	M->Log_ = LogC::Create(M->Path()->Logs());
+
+	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
+
+		if (bModeFail)
+		{
+			DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
+
+				LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
+
+				return;
+		}
+
+	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
+	LOG(28164, Void(), "ConfigC service activated.")
+
+	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
+
+	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+
+	M->Hud()->PrepareInputs(true, "coui://ui//scribe.html");
+
+	LOGP
+}
+
+void UBoot::UiReadyIsoBoot()
+{
+
+	//DBUG("CUI Ready...");
+
+	LOG(40448, Void(), "UI is ready for bindings.")
+
+		MajorC* M = MajorC::Get();
+
+	M->Input_ = InputManager::Create(M->Path()->Reg());
+	M->Hud()->ActivateInputs(M->Input());
 
 	LOGP
 }

@@ -50,7 +50,7 @@ FReply SInputCatch::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent
 
 FReply SInputCatch::OnMouseButtonDown(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MouseEvent.GetEffectingButton().ToString());
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MouseEvent.GetEffectingButton().ToString());
 	InputRelay->OnMouseButtonDown(MyGeometry,MouseEvent);
 	return FReply::Handled();
 }
@@ -58,6 +58,12 @@ FReply SInputCatch::OnMouseButtonDown(const FGeometry & MyGeometry, const FPoint
 FReply SInputCatch::OnMouseButtonUp(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
 	InputRelay->OnMouseButtonUp(MyGeometry,MouseEvent);
+	return FReply::Handled();
+}
+
+FReply SInputCatch::OnMouseButtonDoubleClick(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
+{
+	InputRelay->OnMouseButtonDoubleClick(MyGeometry, MouseEvent);
 	return FReply::Handled();
 }
 
@@ -74,7 +80,7 @@ FReply SInputCatch::OnMouseMove(const FGeometry & MyGeometry, const FPointerEven
 
 FReply SInputCatch::OnMouseWheel(const FGeometry & MyGeometry, const FPointerEvent & MouseEvent)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("MouseWheel"));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("MouseWheel"));
 	InputRelay->OnMouseWheel(MyGeometry,MouseEvent);
 	return FReply::Handled();
 }

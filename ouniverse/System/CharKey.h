@@ -16,11 +16,32 @@ CharKey are command relays of certain presses while in typing mode using CHAR st
 
 #include "Interface/String.h"
 
+class AControlUE;
+
 class OUNIVERSE_API CharKey
 {
 
 public:
 
-	CharKey(StringC InID);
-	FString ID;
+	enum Handler
+	{
+		Auto,
+		Switch,
+	};
+
+	enum Modifier
+	{
+		None,
+		CTR,
+		ALT,
+		CTRALT,
+	};
+
+	bool IsValid(bool InCtr, bool InAlt);
+
+	CharKey(int InKeyCode, Handler InHandler, Modifier InModifier, StringC InID);
+	int KeyCode_;
+	StringC ID_;
+	Modifier Modifier_;
+	Handler Handler_;
 };
