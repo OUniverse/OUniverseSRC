@@ -21,6 +21,7 @@ class FormLibC
 
 public:
 
+	static const char* K_UID;
 	static const char* K_TYPE;
 
 	FormLibC();

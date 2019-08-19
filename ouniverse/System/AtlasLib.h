@@ -8,12 +8,11 @@ Atlas
 
 #include "Interface/String.h"
 #include "Interface/Map.h"
-
+#include "Interface/Array.h"
 
 class AtlasC;
 class LoadoutC;
 class CreditLibC;
-class CosmosC;
 
 class AtlasLibC
 {
@@ -34,13 +33,15 @@ public:
 
 	void Reset();
 
-	void Evolve(CosmosC* InCosmos);
+	void Mount(LoadoutC* InLoadout);
 
-	void Promote(LoadoutC* InLoadout);
+	void Mount(ArrayC<U64> InUIDArr);
 
 	void AddAtlas(AtlasC* NewAtlas);
 
 	void AddPreAtlas(AtlasC* NewAtlas);
+
+	ArrayC<AtlasC*> GetAtlasPreArray();
 
 private:
 

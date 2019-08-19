@@ -15,7 +15,8 @@
 
 #include "System/Log.h"
 
-const char* FormLibC::K_TYPE = "#";
+const char* FormLibC::K_TYPE = "@";
+const char* FormLibC::K_UID	 = "#";
 
 FormLibC::FormLibC()
 {

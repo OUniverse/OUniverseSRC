@@ -20,6 +20,7 @@ class CosmosC;
 class AtlasC
 {
 	static const char* FILE_NAME;
+	static const char* FILE_NAME_DEV;
 
 	static const char* K_ID;
 	static const char* K_NAME;
@@ -28,8 +29,10 @@ class AtlasC
 	static const char* K_AUTHOR;
 	static const char* K_WEBSITE;
 	static const char* K_DATE;
-	static const char* K_VER;
-	static const char* K_IVER;
+	static const char* K_VER_VIS;
+	static const char* K_VER_ITT;
+	static const char* K_VER_UPD;
+	static const char* K_WEB_SOCKET;
 
 	static const char* K_LINKS;
 	static const char* K_LINKS_HARD;
@@ -46,17 +49,12 @@ public:
 
 	bool Valid();
 	
-	void Promote();
+	bool Mount();
 
-	void Demote();
+	void Dismount();
 
-	bool Promoted();
+	bool Mounted();
 
-	void Evolve(CosmosC* InCosmos);
-
-	void Devolve();
-
-	bool Evolved();
 
 	U64 UID();
 
@@ -65,11 +63,15 @@ public:
 	StringC Icon_;
 	StringC Desc_;
 	StringC Author_;
-	StringC Website_ ;
+	StringC Website_;
 	StringC Date_;	
-	StringC Ver_;
+	StringC VerVis_;
+	int VerInc_;
+	int VerUpdate_;
+
 	int Inc_;
 
+	bool DevFile_;
 
 	//Uses the Atlas Lib to check if each requirement of this atlas exists
 	bool CheckRequirements(AtlasLibC* InAtlasMap);
@@ -105,9 +107,8 @@ private:
 	U64 UID_;
 	
 	bool Valid_;
-	bool Promoted_;
+	bool Mounted_;
 	bool RequirementsChecked_;
-	bool Evolved_;
 
 	bool Requirements_;
 	bool FoundLinksHard_;

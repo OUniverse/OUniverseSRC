@@ -95,11 +95,18 @@ void UBoot::StandardBoot(UObject* WorldContextObject)
 	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
 	LOG(28164, Void(), "ConfigC service activated.")
 
-		M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
+	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
-	M->Hud()->PrepareInputs(false,"");
+	if (GlobalVars::BootMethod == EBootMethod::Scribe)
+	{
+		M->Hud()->PrepareInputs(AHudUE::HudTypes::Scribe,false, "");
+	}
+	else
+	{
+		M->Hud()->PrepareInputs(AHudUE::HudTypes::Main, false, "");
+	}
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
@@ -119,12 +126,14 @@ void UBoot::UiReady()
 
 	LOG(40448, Void(), "UI is ready for bindings.")
 
-		MajorC* M = MajorC::Get();
+	MajorC* M = MajorC::Get();
 
 	M->Data_ = DataC::Create(M->Path()->Atlas()->Get());
-	M->Kernel_ = KernelC::Create(M->Data());
 
-	M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
+
+	//M->Kernel_ = KernelC::Create(M->Data());
+
+	//M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
 
 
 	M->System_ = SystemManager::Create();
@@ -134,17 +143,17 @@ void UBoot::UiReady()
 
 	M->Terra_ = TerraC::Create();
 
-	M->UserL()->LoadUsers();
+	//M->UserL()->LoadUsers();
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	if (GlobalVars::BootMethod != EBootMethod::Scribe)
+	if (GlobalVars::BootMethod == EBootMethod::Scribe)
 	{
-		M->Protocol()->Activate(ProtocolManager::Types::System);
+		M->Protocol()->Activate(ProtocolManager::Types::Scribe);
 	}
 	else
 	{
-		M->Protocol()->Activate(ProtocolManager::Types::Scribe);
+		M->Protocol()->Activate(ProtocolManager::Types::System);
 	}
 	LOGP
 }
@@ -203,7 +212,7 @@ void UBoot::UiIsoBoot(UObject* WorldContextObject)
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
-	M->Hud()->PrepareInputs(true, "coui://ui//scribe.html");
+	M->Hud()->PrepareInputs(AHudUE::HudTypes::Iso, true, "coui://ui//scribe.html");
 
 	LOGP
 }

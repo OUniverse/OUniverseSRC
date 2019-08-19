@@ -20,11 +20,11 @@ PayloadC::PayloadC(StringC InPath)
 void PayloadC::Reset(LoadoutC* InLoadout)
 {
 	LOG(25906, Void(), "Resetting the payload.")
-	AtlasLib_->Reset();
-	AtlasLib_->Promote(InLoadout);
+	//AtlasLib_->Reset();
+	//AtlasLib_->Promote(InLoadout);
 }
 
 void PayloadC::Evolve(CosmosC* InCosmos)
 {
-	AtlasLib_->Evolve(InCosmos);
+	//AtlasLib_->Evolve(InCosmos);
 }

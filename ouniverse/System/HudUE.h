@@ -46,7 +46,14 @@ public:
 
 	bool AltPath_;
 
-	void PrepareInputs(bool Alt, const char* AltPath);
+	enum HudTypes
+	{
+		Main,
+		Scribe,
+		Iso,
+	};
+
+	void PrepareInputs(HudTypes HudType, bool Alt, const char* AltPath);
 	void ActivateInputs(InputManager* Input);
 
 
@@ -64,4 +71,11 @@ public:
 	void SetView(const char* InURL);
 
 	Event0C<EventLife> OnViewReady_;
+
+	bool FirstBoot;
+
+
+
+
+
 };

@@ -15,8 +15,9 @@
 
 #include "Min/DebugM.h"
 
-void AHudUE::PrepareInputs(bool Alt, const char* AltPath)
+void AHudUE::PrepareInputs(HudTypes HudType, bool Alt, const char* AltPath)
 {
+	FirstBoot = true;
 	FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
 	FActorSpawnParameters SpawnInfo;
@@ -47,7 +48,15 @@ void AHudUE::PrepareInputs(bool Alt, const char* AltPath)
 	else
 	{
 		AltPath_ = false;
-		SetView("coui://ui//sym.html");
+
+		if (HudType == HudTypes::Main)
+		{
+			SetView("coui://ui//main.html");
+		}
+		else if (HudType == HudTypes::Scribe)
+		{
+			SetView("coui://ui//scribe.html");
+		}
 	}
 }
 
@@ -64,17 +73,21 @@ void AHudUE::SetView(const char* InURL)
 
 void AHudUE::ViewReady()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "View Ready Triggered!");
-	//Has to be UFunction for Coherent's PreBind function call.
-	OnViewReady_.Trigger();
+	if (FirstBoot)
+	{
+			FirstBoot = false;
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "View Ready Triggered!");
+		//Has to be UFunction for Coherent's PreBind function call.
+		OnViewReady_.Trigger();
 	
-	//IsoBoot is a direct boot to just a loaded UI for easy testing while devoloping UI components.
-	if (AltPath_)
-	{
-		UBoot::UiReadyIsoBoot();
-	}
-	else
-	{
-		UBoot::UiReady();
+		//IsoBoot is a direct boot to just a loaded UI for easy testing while devoloping UI components.
+		if (AltPath_)
+		{
+			UBoot::UiReadyIsoBoot();
+		}
+		else
+		{
+			UBoot::UiReady();
+		}
 	}
 }

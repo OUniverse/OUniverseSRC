@@ -4,11 +4,11 @@
 #include "System/Atlas.h"
 #include "System/Loadout.h"
 #include "System/CreditLib.h"
-#include "System/Cosmos.h"
 
 #include "Interface/DirQuery.h"
 
 #include "System/Log.h"
+
 
 AtlasLibC::AtlasLibC(StringC InPath)
 {
@@ -62,6 +62,19 @@ void AtlasLibC::AddAtlas(AtlasC* NewAtlas)
 	Lib_.Add(NewAtlas->UID(), NewAtlas);
 }
 
+ArrayC<AtlasC*> AtlasLibC::GetAtlasPreArray()
+{
+	int l = PreLib_.Len();
+	ArrayC<AtlasC*> AtlasPreArr;
+
+	for (int i = 0; i < l; i++)
+	{
+		AtlasPreArr.Add(PreLib_.At(i));
+	}
+
+	return AtlasPreArr;
+}
+
 AtlasC* AtlasLibC::operator[](U64 InValue)
 {
 	return PreLib_[InValue];
@@ -92,20 +105,27 @@ void AtlasLibC::Reset()
 	for (int m = 0; m < PreLen_; m++)
 	{
 		//LOG(12838, TryAtlas->UID(), "Demoting Atlas: $V$")
-		PreLib_.At(m)->Demote();
+		PreLib_.At(m)->Dismount();
 	}
 }
 
-void AtlasLibC::Evolve(CosmosC* InCosmos)
+void AtlasLibC::Mount(ArrayC<U64> InUIDArr)
 {
-	for (int m = 0; m < PreLen_; m++)
+	int L = InUIDArr.Len();
+	AtlasC* TryAtlas;
+
+	for (int i = 0; i < L; i++)
 	{
-		//LOG(12838, TryAtlas->UID(), "Demoting Atlas: $V$")
-		PreLib_.At(m)->Evolve(InCosmos);
+		if (PreLib_.Try(InUIDArr[i], TryAtlas))
+		{
+			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
+			AddAtlas(TryAtlas);
+			TryAtlas->Mount();
+		}
 	}
 }
 
-void AtlasLibC::Promote(LoadoutC* InLoadout)
+void AtlasLibC::Mount(LoadoutC* InLoadout)
 {
 	//Promote all new atlases from the selected loadout.
 
@@ -118,7 +138,7 @@ void AtlasLibC::Promote(LoadoutC* InLoadout)
 		{
 			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
-			TryAtlas->Promote();
+			TryAtlas->Mount();
 		}
 	}
 

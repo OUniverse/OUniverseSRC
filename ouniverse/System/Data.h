@@ -18,11 +18,12 @@ Data is a singleton which loads all the atlas style game data.
 #pragma once
 
 #include "Interface/String.h"
+#include "Interface/Array.h"
 
 class UBoot;
-class PayloadC;
-class LoadoutC;
-class CosmosC;
+class AtlasLibC;
+class AtlasC;
+struct FormPilotS;
 
 class OUNIVERSE_API DataC
 {
@@ -34,15 +35,21 @@ private:
 	
 	DataC(StringC InPath);
 	
-	PayloadC* Payload_;
-
 	StringC Path_;
+
+	AtlasLibC* AtlasLib_;
 
 public:
 
 	static DataC* Get();
 	DataC();
 
-	void Reset(LoadoutC* InLoadout);
-	void Evolve(CosmosC* InLoadout);
+	AtlasLibC* GetAtlasLib();
+
+	ArrayC<AtlasC*> GetAtlasPreArray();
+
+	ArrayC<FormPilotS*> GetFormPilotList();
+	
+	//void Reset(LoadoutC* InLoadout);
+	//void Evolve(CosmosC* InLoadout);
 };

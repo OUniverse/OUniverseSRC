@@ -1,12 +1,8 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Data.h"
-
-#include "System/Payload.h"
-#include "System/Cosmos.h"
-
-#include "System/Log.h"
-#include "System/Loadout.h"
+#include "System/AtlasLib.h"
+#include "System/Atlas.h"
 
 namespace GlobalSingleton
 {
@@ -27,7 +23,12 @@ DataC* DataC::Create(StringC InPath)
 DataC::DataC(StringC InPath)
 {
 	Path_ = InPath;
-	Payload_ = new PayloadC(Path_);
+	AtlasLib_ = new AtlasLibC(Path_);
+}
+
+ArrayC<AtlasC*> DataC::GetAtlasPreArray()
+{
+	return AtlasLib_->GetAtlasPreArray();
 }
 
 DataC::DataC()
@@ -35,6 +36,16 @@ DataC::DataC()
 
 }
 
+AtlasLibC* DataC::GetAtlasLib()
+{
+	return AtlasLib_;
+}
+
+ArrayC<FormPilotS*> GetFormPilotList()
+{
+
+}
+/**
 void DataC::Reset(LoadoutC* InLoadout)
 {
 	Payload_->Reset(InLoadout);
@@ -44,3 +55,4 @@ void DataC::Evolve(CosmosC* InLoadout)
 {
 	Payload_->Evolve(InLoadout);
 }
+*/

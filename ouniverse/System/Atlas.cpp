@@ -28,7 +28,7 @@
 
 
 const char* AtlasC::FILE_NAME = "_.atlas";
-
+const char* AtlasC::FILE_NAME_DEV = "_.atlasdev";
 
 const char* AtlasC::K_ID			= "i";
 const char* AtlasC::K_NAME			= "n";
@@ -37,8 +37,10 @@ const char* AtlasC::K_DESC			= "d";
 const char* AtlasC::K_AUTHOR		= "a";
 const char* AtlasC::K_WEBSITE		= "w";
 const char* AtlasC::K_DATE			= "t";
-const char* AtlasC::K_VER			= "vv";
-const char* AtlasC::K_IVER			= "iv";
+const char* AtlasC::K_VER_VIS		= "vv";
+const char* AtlasC::K_VER_ITT		= "vi";
+const char* AtlasC::K_VER_UPD		= "vu";
+const char* AtlasC::K_WEB_SOCKET	= "so";
 
 const char* AtlasC::K_LINKS			= "l";
 const char* AtlasC::K_LINKS_HARD	= "h";
@@ -52,13 +54,13 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	Path_ = InPath;
 
 	Valid_ = false;
-	Promoted_ = false;
+	Mounted_ = false;
 	Requirements_ = false;
 	RequirementsChecked_ = false;
 	FoundLinksHard_ = false;
 	FoundLinksSoft_ = false;
 	FoundLinksPref_ = false;
-	Evolved_ = false;
+	DevFile_ = false;
 
 	LOG(29333, InPath, "Validating Atlas folder at path: $V$")
 
@@ -106,8 +108,8 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	Author_		= J.String(AtlasC::K_AUTHOR);
 	Website_	= J.String(AtlasC::K_WEBSITE);
 	Date_		= J.String(AtlasC::K_DATE);
-	Ver_		= J.String(AtlasC::K_VER);
-	Inc_		= J.Int(AtlasC::K_IVER);
+	VerVis_		= J.String(AtlasC::K_VER_VIS);
+	Inc_		= J.Int(AtlasC::K_VER_ITT);
 
 	JsonS Links = J[AtlasC::K_LINKS];
 
@@ -132,47 +134,50 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 		LinksPref.Add(Link(CurLinks[i].UInt64()));
 	}
 
+
+	SearchPath = (InPath / AtlasC::FILE_NAME_DEV);
+	LOG(105, InPath, "Path: $V$")
+
+
+		if (FileC(SearchPath).Exists())
+		{
+				DevFile_ = true;
+		}
+
 	LOG(10293, Name_, "Is Valid: $V$")
 	Valid_ = true;
 
 }
 
-void AtlasC::Promote()
+bool AtlasC::Mount()
 {
 	FormLib_ = new FormLibC();
-	BoostD BoostDoc = BoostD(Path_, Name_);
-	JsonS Forms = JsonS(BoostDoc.GetForms());
-	FormLib_->AddList(&Forms);
-	Promoted_ = true;
+
+	std::string Line;
+	std::ifstream File;
+
+	StringC SearchPath = (Path_ / AtlasC::FILE_NAME);
+	File.open(SearchPath.ToChar());
+	std::getline(File, Line);//WriteVer
+	std::getline(File, Line);//AtlasPilot
+
+	JsonS J;
+
+	std::getline(File, Line);//Forms
+	J = JsonS(StringC(Line));
+	FormLib_->AddList(&J);
+
+	//BoostD BoostDoc = BoostD(Path_, Name_);
+	//JsonS Forms = JsonS(BoostDoc.GetForms());
+	//FormLib_->AddList(&Forms);
+	Mounted_ = true;
+
+	return Mounted_;
 }
 
-void AtlasC::Demote()
+void AtlasC::Dismount()
 {
-	Promoted_ = false;
-}
-
-
-bool AtlasC::Promoted()
-{
-	return Promoted_;
-}
-
-void AtlasC::Evolve(CosmosC* InCosmos)
-{
-	ExtraD ExtraDoc = ExtraD(Path_, Name_);
-	ExtraDoc.Mount(FormLib_);
-	Evolved_ = true;
-}
-
-void AtlasC::Devolve()
-{
-	Evolved_ = false;
-}
-
-
-bool AtlasC::Evolved()
-{
-	return Evolved_;
+	Mounted_ = false;
 }
 
 StringC AtlasC::Path()
@@ -278,7 +283,8 @@ void AtlasC::LinkExtra(AtlasLibC* InAtlasLib)
 
 AtlasC::Link::Link()
 {
-	UID_ = 0;
+	long long zero = 0;
+	UID_ = zero;
 	Exists_ = false;
 }
 
