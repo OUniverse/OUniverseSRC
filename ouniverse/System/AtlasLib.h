@@ -10,6 +10,9 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Array.h"
 
+#include "System/FormPilot.h"
+#include "System/FormQuery.h"
+
 class AtlasC;
 class LoadoutC;
 class CreditLibC;
@@ -42,6 +45,10 @@ public:
 	void AddPreAtlas(AtlasC* NewAtlas);
 
 	ArrayC<AtlasC*> GetAtlasPreArray();
+
+	ArrayC<FormPilotS> GetFormPilots();
+
+	FormQueryS Query(FormQueryS InQuery);
 
 private:
 

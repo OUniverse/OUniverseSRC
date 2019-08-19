@@ -20,6 +20,9 @@ Data is a singleton which loads all the atlas style game data.
 #include "Interface/String.h"
 #include "Interface/Array.h"
 
+#include "System/FormPilot.h"
+#include "System/FormQuery.h"
+
 class UBoot;
 class AtlasLibC;
 class AtlasC;
@@ -42,14 +45,17 @@ private:
 public:
 
 	static DataC* Get();
+
 	DataC();
 
 	AtlasLibC* GetAtlasLib();
 
 	ArrayC<AtlasC*> GetAtlasPreArray();
 
-	ArrayC<FormPilotS*> GetFormPilotList();
+	ArrayC<FormPilotS> GetFormPilots();
 	
+	FormQueryS Query(FormQueryS InQuery);
+
 	//void Reset(LoadoutC* InLoadout);
 	//void Evolve(CosmosC* InLoadout);
 };

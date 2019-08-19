@@ -23,9 +23,9 @@ public:
 
 	void ReqAtlasPre();
 
-	void ReqForms();
+	void FormQuery(std::string Query);
 
-	void LoadAtlasi(std::vector<std::string> AtlasiSelection);
+	void LoadAtlasi(std::vector<std::string> AtlasiSelection, bool ReqScribe);
 
 private:
 

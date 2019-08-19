@@ -14,6 +14,7 @@ FormF::FormF(JsonS& InJ)
 {
 	J = InJ;
 	UID_ = J.UInt32(FormF::K_UID);
+	ID_ = "UNKNOWN";
 }
 
 FormF* FormF::Create(JsonS& InJ)
@@ -26,4 +27,14 @@ void FormF::Marshal() {}
 U32 FormF::UID()
 {
 	return UID_;
+}
+
+StringC FormF::ID()
+{
+	return ID_;
+}
+
+FormPilotS FormF::AsFormPilot()
+{
+	return FormPilotS(UID_,ID_,Type_());
 }

@@ -25,6 +25,8 @@ void ScribeP::Activate()
 
 	GBIND("ScribeP.ReqAtlasPre", this, &ScribeP::ReqAtlasPre);
 	GBIND("ScribeP.LoadAtlasi", this, &ScribeP::LoadAtlasi);
+	GBIND("ScribeP.FormQuery", this, &ScribeP::FormQuery);
+
 	GSEND0("start");
 
 	//GSEND1("data.rec_atlaspre", Data_->GetAtlasPreArray().Vector());
@@ -37,7 +39,7 @@ void ScribeP::ReqAtlasPre()
 	GSEND1("data.rec_atlaspre", Data_->GetAtlasPreArray().Vector());
 }
 
-void ScribeP::LoadAtlasi(std::vector<std::string> AtlasiSelection)
+void ScribeP::LoadAtlasi(std::vector<std::string> AtlasiSelection,bool ReqScribe)
 {
 	
 	StringC DataString = StringC(AtlasiSelection[0]);
@@ -55,15 +57,15 @@ void ScribeP::LoadAtlasi(std::vector<std::string> AtlasiSelection)
 
 	Data_->GetAtlasLib()->Mount(Atlasi);
 
-	//2147483647
-	//9223372036854775807
-	//4,294,967,295
-	//9223372036854775807.4294967295
+
+	if (ReqScribe)
+	{
+		Data_->GetFormPilots();
+	}
 
 }
 
-void ScribeP::ReqForms()
+void ScribeP::FormQuery(std::string Query)
 {
-	Data_->GetFormPilotList();
 
 }

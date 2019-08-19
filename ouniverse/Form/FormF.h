@@ -9,6 +9,7 @@ Form: Abstract base form.
 #include "Interface/String.h"
 #include "Interface/Json.h"
 
+#include "System/FormPilot.h"
 
 class FormF
 {
@@ -17,6 +18,8 @@ class FormF
 public:
 
 	static const char* K_NAME;
+
+	virtual int Type_() { return 1; };
 
 	static FormF* Create(JsonS& InJ);
 
@@ -27,9 +30,14 @@ public:
 	virtual ~FormF() {};
 
 	U32 UID();
+	
+	StringC ID();
 
+	FormPilotS AsFormPilot();
+		
 protected:
 
 	U32 UID_;
+	StringC ID_;
 	JsonS J;		
 };

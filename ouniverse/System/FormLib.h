@@ -12,6 +12,8 @@ Atlas
 
 #include "Form/FormF.h"
 
+#include "System/FormPilot.h"
+#include "System/FormQuery.h"
 
 class AtlasLibC;
 struct JsonS;
@@ -37,6 +39,10 @@ public:
 	void LinkBoost(AtlasLibC* InAtlasLib);
 	
 	void LinkExtra(AtlasLibC* InAtlasLib);
+
+	ArrayC<FormPilotS> GetFormPilots();
+		
+	FormQueryS Query(FormQueryS InQuery);
 
 private:
 

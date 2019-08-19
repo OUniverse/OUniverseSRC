@@ -75,3 +75,26 @@ void FormLibC::LinkExtra(AtlasLibC* InAtlasLib)
 {
 
 }
+
+ArrayC<FormPilotS> FormLibC::GetFormPilots()
+{
+	ArrayC<FormPilotS> FormPilotArr;
+
+	for (int i = 0; i < Len(); i++)
+	{
+		FormPilotArr.Add(Lib_[i]->AsFormPilot());
+	}
+
+	return FormPilotArr;
+}
+
+FormQueryS FormLibC::Query(FormQueryS InQuery)
+{
+
+	for (int i = 0; i < Len(); i++)
+	{
+		InQuery.Scan(Lib_[i]);
+	}
+
+	return InQuery;
+}

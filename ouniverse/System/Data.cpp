@@ -41,10 +41,16 @@ AtlasLibC* DataC::GetAtlasLib()
 	return AtlasLib_;
 }
 
-ArrayC<FormPilotS*> GetFormPilotList()
+ArrayC<FormPilotS> DataC::GetFormPilots()
 {
-
+	return AtlasLib_->GetFormPilots();
 }
+
+FormQueryS DataC::Query(FormQueryS InQuery)
+{
+	return AtlasLib_->Query(InQuery);
+}
+
 /**
 void DataC::Reset(LoadoutC* InLoadout)
 {

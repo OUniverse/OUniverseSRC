@@ -148,3 +148,26 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 		Lib_.At(i)->LinkBoost(this);
 	}
 }
+
+ArrayC<FormPilotS> AtlasLibC::GetFormPilots()
+{
+	ArrayC<FormPilotS> FormPilotArr;
+
+	for (int i = 0; i < Len(); i++)
+	{
+		FormPilotArr.Append(Lib_[i]->GetFormPilots());
+	}
+		
+	return FormPilotArr;
+}
+
+FormQueryS AtlasLibC::Query(FormQueryS InQuery)
+{
+
+	for (int i = 0; i < Len(); i++)
+	{
+		Lib_[i]->Query(InQuery);
+	}
+
+	return InQuery;
+}

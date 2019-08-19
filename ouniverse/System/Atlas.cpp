@@ -307,3 +307,14 @@ U64 AtlasC::Link::UID()
 {
 	return UID_;
 }
+
+
+ArrayC<FormPilotS> AtlasC::GetFormPilots()
+{
+	return FormLib_->GetFormPilots();
+}
+
+FormQueryS AtlasC::Query(FormQueryS InQuery)
+{
+	return FormLib_->Query(InQuery);
+}

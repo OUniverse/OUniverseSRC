@@ -10,12 +10,17 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Array.h"
 
+#include "System/FormPilot.h"
+#include "System/FormQuery.h"
+
 class FormF;
 class PayloadC;
 class FormLibC;
 class AtlasLibC;
 class CreditLibC;
 class CosmosC;
+
+
 
 class AtlasC
 {
@@ -81,6 +86,10 @@ public:
 	void LinkBoost(AtlasLibC* InLib);
 
 	void LinkExtra(AtlasLibC* InLib);
+
+	ArrayC<FormPilotS> GetFormPilots();
+
+	FormQueryS Query(FormQueryS InQuery);
 
 private:
 

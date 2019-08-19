@@ -16,17 +16,17 @@ struct FormPilotS
 {
 
 	FormPilotS();
-	FormPilotS(FormF* InForm);
+	FormPilotS(U32 InUID, StringC InID, int InType);
 
 public: 
 
-	U64 UID();
+	U32 UID();
 	StringC ID();
 	int Type();
 
 private:
 
-	U64	UID_;
+	U32	UID_;
 	StringC ID_;
 	int Type_;
 };

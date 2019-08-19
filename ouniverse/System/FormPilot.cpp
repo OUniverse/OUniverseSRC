@@ -11,12 +11,14 @@ FormPilotS::FormPilotS()
 {
 
 }
-FormPilotS::FormPilotS(FormF* InForm)
+FormPilotS::FormPilotS(U32 InUID, StringC InID, int InType)
 {
-
+	UID_ = InUID;
+	ID_ = InID;
+	Type_ = InType;
 }
 
-U64 FormPilotS::UID()
+U32 FormPilotS::UID()
 {
 	return UID_;
 }
