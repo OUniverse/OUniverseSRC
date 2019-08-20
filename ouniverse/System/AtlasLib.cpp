@@ -132,6 +132,7 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 	int L = InLoadout->Atlases_.Len();
 	AtlasC* TryAtlas;
 
+
 	for (int i = 0; i < L; i++)
 	{
 		if (PreLib_.Try(InLoadout->Atlases_[i].UID_, TryAtlas))
@@ -149,25 +150,12 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 	}
 }
 
-ArrayC<FormPilotS> AtlasLibC::GetFormPilots()
-{
-	ArrayC<FormPilotS> FormPilotArr;
-
-	for (int i = 0; i < Len(); i++)
-	{
-		FormPilotArr.Append(Lib_[i]->GetFormPilots());
-	}
-		
-	return FormPilotArr;
-}
-
-FormQueryS AtlasLibC::Query(FormQueryS InQuery)
+void AtlasLibC::Query(FormQueryS* InQuery)
 {
 
 	for (int i = 0; i < Len(); i++)
 	{
-		Lib_[i]->Query(InQuery);
+		Lib_.At(i)->Query(InQuery);
 	}
 
-	return InQuery;
 }

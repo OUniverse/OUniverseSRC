@@ -9,18 +9,19 @@
 #include "Form/EpochF.h"
 #include "Form/ActraF.h"
 
-
-
 #include "System/Payload.h"
 
 #include "System/Log.h"
 
-const char* FormLibC::K_TYPE = "@";
-const char* FormLibC::K_UID	 = "#";
 
-FormLibC::FormLibC()
+const char* FormLibC::K_UID = "u";
+const char* FormLibC::K_TYPE = "t";
+
+
+FormLibC::FormLibC(AtlasC* InOwningAtlas)
 {
 	Len_ = 0;
+	OwningAtlas = InOwningAtlas;
 
 	FactoryArray.Init(Types::TYPES_MAX, NULL);
 	FactoryArray[Types::Form]	= FormF::Create;
@@ -76,25 +77,14 @@ void FormLibC::LinkExtra(AtlasLibC* InAtlasLib)
 
 }
 
-ArrayC<FormPilotS> FormLibC::GetFormPilots()
+void FormLibC::Query(FormQueryS* InQuery)
 {
-	ArrayC<FormPilotS> FormPilotArr;
+	FormWrapS FormWrap;
 
 	for (int i = 0; i < Len(); i++)
 	{
-		FormPilotArr.Add(Lib_[i]->AsFormPilot());
+		FormWrap = FormWrapS(OwningAtlas, Lib_.At(i));
+		InQuery->Scan(FormWrap);
 	}
 
-	return FormPilotArr;
-}
-
-FormQueryS FormLibC::Query(FormQueryS InQuery)
-{
-
-	for (int i = 0; i < Len(); i++)
-	{
-		InQuery.Scan(Lib_[i]);
-	}
-
-	return InQuery;
 }

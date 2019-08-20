@@ -6,15 +6,15 @@
 #include "Min/DebugM.h"
 
 
-const char* FormF::K_UID		= "@";
-const char* FormF::K_NAME		= "n";
+const char* FormF::K_UID		= "u";
+const char* FormF::K_ID			= "i";
 
 
 FormF::FormF(JsonS& InJ)
 {
 	J = InJ;
 	UID_ = J.UInt32(FormF::K_UID);
-	ID_ = "UNKNOWN";
+	ID_ =  J.String(FormF::K_ID);;
 }
 
 FormF* FormF::Create(JsonS& InJ)
@@ -32,9 +32,4 @@ U32 FormF::UID()
 StringC FormF::ID()
 {
 	return ID_;
-}
-
-FormPilotS FormF::AsFormPilot()
-{
-	return FormPilotS(UID_,ID_,Type_());
 }

@@ -151,7 +151,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 bool AtlasC::Mount()
 {
-	FormLib_ = new FormLibC();
+	FormLib_ = new FormLibC(this);
 
 	std::string Line;
 	std::ifstream File;
@@ -308,13 +308,7 @@ U64 AtlasC::Link::UID()
 	return UID_;
 }
 
-
-ArrayC<FormPilotS> AtlasC::GetFormPilots()
+void AtlasC::Query(FormQueryS* InQuery)
 {
-	return FormLib_->GetFormPilots();
-}
-
-FormQueryS AtlasC::Query(FormQueryS InQuery)
-{
-	return FormLib_->Query(InQuery);
+	FormLib_->Query(InQuery);
 }

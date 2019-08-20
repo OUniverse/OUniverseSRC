@@ -29,14 +29,15 @@ void CoherentBind(cohtml::Binder* binder, FormPilotS* FormPilot)
 	}
 	*/
 
-	binder->MapBegin(2);
-
+	binder->MapBegin(4);
+	CoherentBindInternal(binder, "auid");
+	CoherentBindInternal(binder, FormPilot->AtlasUID().ToStd());
 	CoherentBindInternal(binder, "uid");
-	CoherentBindInternal(binder, FormPilot->UID().ToStd());
+	CoherentBindInternal(binder, FormPilot->UID().Ref());
 	CoherentBindInternal(binder, "id");
 	CoherentBindInternal(binder, FormPilot->ID().ToChar());
-	CoherentBindInternal(binder, "type");
-	CoherentBindInternal(binder, FormPilot->Type().ToChar());
+	CoherentBindInternal(binder, "ty");
+	CoherentBindInternal(binder, FormPilot->Type());
 
 	binder->MapEnd();
 }

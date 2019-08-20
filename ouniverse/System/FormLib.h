@@ -16,6 +16,7 @@ Atlas
 #include "System/FormQuery.h"
 
 class AtlasLibC;
+class AtlasC;
 struct JsonS;
 
 class FormLibC
@@ -26,9 +27,11 @@ public:
 	static const char* K_UID;
 	static const char* K_TYPE;
 
-	FormLibC();
+	FormLibC(AtlasC* InOwningAtlas);
 
 	int Len();
+
+	AtlasC* OwningAtlas;
 
 	FormF* operator[](U32 InValue);
 
@@ -39,10 +42,8 @@ public:
 	void LinkBoost(AtlasLibC* InAtlasLib);
 	
 	void LinkExtra(AtlasLibC* InAtlasLib);
-
-	ArrayC<FormPilotS> GetFormPilots();
 		
-	FormQueryS Query(FormQueryS InQuery);
+	void Query(FormQueryS* InQuery);
 
 private:
 

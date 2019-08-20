@@ -23,7 +23,7 @@ public:
 
 	void ReqAtlasPre();
 
-	void FormQuery(std::string Query);
+	void FormQuery(std::string InQuery);
 
 	void LoadAtlasi(std::vector<std::string> AtlasiSelection, bool ReqScribe);
 
