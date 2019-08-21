@@ -347,7 +347,7 @@ void AtlasC::UpdateForm(U32 InUID, JsonS& InJ)
 
 void AtlasC::Update(JsonS InJ)
 {
-
+	
 }
 
 void AtlasC::SaveDoc()

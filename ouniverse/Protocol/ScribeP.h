@@ -7,6 +7,10 @@ Protocol for handling the UserSelection menus.
 #pragma once
 
 #include "Protocol/ProtocolP.h"
+
+#include "Interface/Int.h"
+#include "Interface/Json.h"
+
 #include <vector>
 #include <string>
 
@@ -29,7 +33,9 @@ public:
 
 	void FormREQ(std::string InAtlasUID, int InUID);
 
-	void UpdateForm(std::string InAtlasUID, int InUID, std::string FormJson);
+	void FormSAVE(std::string InFormJ);
+
+	void UpdateForm(U64 InAtlasUID, U32 InUID, JsonS InJ);
 
 	void UpdateAtlas(std::string InAtlasUID, std::string AtlasJson);
 

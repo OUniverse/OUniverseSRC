@@ -5,6 +5,7 @@
 #include "Interface/Json.h"
 #include "Key/GlobalK.h"
 
+
 int FormF::Type()
 {
 	return FormTypesC::Types::Form;
@@ -36,7 +37,7 @@ StringC FormF::ID()
 
 void FormF::Update(JsonS& InJ)
 {
-
+	ID_ = InJ.String(GlobalK::ID);
 }
 
 StringC FormF::Serialize()

@@ -4,6 +4,8 @@
 #include "System/Data.h"
 #include "System/AtlasLib.h"
 
+#include "Key/GlobalK.h"
+
 #include "System/Glass.h"
 
 #include "System/Atlas^.h"
@@ -29,11 +31,11 @@ void ScribeP::Activate()
 	DBUG("SCRIBE PROTOCOL ACTIVE")
 		DBUG(FCommandLine::GetOriginal())
 
-
 	GBIND("ScribeP.ReqAtlasPre", this, &ScribeP::ReqAtlasPre);
 	GBIND("ScribeP.LoadAtlasi", this, &ScribeP::LoadAtlasi);
 	GBIND("ScribeP.FormQuery", this, &ScribeP::FormQuery);
 	GBIND("ScribeP.FormREQ", this, &ScribeP::FormREQ);
+	GBIND("ScribeP.FormSAVE", this, &ScribeP::FormSAVE);
 
 	GSEND0("start");
 
@@ -114,14 +116,18 @@ void ScribeP::FormREQ(std::string InAtlasUID, int InUID)
 	GSEND2("form>", FormWrap.Atlas()->UID().ToStd(), FormWrap.Form()->Serialize().ToChar());
 }
 
-
-
-void ScribeP::UpdateForm(std::string InAtlasUID, int InUID, std::string FormJson)
+void ScribeP::FormSAVE(std::string InFormJ)
 {
-	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
-	U32 UID = U32(InUID);
-	JsonS J = JsonS(StringC(FormJson));
-	Data_->UpdateForm(AtlasUID, UID, J);
+	JsonS J = JsonS(StringC(InFormJ));
+
+	U64 AtlasUID = U64(StringC(J.String(GlobalK::UID_Atlas)).ToChar());
+
+	UpdateForm(AtlasUID,J.UInt32(GlobalK::UID),J);
+}
+
+void ScribeP::UpdateForm(U64 InAtlasUID, U32 InUID, JsonS InJ)
+{
+	Data_->UpdateForm(InAtlasUID, InUID, InJ);
 }
 
 void ScribeP::UpdateAtlas(std::string InAtlasUID, std::string AtlasJson)
@@ -136,3 +142,4 @@ void ScribeP::SaveAtlasDoc(std::string InAtlasUID)
 	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
 	Data_->SaveAtlasDoc(AtlasUID);
 }
+
