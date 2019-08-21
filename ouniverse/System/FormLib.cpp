@@ -19,6 +19,7 @@
 
 FormLibC::FormLibC(AtlasC* InOwningAtlas)
 {
+
 	Len_ = 0;
 	OwningAtlas = InOwningAtlas;
 
@@ -32,6 +33,13 @@ FormLibC::FormLibC(AtlasC* InOwningAtlas)
 
 }
 
+FormLibC::~FormLibC()
+{
+	for(int i = 0; i < Len(); i++)
+	{
+		delete Lib_[i];
+	}
+}
 
 int FormLibC::Len()
 {
@@ -46,19 +54,19 @@ void FormLibC::AddList(JsonS* InJ)
 
 	for (int i = 0; i < L; i++)
 	{
-		JsonS NewForm = InJ->At(i);
-		int Type = NewForm.Int(GlobalK::Type);
-		FormF* Form = FactoryArray[Type](NewForm);
+		JsonS NeuForm = InJ->At(i);
+		int Type = NeuForm.Int(GlobalK::Type);
+		FormF* Form = FactoryArray[Type](NeuForm);
 		Add(Form);
 	}
 }
 
 
-void FormLibC::Add(FormF* NewForm)
+void FormLibC::Add(FormF* InForm)
 {
 	Len_++;
-	LOG(54439, NewForm->UID(), "Adding Form: $V$")
-	Lib_.Add(NewForm->UID(), NewForm);
+	LOG(54439, InForm->UID(), "Adding Form: $V$")
+	Lib_.Add(InForm->UID(), InForm);
 }
 
 FormF* FormLibC::Get(U32 InValue)

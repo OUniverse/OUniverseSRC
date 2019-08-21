@@ -26,6 +26,8 @@ public:
 
 	FormLibC(AtlasC* InOwningAtlas);
 
+	~FormLibC();
+
 	int Len();
 
 	AtlasC* OwningAtlas;

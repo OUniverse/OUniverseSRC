@@ -54,6 +54,14 @@ const char* AtlasC::K_FLAGS			= "f";
 
 AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 {
+
+	FormLib_ = NULL;
+	RevisionLib_ = NULL;
+	AmendmentLib_ = NULL;
+	AccordsHard_ = new AtlasAccordLibC();
+	AccordsSoft_ = new AtlasAccordLibC();
+	AccordsPref_ = new AtlasAccordLibC();
+
 	Path_ = InPath;
 
 	Valid_ = false;
@@ -65,9 +73,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	FoundLinksPref_ = false;
 	DevFile_ = false;
 
-	AccordsHard_ = new AtlasAccordLibC();
-	AccordsSoft_ = new AtlasAccordLibC();
-	AccordsPref_ = new AtlasAccordLibC();
+	
 
 	LOG(29333, InPath, "Validating Atlas folder at path: $V$")
 
@@ -228,11 +234,13 @@ AtlasC::~AtlasC()
 	delete FormLib_;
 	delete RevisionLib_;
 	delete AmendmentLib_;
-	
 }
+
 bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 {
 	FormLib_ = new FormLibC(this);
+	RevisionLib_ = new RevisionLibC(this, InAtlasLib);
+	AmendmentLib_ = new AmendmentLibC(this, InAtlasLib);
 
 	std::string Line;
 	std::ifstream File;
@@ -248,10 +256,6 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 	std::getline(File, Line);//Forms
 	J = JsonS(StringC(Line));
 	FormLib_->AddList(&J);
-
-	RevisionLib_ = new RevisionLibC(this, InAtlasLib);
-	AmendmentLib_ = new AmendmentLibC(this,InAtlasLib);
-
 
 	std::getline(File, Line);//Revisions
 	J = JsonS(StringC(Line));
@@ -270,9 +274,7 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 
 	DBUG(FormLib_->ToJson().Serialize().ToChar())
 
-
-
-		SaveDoc();
+	SaveDoc();
 	return Mounted_;
 }
 
@@ -438,32 +440,12 @@ JsonS AtlasC::ToJson()
 	ArrayC<JsonS> JArr;
 	JsonS TempLink = JsonS();
 	
-	/**
-	int L;
-
+	Links.Add(AtlasC::K_LINKS_HARD, AccordsHard_->ToJson());
+	Links.Add(AtlasC::K_LINKS_SOFT, AccordsSoft_->ToJson());
+	Links.Add(AtlasC::K_LINKS_PREF, AccordsPref_->ToJson());
 	
-	L = LinksHard.Len();
-
-	for (int i = 0; i < L; i++)
-	{
-		JArr.Add(LinksHard[i].ToJson());
-	}
-
-	J.Array(JArr);
-
-
-	L = LinksSoft.Len();
-
-
-
-	L = LinksPref.Len();
-
-	return J;
+	S.Add(AtlasC::K_LINKS, Links);
 	
-
-	S.Add(AtlasC::K_LINKS, WebSocket_);
-	*/
-
 	return S;
 }
 
