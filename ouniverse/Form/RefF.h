@@ -16,5 +16,8 @@ public:
 	RefF(JsonS& InJ);
 	static FormF* Create(JsonS& InJ);
 
+	virtual int Type() override;
+
 	virtual void Marshal() override;
+
 };

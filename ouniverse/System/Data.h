@@ -19,6 +19,7 @@ Data is a singleton which loads all the atlas style game data.
 
 #include "Interface/String.h"
 #include "Interface/Array.h"
+#include "Interface/Json.h"
 
 #include "System/FormQuery.h"
 
@@ -52,6 +53,14 @@ public:
 	ArrayC<AtlasC*> GetAtlasPreArray();
 
 	void Query(FormQueryS* InQuery);
+
+	FormWrapS GetFormWrap(U64 InAtlas, U32 InForm);
+
+	void UpdateForm(U64 InAtlasUID, U32 InUID, JsonS& FormJ);
+
+	void UpdateAtlas(U64 InAtlasUID, JsonS& AtlasJ);
+
+	void SaveAtlasDoc(U64 InAtlasUID);
 
 	//void Reset(LoadoutC* InLoadout);
 	//void Evolve(CosmosC* InLoadout);

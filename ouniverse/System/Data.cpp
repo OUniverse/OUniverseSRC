@@ -47,6 +47,26 @@ void DataC::Query(FormQueryS* InQuery)
 	AtlasLib_->Query(InQuery);
 }
 
+FormWrapS DataC::GetFormWrap(U64 InAtlas, U32 InForm)
+{
+	return AtlasLib_->Get(InAtlas)->GetFormWrap(InForm);
+}
+
+void DataC::UpdateForm(U64 InAtlasUID, U32 InUID, JsonS& FormJ)
+{
+	AtlasLib_->Get(InAtlasUID)->UpdateForm(InUID, FormJ);
+}
+
+void DataC::UpdateAtlas(U64 InAtlasUID, JsonS& AtlasJ)
+{
+	AtlasLib_->Get(InAtlasUID)->Update(AtlasJ);
+}
+
+void DataC::SaveAtlasDoc(U64 InAtlasUID)
+{
+	AtlasLib_->Get(InAtlasUID)->SaveDoc();
+}
+
 /**
 void DataC::Reset(LoadoutC* InLoadout)
 {

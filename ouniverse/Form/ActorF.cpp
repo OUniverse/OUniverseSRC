@@ -1,9 +1,16 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Form/ActorF.h"
+#include "System/FormTypes.h"
 #include "Interface/Json.h"
 
-ActorF::ActorF(JsonS& InJ) : ObjectF(J)
+
+int ActorF::Type()
+{
+	return FormTypesC::Types::Actor;
+}
+
+ActorF::ActorF(JsonS& InJ) : ObjectF(Json_)
 {
 
 }

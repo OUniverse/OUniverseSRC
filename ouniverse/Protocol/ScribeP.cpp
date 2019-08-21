@@ -30,9 +30,10 @@ void ScribeP::Activate()
 		DBUG(FCommandLine::GetOriginal())
 
 
-		GBIND("ScribeP.ReqAtlasPre", this, &ScribeP::ReqAtlasPre);
+	GBIND("ScribeP.ReqAtlasPre", this, &ScribeP::ReqAtlasPre);
 	GBIND("ScribeP.LoadAtlasi", this, &ScribeP::LoadAtlasi);
 	GBIND("ScribeP.FormQuery", this, &ScribeP::FormQuery);
+	GBIND("ScribeP.FormREQ", this, &ScribeP::FormREQ);
 
 	GSEND0("start");
 
@@ -101,4 +102,37 @@ void ScribeP::FormQuery(std::string InQuery)
 	delete Query;
 	DBUG("END QUERY")
 
+}
+
+void ScribeP::FormREQ(std::string InAtlasUID, int InUID)
+{
+
+	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
+	U32 UID = U32(InUID);
+	FormWrapS FormWrap = Data_->GetFormWrap(AtlasUID, UID);
+
+	GSEND2("form>", FormWrap.Atlas()->UID().ToStd(), FormWrap.Form()->Serialize().ToChar());
+}
+
+
+
+void ScribeP::UpdateForm(std::string InAtlasUID, int InUID, std::string FormJson)
+{
+	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
+	U32 UID = U32(InUID);
+	JsonS J = JsonS(StringC(FormJson));
+	Data_->UpdateForm(AtlasUID, UID, J);
+}
+
+void ScribeP::UpdateAtlas(std::string InAtlasUID, std::string AtlasJson)
+{
+	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
+	JsonS J = JsonS(StringC(AtlasJson));
+	Data_->UpdateAtlas(AtlasUID, J);
+}
+
+void ScribeP::SaveAtlasDoc(std::string InAtlasUID)
+{
+	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
+	Data_->SaveAtlasDoc(AtlasUID);
 }

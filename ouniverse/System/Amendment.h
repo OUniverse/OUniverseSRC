@@ -9,26 +9,20 @@ Form: Abstract base form.
 #include "Interface/String.h"
 #include "Interface/Json.h"
 
-
-class FormF
+class AmendmentC
 {
 
 public:
 
-	static FormF* Create(JsonS& InJ);
 
-	FormF(JsonS& InJ);
+	virtual int Type() { return 1; };
 
-	virtual int Type();
-		
-	virtual void Marshal();
-		
-	virtual ~FormF() {};
+	static AmendmentC* Create(JsonS& InJ);
 
-	U32 UID();
-	
-	StringC ID();
-		
+	AmendmentC(JsonS& InJ);
+
+	virtual ~AmendmentC() {};
+
 	StringC Serialize();
 
 	JsonS ToJson();
@@ -37,9 +31,13 @@ public:
 
 	void Update(JsonS& InJ);
 
-protected:
+	StringC UID();
 
-	U32 UID_;
-	StringC ID_;
+private:
+
+	U64 TAUID_;
+	U32 TUID_;
+	StringC UID_;
+
 	JsonS Json_;
 };

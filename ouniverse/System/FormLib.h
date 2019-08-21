@@ -24,14 +24,13 @@ class FormLibC
 
 public:
 
-	static const char* K_UID;
-	static const char* K_TYPE;
-
 	FormLibC(AtlasC* InOwningAtlas);
 
 	int Len();
 
 	AtlasC* OwningAtlas;
+
+	FormF* Get(U32 InValue);
 
 	FormF* operator[](U32 InValue);
 
@@ -45,18 +44,11 @@ public:
 		
 	void Query(FormQueryS* InQuery);
 
-private:
+	FormWrapS GetFormWrap(U32 InForm);
 
-	enum Types {
-		Error,
-		Form,
-		Ref,
-		Object,
-		Actor,
-		Epoch,
-		Actra,
-		TYPES_MAX,
-	};
+	JsonS ToJson();
+
+private:
 
 	int Len_;
 

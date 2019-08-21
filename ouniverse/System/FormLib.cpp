@@ -1,6 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/FormLib.h"
+#include "System/FormTypes.h"
+
+#include "Key/GlobalK.h"
 
 #include "Form/FormF.h"
 #include "Form/RefF.h"
@@ -14,22 +17,18 @@
 #include "System/Log.h"
 
 
-const char* FormLibC::K_UID = "u";
-const char* FormLibC::K_TYPE = "t";
-
-
 FormLibC::FormLibC(AtlasC* InOwningAtlas)
 {
 	Len_ = 0;
 	OwningAtlas = InOwningAtlas;
 
-	FactoryArray.Init(Types::TYPES_MAX, NULL);
-	FactoryArray[Types::Form]	= FormF::Create;
-	FactoryArray[Types::Ref]	= RefF::Create;
-	FactoryArray[Types::Object]	= ObjectF::Create;
-	FactoryArray[Types::Actor]	= ActorF::Create;
-	FactoryArray[Types::Epoch]	= EpochF::Create;
-	FactoryArray[Types::Actra]	= ActraF::Create;
+	FactoryArray.Init(FormTypesC::Types::TYPES_MAX, NULL);
+	FactoryArray[FormTypesC::Types::Form]	= FormF::Create;
+	FactoryArray[FormTypesC::Types::Ref]	= RefF::Create;
+	FactoryArray[FormTypesC::Types::Object]	= ObjectF::Create;
+	FactoryArray[FormTypesC::Types::Actor]	= ActorF::Create;
+	FactoryArray[FormTypesC::Types::Epoch]	= EpochF::Create;
+	FactoryArray[FormTypesC::Types::Actra]	= ActraF::Create;
 
 }
 
@@ -48,7 +47,7 @@ void FormLibC::AddList(JsonS* InJ)
 	for (int i = 0; i < L; i++)
 	{
 		JsonS NewForm = InJ->At(i);
-		int Type = NewForm.Int(FormLibC::K_TYPE);
+		int Type = NewForm.Int(GlobalK::Type);
 		FormF* Form = FactoryArray[Type](NewForm);
 		Add(Form);
 	}
@@ -60,6 +59,11 @@ void FormLibC::Add(FormF* NewForm)
 	Len_++;
 	LOG(54439, NewForm->UID(), "Adding Form: $V$")
 	Lib_.Add(NewForm->UID(), NewForm);
+}
+
+FormF* FormLibC::Get(U32 InValue)
+{
+	return Lib_[InValue];
 }
 
 FormF* FormLibC::operator[](U32 InValue)
@@ -87,4 +91,25 @@ void FormLibC::Query(FormQueryS* InQuery)
 		InQuery->Scan(FormWrap);
 	}
 
+}
+
+FormWrapS FormLibC::GetFormWrap(U32 InForm)
+{
+	return FormWrapS(OwningAtlas, Lib_[InForm]);
+}
+
+JsonS FormLibC::ToJson()
+{
+	ArrayC<JsonS> JArr;
+
+	JsonS J = JsonS();
+
+	for (int i = 0; i < Len(); i++)
+	{
+		JArr.Add(Lib_.At(i)->ToJson());
+	}
+
+	J.Array(JArr);
+
+	return J;
 }

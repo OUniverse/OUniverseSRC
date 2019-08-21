@@ -17,4 +17,6 @@ public:
 	static FormF* Create(JsonS& InJ);
 
 	virtual void Marshal() override;
+
+	virtual int Type() override;
 };

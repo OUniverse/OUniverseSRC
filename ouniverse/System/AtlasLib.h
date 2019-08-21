@@ -25,6 +25,7 @@ public:
 
 	AtlasC* operator[](U64 InValue);
 
+	AtlasC* Get(U64 InValue);
 	AtlasC* At(int Index);
 
 	int PreLen();
@@ -46,6 +47,7 @@ public:
 	ArrayC<AtlasC*> GetAtlasPreArray();
 
 	void Query(FormQueryS* InQuery);
+
 
 private:
 

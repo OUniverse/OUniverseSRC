@@ -1,20 +1,20 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Form/FormF.h"
+#include "System/FormTypes.h"
 #include "Interface/Json.h"
+#include "Key/GlobalK.h"
 
-#include "Min/DebugM.h"
-
-
-const char* FormF::K_UID		= "u";
-const char* FormF::K_ID			= "i";
-
+int FormF::Type()
+{
+	return FormTypesC::Types::Form;
+}
 
 FormF::FormF(JsonS& InJ)
 {
-	J = InJ;
-	UID_ = J.UInt32(FormF::K_UID);
-	ID_ =  J.String(FormF::K_ID);;
+	Json_ = InJ;
+	UID_ = Json_.UInt32(GlobalK::UID);
+	ID_ =  Json_.String(GlobalK::ID);
 }
 
 FormF* FormF::Create(JsonS& InJ)
@@ -32,4 +32,29 @@ U32 FormF::UID()
 StringC FormF::ID()
 {
 	return ID_;
+}
+
+void FormF::Update(JsonS& InJ)
+{
+
+}
+
+StringC FormF::Serialize()
+{
+	return ToJson().Serialize();
+}
+
+
+JsonS FormF::ToJson()
+{
+	JsonS S = JsonS();
+	return ToJsonInternal(S);
+}
+
+JsonS FormF::ToJsonInternal(JsonS& S)
+{
+	S.Add(GlobalK::UID, UID().Ref());
+	S.Add(GlobalK::ID, ID());
+	S.Add(GlobalK::Type, Type());
+	return S;
 }

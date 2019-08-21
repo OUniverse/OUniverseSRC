@@ -7,6 +7,8 @@
 #include <string>
 
 #include "System/AtlasLib.h"
+#include "System/RevisionLib.h"
+#include "System/AmendmentLib.h"
 
 #include "Interface/Int.h"
 #include "Interface/Json.h"
@@ -19,18 +21,18 @@
 #include "Atlas/ExtraD.h"
 
 #include "System/FormLib.h"
-#include "System/CreditLib.h"
-#include "System/Cosmos.h"
+
+#include "Key/GlobalK.h"
 
 #include "Interface/TitleParse.h"
 
-
+#include "Min/DebugM.h"
 
 
 const char* AtlasC::FILE_NAME = "_.atlas";
 const char* AtlasC::FILE_NAME_DEV = "_.atlasdev";
 
-const char* AtlasC::K_ID			= "i";
+
 const char* AtlasC::K_NAME			= "n";
 const char* AtlasC::K_ICON			= "g";
 const char* AtlasC::K_DESC			= "d";
@@ -101,7 +103,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 	std::getline(File, Line);
 	JsonS J = JsonS(StringC(Line));
-	ID_			= J.String(AtlasC::K_ID);
+	ID_			= J.String(GlobalK::ID);
 	Name_		= J.String(AtlasC::K_NAME);
 	Icon_		= J.String(AtlasC::K_ICON);
 	Desc_		= J.String(AtlasC::K_DESC);
@@ -149,7 +151,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 }
 
-bool AtlasC::Mount()
+bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 {
 	FormLib_ = new FormLibC(this);
 
@@ -163,14 +165,34 @@ bool AtlasC::Mount()
 
 	JsonS J;
 
+	
 	std::getline(File, Line);//Forms
 	J = JsonS(StringC(Line));
 	FormLib_->AddList(&J);
+
+	RevisionLib_ = new RevisionLibC(this, InAtlasLib);
+	AmendmentLib_ = new AmendmentLibC(this,InAtlasLib);
+
+
+	std::getline(File, Line);//Revisions
+	J = JsonS(StringC(Line));
+	RevisionLib_->AddList(&J);
+
+	
+	std::getline(File, Line);//Amendments
+	J = JsonS(StringC(Line));
+	AmendmentLib_->AddList(&J);
+	
 
 	//BoostD BoostDoc = BoostD(Path_, Name_);
 	//JsonS Forms = JsonS(BoostDoc.GetForms());
 	//FormLib_->AddList(&Forms);
 	Mounted_ = true;
+
+	DBUG(FormLib_->ToJson().Serialize().ToChar())
+
+
+	
 
 	return Mounted_;
 }
@@ -311,4 +333,40 @@ U64 AtlasC::Link::UID()
 void AtlasC::Query(FormQueryS* InQuery)
 {
 	FormLib_->Query(InQuery);
+}
+
+FormWrapS AtlasC::GetFormWrap(U32 InForm)
+{
+	return FormLib_->GetFormWrap(InForm);
+}
+
+void AtlasC::UpdateForm(U32 InUID, JsonS& InJ)
+{
+	return FormLib_->Get(InUID)->Update(InJ);
+}
+
+void AtlasC::Update(JsonS InJ)
+{
+
+}
+
+void AtlasC::SaveDoc()
+{
+	StringC Doc = StringC(1).NL() + ToJson().Serialize().NL();
+}
+
+
+JsonS AtlasC::ToJson()
+{
+	JsonS S = JsonS();
+	S.Add(GlobalK::UID, UID().Ref());
+	S.Add(GlobalK::ID, ID_);
+	S.Add(AtlasC::K_ICON, Icon_);
+	S.Add(AtlasC::K_DESC, Desc_);
+	S.Add(AtlasC::K_AUTHOR, Author_);
+	S.Add(AtlasC::K_WEBSITE, Website_);
+	S.Add(AtlasC::K_DATE, Date_);
+	S.Add(AtlasC::K_VER_VIS, VerVis_);
+	S.Add(AtlasC::K_VER_ITT, Inc_);
+	return S;
 }

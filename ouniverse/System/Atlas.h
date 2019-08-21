@@ -9,16 +9,18 @@ Atlas
 #include "Interface/String.h"
 #include "Interface/Map.h"
 #include "Interface/Array.h"
+#include "Interface/Json.h"
 
 #include "System/FormQuery.h"
 
+class AtlasLibC;
+
 class FormF;
 class PayloadC;
-class FormLibC;
-class AtlasLibC;
-class CreditLibC;
-class CosmosC;
 
+class FormLibC;
+class RevisionLibC;
+class AmendmentLibC;
 
 
 class AtlasC
@@ -26,7 +28,6 @@ class AtlasC
 	static const char* FILE_NAME;
 	static const char* FILE_NAME_DEV;
 
-	static const char* K_ID;
 	static const char* K_NAME;
 	static const char* K_ICON;
 	static const char* K_DESC;
@@ -53,7 +54,7 @@ public:
 
 	bool Valid();
 	
-	bool Mount();
+	bool Mount(AtlasLibC* InAtlasLib);
 
 	void Dismount();
 
@@ -87,6 +88,16 @@ public:
 	void LinkExtra(AtlasLibC* InLib);
 
 	void Query(FormQueryS* InQuery);
+
+	FormWrapS GetFormWrap(U32 InForm);
+
+	void UpdateForm(U32 InUID, JsonS& InJ);
+
+	void Update(JsonS InJ);
+
+	void SaveDoc();
+
+	JsonS ToJson();
 
 private:
 
@@ -128,5 +139,6 @@ private:
 	ArrayC<AtlasC::Link> LinksPref;
 
 	FormLibC* FormLib_;
-
+	AmendmentLibC* AmendmentLib_;
+	RevisionLibC* RevisionLib_;
 };

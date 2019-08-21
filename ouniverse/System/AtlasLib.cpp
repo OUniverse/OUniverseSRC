@@ -80,6 +80,11 @@ AtlasC* AtlasLibC::operator[](U64 InValue)
 	return PreLib_[InValue];
 }
 
+AtlasC* AtlasLibC::Get(U64 InValue)
+{
+	return PreLib_[InValue];
+}
+
 AtlasC* AtlasLibC::At(int Index)
 {
 	return PreLib_.At(Index);
@@ -120,7 +125,7 @@ void AtlasLibC::Mount(ArrayC<U64> InUIDArr)
 		{
 			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
-			TryAtlas->Mount();
+			TryAtlas->Mount(this);
 		}
 	}
 }
@@ -139,7 +144,7 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 		{
 			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
-			TryAtlas->Mount();
+			TryAtlas->Mount(this);
 		}
 	}
 

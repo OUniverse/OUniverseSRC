@@ -23,9 +23,17 @@ public:
 
 	void ReqAtlasPre();
 
+	void LoadAtlasi(std::vector<std::string> AtlasiSelection, bool ReqScribe);
+
 	void FormQuery(std::string InQuery);
 
-	void LoadAtlasi(std::vector<std::string> AtlasiSelection, bool ReqScribe);
+	void FormREQ(std::string InAtlasUID, int InUID);
+
+	void UpdateForm(std::string InAtlasUID, int InUID, std::string FormJson);
+
+	void UpdateAtlas(std::string InAtlasUID, std::string AtlasJson);
+
+	void SaveAtlasDoc(std::string InAtlasUID);
 
 private:
 
