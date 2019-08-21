@@ -98,6 +98,12 @@ FormWrapS FormLibC::GetFormWrap(U32 InForm)
 	return FormWrapS(OwningAtlas, Lib_[InForm]);
 }
 
+
+StringC FormLibC::Serialize()
+{
+	return ToJson().Serialize();
+}
+
 JsonS FormLibC::ToJson()
 {
 	ArrayC<JsonS> JArr;

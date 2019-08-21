@@ -35,11 +35,13 @@ public:
 
 	void FormSAVE(std::string InFormJ);
 
+	void AtlasDocSAVE(std::string InAtlasUID);
+
 	void UpdateForm(U64 InAtlasUID, U32 InUID, JsonS InJ);
 
 	void UpdateAtlas(std::string InAtlasUID, std::string AtlasJson);
 
-	void SaveAtlasDoc(std::string InAtlasUID);
+	void SaveAtlasDoc(U64 InAtlasUID);
 
 private:
 

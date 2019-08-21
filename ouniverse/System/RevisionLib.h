@@ -41,6 +41,8 @@ public:
 	void Query(FormQueryS* InQuery);
 
 	FormWrapS GetFormWrap(U32 InRevision);
+	
+	StringC Serialize();
 
 	JsonS ToJson();
 

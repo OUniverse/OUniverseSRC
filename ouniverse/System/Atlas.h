@@ -21,7 +21,7 @@ class PayloadC;
 class FormLibC;
 class RevisionLibC;
 class AmendmentLibC;
-
+class AtlasAccordLibC;
 
 class AtlasC
 {
@@ -35,8 +35,8 @@ class AtlasC
 	static const char* K_WEBSITE;
 	static const char* K_DATE;
 	static const char* K_VER_VIS;
-	static const char* K_VER_ITT;
-	static const char* K_VER_UPD;
+	static const char* K_VER_INC;
+	static const char* K_VER_UPDATE;
 	static const char* K_WEB_SOCKET;
 
 	static const char* K_LINKS;
@@ -73,8 +73,7 @@ public:
 	StringC VerVis_;
 	int VerInc_;
 	int VerUpdate_;
-
-	int Inc_;
+	StringC WebSocket_;
 
 	bool DevFile_;
 
@@ -102,25 +101,9 @@ public:
 private:
 
 	AtlasC(StringC InFolderName, StringC InPath);
-
-	struct Link
-	{
-
-		Link();
-
-		Link(U64 InUID);
-
-		U64 UID();
-		void Found();
-		bool Exists();
-
-	private:
-		
-		U64 UID_;
-		bool Exists_;
-
-	};
 	
+	~AtlasC();
+
 	U64 UID_;
 	
 	bool Valid_;
@@ -134,9 +117,9 @@ private:
 
 	StringC Path_;
 	
-	ArrayC<AtlasC::Link> LinksHard;
-	ArrayC<AtlasC::Link> LinksSoft;
-	ArrayC<AtlasC::Link> LinksPref;
+	AtlasAccordLibC* AccordsHard_;
+	AtlasAccordLibC* AccordsSoft_;
+	AtlasAccordLibC* AccordsPref_;
 
 	FormLibC* FormLib_;
 	AmendmentLibC* AmendmentLib_;

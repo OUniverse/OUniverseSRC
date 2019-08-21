@@ -14,9 +14,6 @@ class AmendmentC
 
 public:
 
-
-	virtual int Type() { return 1; };
-
 	static AmendmentC* Create(JsonS& InJ);
 
 	AmendmentC(JsonS& InJ);
@@ -27,16 +24,14 @@ public:
 
 	JsonS ToJson();
 
-	virtual JsonS ToJsonInternal(JsonS& S);
-
 	void Update(JsonS& InJ);
 
 	StringC UID();
 
 private:
 
-	U64 TAUID_;
-	U32 TUID_;
+	U64 TargetAtlasUID_;
+	U32 TargetUID_;
 	StringC UID_;
 
 	JsonS Json_;

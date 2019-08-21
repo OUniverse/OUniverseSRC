@@ -1,6 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Atlas.h"
+#include "System/AtlasAccordLib.h"
 #include "System/Payload.h"
 
 #include <fstream>
@@ -40,8 +41,8 @@ const char* AtlasC::K_AUTHOR		= "a";
 const char* AtlasC::K_WEBSITE		= "w";
 const char* AtlasC::K_DATE			= "t";
 const char* AtlasC::K_VER_VIS		= "vv";
-const char* AtlasC::K_VER_ITT		= "vi";
-const char* AtlasC::K_VER_UPD		= "vu";
+const char* AtlasC::K_VER_INC		= "vi";
+const char* AtlasC::K_VER_UPDATE	= "vu";
 const char* AtlasC::K_WEB_SOCKET	= "so";
 
 const char* AtlasC::K_LINKS			= "l";
@@ -63,6 +64,10 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	FoundLinksSoft_ = false;
 	FoundLinksPref_ = false;
 	DevFile_ = false;
+
+	AccordsHard_ = new AtlasAccordLibC();
+	AccordsSoft_ = new AtlasAccordLibC();
+	AccordsPref_ = new AtlasAccordLibC();
 
 	LOG(29333, InPath, "Validating Atlas folder at path: $V$")
 
@@ -103,6 +108,79 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 	std::getline(File, Line);
 	JsonS J = JsonS(StringC(Line));
+
+	if (!J.Has(GlobalK::ID))
+	{
+		LOG(300, GlobalK::ID, "Missing required Json Value: $V$")
+		return;
+	}
+
+	if (!J.Has(AtlasC::K_NAME))
+	{
+		LOG(300, AtlasC::K_NAME, "Missing required Json Value: $V$")
+		return;
+	}
+
+	if (!J.Has(AtlasC::K_ICON))
+	{
+		LOG(300, AtlasC::K_ICON, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_DESC))
+	{
+		LOG(300, AtlasC::K_DESC, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_AUTHOR))
+	{
+		LOG(300, AtlasC::K_AUTHOR, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_WEBSITE))
+	{
+		LOG(300, AtlasC::K_WEBSITE, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_DATE))
+	{
+		LOG(300, AtlasC::K_DATE, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_VER_VIS))
+	{
+		LOG(300, AtlasC::K_VER_VIS, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_VER_INC))
+	{
+		LOG(300, AtlasC::K_VER_INC, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_VER_UPDATE))
+	{
+		LOG(300, AtlasC::K_VER_UPDATE, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_WEB_SOCKET))
+	{
+		LOG(300, AtlasC::K_WEB_SOCKET, "Missing required Json Value: $V$")
+			return;
+	}
+
+	if (!J.Has(AtlasC::K_LINKS))
+	{
+		LOG(300, AtlasC::K_LINKS, "Missing required Json Value: $V$")
+			return;
+	}
+
 	ID_			= J.String(GlobalK::ID);
 	Name_		= J.String(AtlasC::K_NAME);
 	Icon_		= J.String(AtlasC::K_ICON);
@@ -111,33 +189,21 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	Website_	= J.String(AtlasC::K_WEBSITE);
 	Date_		= J.String(AtlasC::K_DATE);
 	VerVis_		= J.String(AtlasC::K_VER_VIS);
-	Inc_		= J.Int(AtlasC::K_VER_ITT);
+	VerInc_		= J.Int(AtlasC::K_VER_INC);
+	VerUpdate_	= J.Int(AtlasC::K_VER_UPDATE);
+	WebSocket_	= J.String(AtlasC::K_WEB_SOCKET);
 
 	JsonS Links = J[AtlasC::K_LINKS];
-
-	JsonS CurLinks = Links[AtlasC::K_LINKS_HARD];
-	int L = CurLinks.Len();
-	for (int i = 0; i < L; i++)
-	{
-		LinksHard.Add(Link(CurLinks[i].UInt64()));
-	}
-
-	CurLinks = Links[AtlasC::K_LINKS_SOFT];
-	L = CurLinks.Len();
-	for (int i = 0; i < L; i++)
-	{
-		LinksSoft.Add(Link(CurLinks[i].UInt64()));
-	}
-
-	CurLinks = Links[AtlasC::K_LINKS_PREF];
-	L = CurLinks.Len();
-	for (int i = 0; i < L; i++)
-	{
-		LinksPref.Add(Link(CurLinks[i].UInt64()));
-	}
-
+	JsonS Cur;
+	Cur = Links[AtlasC::K_LINKS_HARD];
+	AccordsHard_->AddList(&Cur);
+	Cur = Links[AtlasC::K_LINKS_SOFT];
+	AccordsSoft_->AddList(&Cur);
+	Cur = Links[AtlasC::K_LINKS_PREF];
+	AccordsPref_->AddList(&Cur);
 
 	SearchPath = (InPath / AtlasC::FILE_NAME_DEV);
+
 	LOG(105, InPath, "Path: $V$")
 
 
@@ -151,6 +217,19 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 }
 
+
+AtlasC::~AtlasC()
+{
+//DELETECHECK
+	delete AccordsHard_;
+	delete AccordsSoft_;
+	delete AccordsPref_;
+
+	delete FormLib_;
+	delete RevisionLib_;
+	delete AmendmentLib_;
+	
+}
 bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 {
 	FormLib_ = new FormLibC(this);
@@ -192,8 +271,8 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 	DBUG(FormLib_->ToJson().Serialize().ToChar())
 
 
-	
 
+		SaveDoc();
 	return Mounted_;
 }
 
@@ -227,10 +306,10 @@ bool AtlasC::CheckRequirements(AtlasLibC* InAtlasMap)
 
 		AtlasC* RequiredAtlas = NULL;
 
-		int L = LinksHard.Len();
+		int L = AccordsHard_->Len();
 		for (int i = 0; i < L; i++)
 		{
-			if(InAtlasMap->Try(LinksHard[i].UID(), RequiredAtlas))
+			if(InAtlasMap->Try(AccordsHard_->Get(i)->UID(), RequiredAtlas))
 			{
 				if(!RequiredAtlas->CheckRequirements(InAtlasMap))
 				{
@@ -238,7 +317,7 @@ bool AtlasC::CheckRequirements(AtlasLibC* InAtlasMap)
 				}
 				else
 				{
-					LinksHard[i].Found();
+					AccordsHard_->Get(i)->Found();
 				}
 			}
 			else
@@ -265,26 +344,26 @@ void AtlasC::Survey(AtlasLibC* InAtlasMap)
 
 	AtlasC* LinkTarget = NULL;
 
-	int L = LinksSoft.Len();
+	int L = AccordsSoft_->Len();
 	for (int i = 0; i < L; i++)
 	{
-		if (InAtlasMap->Try(LinksSoft[i].UID(), LinkTarget))
+		if (InAtlasMap->Try(AccordsSoft_->Get(i)->UID(), LinkTarget))
 		{
 			if (LinkTarget->CheckRequirements(InAtlasMap))
 			{
-				LinksSoft[i].Found();
+				AccordsSoft_->Get(i)->Found();
 			}
 		}
 	}
 
-	L = LinksPref.Len();
+	L = AccordsPref_->Len();
 	for (int i = 0; i < L; i++)
 	{
-		if (InAtlasMap->Try(LinksPref[i].UID(), LinkTarget))
+		if (InAtlasMap->Try(AccordsPref_->Get(i)->UID(), LinkTarget))
 		{
 			if (LinkTarget->CheckRequirements(InAtlasMap))
 			{
-				LinksPref[i].Found();
+				AccordsPref_->Get(i)->Found();
 			}
 		}
 	}
@@ -302,33 +381,6 @@ void AtlasC::LinkExtra(AtlasLibC* InAtlasLib)
 	FormLib_->LinkExtra(InAtlasLib);
 }
 
-
-AtlasC::Link::Link()
-{
-	long long zero = 0;
-	UID_ = zero;
-	Exists_ = false;
-}
-
-AtlasC::Link::Link(U64 InUID)
-{
-	UID_ = InUID;
-}
-
-void AtlasC::Link::Found()
-{
-	Exists_ = true;
-}
-
-bool AtlasC::Link::Exists()
-{
-	return Exists_;
-}
-
-U64 AtlasC::Link::UID()
-{
-	return UID_;
-}
 
 void AtlasC::Query(FormQueryS* InQuery)
 {
@@ -352,21 +404,66 @@ void AtlasC::Update(JsonS InJ)
 
 void AtlasC::SaveDoc()
 {
-	StringC Doc = StringC(1).NL() + ToJson().Serialize().NL();
+	StringC Doc = StringC(1).NL();
+	Doc+=  ToJson().Serialize().NL();
+	Doc += FormLib_->Serialize().NL();
+	Doc += RevisionLib_->Serialize().NL();
+	Doc += AmendmentLib_->Serialize();
+
+	FileC AtlasFile = FileC(Path_ / AtlasC::FILE_NAME);
+	AtlasFile.Write(Doc);
 }
+
 
 
 JsonS AtlasC::ToJson()
 {
 	JsonS S = JsonS();
-	S.Add(GlobalK::UID, UID().Ref());
 	S.Add(GlobalK::ID, ID_);
+	S.Add(AtlasC::K_NAME, Name_);
 	S.Add(AtlasC::K_ICON, Icon_);
 	S.Add(AtlasC::K_DESC, Desc_);
 	S.Add(AtlasC::K_AUTHOR, Author_);
 	S.Add(AtlasC::K_WEBSITE, Website_);
-	S.Add(AtlasC::K_DATE, Date_);
+	
+	U64 CurrentTime = FDateTime::Now().GetTicks();	
+	S.Add(AtlasC::K_DATE, StringC(CurrentTime.ToStd()));
 	S.Add(AtlasC::K_VER_VIS, VerVis_);
-	S.Add(AtlasC::K_VER_ITT, Inc_);
+	S.Add(AtlasC::K_VER_INC, VerInc_);
+	S.Add(AtlasC::K_VER_UPDATE, VerUpdate_);
+	S.Add(AtlasC::K_WEB_SOCKET, WebSocket_);
+
+	JsonS Links = JsonS();
+
+	ArrayC<JsonS> JArr;
+	JsonS TempLink = JsonS();
+	
+	/**
+	int L;
+
+	
+	L = LinksHard.Len();
+
+	for (int i = 0; i < L; i++)
+	{
+		JArr.Add(LinksHard[i].ToJson());
+	}
+
+	J.Array(JArr);
+
+
+	L = LinksSoft.Len();
+
+
+
+	L = LinksPref.Len();
+
+	return J;
+	
+
+	S.Add(AtlasC::K_LINKS, WebSocket_);
+	*/
+
 	return S;
 }
+

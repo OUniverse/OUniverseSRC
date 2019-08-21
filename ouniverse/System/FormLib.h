@@ -46,6 +46,8 @@ public:
 
 	FormWrapS GetFormWrap(U32 InForm);
 
+	StringC Serialize();
+
 	JsonS ToJson();
 
 private:

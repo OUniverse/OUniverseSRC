@@ -74,6 +74,12 @@ FormWrapS AmendmentLibC::GetFormWrap(U32 InForm)
 	//return FormWrapS(OwningAtlas_, Lib_[InForm]);
 }
 
+
+StringC AmendmentLibC::Serialize()
+{
+	return ToJson().Serialize();
+}
+
 JsonS AmendmentLibC::ToJson()
 {
 	ArrayC<JsonS> JArr;

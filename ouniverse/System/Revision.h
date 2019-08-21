@@ -17,9 +17,6 @@ class RevisionC
 
 public:
 
-
-	virtual int Type() { return 1; };
-
 	static RevisionC* Create(JsonS& InJ);
 
 	RevisionC(JsonS& InJ);
@@ -30,16 +27,14 @@ public:
 
 	JsonS ToJson();
 
-	virtual JsonS ToJsonInternal(JsonS& S);
-
 	void Update(JsonS& InJ);
 
 	StringC UID();
 
 private:
 
-	U64 TAUID_;
-	U32 TUID_;
+	U64 TargetAtlasUID_;
+	U32 TargetUID_;
 	StringC UID_;
 	
 	FormF* Form_;

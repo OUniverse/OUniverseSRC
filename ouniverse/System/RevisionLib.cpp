@@ -64,6 +64,11 @@ void RevisionLibC::Query(FormQueryS* InQuery)
 
 }
 
+StringC RevisionLibC::Serialize()
+{
+	return ToJson().Serialize();
+}
+
 FormWrapS RevisionLibC::GetFormWrap(U32 InForm)
 {
 	return FormWrapS();
@@ -85,3 +90,4 @@ JsonS RevisionLibC::ToJson()
 
 	return J;
 }
+

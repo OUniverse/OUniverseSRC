@@ -125,6 +125,11 @@ void ScribeP::FormSAVE(std::string InFormJ)
 	UpdateForm(AtlasUID,J.UInt32(GlobalK::UID),J);
 }
 
+void ScribeP::AtlasDocSAVE(std::string InAtlasUID)
+{
+	SaveAtlasDoc(U64(StringC(InAtlasUID).ToChar()));
+}
+
 void ScribeP::UpdateForm(U64 InAtlasUID, U32 InUID, JsonS InJ)
 {
 	Data_->UpdateForm(InAtlasUID, InUID, InJ);
@@ -137,9 +142,8 @@ void ScribeP::UpdateAtlas(std::string InAtlasUID, std::string AtlasJson)
 	Data_->UpdateAtlas(AtlasUID, J);
 }
 
-void ScribeP::SaveAtlasDoc(std::string InAtlasUID)
+void ScribeP::SaveAtlasDoc(U64 InAtlasUID)
 {
-	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
-	Data_->SaveAtlasDoc(AtlasUID);
+	Data_->SaveAtlasDoc(InAtlasUID);
 }
 
