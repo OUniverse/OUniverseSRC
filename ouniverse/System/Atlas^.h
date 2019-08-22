@@ -32,7 +32,7 @@ void CoherentBind(cohtml::Binder* binder, AtlasC* Atlas)
 	binder->MapBegin(3);
 
 	CoherentBindInternal(binder, "uid");
-	CoherentBindInternal(binder, Atlas->UID().ToStd());
+	CoherentBindInternal(binder, Atlas->UID().ForUI());
 	CoherentBindInternal(binder, "id");
 	CoherentBindInternal(binder, Atlas->ID_.ToChar());
 	CoherentBindInternal(binder, "ds");

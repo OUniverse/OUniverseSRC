@@ -12,6 +12,8 @@ Atlas
 
 #include "System/FormQuery.h"
 
+#include "System/AtlasUID.h"
+
 class AtlasC;
 class LoadoutC;
 class CreditLibC;
@@ -23,22 +25,21 @@ public:
 
 	AtlasLibC(StringC InPath);
 
-	AtlasC* operator[](U64 InValue);
+	AtlasC* Get(AtlasUID InValue);
 
-	AtlasC* Get(U64 InValue);
 	AtlasC* At(int Index);
 
 	int PreLen();
 
 	int Len();
 
-	bool Try(U64 InUID, AtlasC* Out);
+	bool Try(AtlasUID InUID, AtlasC* Out);
 
 	void Reset();
 
 	void Mount(LoadoutC* InLoadout);
 
-	void Mount(ArrayC<U64> InUIDArr);
+	void Mount(ArrayC<AtlasUID> InUIDArr);
 
 	void AddAtlas(AtlasC* NewAtlas);
 
@@ -57,9 +58,9 @@ private:
 
 	int Len_;
 	
-	MapC<U64, AtlasC*> PreLib_;
+	MapC<AtlasUID, AtlasC*> PreLib_;
 
-	MapC<U64, AtlasC*> Lib_;
+	MapC<AtlasUID, AtlasC*> Lib_;
 
 	CreditLibC* CreditLib_;
 

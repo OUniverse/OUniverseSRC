@@ -31,7 +31,7 @@ void AtlasAccordLibC::AddList(JsonS* InJ)
 
 	for (int i = 0; i < L; i++)
 	{
-		AtlasAccordC* Accord = new AtlasAccordC(U64(InJ->At(i).String().ToChar()));
+		AtlasAccordC* Accord = new AtlasAccordC(InJ->At(i).ToAtlasUID());
 		Add(Accord);
 	}
 }
@@ -57,13 +57,13 @@ JsonS AtlasAccordLibC::ToJson()
 {
 	ArrayC<JsonS> JArr;
 
-	JsonS J = JsonS();
 
 	for (int i = 0; i < Len(); i++)
 	{
-		JArr.Add(StringC(Lib_[i]->UID().ToStd()));
+		JArr.Add(JsonS(Lib_[i]->UID()));
 	}
-
+	
+	JsonS J = JsonS();
 	J.Array(JArr);
 
 	return J;

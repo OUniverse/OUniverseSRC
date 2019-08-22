@@ -14,7 +14,7 @@ int FormF::Type()
 FormF::FormF(JsonS& InJ)
 {
 	Json_ = InJ;
-	UID_ = Json_.UInt32(GlobalK::UID);
+	UID_ = Json_.ToFormUID(GlobalK::UID);
 	ID_ =  Json_.String(GlobalK::ID);
 }
 
@@ -25,7 +25,7 @@ FormF* FormF::Create(JsonS& InJ)
 
 void FormF::Marshal() {}	
 
-U32 FormF::UID()
+FormUID FormF::UID()
 {
 	return UID_;
 }
@@ -54,7 +54,7 @@ JsonS FormF::ToJson()
 
 JsonS FormF::ToJsonInternal(JsonS& S)
 {
-	S.Add(GlobalK::UID, UID().Ref());
+	S.Add(GlobalK::UID, UID());
 	S.Add(GlobalK::ID, ID());
 	S.Add(GlobalK::Type, Type());
 	return S;

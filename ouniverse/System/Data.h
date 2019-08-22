@@ -23,6 +23,12 @@ Data is a singleton which loads all the atlas style game data.
 
 #include "System/FormQuery.h"
 
+#include "System/ProgramState.h"
+
+#include "System/AtlasUID.h"
+#include "System/FormUID.h"
+#include "System/DuetUID.h"
+
 class UBoot;
 class AtlasLibC;
 class AtlasC;
@@ -34,13 +40,15 @@ class OUNIVERSE_API DataC
 
 private:
 
-	static DataC* Create(StringC InPath);
+	static DataC* Create(ProgramStateC::State InState, StringC InPath);
 	
-	DataC(StringC InPath);
+	DataC(ProgramStateC::State InState, StringC InPath);
 	
 	StringC Path_;
 
 	AtlasLibC* AtlasLib_;
+
+	ProgramStateC::State State_;
 
 public:
 
@@ -54,13 +62,13 @@ public:
 
 	void Query(FormQueryS* InQuery);
 
-	FormWrapS GetFormWrap(U64 InAtlas, U32 InForm);
+	FormWrapS GetFormWrap(DuetUID InDuet);
 
-	void UpdateForm(U64 InAtlasUID, U32 InUID, JsonS& FormJ);
+	void UpdateForm(DuetUID InDuet, JsonS& FormJ);
 
-	void UpdateAtlas(U64 InAtlasUID, JsonS& AtlasJ);
+	void UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ);
 
-	void SaveAtlasDoc(U64 InAtlasUID);
+	void SaveAtlasDoc(AtlasUID InAtlasUID);
 
 	//void Reset(LoadoutC* InLoadout);
 	//void Evolve(CosmosC* InLoadout);

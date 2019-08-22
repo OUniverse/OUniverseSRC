@@ -9,6 +9,7 @@ Form: Abstract base form.
 #include "Interface/String.h"
 #include "Interface/Json.h"
 
+#include "System/FormUID.h"
 
 class FormF
 {
@@ -25,7 +26,7 @@ public:
 		
 	virtual ~FormF() {};
 
-	U32 UID();
+	FormUID UID();
 	
 	StringC ID();
 		
@@ -39,7 +40,7 @@ public:
 
 protected:
 
-	U32 UID_;
+	FormUID UID_;
 	StringC ID_;
 	JsonS Json_;
 };

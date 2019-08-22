@@ -49,20 +49,18 @@ void ScribeP::ReqAtlasPre()
 		GSEND1("data.rec_atlaspre", Data_->GetAtlasPreArray().Vector());
 }
 
-void ScribeP::LoadAtlasi(std::vector<std::string> AtlasiSelection, bool ReqScribe)
+void ScribeP::LoadAtlasi(std::vector<int> AtlasiArr, bool ReqScribe)
 {
 
-	StringC DataString = StringC(AtlasiSelection[0]);
-	//JsonS J = JsonS(DataString);
+	int l = AtlasiArr.size();
+	ArrayC<AtlasUID> Atlasi;
 
-
-	int l = AtlasiSelection.size();
-	ArrayC<U64> Atlasi;
+	AtlasUID AUID;
 
 	for (int i = 0; i < l; i++)
 	{
-		Atlasi.Add(U64(DataString.ToChar()));
-		DBUG(StringC(Atlasi[i].ToStd()).ToChar())
+		AUID = AtlasUID(AtlasiArr[i]);
+		Atlasi.Add(AUID);
 	}
 
 
@@ -85,11 +83,12 @@ void ScribeP::FormQuery(std::string InQuery)
 
 	ArrayC<FormPilotS*> FormPilots;
 	FormWrapS CurForm;
-
+	DuetUID LoopDuet;
 	for (int i = 0; i < L; i++)
 	{
 		CurForm = Query->ValidForms_[i];
-		FormPilots.Add(new FormPilotS(CurForm.Atlas()->UID(),CurForm.Form()->UID(), CurForm.Form()->ID(), CurForm.Form()->Type()));
+		LoopDuet = DuetUID(CurForm.Atlas()->UID(), CurForm.Form()->UID());
+		FormPilots.Add(new FormPilotS(LoopDuet, CurForm.Form()->ID(), CurForm.Form()->Type()));
 	}
 
 	GSEND1("formlist>", FormPilots.Vector());
@@ -106,43 +105,41 @@ void ScribeP::FormQuery(std::string InQuery)
 
 }
 
-void ScribeP::FormREQ(std::string InAtlasUID, int InUID)
+void ScribeP::FormREQ(int InAtlasUID, int InFormUID)
 {
 
-	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
-	U32 UID = U32(InUID);
-	FormWrapS FormWrap = Data_->GetFormWrap(AtlasUID, UID);
+	FormWrapS FormWrap = Data_->GetFormWrap(DuetUID(InAtlasUID, InFormUID));
 
-	GSEND2("form>", FormWrap.Atlas()->UID().ToStd(), FormWrap.Form()->Serialize().ToChar());
+	GSEND2("form>", FormWrap.Atlas()->UID().ForUI(), FormWrap.Form()->Serialize().ToChar());
 }
 
 void ScribeP::FormSAVE(std::string InFormJ)
 {
 	JsonS J = JsonS(StringC(InFormJ));
 
-	U64 AtlasUID = U64(StringC(J.String(GlobalK::UID_Atlas)).ToChar());
-
-	UpdateForm(AtlasUID,J.UInt32(GlobalK::UID),J);
+	AtlasUID AtlasU = J.ToAtlasUID(GlobalK::UID_Atlas);
+	FormUID FormU = J.ToFormUID(GlobalK::UID);
+	
+	UpdateForm(DuetUID(AtlasU, FormU),J);
 }
 
-void ScribeP::AtlasDocSAVE(std::string InAtlasUID)
+void ScribeP::AtlasDocSAVE(int InAtlasUID)
 {
-	SaveAtlasDoc(U64(StringC(InAtlasUID).ToChar()));
+	SaveAtlasDoc(AtlasUID(InAtlasUID));
 }
 
-void ScribeP::UpdateForm(U64 InAtlasUID, U32 InUID, JsonS InJ)
+void ScribeP::UpdateForm(DuetUID InDuet, JsonS InJ)
 {
-	Data_->UpdateForm(InAtlasUID, InUID, InJ);
+	Data_->UpdateForm(InDuet, InJ);
 }
 
-void ScribeP::UpdateAtlas(std::string InAtlasUID, std::string AtlasJson)
+void ScribeP::UpdateAtlas(AtlasUID InAtlasUID, std::string AtlasJson)
 {
-	U64 AtlasUID = U64(StringC(InAtlasUID).ToChar());
 	JsonS J = JsonS(StringC(AtlasJson));
-	Data_->UpdateAtlas(AtlasUID, J);
+	Data_->UpdateAtlas(InAtlasUID, J);
 }
 
-void ScribeP::SaveAtlasDoc(U64 InAtlasUID)
+void ScribeP::SaveAtlasDoc(AtlasUID InAtlasUID)
 {
 	Data_->SaveAtlasDoc(InAtlasUID);
 }

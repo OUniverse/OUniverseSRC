@@ -31,18 +31,25 @@
 
 #include "Ui/Ui.h"
 
+#include "System/ProgramState.h"
 
 namespace GlobalVars
 {
 	EBootMethod BootMethod;
+	ProgramStateC::State ProgramState;
 }
 
 void UBoot::Boot(EBootMethod BootMethod, UObject* WorldContextObject)
 {
 	GlobalVars::BootMethod = BootMethod;
-
+	
 	switch (BootMethod) {
 	case EBootMethod::Standard:
+		GlobalVars::ProgramState = ProgramStateC::State::Primary;
+		StandardBoot(WorldContextObject);
+		break;
+	case EBootMethod::Scribe:
+		GlobalVars::ProgramState = ProgramStateC::State::Scribe;
 		StandardBoot(WorldContextObject);
 		break;
 	case EBootMethod::Test:
@@ -51,12 +58,15 @@ void UBoot::Boot(EBootMethod BootMethod, UObject* WorldContextObject)
 	case EBootMethod::UiIso:
 		UiIsoBoot(WorldContextObject);
 		break;
-	case EBootMethod::Scribe:
-		StandardBoot(WorldContextObject);
-		break;
 	}
 }
 
+
+
+void UBoot::ScribeBoot(UObject* WorldContextObject)
+{
+
+}
 
 void UBoot::StandardBoot(UObject* WorldContextObject)
 {
@@ -128,7 +138,7 @@ void UBoot::UiReady()
 
 	MajorC* M = MajorC::Get();
 
-	M->Data_ = DataC::Create(M->Path()->Atlas()->Get());
+	M->Data_ = DataC::Create(GlobalVars::ProgramState, M->Path()->Atlas()->Get());
 
 
 	//M->Kernel_ = KernelC::Create(M->Data());

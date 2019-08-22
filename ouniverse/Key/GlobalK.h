@@ -19,4 +19,5 @@ public:
 	static const char* UID_Atlas_Target;
 	static const char* Form;
 	static const char* Type;
+
 };

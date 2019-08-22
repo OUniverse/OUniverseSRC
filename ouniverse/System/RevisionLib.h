@@ -46,19 +46,7 @@ public:
 
 	JsonS ToJson();
 
-
 private:
-
-	enum Types {
-		Error,
-		Form,
-		Ref,
-		Object,
-		Actor,
-		Epoch,
-		Actra,
-		TYPES_MAX,
-	};
 
 	AtlasLibC* AtlasLib_;
 

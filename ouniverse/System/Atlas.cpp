@@ -77,7 +77,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 	LOG(29333, InPath, "Validating Atlas folder at path: $V$")
 
-	int ErrCode = TitleParseC::TryUID(InFolderName, Int::MaxU64, UID_);
+	int ErrCode = UID_.ParseTitle(InFolderName);
 
 	if (ErrCode)
 	{
@@ -86,7 +86,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	}
 
 	
-	LOG(35000, UID_, "Loading ATLAS document: $V$")
+	LOG(35000, UID_.ForLog(), "Loading ATLAS document: $V$")
 	Valid_ = false;
 
 
@@ -105,7 +105,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	File.open(SearchPath.ToChar());
 
 	std::getline(File, Line);
-	U8 WriterVer = StringC(Line).ToU8ZeroFail();
+	U16 WriterVer = StringC(Line).ToU16ZeroFail();
 	if (!WriterVer)
 	{
 		LOG(505, Void(), "Error with Writer Version.");
@@ -266,13 +266,7 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 	J = JsonS(StringC(Line));
 	AmendmentLib_->AddList(&J);
 	
-
-	//BoostD BoostDoc = BoostD(Path_, Name_);
-	//JsonS Forms = JsonS(BoostDoc.GetForms());
-	//FormLib_->AddList(&Forms);
 	Mounted_ = true;
-
-	DBUG(FormLib_->ToJson().Serialize().ToChar())
 
 	SaveDoc();
 	return Mounted_;
@@ -281,6 +275,11 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 void AtlasC::Dismount()
 {
 	Mounted_ = false;
+}
+
+bool AtlasC::Mounted()
+{
+	return Mounted_;
 }
 
 StringC AtlasC::Path()
@@ -293,7 +292,7 @@ bool AtlasC::Valid()
 	return Valid_;
 }
 
-U64 AtlasC::UID()
+AtlasUID AtlasC::UID()
 {
 	return UID_;
 }
@@ -372,29 +371,17 @@ void AtlasC::Survey(AtlasLibC* InAtlasMap)
 
 }
 
-
-void AtlasC::LinkBoost(AtlasLibC* InAtlasLib)
-{
-	FormLib_->LinkBoost(InAtlasLib);
-}
-
-void AtlasC::LinkExtra(AtlasLibC* InAtlasLib)
-{
-	FormLib_->LinkExtra(InAtlasLib);
-}
-
-
 void AtlasC::Query(FormQueryS* InQuery)
 {
 	FormLib_->Query(InQuery);
 }
 
-FormWrapS AtlasC::GetFormWrap(U32 InForm)
+FormWrapS AtlasC::GetFormWrap(FormUID InForm)
 {
 	return FormLib_->GetFormWrap(InForm);
 }
 
-void AtlasC::UpdateForm(U32 InUID, JsonS& InJ)
+void AtlasC::UpdateForm(FormUID InUID, JsonS& InJ)
 {
 	return FormLib_->Get(InUID)->Update(InJ);
 }

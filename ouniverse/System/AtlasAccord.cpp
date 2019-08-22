@@ -10,7 +10,7 @@ AtlasAccordC::AtlasAccordC()
 	Exists_ = false;
 }
 
-AtlasAccordC::AtlasAccordC(U64 InUID)
+AtlasAccordC::AtlasAccordC(AtlasUID InUID)
 {
 	UID_ = InUID;
 }
@@ -25,7 +25,7 @@ bool AtlasAccordC::Exists()
 	return Exists_;
 }
 
-U64 AtlasAccordC::UID()
+AtlasUID AtlasAccordC::UID()
 {
 	return UID_;
 }

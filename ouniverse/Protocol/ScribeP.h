@@ -14,6 +14,10 @@ Protocol for handling the UserSelection menus.
 #include <vector>
 #include <string>
 
+#include "System/AtlasUID.h"
+#include "System/FormUID.h"
+#include "System/DuetUID.h"
+
 class DataC;
 
 class OUNIVERSE_API ScribeP : public ProtocolP
@@ -27,21 +31,21 @@ public:
 
 	void ReqAtlasPre();
 
-	void LoadAtlasi(std::vector<std::string> AtlasiSelection, bool ReqScribe);
+	void LoadAtlasi(std::vector<int> AtlasiArr, bool ReqScribe);
 
 	void FormQuery(std::string InQuery);
 
-	void FormREQ(std::string InAtlasUID, int InUID);
+	void FormREQ(int InAtlasUID, int InFormUID);
 
 	void FormSAVE(std::string InFormJ);
 
-	void AtlasDocSAVE(std::string InAtlasUID);
+	void AtlasDocSAVE(int InAtlasUID);
 
-	void UpdateForm(U64 InAtlasUID, U32 InUID, JsonS InJ);
+	void UpdateForm(DuetUID InUID, JsonS InJ);
 
-	void UpdateAtlas(std::string InAtlasUID, std::string AtlasJson);
+	void UpdateAtlas(AtlasUID InAtlasUID, std::string AtlasJson);
 
-	void SaveAtlasDoc(U64 InAtlasUID);
+	void SaveAtlasDoc(AtlasUID InAtlasUID);
 
 private:
 

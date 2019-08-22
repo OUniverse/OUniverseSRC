@@ -7,21 +7,22 @@ Atlas
 #pragma once
 
 #include "Interface/Int.h"
+#include "System/AtlasUID.h"
 
 struct AtlasAccordC
 {
 
 	AtlasAccordC();
 
-	AtlasAccordC(U64 InUID);
+	AtlasAccordC(AtlasUID InUID);
 
-	U64 UID();
+	AtlasUID UID();
 	void Found();
 	bool Exists();
 
 private:
 
-	U64 UID_;
+	AtlasUID UID_;
 	bool Exists_;
 
 };

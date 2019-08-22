@@ -75,12 +75,7 @@ ArrayC<AtlasC*> AtlasLibC::GetAtlasPreArray()
 	return AtlasPreArr;
 }
 
-AtlasC* AtlasLibC::operator[](U64 InValue)
-{
-	return PreLib_[InValue];
-}
-
-AtlasC* AtlasLibC::Get(U64 InValue)
+AtlasC* AtlasLibC::Get(AtlasUID InValue)
 {
 	return PreLib_[InValue];
 }
@@ -100,7 +95,7 @@ int AtlasLibC::Len()
 	return Len_;
 }
 
-bool AtlasLibC::Try(U64 InUID, AtlasC* Out)
+bool AtlasLibC::Try(AtlasUID InUID, AtlasC* Out)
 {
 	return PreLib_.Try(InUID, Out);
 }
@@ -114,7 +109,7 @@ void AtlasLibC::Reset()
 	}
 }
 
-void AtlasLibC::Mount(ArrayC<U64> InUIDArr)
+void AtlasLibC::Mount(ArrayC<AtlasUID> InUIDArr)
 {
 	int L = InUIDArr.Len();
 	AtlasC* TryAtlas;
@@ -123,7 +118,7 @@ void AtlasLibC::Mount(ArrayC<U64> InUIDArr)
 	{
 		if (PreLib_.Try(InUIDArr[i], TryAtlas))
 		{
-			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
+			LOG(11922, TryAtlas->UID().ForLog(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
 			TryAtlas->Mount(this);
 		}
@@ -132,6 +127,7 @@ void AtlasLibC::Mount(ArrayC<U64> InUIDArr)
 
 void AtlasLibC::Mount(LoadoutC* InLoadout)
 {
+	/**
 	//Promote all new atlases from the selected loadout.
 
 	int L = InLoadout->Atlases_.Len();
@@ -151,8 +147,9 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 	for (int i = 0; i < Len_; i++)
 	{
 		LOG(34817, Void(), "Linking FORMS in the BOOST phase.")
-		Lib_.At(i)->LinkBoost(this);
+		//Lib_.At(i)->LinkBoost(this);
 	}
+	*/
 }
 
 void AtlasLibC::Query(FormQueryS* InQuery)

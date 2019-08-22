@@ -11,23 +11,22 @@ FormPilotS::FormPilotS()
 {
 
 }
-FormPilotS::FormPilotS(U64 InAtlasUID, U32 InUID, StringC InID, int InType)
+FormPilotS::FormPilotS(DuetUID InDuet, StringC InID, int InType)
 {
-	AtlasUID_ = InAtlasUID;
-	UID_ = InUID;
+	DuetUID_ = InDuet;
 	ID_ = InID;
 	Type_ = InType;
 }
 
-U64 FormPilotS::AtlasUID()
+AtlasUID FormPilotS::AtlasUID()
 {
-	return AtlasUID_;
+	return DuetUID_.Atlas();
 }
 
 
-U32 FormPilotS::UID()
+FormUID FormPilotS::FormUID()
 {
-	return UID_;
+	return DuetUID_.Form();
 }
 
 StringC FormPilotS::ID()

@@ -9,6 +9,8 @@ Atlas
 #include "Interface/String.h"
 #include "Interface/Int.h"
 
+#include "System/DuetUID.h"
+
 class FormF;
 
 
@@ -16,19 +18,18 @@ struct FormPilotS
 {
 
 	FormPilotS();
-	FormPilotS(U64 InAtlasUID, U32 InUID, StringC InID, int InType);
+	FormPilotS(DuetUID InDuet, StringC InID, int InType);
 
 public: 
 
-	U64 AtlasUID();
-	U32 UID();
+	AtlasUID AtlasUID();
+	FormUID FormUID();
 	StringC ID();
 	int Type();
 
 private:
 
-	U64 AtlasUID_;
-	U32	UID_;
+	DuetUID DuetUID_;
 	StringC ID_;
 	int Type_;
 };

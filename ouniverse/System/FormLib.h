@@ -32,21 +32,15 @@ public:
 
 	AtlasC* OwningAtlas;
 
-	FormF* Get(U32 InValue);
+	FormF* Get(FormUID InUID);
 
-	FormF* operator[](U32 InValue);
-
-	void Add(FormF* NewForm);
+	void Add(FormF* InForm);
 
 	void AddList(JsonS* InJ);
-
-	void LinkBoost(AtlasLibC* InAtlasLib);
-	
-	void LinkExtra(AtlasLibC* InAtlasLib);
 		
 	void Query(FormQueryS* InQuery);
 
-	FormWrapS GetFormWrap(U32 InForm);
+	FormWrapS GetFormWrap(FormUID InForm);
 
 	StringC Serialize();
 
@@ -58,6 +52,6 @@ private:
 
 	ArrayC<FormF* (*)(JsonS&)> FactoryArray;
 
-	MapC<U32, FormF*> Lib_;
+	MapC<FormUID, FormF*> Lib_;
 
 };

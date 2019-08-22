@@ -31,9 +31,9 @@ void CoherentBind(cohtml::Binder* binder, FormPilotS* FormPilot)
 
 	binder->MapBegin(4);
 	CoherentBindInternal(binder, "auid");
-	CoherentBindInternal(binder, FormPilot->AtlasUID().ToStd());
+	CoherentBindInternal(binder, FormPilot->AtlasUID().ForUI());
 	CoherentBindInternal(binder, "uid");
-	CoherentBindInternal(binder, FormPilot->UID().Ref());
+	CoherentBindInternal(binder, FormPilot->FormUID().ForUI());
 	CoherentBindInternal(binder, "id");
 	CoherentBindInternal(binder, FormPilot->ID().ToChar());
 	CoherentBindInternal(binder, "ty");

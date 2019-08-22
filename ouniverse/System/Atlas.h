@@ -11,6 +11,8 @@ Atlas
 #include "Interface/Array.h"
 #include "Interface/Json.h"
 
+#include "System/AtlasUID.h"
+
 #include "System/FormQuery.h"
 
 class AtlasLibC;
@@ -60,8 +62,7 @@ public:
 
 	bool Mounted();
 
-
-	U64 UID();
+	AtlasUID UID();
 
 	StringC ID_;
 	StringC Name_;
@@ -82,15 +83,11 @@ public:
 
 	void Survey(AtlasLibC* InAtlasMap);
 
-	void LinkBoost(AtlasLibC* InLib);
-
-	void LinkExtra(AtlasLibC* InLib);
-
 	void Query(FormQueryS* InQuery);
 
-	FormWrapS GetFormWrap(U32 InForm);
+	FormWrapS GetFormWrap(FormUID InForm);
 
-	void UpdateForm(U32 InUID, JsonS& InJ);
+	void UpdateForm(FormUID InUID, JsonS& InJ);
 
 	void Update(JsonS InJ);
 
@@ -104,7 +101,7 @@ private:
 	
 	~AtlasC();
 
-	U64 UID_;
+	AtlasUID UID_;
 	
 	bool Valid_;
 	bool Mounted_;

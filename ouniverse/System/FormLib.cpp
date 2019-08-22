@@ -65,29 +65,15 @@ void FormLibC::AddList(JsonS* InJ)
 void FormLibC::Add(FormF* InForm)
 {
 	Len_++;
-	LOG(54439, InForm->UID(), "Adding Form: $V$")
+	LOG(54439, InForm->UID().ForLog(), "Adding Form: $V$")
 	Lib_.Add(InForm->UID(), InForm);
 }
 
-FormF* FormLibC::Get(U32 InValue)
+FormF* FormLibC::Get(FormUID InUID)
 {
-	return Lib_[InValue];
+	return Lib_[InUID];
 }
 
-FormF* FormLibC::operator[](U32 InValue)
-{
-	return Lib_[InValue];
-}
-
-void FormLibC::LinkBoost(AtlasLibC* InAtlasLib)
-{
-
-}
-
-void FormLibC::LinkExtra(AtlasLibC* InAtlasLib)
-{
-
-}
 
 void FormLibC::Query(FormQueryS* InQuery)
 {
@@ -101,9 +87,9 @@ void FormLibC::Query(FormQueryS* InQuery)
 
 }
 
-FormWrapS FormLibC::GetFormWrap(U32 InForm)
+FormWrapS FormLibC::GetFormWrap(FormUID InUID)
 {
-	return FormWrapS(OwningAtlas, Lib_[InForm]);
+	return FormWrapS(OwningAtlas, Lib_[InUID]);
 }
 
 

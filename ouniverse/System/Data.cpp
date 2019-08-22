@@ -14,15 +14,16 @@ DataC* DataC::Get()
 	return &GlobalSingleton::Data;
 }
 
-DataC* DataC::Create(StringC InPath)
+DataC* DataC::Create(ProgramStateC::State InState, StringC InPath)
 {
-	GlobalSingleton::Data = *(new DataC(InPath));
+	GlobalSingleton::Data = *(new DataC(InState, InPath));
 	return &GlobalSingleton::Data;
 }
 
-DataC::DataC(StringC InPath)
+DataC::DataC(ProgramStateC::State InState, StringC InPath)
 {
 	Path_ = InPath;
+	State_ = InState;
 	AtlasLib_ = new AtlasLibC(Path_);
 }
 
@@ -47,22 +48,22 @@ void DataC::Query(FormQueryS* InQuery)
 	AtlasLib_->Query(InQuery);
 }
 
-FormWrapS DataC::GetFormWrap(U64 InAtlas, U32 InForm)
+FormWrapS DataC::GetFormWrap(DuetUID InDuet)
 {
-	return AtlasLib_->Get(InAtlas)->GetFormWrap(InForm);
+	return AtlasLib_->Get(InDuet.Atlas())->GetFormWrap(InDuet.Form());
 }
 
-void DataC::UpdateForm(U64 InAtlasUID, U32 InUID, JsonS& FormJ)
+void DataC::UpdateForm(DuetUID InDuet, JsonS& FormJ)
 {
-	AtlasLib_->Get(InAtlasUID)->UpdateForm(InUID, FormJ);
+	AtlasLib_->Get(InDuet.Atlas())->UpdateForm(InDuet.Form(), FormJ);
 }
 
-void DataC::UpdateAtlas(U64 InAtlasUID, JsonS& AtlasJ)
+void DataC::UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ)
 {
 	AtlasLib_->Get(InAtlasUID)->Update(AtlasJ);
 }
 
-void DataC::SaveAtlasDoc(U64 InAtlasUID)
+void DataC::SaveAtlasDoc(AtlasUID InAtlasUID)
 {
 	AtlasLib_->Get(InAtlasUID)->SaveDoc();
 }
