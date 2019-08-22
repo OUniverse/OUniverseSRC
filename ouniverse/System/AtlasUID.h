@@ -15,8 +15,6 @@ class AtlasUID
 
 public:
 
-	static int Max;
-
 	AtlasUID();
 
 	AtlasUID(int InInt);
@@ -33,8 +31,6 @@ public:
 
 	bool operator==(AtlasUID In);
 
-	int ToInt();
-
 	int ForJson();
 
 	int ForUI();
@@ -48,5 +44,4 @@ private:
 
 	int UID_;
 	
-
 };

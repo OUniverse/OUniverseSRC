@@ -44,7 +44,6 @@ bool DuetUID::operator<(const DuetUID& l) const
 	return (Atlas().UID() < l.Atlas().UID() && Form().UID() < l.Form().UID());
 }
 
-
 bool DuetUID::operator==(DuetUID In)
 {
 	if (Atlas().UID() == In.Atlas().UID() && Form().UID() == In.Form().UID())
@@ -53,7 +52,6 @@ bool DuetUID::operator==(DuetUID In)
 	}
 	return false;
 }
-
 
 bool DuetUID::operator!=(DuetUID In)
 {

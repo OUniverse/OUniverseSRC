@@ -31,25 +31,23 @@ void ScribeP::Activate()
 	DBUG("SCRIBE PROTOCOL ACTIVE")
 		DBUG(FCommandLine::GetOriginal())
 
-	GBIND("ScribeP.ReqAtlasPre", this, &ScribeP::ReqAtlasPre);
-	GBIND("ScribeP.LoadAtlasi", this, &ScribeP::LoadAtlasi);
-	GBIND("ScribeP.FormQuery", this, &ScribeP::FormQuery);
-	GBIND("ScribeP.FormREQ", this, &ScribeP::FormREQ);
-	GBIND("ScribeP.FormSAVE", this, &ScribeP::FormSAVE);
+	GBIND("AtlasPreREQ", this, &ScribeP::UI_AtlasiPreREQ);
+	GBIND("AtlasiMOUNT", this, &ScribeP::UI_AtlasiMount);
+	GBIND("FormQUERY", this, &ScribeP::UI_FormQUERY);
+	GBIND("FormREQ", this, &ScribeP::UI_FormREQ);
+	GBIND("FormSAVE", this, &ScribeP::UI_FormSAVE);
 
 	GSEND0("start");
 
 	//GSEND1("data.rec_atlaspre", Data_->GetAtlasPreArray().Vector());
 }
 
-void ScribeP::ReqAtlasPre()
+void ScribeP::UI_AtlasiPreREQ()
 {
-	DBUG("REQUESTING ATLAS PRE")
-
-		GSEND1("data.rec_atlaspre", Data_->GetAtlasPreArray().Vector());
+		GSEND1("atlasipre>", Data_->GetAtlasPreArray().Vector());
 }
 
-void ScribeP::LoadAtlasi(std::vector<int> AtlasiArr, bool ReqScribe)
+void ScribeP::UI_AtlasiMount(std::vector<int> AtlasiArr, bool ReqScribe)
 {
 
 	int l = AtlasiArr.size();
@@ -74,7 +72,7 @@ void ScribeP::LoadAtlasi(std::vector<int> AtlasiArr, bool ReqScribe)
 
 }
 
-void ScribeP::FormQuery(std::string InQuery)
+void ScribeP::UI_FormQUERY(std::string InQuery)
 {
 	FormQueryS* Query = new FormQueryS(InQuery);
 	Data_->Query(Query);
@@ -105,15 +103,18 @@ void ScribeP::FormQuery(std::string InQuery)
 
 }
 
-void ScribeP::FormREQ(int InAtlasUID, int InFormUID)
+void ScribeP::UI_FormREQ(int InAtlasUID, int InFormUID)
 {
 
-	FormWrapS FormWrap = Data_->GetFormWrap(DuetUID(InAtlasUID, InFormUID));
+	AtlasUID AU = AtlasUID(InAtlasUID);
+	FormUID FU = FormUID(InFormUID);
+
+	FormWrapS FormWrap = Data_->GetFormWrap(DuetUID(AU, FU));
 
 	GSEND2("form>", FormWrap.Atlas()->UID().ForUI(), FormWrap.Form()->Serialize().ToChar());
 }
 
-void ScribeP::FormSAVE(std::string InFormJ)
+void ScribeP::UI_FormSAVE(std::string InFormJ)
 {
 	JsonS J = JsonS(StringC(InFormJ));
 
@@ -123,7 +124,7 @@ void ScribeP::FormSAVE(std::string InFormJ)
 	UpdateForm(DuetUID(AtlasU, FormU),J);
 }
 
-void ScribeP::AtlasDocSAVE(int InAtlasUID)
+void ScribeP::UI_AtlasDocSAVE(int InAtlasUID)
 {
 	SaveAtlasDoc(AtlasUID(InAtlasUID));
 }

@@ -29,17 +29,17 @@ class OUNIVERSE_API ScribeP : public ProtocolP
 
 public:
 
-	void ReqAtlasPre();
+	void UI_AtlasiPreREQ();
 
-	void LoadAtlasi(std::vector<int> AtlasiArr, bool ReqScribe);
+	void UI_AtlasiMount(std::vector<int> AtlasiArr, bool ReqScribe);
 
-	void FormQuery(std::string InQuery);
+	void UI_FormQUERY(std::string InQuery);
 
-	void FormREQ(int InAtlasUID, int InFormUID);
+	void UI_FormREQ(int InAtlasUID, int InFormUID);
 
-	void FormSAVE(std::string InFormJ);
+	void UI_FormSAVE(std::string InFormJ);
 
-	void AtlasDocSAVE(int InAtlasUID);
+	void UI_AtlasDocSAVE(int InAtlasUID);
 
 	void UpdateForm(DuetUID InUID, JsonS InJ);
 

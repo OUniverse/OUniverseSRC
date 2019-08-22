@@ -3,7 +3,8 @@
 #include "System/AtlasUID.h"
 #include "Interface/TitleParse.h"
 
-int AtlasUID::Max = 4294967295;
+#include "Min/DebugM.h"
+#include <string>
 
 AtlasUID::AtlasUID()
 {
@@ -34,13 +35,13 @@ int AtlasUID::UID()
 
 bool AtlasUID::operator<(const AtlasUID& l) const
 {
-	return UID() < l.UID();
+	return UID_ < l.UID_;
 }
 
 
 bool AtlasUID::operator==(AtlasUID In)
 {
-	if (UID() == In.UID())
+	if (UID_ == In.UID_)
 	{
 		return true;
 	}
@@ -50,16 +51,11 @@ bool AtlasUID::operator==(AtlasUID In)
 
 bool AtlasUID::operator!=(AtlasUID In)
 {
-	if (UID() == In.UID())
+	if (UID_ == In.UID_)
 	{
 		return false;
 	}
 	return true;
-}
-
-int AtlasUID::ToInt()
-{
-	return UID_;
 }
 
 int AtlasUID::ForJson()
@@ -79,5 +75,15 @@ int AtlasUID::ForLog()
 
 int AtlasUID::ParseTitle(StringC InFileName)
 {
-	return TitleParseC::TryUID(InFileName, Max, UID_);
+	if (!InFileName.BeInt(UID_))
+	{
+		return 2;
+	}
+
+	if (UID_ > INT32_MAX)
+	{
+		return 3;
+	}
+
+	return 0;
 }
