@@ -9,10 +9,8 @@
 AmendmentC::AmendmentC(JsonS& InJ)
 {
 	Json_ = InJ;
-
-	TargetAtlasUID_ = U64(Json_.String(GlobalK::UID_Atlas_Target).ToChar());
-	TargetUID_ = Json_.UInt32(GlobalK::UID_Target);
-	UID_ = StringC(TargetAtlasUID_.ToStd()) + StringC(".") + StringC(TargetUID_.ToStd());
+	Target_ = DuetUID(Json_.Int(GlobalK::UID_Atlas_Target), Json_.Int(GlobalK::UID_Target));
+	UID_ = Target_.String(); 
 }
 
 AmendmentC* AmendmentC::Create(JsonS& InJ)
@@ -40,7 +38,7 @@ StringC AmendmentC::Serialize()
 JsonS AmendmentC::ToJson()
 {
 	JsonS S = JsonS();
-	S.Add(GlobalK::UID_Atlas_Target, StringC(TargetAtlasUID_.ToStd()));
-	S.Add(GlobalK::UID_Target, TargetUID_.Ref());
+	S.Add(GlobalK::UID_Atlas_Target, Target_.Atlas().UID());
+	S.Add(GlobalK::UID_Target, Target_.Form().UID());
 	return S;
 }

@@ -61,3 +61,8 @@ bool DuetUID::operator!=(DuetUID In)
 	}
 	return true;
 }
+
+StringC DuetUID::String()
+{
+	return StringC(AtlasUID_.UID()) + "." + StringC(FormUID_.UID());
+}

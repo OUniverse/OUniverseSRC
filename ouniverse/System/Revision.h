@@ -9,6 +9,7 @@ Form: Abstract base form.
 #include "Interface/String.h"
 #include "Interface/Json.h"
 
+#include "System/DuetUID.h"
 #include "Form/FormF.h"
 
 class RevisionC
@@ -33,8 +34,7 @@ public:
 
 private:
 
-	U64 TargetAtlasUID_;
-	U32 TargetUID_;
+	DuetUID Target_;
 	StringC UID_;
 	
 	FormF* Form_;

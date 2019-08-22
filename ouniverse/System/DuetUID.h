@@ -34,7 +34,8 @@ public:
 	bool operator!=(DuetUID In);
 
 	bool operator==(DuetUID In);
-
+	
+	StringC String();
 
 private:
 

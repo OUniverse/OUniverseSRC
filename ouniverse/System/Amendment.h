@@ -9,6 +9,8 @@ Form: Abstract base form.
 #include "Interface/String.h"
 #include "Interface/Json.h"
 
+#include "System/DuetUID.h"
+
 class AmendmentC
 {
 
@@ -30,8 +32,7 @@ public:
 
 private:
 
-	U64 TargetAtlasUID_;
-	U32 TargetUID_;
+	DuetUID Target_;
 	StringC UID_;
 
 	JsonS Json_;
