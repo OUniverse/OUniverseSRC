@@ -17,7 +17,7 @@
 
 void AHudUE::PrepareInputs(HudTypes HudType, bool Alt, const char* AltPath)
 {
-	FirstBoot = true;
+
 	FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
 	FActorSpawnParameters SpawnInfo;
@@ -73,21 +73,5 @@ void AHudUE::SetView(const char* InURL)
 
 void AHudUE::ViewReady()
 {
-	if (FirstBoot)
-	{
-			FirstBoot = false;
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "View Ready Triggered!");
-		//Has to be UFunction for Coherent's PreBind function call.
-		OnViewReady_.Trigger();
-	
-		//IsoBoot is a direct boot to just a loaded UI for easy testing while devoloping UI components.
-		if (AltPath_)
-		{
-			UBoot::UiReadyIsoBoot();
-		}
-		else
-		{
-			UBoot::UiReady();
-		}
-	}
+	UBoot::UiReady();
 }

@@ -29,7 +29,7 @@ https://docs.google.com/spreadsheets/d/1Lf-CjJtFdgNLNyTyuD-akRAJHqLrEujYSaIUBhlj
 #define LOGP LogC::Get()->Print();
 
 
-class UBoot;
+class BootC;
 
 extern struct DirS;
 
@@ -39,7 +39,7 @@ class OUNIVERSE_API LogC
 
 	static const char* FILE_NAME;
 
-	friend UBoot;
+	friend BootC;
 
 private:
 		

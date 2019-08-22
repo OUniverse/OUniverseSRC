@@ -44,12 +44,12 @@ class AControlUE;
 class SystemManager;
 
 
-class UBoot;
+class BootC;
 
 
 class OUNIVERSE_API MajorC
 {
-	friend UBoot;
+	friend BootC;
 
 public:
 

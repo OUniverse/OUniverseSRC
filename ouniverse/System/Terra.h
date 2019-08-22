@@ -21,11 +21,11 @@ A service singleton which handles worlds, universes, zones etc in an OOP style.
 
 #pragma once
 
-class UBoot;
+class BootC;
 
 class OUNIVERSE_API TerraC
 {
-	friend UBoot;
+	friend BootC;
 
 private:
 

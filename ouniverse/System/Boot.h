@@ -17,9 +17,9 @@ Tasks:
 #pragma once
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "System/ProgramState.h"
+
 #include "Boot.generated.h"
-
-
 
 UENUM(BlueprintType)
 enum class EBootMethod : uint8
@@ -38,20 +38,38 @@ class UBoot : public UBlueprintFunctionLibrary
 
 public:
 
-
-	static void StandardBoot(UObject* WorldContextObject);
-	static void TestBoot(UObject* WorldContextObject);
-	static void ScribeBoot(UObject* WorldContextObject);
-	static void UiIsoBoot(UObject* WorldContextObject);
-
 	//Call this from any level blueprint to begin the OUniverse boot process. Must be called only once.
 	UFUNCTION(BlueprintCallable, Category = "OUniverse", meta = (WorldContext = "WorldContextObject", ShowWorldContextPin))
 	static void Boot(EBootMethod BootMethod, UObject* WorldContextObject);
 
-
-	
-
 	static void UiReady();
-	static void UiReadyIsoBoot();
+
+};
+
+
+class BootC
+{
+
+public:
+
+	static BootC* Get();
+	static BootC* Create(EBootMethod InBootMethod, UObject* WorldContextObject);
+
+	BootC() {};
+
+	EBootMethod BootMethod_;
+	ProgramStateC::State ProgramState_;
+
+	BootC(EBootMethod InBootMethod, UObject* WorldContextObject);
+
+	void Primal_Standard(UObject* WorldContextObject);
+	void Primal_Scribe(UObject* WorldContextObject);
+	void Primal_UiIso(UObject* WorldContextObject);
+	void Primal_Test(UObject* WorldContextObject);
+
+	void PostUI();
+	void PostUI_Standard();
+	void PostUI_Scribe();
+	void PostUI_UiIso();
 
 };

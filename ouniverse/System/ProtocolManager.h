@@ -25,13 +25,13 @@ An example of different states would be the System Menu compared to Open World. 
 #include "Interface/Array.h"
 #include "Protocol/ProtocolP.h"
 
-class UBoot;
+class BootC;
 class MajorC;
 
 class OUNIVERSE_API ProtocolManager
 {
 
-	friend UBoot;
+	friend BootC;
 
 private:
 

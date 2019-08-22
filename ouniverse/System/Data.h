@@ -29,14 +29,14 @@ Data is a singleton which loads all the atlas style game data.
 #include "System/FormUID.h"
 #include "System/DuetUID.h"
 
-class UBoot;
+class BootC;
 class AtlasLibC;
 class AtlasC;
 struct FormPilotS;
 
 class OUNIVERSE_API DataC
 {
-	friend UBoot;
+	friend BootC;
 
 private:
 

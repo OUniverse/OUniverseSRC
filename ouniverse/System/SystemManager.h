@@ -16,13 +16,13 @@ This data is held onto for the lifetime so it only needs to be recorded once at 
 
 #pragma once
 
-extern class UBoot;
+extern class BootC;
 
 
 class OUNIVERSE_API SystemManager
 {
 
-	friend UBoot;
+	friend BootC;
 
 private:
 

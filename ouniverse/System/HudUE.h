@@ -72,10 +72,4 @@ public:
 
 	Event0C<EventLife> OnViewReady_;
 
-	bool FirstBoot;
-
-
-
-
-
 };
