@@ -40,6 +40,7 @@ class ProtocolManager;
 class AudioManager;
 class UViewportUE;
 class AHudUE;
+class OniManagerC;
 class AControlUE;
 class SystemManager;
 
@@ -70,6 +71,7 @@ public:
 	AHudUE*				Hud();
 	UWorld*				Scope();
 	UViewportUE*		Viewport();
+	OniManagerC*		Oni();
 	DataC*				Data();
 	TerraC*				Terra();
 	KernelC*			Kernel();
@@ -89,6 +91,7 @@ private:
 	UViewportUE*		Viewport_;
 	AHudUE*				Hud_;
 	AControlUE*			Control_;
+	OniManagerC*		Oni_;
 	DataC*				Data_;
 	TerraC*				Terra_;
 	KernelC*			Kernel_;

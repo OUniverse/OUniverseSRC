@@ -21,6 +21,7 @@
 #include "System/Mode.h"
 #include "Engine/World.h"
 #include "System/Glass.h"
+#include "System/OniManager.h"
 
 #include "System/Data.h"
 #include "System/Terra.h"
@@ -232,8 +233,14 @@ void BootC::Primal_UiIso(UObject* WorldContextObject)
 				return;
 		}
 
-	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-	LOG(28164, Void(), "ConfigC service activated.")
+
+	M->Oni_ = new OniManagerC();
+
+	M->Oni_->Load(OniTypeC::Type::Global,FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
+
+	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
+
+	//LOG(28164, Void(), "ConfigC service activated.")
 
 		M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 

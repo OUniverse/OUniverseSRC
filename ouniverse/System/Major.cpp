@@ -37,5 +37,6 @@ UWorld* MajorC::Scope()				{ return Scope_; }
 AHudUE* MajorC::Hud()				{ return Hud_; }
 UViewportUE* MajorC::Viewport()		{ return Viewport_; }
 TerraC* MajorC::Terra()				{ return Terra_; }
+OniManagerC* MajorC::Oni()			{ return Oni_; }
 DataC* MajorC::Data()				{ return Data_; }
 KernelC* MajorC::Kernel()			{ return Kernel_; }
