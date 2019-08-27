@@ -12,8 +12,10 @@ class ProgramStateC
 public:
 
 	static enum State {
-		Primary,
+		Standard,
 		Scribe,
+		UiIso,
+		Test,
 	};
 
 };

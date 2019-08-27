@@ -33,10 +33,10 @@
 
 #include "System/ProgramState.h"
 
+
 namespace GlobalVars
 {
 	EBootMethod BootMethod;
-	ProgramStateC::State ProgramState;
 }
 
 namespace GlobalSingleton
@@ -69,22 +69,23 @@ void UBoot::UiReady()
 BootC::BootC(EBootMethod InBootMethod, UObject* WorldContextObject)
 {
 	BootMethod_ = InBootMethod;
-
 	GlobalVars::BootMethod = InBootMethod;
 
 	switch (InBootMethod) {
 	case EBootMethod::Standard:
-		GlobalVars::ProgramState = ProgramStateC::State::Primary;
+		ProgramState_ = ProgramStateC::State::Standard;
 		Primal_Standard(WorldContextObject);
 		break;
 	case EBootMethod::Scribe:
-		GlobalVars::ProgramState = ProgramStateC::State::Scribe;
+		ProgramState_ = ProgramStateC::State::Scribe;
 		Primal_Scribe(WorldContextObject);
 		break;
 	case EBootMethod::Test:
+		ProgramState_ = ProgramStateC::State::Test;
 		Primal_Test(WorldContextObject);
 		break;
 	case EBootMethod::UiIso:
+		ProgramState_ = ProgramStateC::State::UiIso;
 		Primal_UiIso(WorldContextObject);
 		break;
 	}
@@ -132,14 +133,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
-	if (GlobalVars::BootMethod == EBootMethod::Scribe)
-	{
-		M->Hud()->PrepareInputs(AHudUE::HudTypes::Scribe, false, "");
-	}
-	else
-	{
-		M->Hud()->PrepareInputs(AHudUE::HudTypes::Main, false, "");
-	}
+	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Standard);
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
@@ -192,14 +186,7 @@ void BootC::Primal_Scribe(UObject* WorldContextObject)
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
-	if (GlobalVars::BootMethod == EBootMethod::Scribe)
-	{
-		M->Hud()->PrepareInputs(AHudUE::HudTypes::Scribe, false, "");
-	}
-	else
-	{
-		M->Hud()->PrepareInputs(AHudUE::HudTypes::Main, false, "");
-	}
+	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Scribe);
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
@@ -252,8 +239,8 @@ void BootC::Primal_UiIso(UObject* WorldContextObject)
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
-	M->Hud()->PrepareInputs(AHudUE::HudTypes::Iso, true, "coui://ui//scribe.html");
-
+	M->Hud()->SetPath("coui://ui//iso.html");
+	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Iso);
 	LOGP
 }
 
@@ -264,7 +251,18 @@ void BootC::Primal_Test(UObject* WorldContextObject)
 
 void BootC::PostUI()
 {
-	PostUI_Standard();
+	if (ProgramState_ == ProgramStateC::State::Standard)
+	{
+		PostUI_Standard();
+	}
+	else if (ProgramState_ == ProgramStateC::State::Scribe)
+	{
+		PostUI_Scribe();
+	}
+	else if (ProgramState_ == ProgramStateC::State::UiIso)
+	{
+		PostUI_UiIso();
+	}
 }
 
 
@@ -278,12 +276,12 @@ void BootC::PostUI_Standard()
 
 		MajorC* M = MajorC::Get();
 
-	M->Data_ = DataC::Create(GlobalVars::ProgramState, M->Path()->Atlas()->Get());
+	M->Data_ = DataC::Create(ProgramState_, M->Path()->Atlas()->Get());
 
 
 	//M->Kernel_ = KernelC::Create(M->Data());
 
-	//M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
+	M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
 
 
 	M->System_ = SystemManager::Create();
@@ -293,18 +291,12 @@ void BootC::PostUI_Standard()
 
 	M->Terra_ = TerraC::Create();
 
-	//M->UserL()->LoadUsers();
+	M->UserL()->LoadUsers();
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	if (GlobalVars::BootMethod == EBootMethod::Scribe)
-	{
-		M->Protocol()->Activate(ProtocolManager::Types::Scribe);
-	}
-	else
-	{
-		M->Protocol()->Activate(ProtocolManager::Types::System);
-	}
+	M->Protocol()->Activate(ProtocolManager::Types::System);
+
 	LOGP
 }
 
@@ -318,7 +310,7 @@ void BootC::PostUI_Scribe()
 
 		MajorC* M = MajorC::Get();
 
-	M->Data_ = DataC::Create(GlobalVars::ProgramState, M->Path()->Atlas()->Get());
+	M->Data_ = DataC::Create(ProgramState_, M->Path()->Atlas()->Get());
 
 
 	//M->Kernel_ = KernelC::Create(M->Data());
@@ -337,20 +329,14 @@ void BootC::PostUI_Scribe()
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	if (GlobalVars::BootMethod == EBootMethod::Scribe)
-	{
-		M->Protocol()->Activate(ProtocolManager::Types::Scribe);
-	}
-	else
-	{
-		M->Protocol()->Activate(ProtocolManager::Types::System);
-	}
+	M->Protocol()->Activate(ProtocolManager::Types::Scribe);
+
 	LOGP
 }
 
 void BootC::PostUI_UiIso()
 {
-	//DBUG("CUI Ready...");
+	DBUG("PostUI_UiISO_CUI Ready...");
 
 	LOG(40448, Void(), "UI is ready for bindings.")
 

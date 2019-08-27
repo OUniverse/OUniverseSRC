@@ -15,7 +15,7 @@
 
 #include "Min/DebugM.h"
 
-void AHudUE::PrepareInputs(HudTypes HudType, bool Alt, const char* AltPath)
+void AHudUE::HUD_SUPER_ON(HudTypes HudType)
 {
 
 	FVector Location(0.0f, 0.0f, 0.0f);
@@ -40,29 +40,29 @@ void AHudUE::PrepareInputs(HudTypes HudType, bool Alt, const char* AltPath)
 
 	GlassC::Create(this);
 
-	if (Alt)
+	if (HudType == HudTypes::Standard)
 	{
-		AltPath_ = true;
-		SetView(AltPath);
+		SetView("coui://ui//main.html");
 	}
-	else
+	else if (HudType == HudTypes::Scribe)
 	{
-		AltPath_ = false;
+		SetView("coui://ui//scribe.html");
 
-		if (HudType == HudTypes::Main)
-		{
-			SetView("coui://ui//main.html");
-		}
-		else if (HudType == HudTypes::Scribe)
-		{
-			SetView("coui://ui//scribe.html");
-		}
+	}
+	else if (HudType == HudTypes::Iso)
+	{
+		SetView(Path_.ToChar());
 	}
 }
 
 void AHudUE::ActivateInputs(InputManager* Input)
 {
 	InputNet->InputRelay = Input;
+}
+
+void AHudUE::SetPath(StringC InPath)
+{
+	Path_ = InPath;
 }
 
 void AHudUE::SetView(const char* InURL)

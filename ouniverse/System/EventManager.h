@@ -18,7 +18,7 @@ Data is a singleton which loads all the atlas style game data.
 #pragma once
 
 
-class OUNIVERSE_API DataNEWC
+class OUNIVERSE_API EventManagerC
 {
 
 

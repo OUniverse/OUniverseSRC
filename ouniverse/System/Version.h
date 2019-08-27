@@ -13,8 +13,8 @@ class VersionC
 
 public:
 
-	static StringC VerVis() { return "1.0"; };
-	static int VerInc() { return 1; };
-	static int VerUpd() { return 1; };
+	const static StringC Visual = StringC("1.0");
+	const static int Incremental = 1;
+	const static int Updater = 1;
 
 };

@@ -25,8 +25,10 @@ This is an extension of Coherent Lab's extension for further control.
 #include "SCohtmlInputForward.h"
 
 #include "Interface/Event.h"
+#include "Interface/String.h"
 
 #include "HudUE.generated.h"
+
 
 
 
@@ -44,16 +46,14 @@ class OUNIVERSE_API AHudUE : public ACohtmlGameHUD
 
 public:
 
-	bool AltPath_;
-
 	enum HudTypes
 	{
-		Main,
+		Standard,
 		Scribe,
 		Iso,
 	};
 
-	void PrepareInputs(HudTypes HudType, bool Alt, const char* AltPath);
+	void HUD_SUPER_ON(HudTypes HudType);
 	void ActivateInputs(InputManager* Input);
 
 
@@ -72,4 +72,7 @@ public:
 
 	Event0C<EventLife> OnViewReady_;
 
+	void SetPath(StringC InPath);
+
+	StringC Path_;
 };
