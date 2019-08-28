@@ -35,6 +35,8 @@
 #include "System/ProgramState.h"
 
 
+#include "Interface/Url.h"
+
 namespace GlobalVars
 {
 	EBootMethod BootMethod;
@@ -127,21 +129,19 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 				return;
 		}
 
-	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-	LOG(28164, Void(), "ConfigC service activated.")
+	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
+	//LOG(28164, Void(), "ConfigC service activated.")
 
-		M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
+	M->Oni_ = new OniManagerC();
+	M->Oni_->Load(OniTypeC::Type::Global, FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
+
+	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
 	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Standard);
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
-
-
-	//Ui* UiTest = new Ui();
-	//UiTest->Activate();
-	//GlassC::SetView("curl://ui/ui.html");
 
 	LOGP
 }
@@ -180,21 +180,19 @@ void BootC::Primal_Scribe(UObject* WorldContextObject)
 				return;
 		}
 
-	M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-	LOG(28164, Void(), "ConfigC service activated.")
+	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
+	//LOG(28164, Void(), "ConfigC service activated.")
 
-		M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
+	M->Oni_ = new OniManagerC();
+	M->Oni_->Load(OniTypeC::Type::Global, FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
+
+	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
 
 	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Scribe);
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
-
-
-	//Ui* UiTest = new Ui();
-	//UiTest->Activate();
-	//GlassC::SetView("curl://ui/ui.html");
 
 	LOGP
 }
@@ -235,7 +233,6 @@ void BootC::Primal_UiIso(UObject* WorldContextObject)
 
 
 	M->Oni_ = new OniManagerC();
-
 	M->Oni_->Load(OniTypeC::Type::Global,FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
 
 	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
@@ -253,7 +250,44 @@ void BootC::Primal_UiIso(UObject* WorldContextObject)
 
 void BootC::Primal_Test(UObject* WorldContextObject)
 {
+	PathC::SetGlobals();
 
+	DBUG(NewFolderC::DirLog().ToChar())
+	UrlC TestURL = "C://hello.txt";
+	DBUG(TestURL.ToChar())
+	DBUG(TestURL.ToFile().ToChar())
+	DBUG(TestURL.ToFile().Doc().Open().ToChar())
+
+
+		DBUG(TestURL.ToChar())
+		if (TestURL.ToFile().Exists())
+		{
+			DBUG("Exists")
+		}
+		else
+		{
+			DBUG("Doesn't exist")
+		}
+
+	DocC TestDoc = TestURL.ToFile().Doc().Open();
+	TestDoc.Append("WRITE TESTER");
+
+
+	TestURL = "C://hello2222.txt";
+
+	DBUG(TestURL.ToChar())
+	if (TestURL.ToFile().Exists())
+	{
+			DBUG("Exists")
+	}
+	else
+	{
+		DBUG("Doesn't exist")
+	}
+
+	TestURL.ToFile().Doc().Open().Write("OKOKOKOKOK");
+	DBUG("PUSH")
+	DBUG("PUSH")
 }
 
 void BootC::PostUI()

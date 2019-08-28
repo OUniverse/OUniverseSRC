@@ -75,7 +75,13 @@ int UserUID::ForLog()
 
 int UserUID::ParseTitle(StringC InFileName)
 {
-	if (!InFileName.BeInt(UID_))
+
+	if (InFileName[0] != "U")
+	{
+		return 1;
+	}
+
+	if (!InFileName.SubString(1, -1).BeInt(UID_))
 	{
 		return 2;
 	}
