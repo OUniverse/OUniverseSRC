@@ -6,6 +6,9 @@
 
 #include "Misc/DateTime.h"
 
+
+#include "Min/DebugM.h"
+
 const char* LogC::FILE_NAME = "log.txt";
 
 namespace GlobalSingleton
@@ -18,22 +21,24 @@ LogC* LogC::Get()
 	return &GlobalSingleton::Log;
 }
 
-LogC* LogC::Create(DirS* InDirLogs)
+LogC* LogC::Create(NewFileC InFile)
 {
-	GlobalSingleton::Log = *(new LogC(InDirLogs));
+	GlobalSingleton::Log = *(new LogC(InFile));
 	return &GlobalSingleton::Log;
 }
 
 LogC::LogC() {}
 
-LogC::LogC(DirS* InDirLogs)
+LogC::LogC(NewFileC InFile)
 {
 	Cursor = 0;
 	Count = 0;
-	DirLogs = InDirLogs;
+	LogFile = InFile;
+	
+	LogFile.Doc().Empty();
 
-	FileC LogFile = FileC(DirLogs->Get()/LogC::FILE_NAME);
-	LogFile.Empty();
+	DBUG("HERE")
+	DBUG(LogFile.ToChar())
 }
 
 
@@ -47,8 +52,7 @@ void LogC::Print()
 		Cursor++;
 	}
 
-	FileC LogFile = FileC(DirLogs->Get() / LogC::FILE_NAME);
-	LogFile.Append(LogAmendment);
+	LogFile.Doc().Append(LogAmendment);
 }
 
 void LogC::Stamp(LogC::Entry* Entry)

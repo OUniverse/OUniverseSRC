@@ -24,6 +24,8 @@ https://docs.google.com/spreadsheets/d/1Lf-CjJtFdgNLNyTyuD-akRAJHqLrEujYSaIUBhlj
 #include "Interface/Array.h"
 #include "Interface/Void.h"
 
+#include "Interface/Url.h"
+
 #define LOG(Code32,Aux,Summary) LogC::Get()->Write(Code32,Aux);
 
 #define LOGP LogC::Get()->Print();
@@ -43,13 +45,13 @@ class OUNIVERSE_API LogC
 
 private:
 		
-	LogC(DirS* InDirLogs);
+	LogC(NewFileC InFile);
 
-	static LogC* Create(DirS* InDirLogs);
+	static LogC* Create(NewFileC InFile);
 
 	int Cursor;
 	int Count;
-	DirS* DirLogs;
+	NewFileC LogFile;
 	
 	struct Entry
 	{

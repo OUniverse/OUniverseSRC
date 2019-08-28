@@ -101,7 +101,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 		DBUG("Standard Boot Activated.")
 
 
-		MajorC::Create();
+	MajorC::Create();
 	MajorC* M = MajorC::Get();
 
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
@@ -114,9 +114,10 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 		bModeFail = true;
 	}
 
-
 	M->Path_ = PathsC::Create();
-	M->Log_ = LogC::Create(M->Path()->Logs());
+	
+	PathC::SetGlobals();
+	M->Log_ = LogC::Create(PathC::FileLog());
 
 	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
 
@@ -167,7 +168,7 @@ void BootC::Primal_Scribe(UObject* WorldContextObject)
 
 
 	M->Path_ = PathsC::Create();
-	M->Log_ = LogC::Create(M->Path()->Logs());
+	//M->Log_ = LogC::Create(M->Path()->Logs());
 
 	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
 
@@ -218,7 +219,7 @@ void BootC::Primal_UiIso(UObject* WorldContextObject)
 
 
 	M->Path_ = PathsC::Create();
-	M->Log_ = LogC::Create(M->Path()->Logs());
+	//M->Log_ = LogC::Create(M->Path()->Logs());
 
 	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
 
@@ -252,7 +253,7 @@ void BootC::Primal_Test(UObject* WorldContextObject)
 {
 	PathC::SetGlobals();
 
-	DBUG(NewFolderC::DirLog().ToChar())
+	DBUG(PathC::DirLog().ToChar())
 	UrlC TestURL = "C://hello.txt";
 	DBUG(TestURL.ToChar())
 	DBUG(TestURL.ToFile().ToChar())
