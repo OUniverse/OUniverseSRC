@@ -9,6 +9,7 @@ Atlas
 #include "Interface/String.h"
 #include "Interface/Map.h"
 #include "Interface/Array.h"
+#include "Interface/Url.h"
 
 #include "System/FormQuery.h"
 
@@ -23,7 +24,7 @@ class AtlasLibC
 
 public:
 
-	AtlasLibC(StringC InPath);
+	AtlasLibC(NewFolderC InFolder);
 
 	AtlasC* Get(AtlasUID InValue);
 
@@ -52,7 +53,7 @@ public:
 
 private:
 
-	StringC Path_;
+	NewFolderC AtlasFolder_;
 
 	int PreLen_;
 

@@ -10,6 +10,7 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Array.h"
 #include "Interface/Json.h"
+#include "Interface/Url.h"
 
 #include "System/AtlasUID.h"
 
@@ -52,7 +53,7 @@ class AtlasC
 	
 public: 
 
-	StringC Path();
+	NewFolderC Folder();
 
 	bool Valid();
 	
@@ -97,7 +98,7 @@ public:
 
 private:
 
-	AtlasC(StringC InFolderName, StringC InPath);
+	AtlasC(StringC InFolderName, NewFolderC InFolder);
 	
 	~AtlasC();
 
@@ -112,8 +113,9 @@ private:
 	bool FoundLinksSoft_;
 	bool FoundLinksPref_;
 
-	StringC Path_;
-	
+	NewFolderC Folder_;
+	NewFileC AtlasFile_;
+
 	AtlasAccordLibC* AccordsHard_;
 	AtlasAccordLibC* AccordsSoft_;
 	AtlasAccordLibC* AccordsPref_;

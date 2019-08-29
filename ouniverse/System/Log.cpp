@@ -36,9 +36,6 @@ LogC::LogC(NewFileC InFile)
 	LogFile = InFile;
 	
 	LogFile.Doc().Empty();
-
-	DBUG("HERE")
-	DBUG(LogFile.ToChar())
 }
 
 

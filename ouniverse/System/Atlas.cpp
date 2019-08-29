@@ -4,9 +4,6 @@
 #include "System/AtlasAccordLib.h"
 #include "System/Payload.h"
 
-#include <fstream>
-#include <string>
-
 #include "System/AtlasLib.h"
 #include "System/RevisionLib.h"
 #include "System/AmendmentLib.h"
@@ -18,14 +15,12 @@
 
 #include "System/Log.h"
 
-#include "Atlas/BoostD.h"
-#include "Atlas/ExtraD.h"
+#include <fstream>
+#include <string>
 
 #include "System/FormLib.h"
 
 #include "Key/GlobalK.h"
-
-#include "Interface/TitleParse.h"
 
 #include "Min/DebugM.h"
 
@@ -52,7 +47,7 @@ const char* AtlasC::K_LINKS_PREF	= "p";
 
 const char* AtlasC::K_FLAGS			= "f";
 
-AtlasC::AtlasC(StringC InFolderName,StringC InPath)
+AtlasC::AtlasC(StringC InFolderName, NewFolderC InFolder)
 {
 
 	FormLib_ = NULL;
@@ -62,7 +57,8 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	AccordsSoft_ = new AtlasAccordLibC();
 	AccordsPref_ = new AtlasAccordLibC();
 
-	Path_ = InPath;
+	Folder_ = InFolder;
+	AtlasFile_ = Folder_.ToFile("_", "atlas");
 
 	Valid_ = false;
 	Mounted_ = false;
@@ -75,7 +71,7 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 
 	
 
-	LOG(29333, InPath, "Validating Atlas folder at path: $V$")
+	LOG(29333, Folder_.ToString(), "Validating Atlas folder at path: $V$")
 
 	int ErrCode = UID_.ParseTitle(InFolderName);
 
@@ -90,30 +86,33 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	Valid_ = false;
 
 
-	StringC SearchPath = (InPath / AtlasC::FILE_NAME);
-	LOG(105, InPath, "Path: $V$")
+	
+	LOG(105, AtlasFile_.ToString(), "Path: $V$")
 
 
-		if (!FileC(SearchPath).Exists())
+		if (!AtlasFile_.Exists())
 		{
-			LOG(404, SearchPath, "File missing")
+			LOG(404, AtlasFile_.ToString(), "File missing")
 				return;
 		}
 
-	std::string Line;
-	std::ifstream File;
-	File.open(SearchPath.ToChar());
+	std::string LineSS;
+	std::ifstream FileSS;
 
-	std::getline(File, Line);
-	U16 WriterVer = StringC(Line).ToU16ZeroFail();
+	FileSS.open(AtlasFile_.ToString().ToChar());
+
+	std::getline(FileSS, LineSS);
+	StringC WVer = StringC(LineSS);
+	U16 WriterVer = WVer.ToU16ZeroFail();
 	if (!WriterVer)
 	{
 		LOG(505, Void(), "Error with Writer Version.");
 		return;
 	}
 
-	std::getline(File, Line);
-	JsonS J = JsonS(StringC(Line));
+	std::getline(FileSS, LineSS);
+	JsonS J = JsonS(StringC(LineSS));
+
 
 	if (!J.Has(GlobalK::ID))
 	{
@@ -208,12 +207,12 @@ AtlasC::AtlasC(StringC InFolderName,StringC InPath)
 	Cur = Links[AtlasC::K_LINKS_PREF];
 	AccordsPref_->AddList(&Cur);
 
-	SearchPath = (InPath / AtlasC::FILE_NAME_DEV);
+	NewFileC AtlasDevFi = Folder_.ToFile("_", "atlasdev");
 
-	LOG(105, InPath, "Path: $V$")
+	LOG(105, AtlasDevFi.ToString(), "Path: $V$")
 
 
-		if (FileC(SearchPath).Exists())
+		if (AtlasDevFi.Exists())
 		{
 				DevFile_ = true;
 		}
@@ -242,28 +241,30 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 	RevisionLib_ = new RevisionLibC(this, InAtlasLib);
 	AmendmentLib_ = new AmendmentLibC(this, InAtlasLib);
 
-	std::string Line;
-	std::ifstream File;
+	std::string LineSS;
+	std::ifstream FileSS;
 
-	StringC SearchPath = (Path_ / AtlasC::FILE_NAME);
-	File.open(SearchPath.ToChar());
-	std::getline(File, Line);//WriteVer
-	std::getline(File, Line);//AtlasPilot
+	FileSS.open(AtlasFile_.ToString().ToChar());
+
+	std::getline(FileSS, LineSS);//WriteVer
+	std::getline(FileSS, LineSS);//AtlasPilot
 
 	JsonS J;
 
-	
-	std::getline(File, Line);//Forms
-	J = JsonS(StringC(Line));
+	//Forms
+	std::getline(FileSS, LineSS);
+	J = JsonS(StringC(LineSS));
 	FormLib_->AddList(&J);
 
-	std::getline(File, Line);//Revisions
-	J = JsonS(StringC(Line));
+	//Revisions
+	std::getline(FileSS, LineSS);
+	J = JsonS(StringC(LineSS));
 	RevisionLib_->AddList(&J);
 
 	
-	std::getline(File, Line);//Amendments
-	J = JsonS(StringC(Line));
+	//Amendments
+	std::getline(FileSS, LineSS);
+	J = JsonS(StringC(LineSS));
 	AmendmentLib_->AddList(&J);
 	
 	Mounted_ = true;
@@ -282,9 +283,9 @@ bool AtlasC::Mounted()
 	return Mounted_;
 }
 
-StringC AtlasC::Path()
+NewFolderC AtlasC::Folder()
 {
-	return Path_;
+	return Folder_;
 }
 
 bool AtlasC::Valid()
@@ -399,8 +400,8 @@ void AtlasC::SaveDoc()
 	Doc += RevisionLib_->Serialize().NL();
 	Doc += AmendmentLib_->Serialize();
 
-	FileC AtlasFile = FileC(Path_ / AtlasC::FILE_NAME);
-	AtlasFile.Write(Doc);
+	DocC AtlasDo = AtlasFile_.Doc();
+	AtlasDo.Write(Doc);
 }
 
 

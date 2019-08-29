@@ -14,17 +14,17 @@ DataC* DataC::Get()
 	return &GlobalSingleton::Data;
 }
 
-DataC* DataC::Create(ProgramStateC::State InState, StringC InPath)
+DataC* DataC::Create(ProgramStateC::State InState, NewFolderC InPath)
 {
 	GlobalSingleton::Data = *(new DataC(InState, InPath));
 	return &GlobalSingleton::Data;
 }
 
-DataC::DataC(ProgramStateC::State InState, StringC InPath)
+DataC::DataC(ProgramStateC::State InState, NewFolderC InAtlasFolder)
 {
-	Path_ = InPath;
+	AtlasFolder_ = InAtlasFolder;
 	State_ = InState;
-	AtlasLib_ = new AtlasLibC(Path_);
+	AtlasLib_ = new AtlasLibC(AtlasFolder_);
 }
 
 ArrayC<AtlasC*> DataC::GetAtlasPreArray()

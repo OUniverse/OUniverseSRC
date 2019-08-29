@@ -20,6 +20,7 @@ Data is a singleton which loads all the atlas style game data.
 #include "Interface/String.h"
 #include "Interface/Array.h"
 #include "Interface/Json.h"
+#include "Interface/Url.h"
 
 #include "System/FormQuery.h"
 
@@ -28,6 +29,7 @@ Data is a singleton which loads all the atlas style game data.
 #include "System/AtlasUID.h"
 #include "System/FormUID.h"
 #include "System/DuetUID.h"
+
 
 class BootC;
 class AtlasLibC;
@@ -40,11 +42,11 @@ class OUNIVERSE_API DataC
 
 private:
 
-	static DataC* Create(ProgramStateC::State InState, StringC InPath);
+	static DataC* Create(ProgramStateC::State InState, NewFolderC InAtlasFolder);
 	
-	DataC(ProgramStateC::State InState, StringC InPath);
+	DataC(ProgramStateC::State InState, NewFolderC InAtlasFolder);
 	
-	StringC Path_;
+	NewFolderC AtlasFolder_;
 
 	AtlasLibC* AtlasLib_;
 

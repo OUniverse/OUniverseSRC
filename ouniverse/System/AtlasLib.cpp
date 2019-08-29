@@ -10,19 +10,21 @@
 #include "System/Log.h"
 
 
-AtlasLibC::AtlasLibC(StringC InPath)
+AtlasLibC::AtlasLibC(NewFolderC InAtlasFolder)
 {
 	PreLen_ = 0;
 	Len_ = 0;
-	Path_ = InPath;
+	AtlasFolder_ = InAtlasFolder;
+
 	CreditLib_ = new CreditLibC();
 
-	DirQueryS Fo = DirQueryS(Path_);
-	LOG(31258, Path_ / "", " Scanning directory : $V$")
+	ArrayC<NewFolderC> Fo = AtlasFolder_.GetFolders();
+	LOG(31258, AtlasFolder_.ToString() / "", " Scanning directory : $V$")
 
-		for (int i = 0; i < Fo.Num(); i++)
+		int l = Fo.Len();
+		for (int i = 0; i < l; i++)
 		{
-			AtlasC* New = new AtlasC(Fo.Folder(i), Fo.Full(i));
+			AtlasC* New = new AtlasC(Fo[i].GetFinalDir(), Fo[i]);
 
 			if (New->Valid())
 			{
@@ -44,7 +46,7 @@ AtlasLibC::AtlasLibC(StringC InPath)
 		AtlasC* Seek = NULL;
 		Seek = PreLib_.At(i);
 		Seek->Survey(this);
-		CreditLib_->GetCreditsFromAtlas(Seek->Path());
+		//CreditLib_->GetCreditsFromAtlas(Seek->Path());
 	}
 
 }

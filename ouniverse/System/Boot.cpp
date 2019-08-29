@@ -116,7 +116,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 
 	M->Path_ = PathsC::Create();
 	
-	PathC::SetGlobals();
+	PathC::SetGlobals(); //Must be called to set global paths to reduce the amount of string assembly functions at run time.
 	M->Log_ = LogC::Create(PathC::FileLog());
 
 	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
@@ -130,11 +130,9 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 				return;
 		}
 
-	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-	//LOG(28164, Void(), "ConfigC service activated.")
-
 	M->Oni_ = new OniManagerC();
-	M->Oni_->Load(OniTypeC::Type::Global, FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
+	M->Oni_->Load(OniTypeC::Type::Internal, PathC::FileGlobalConfig());
+	M->Oni_->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
 
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
@@ -149,147 +147,28 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 
 void BootC::Primal_Scribe(UObject* WorldContextObject)
 {
-	if (GEngine)
-		DBUG("Standard Boot Activated.")
-
-
-		MajorC::Create();
-	MajorC* M = MajorC::Get();
-
-	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
-	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
-	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
-
-	bool bModeFail = false;
-	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
-	{
-		bModeFail = true;
-	}
-
-
-	M->Path_ = PathsC::Create();
-	//M->Log_ = LogC::Create(M->Path()->Logs());
-
-	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
-
-		if (bModeFail)
-		{
-			DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
-
-				LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
-
-				return;
-		}
-
-	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-	//LOG(28164, Void(), "ConfigC service activated.")
-
-	M->Oni_ = new OniManagerC();
-	M->Oni_->Load(OniTypeC::Type::Global, FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
-
-	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
-
-	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
-
-	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Scribe);
-
-	//M->Audio_ = AudioManager::Create(M->Scope());
-
 	LOGP
 }
 
 void BootC::Primal_UiIso(UObject* WorldContextObject)
 {
-	if (GEngine)
-		//DBUG("Standard Boot Activated.")
-
-
-		MajorC::Create();
-	MajorC* M = MajorC::Get();
-
-	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
-	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
-	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
-
-	bool bModeFail = false;
-	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
-	{
-		bModeFail = true;
-	}
-
-
-	M->Path_ = PathsC::Create();
-	//M->Log_ = LogC::Create(M->Path()->Logs());
-
-	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
-
-		if (bModeFail)
-		{
-			DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
-
-				LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
-
-				return;
-		}
-
-
-	M->Oni_ = new OniManagerC();
-	M->Oni_->Load(OniTypeC::Type::Global,FileC(StringC(M->Path()->Config()->Get()) / StringC("global.txt")));
-
-	//M->Config_ = ConfigManager::Create(M->Path()->Config(), M->Path()->ActiveUser());
-
-	//LOG(28164, Void(), "ConfigC service activated.")
-
-		M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
-
-	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
-
-	M->Hud()->SetPath("coui://ui//iso.html");
-	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Iso);
 	LOGP
 }
 
 void BootC::Primal_Test(UObject* WorldContextObject)
 {
-	PathC::SetGlobals();
-
-	DBUG(PathC::DirLog().ToChar())
-	UrlC TestURL = "C://hello.txt";
-	DBUG(TestURL.ToChar())
-	DBUG(TestURL.ToFile().ToChar())
-	DBUG(TestURL.ToFile().Doc().Open().ToChar())
-
-
-		DBUG(TestURL.ToChar())
-		if (TestURL.ToFile().Exists())
-		{
-			DBUG("Exists")
-		}
-		else
-		{
-			DBUG("Doesn't exist")
-		}
-
-	DocC TestDoc = TestURL.ToFile().Doc().Open();
-	TestDoc.Append("WRITE TESTER");
-
-
-	TestURL = "C://hello2222.txt";
-
-	DBUG(TestURL.ToChar())
-	if (TestURL.ToFile().Exists())
-	{
-			DBUG("Exists")
-	}
-	else
-	{
-		DBUG("Doesn't exist")
-	}
-
-	TestURL.ToFile().Doc().Open().Write("OKOKOKOKOK");
-	DBUG("PUSH")
-	DBUG("PUSH")
+	
 }
+
+
+
+
+
+
+
+
+
+
 
 void BootC::PostUI()
 {
@@ -316,14 +195,14 @@ void BootC::PostUI_Standard()
 
 	LOG(40448, Void(), "UI is ready for bindings.")
 
-		MajorC* M = MajorC::Get();
+	MajorC* M = MajorC::Get();
 
-	M->Data_ = DataC::Create(ProgramState_, M->Path()->Atlas()->Get());
+	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
 
 
 	//M->Kernel_ = KernelC::Create(M->Data());
 
-	M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
+	M->UserLib_ = UserLibC::Create(PathC::DirUsers(), M->Kernel());
 
 
 	M->System_ = SystemManager::Create();
