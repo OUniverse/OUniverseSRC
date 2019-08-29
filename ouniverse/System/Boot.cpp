@@ -23,6 +23,8 @@
 #include "System/Glass.h"
 #include "System/OniManager.h"
 
+#include "System/User.h"
+
 #include "System/Data.h"
 #include "System/Terra.h"
 
@@ -197,12 +199,14 @@ void BootC::PostUI_Standard()
 
 	MajorC* M = MajorC::Get();
 
+	M->UserW_ = new UserW();
+
 	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
 
 
 	//M->Kernel_ = KernelC::Create(M->Data());
 
-	M->UserLib_ = UserLibC::Create(PathC::DirUsers(), M->Kernel());
+	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User());
 
 
 	M->System_ = SystemManager::Create();
@@ -250,7 +254,9 @@ void BootC::PostUI_Scribe()
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	M->Protocol()->Activate(ProtocolManager::Types::Scribe);
+	M->Protocol()->Start();
+
+	//M->Protocol()->Activate(ProtocolManager::Types::Scribe);
 
 	LOGP
 }

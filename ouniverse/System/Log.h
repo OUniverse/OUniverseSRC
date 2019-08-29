@@ -44,7 +44,7 @@ class OUNIVERSE_API LogC
 	friend BootC;
 
 private:
-		
+
 	LogC(NewFileC InFile);
 
 	static LogC* Create(NewFileC InFile);
@@ -52,7 +52,7 @@ private:
 	int Cursor;
 	int Count;
 	NewFileC LogFile;
-	
+
 	struct Entry
 	{
 
@@ -63,11 +63,11 @@ private:
 		virtual StringC Output();
 
 		StringC Brass();
-	
+
 		virtual ~Entry() {};
 
 	private:
-		
+
 		int Code32_;
 		U64 Time_;
 
@@ -139,21 +139,21 @@ private:
 
 public:
 
-		LogC();
+	LogC();
 
-		static LogC* Get();
+	static LogC* Get();
 
-		void Stamp(LogC::Entry* Entry);
-		
-		void Write(int Code32, Void Nothing);
-		void Write(int Code32, const char* InAux);
-		void Write(int Code32, bool InAux);
-		void Write(int Code32, StringC InAux);
-		void Write(int Code32, int InAux);
-		void Write(int Code32, float InAux);
-		void Write(int Code32, U64 InAux);
-		void Write(int Code32, U32 InAux);
+	void Stamp(LogC::Entry* Entry);
 
-		void Print();
+	void Write(int Code32, Void Nothing);
+	void Write(int Code32, const char* InAux);
+	void Write(int Code32, bool InAux);
+	void Write(int Code32, StringC InAux);
+	void Write(int Code32, int InAux);
+	void Write(int Code32, float InAux);
+	void Write(int Code32, U64 InAux);
+	void Write(int Code32, U32 InAux);
+
+	void Print();
 
 };

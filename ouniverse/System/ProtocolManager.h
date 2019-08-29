@@ -38,10 +38,13 @@ private:
 	static ProtocolManager* Create(MajorC* Major);
 	ProtocolManager(MajorC* Major);
 
+	void Start();
+
 public:
 
 	enum Types
 	{
+		Splash,
 		System,
 		Creation,
 		OpenWorld,

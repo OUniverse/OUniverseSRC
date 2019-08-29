@@ -23,6 +23,8 @@ A service locator singleton that holds the pointers to all the services.
 #include "Interface/Event.h"
 
 
+class UserW;
+
 class LogC;
 class PathsC;
 class DataC;
@@ -58,6 +60,8 @@ public:
 	static MajorC* Get();
 	static MajorC* Create();
 
+	
+	UserW*				User();
 	LogC*				Log();
 	PathsC*				Path();
 	UserLibC*			UserL();
@@ -78,6 +82,7 @@ public:
 
 private:
 
+	UserW*				UserW_;
 	LogC*				Log_;
 	PathsC*				Path_;
 	UserLibC*			UserLib_;

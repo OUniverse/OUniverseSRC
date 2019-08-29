@@ -10,7 +10,7 @@ Protocol for handling the UserSelection menus.
 
 class MajorC;
 
-class OUNIVERSE_API OmniP : public ProtocolP
+class OUNIVERSE_API SplashP : public ProtocolP
 {
 	
 	friend ProtocolManager;
@@ -22,7 +22,7 @@ public:
 private:
 
 
-	OmniP(MajorC* InMajor);
+	SplashP();
 
 	virtual void Activate() override;
 

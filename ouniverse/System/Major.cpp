@@ -23,6 +23,8 @@ MajorC* MajorC::Create()
 	return &GlobalSingleton::gMajor;
 }
 
+
+UserW* MajorC::User()				{ return UserW_; }
 PathsC* MajorC::Path()				{ return Path_; }
 UserLibC* MajorC::UserL()			{ return UserLib_; }
 ConfigManager* MajorC::Config()		{ return Config_; }
