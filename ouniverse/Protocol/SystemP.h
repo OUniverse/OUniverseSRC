@@ -7,9 +7,12 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/ProtocolP.h"
+
 #include <string>
+
 class UserLibC;
-class KernelC;
+class ProtocolManager;
+class OniManagerC;
 
 class OUNIVERSE_API SystemP : public ProtocolP
 {
@@ -17,75 +20,29 @@ class OUNIVERSE_API SystemP : public ProtocolP
 
 public:
 
-	void EndTitle();
 
 private:
 
-	bool First_;
+	bool FirstOpen_;
 
-	SystemP(KernelC* InKernel, UserLibC* InUserLib);
+	UserLibC* UserL_;
+	ProtocolManager* Maestro_;
+	OniManagerC* Oni_;
+
+	SystemP(ProtocolManager* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager);
 
 	virtual void Activate() override;
 
-	KernelC* Kernel_;
-	UserLibC* UserLib_;
-	
-	void GoPhasePreUser();
-	void GoPhasePreData();
-	void GoPhasePreLoad();
+	void REQ_PreUsers();
 
-	void SetupPhasePreUser();
-	void SetupPhasePreData();
-	void SetupPhasePreLoad();
+	void REQ_User(int uid);
 
+	void REQ_UserConfig(int uid);
 
-	void GoUser();
-	
-	void SetupUser();
+	void SAVE_User(std::string Dat);
 
-	void UserOnward();
+	void CREATE_User();
 
 
-
-	void TitleGo();
-
-	void TitleSetup();
-
-	void TitleForward(int InUID);
-
-	void TitleOnward();
-
-
-
-	void SessionGo();
-
-	void SessionSetup();
-
-	void SessionSelected();
-
-
-	void PageClosed();
-
-	void PhaseClosed();
-
-	void UserSelected(int InUID);
-
-	enum Pages {
-		User,
-		Title,
-		Session,
-		PAGES_MAX,
-	};
-
-	enum Phases {
-		PreUser,
-		PreData,
-		PreLoad,
-		PHASES_MAX,
-	};
-
-	SystemP::Pages ActivePage;
-
-	SystemP::Phases ActivePhase;
 
 };

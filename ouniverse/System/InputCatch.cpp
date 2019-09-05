@@ -5,6 +5,8 @@
 #include "Widgets/SOverlay.h"
 #include "Widgets/Text/STextBlock.h"
 
+#include "Min/DebugM.h"
+
 void SInputCatch::Construct(const FArguments& InArgs)
 {
 	GameHUD = InArgs._GameHUD;
@@ -27,10 +29,13 @@ void SInputCatch::Construct(const FArguments& InArgs)
 		//	.Text(FText::FromString(TEXT("InputBridge")))
 		//]
 	];
+
+
 }
 
 FReply SInputCatch::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
+
 	InputRelay->OnKeyDown(MyGeometry,InKeyEvent);
 	return FReply::Handled();
 }

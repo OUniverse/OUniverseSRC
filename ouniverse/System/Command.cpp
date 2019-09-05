@@ -2,23 +2,32 @@
 
 #include "Command.h"
 
-CommandC::CommandC()
+#include "Min/DebugM.h"
+
+CommandC::CommandC(KeyCodeC InKeyCode)
 {
-	BoundKeyCode_ = -1;
+	KeyCode_ = InKeyCode;
+	Event_ = new Event1C<void, StrokeS>;
 }
 
-void CommandC::SetBoundKey(int InBoundKey)
+void CommandC::SetKeyCode(KeyCodeC InKeyCode)
 {
-	BoundKeyCode_ = InBoundKey;
+	KeyCode_ = InKeyCode;
 }
 
-int CommandC::BoundKey()
+KeyCodeC CommandC::KeyCode()
 {
-	return BoundKeyCode_;
+	return KeyCode_;
 }
 
 void CommandC::Trigger(StrokeS InStroke)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ID.ToString());
+
 	Event_->Trigger(InStroke);
+}
+
+CommandE CommandC::Listen()
+{
+	return Event_;
 }

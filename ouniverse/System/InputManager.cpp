@@ -2,7 +2,6 @@
 
 #include "System/InputManager.h"
 #include "Containers/Ticker.h"
-#include "System/Command.h"
 #include "System/CharKey.h"
 #include "System/Major.h"
 
@@ -25,13 +24,7 @@
 #include <cohtml\Binding\String.h>
 
 
-
-InputManager* InputManager::Create(DirS* InDirReg)
-{
-	return new InputManager(InDirReg);
-}
-
-InputManager::InputManager(DirS* InDirReg)
+InputManager::InputManager(NewFileC InRegFile)
 {	
 	bRebindMode = false;
 	bQuill = false;
@@ -53,32 +46,47 @@ InputManager::InputManager(DirS* InDirReg)
 	QuillKeyMap.Add(86, new CharKey(86, CharKey::Handler::Switch, CharKey::Modifier::CTR, "paste"));//control v
 	QuillKeyMap.Add(65, new CharKey(65, CharKey::Handler::Switch, CharKey::Modifier::CTR, "seleall"));//control a
 
-	CommandC* NewCommand = new CommandC();
-	CommandArray.Init(Commands::COMMANDS_MAX, NULL);
-	CommandArray.Add(NewCommand);
+	ActiveLayer_ = nullptr;
+	Layers_.Init(Layer::LAYER_MAX, nullptr);
+	CommandLayerC* LayerMenu = new CommandLayerC(CommandLayerMenuC::MAX);
+	AddLayer(Layer::Menu, LayerMenu);
+	
+	LayerMenu->Add(CommandLayerMenuC::Console,	KeyCodeC(109, false, false, false));
+	LayerMenu->Add(CommandLayerMenuC::Enter,	KeyCodeC(13, false, false, false));
+	LayerMenu->Add(CommandLayerMenuC::Space,	KeyCodeC(32, false, false, false));
+	LayerMenu->Add(CommandLayerMenuC::Escape,	KeyCodeC(27, false, false, false));
+
+
+	ActivateLayer(Layer::Menu);
 
 	GBIND("InputM.QuillStart", this, &InputManager::QuillStart)
 	GBIND("InputM.QuillEnd", this, &InputManager::QuillEnd)
+	
 }
 
-CommandC* InputManager::GetCommand(int InCommand)
+void InputManager::ActivateLayer(Layer ActiveLayer)
 {
-	return CommandArray[InCommand];
+	ActiveLayer_ = Layers_[ActiveLayer];
 }
 
-void InputManager::BindCommandToKey(CommandC* CommandToBind, int32 KeyCode)
+CommandLayerC* InputManager::AddLayer(Layer InLayerType, CommandLayerC* InLayer)
 {
-	if (CommandToBind->BoundKey() != -1)
-	{
-		InputMap.Remove(KeyCode);
-	}
+	Layers_[InLayerType] =  InLayer;
+	return InLayer;
+}
 
-	CommandToBind->SetBoundKey(KeyCode);
+
+CommandE InputManager::ListenToCMD(Layer InLayer, int InCMD)
+{
+	return Layers_[InLayer]->Listen(InCMD);
+
 }
 
 void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
-	int32 KeyCode = InKeyEvent.GetKeyCode();
+	int KeyCode = InKeyEvent.GetKeyCode();
+	DBUG("CODE:")
+	DBUG(IFS(KeyCode))
 
 	if (KeyCode == 162)
 	{
@@ -109,12 +117,14 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 		return;
 	} else {
 
-		GlassC::Bridge()->OnKeyDown(MyGeometry, InKeyEvent);
+		//GlassC::Bridge()->OnKeyDown(MyGeometry, InKeyEvent);
 
 		CommandC* Command;
-		if (InputMap.Try(KeyCode, Command))
+		if (ActiveLayer_->Try(KeyCodeC(KeyCode,false,false,false), Command))
 		{
+
 			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
+
 			Command->Trigger(StrokeS(true));
 		}
 
@@ -125,7 +135,7 @@ void InputManager::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKey
 void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
 
-	int32 KeyCode = InKeyEvent.GetKeyCode();
+	int KeyCode = InKeyEvent.GetKeyCode();
 
 	if (KeyCode == 162)
 	{
@@ -151,11 +161,10 @@ void InputManager::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEv
 		//Fires off Mod generated custom keys via a second TMap
 
 		CommandC* Command;
-		if (InputMap.Try(KeyCode, Command))
+		if (ActiveLayer_->Try(KeyCodeC(KeyCode, false, false, false), Command))
 		{
-
 			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sending");
-			Command->Trigger(StrokeS(true));
+			Command->Trigger(StrokeS(false));
 		
 		}
 
@@ -221,4 +230,37 @@ void InputManager::QuillEnd()
 		bQuill = false;
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Quill Mode Canceled");
 	
+}
+
+
+CommandLayerC::CommandLayerC(int InCMD_MAX)
+{
+	Commands_.Init(InCMD_MAX, nullptr);
+}
+
+bool CommandLayerC::Try(KeyCodeC InKeyCode, CommandC*& InCommand)
+{
+	return Input_.Try(InKeyCode, InCommand);
+}
+
+void CommandLayerC::Add(int InCMD, KeyCodeC InKeyCode)
+{
+	CommandC* TempCommand = new CommandC(InKeyCode);
+	Input_.Add(InKeyCode, TempCommand);
+	TempCommand->SetKeyCode(InKeyCode);
+	Commands_[InCMD] = TempCommand;
+}
+
+void CommandLayerC::Rebind(int InCMD, KeyCodeC KeyCode)
+{
+	CommandC* TempCommand = Input_[KeyCode];
+	Input_.Add(KeyCode, TempCommand);
+	Input_.Remove(KeyCode);
+}
+
+
+CommandE CommandLayerC::Listen(int InCMD)
+{
+
+	return Commands_[InCMD]->Listen();
 }

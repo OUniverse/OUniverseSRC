@@ -28,12 +28,16 @@ An example of different states would be the System Menu compared to Open World. 
 class BootC;
 class MajorC;
 
+class OniManagerC;
+
 class OUNIVERSE_API ProtocolManager
 {
 
 	friend BootC;
 
 private:
+
+	OniManagerC* Oni_;
 
 	static ProtocolManager* Create(MajorC* Major);
 	ProtocolManager(MajorC* Major);
@@ -53,6 +57,8 @@ public:
 	};
 
 	ProtocolP* Activate(Types Type);
+
+	void SplashEnd();
 
 private:
 

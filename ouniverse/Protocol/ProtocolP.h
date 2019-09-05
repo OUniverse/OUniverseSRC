@@ -25,6 +25,7 @@ protected:
 
 	ProtocolP();
 
+	virtual ~ProtocolP() {};
 	virtual void Activate();
 
 	virtual void Conclude();

@@ -19,49 +19,24 @@ These Event Delegates broadcast all clicks and presses to all registered methods
 
 #pragma once
 
-#include "Interface/Event.h"
-#include "System/KeyCode.h"
 
-struct StrokeS
-{
-	bool KeyDown_;
-
-	StrokeS()
-	{
-		KeyDown_ = false;
-	}
-	
-	StrokeS(bool InKeyDown)
-	{
-		KeyDown_ = InKeyDown;
-	}
-
-	bool KeyDown()
-	{
-		return KeyDown_;
-	}
-};
-
-EVENT1(CommandE,CommandEL, void, StrokeS)
-
-class OUNIVERSE_API CommandC
+class KeyCodeC
 {
 
 public:
 
-	CommandC(KeyCodeC InKeyCode);
+	KeyCodeC();
 
-	KeyCodeC KeyCode();
-	
-	void SetKeyCode(KeyCodeC InKeyCode);
-	
-	void Trigger(StrokeS InStroke);
+	KeyCodeC(int InKeyCode);
 
-	CommandE Listen();
+	KeyCodeC(int InKeyCode, bool ShiftDN, bool CtrDN, bool AltDN);
+
+	int Out();
+
+	bool operator<(const KeyCodeC& l) const;
 
 private:
 
-	CommandE Event_;
-	
-	KeyCodeC KeyCode_;
+	int KeyCode_;
+
 };

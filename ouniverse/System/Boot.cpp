@@ -136,6 +136,8 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Oni_->Load(OniTypeC::Type::Internal, PathC::FileGlobalConfig());
 	M->Oni_->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
 
+	M->Config_ = new ConfigManager(M->Oni());
+
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
@@ -210,7 +212,8 @@ void BootC::PostUI_Standard()
 
 
 	M->System_ = SystemManager::Create();
-	M->Input_ = InputManager::Create(M->Path()->Reg());
+	M->Input_ = new InputManager(PathC::FileGlobalConfig());
+
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->Protocol_ = ProtocolManager::Create(M);
 
@@ -220,7 +223,7 @@ void BootC::PostUI_Standard()
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	M->Protocol()->Activate(ProtocolManager::Types::System);
+	M->Protocol()->Start();
 
 	LOGP
 }
@@ -244,7 +247,7 @@ void BootC::PostUI_Scribe()
 
 
 	M->System_ = SystemManager::Create();
-	M->Input_ = InputManager::Create(M->Path()->Reg());
+	//M->Input_ = InputManager::Create(M->Path()->Reg());
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
 	M->Protocol_ = ProtocolManager::Create(M);
 
@@ -269,7 +272,7 @@ void BootC::PostUI_UiIso()
 
 		MajorC* M = MajorC::Get();
 
-	M->Input_ = InputManager::Create(M->Path()->Reg());
+	//M->Input_ = InputManager::Create(M->Path()->Reg());
 	M->Hud()->ActivateInputs(M->Input());
 
 }

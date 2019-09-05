@@ -8,7 +8,13 @@ Protocol for handling the UserSelection menus.
 
 #include "Protocol/ProtocolP.h"
 
+#include "System/InputManager.h"
+#include "System/Command.h"
+
+
 class MajorC;
+class ProtocolManager;
+class InputManager;
 
 class OUNIVERSE_API SplashP : public ProtocolP
 {
@@ -18,12 +24,30 @@ class OUNIVERSE_API SplashP : public ProtocolP
 
 public:
 
+	enum Stage
+	{
+		Brander,
+		Sponsor,
+		Intro,
+	};
 
-private:
+	void OnClick();
 
+	void Skip();
 
-	SplashP();
+	Stage CurrentStage_;
+
+	SplashP(ProtocolManager* InMaestro, InputManager* InInputManager);
 
 	virtual void Activate() override;
 
+	InputManager* Input_;
+
+	ProtocolManager* Maestro_;
+
+private:
+
+	CommandEL CMD_Enter;
+
+	void OnSkip(StrokeS InStroke);
 };

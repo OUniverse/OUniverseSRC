@@ -39,28 +39,33 @@ Receives all inputs like keyboard and mouse interactions from the SInputCatch wi
 #include "Interface/Array.h"
 #include "Interface/Map.h"
 #include "Interface/String.h"
+#include "Interface/Url.h"
+#include "System/KeyCode.h"
 
-struct DirS;
+#include "System/Command.h"
+
+class BootC;
 
 class CommandC;
-class CharKey;
+class CommandLayerC;
 
+class CharKey;
 
 class SCohtmlInputForward;
 class GlassC;
 
 
+
 class OUNIVERSE_API InputManager
 {
 
+	friend BootC;
 
 private:
 
-	InputManager(DirS* InDirReg);
+	 InputManager(NewFileC InRegFile);
 
 public:
-
-	static InputManager* Create(DirS* InDirReg);
 
 	void QuillStart(std::string InChars);
 	void QuillEnd();
@@ -75,34 +80,94 @@ public:
 	void OnMouseButtonDoubleClick(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 	void OnMouseWheel(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 
-	CommandC* GetCommand(int InCommand);
+
+	enum Layer
+	{
+		Menu,
+		World,
+		LAYER_MAX,
+	};
+
+	CommandE ListenToCMD(Layer InLayer, int InCMD);
 
 private:
 
-	enum class CommandType : uint8
-	{
-		Global,
-		Multi,
-		Character,
-	};
 
 	bool bCTR;
 	bool bALT;
 
 	bool bRebindMode;
 	bool bQuill;
+
 	StringC QuillChars;
 
-	ArrayC<CommandC*> CommandArray;
 
-	enum Commands
-	{
-		Console,
-		COMMANDS_MAX,
-	};
-
-	MapC<int32,CommandC*> InputMap;
 	MapC<int, CharKey*> QuillKeyMap;
 
-	void BindCommandToKey(CommandC* CommandToBind, int32 KeyCode);
+	CommandLayerC* ActiveLayer_;
+
+	void ActivateLayer(Layer ActiveLayer);
+
+	CommandLayerC* AddLayer(Layer InLayerType, CommandLayerC* InCommand);
+	ArrayC<CommandLayerC*> Layers_;
+};
+
+
+class CommandLayerC
+{
+
+public:
+
+	CommandLayerC(int InCMD_MAX);
+
+
+	CommandE Listen(int InCMD);
+
+	bool Try(KeyCodeC InKeyCode, CommandC*& InCommand);
+
+	void Add(int InCMD, KeyCodeC KeyCode);
+
+	void Rebind(int InCMD, KeyCodeC KeyCode);
+
+public:
+
+
+	ArrayC<CommandC*> Commands_;
+	MapC<KeyCodeC, CommandC*> Input_;
+
+
+};
+
+
+class CommandLayerMenuC : public CommandLayerC
+{
+	
+public:
+
+	enum CMD
+	{
+		Console,
+		Escape,
+		Enter,
+		Space,
+		MAX,
+	};
+
+};
+
+
+class CommandLayerWorldC : public CommandLayerC
+{
+
+public:
+
+	enum CMD
+	{
+		Interact,
+		Jump,
+		Run,
+		Stealth,
+		MainMenu,
+	};
+
 };

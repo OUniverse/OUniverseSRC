@@ -48,7 +48,7 @@ void ConsoleIO::OnOpen()
 
 void ConsoleIO::OnCommand(StrokeS InStroke)
 {
-	if (InStroke.KeyDown)
+	if (InStroke.KeyDown())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "COMMAND IN");
 

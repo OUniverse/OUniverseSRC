@@ -2,193 +2,76 @@
 
 #include "Protocol/SystemP.h"
 #include "System/UserLib.h"
-#include "System/SessionLib.h"
+#include "System/OniManager.h"
 
-#include "System/Kernel.h"
+#include "System/SessionLib.h"
 
 #include "System/Log.h"
 
 #include "System/Glass.h"
+
 #include "System/User^.h"
 #include "System/Session^.h"
 
-#include <cohtml\Binding\Vector.h>
+#include "System/OniType.h"
+#include "System/OniKey.h"
 
+#include <cohtml\Binding\Vector.h>
+#include <cohtml\Binding\String.h>
 
 #include "Min/DebugM.h"
 
-SystemP::SystemP(KernelC* InKernel, UserLibC* InUserLib)
+SystemP::SystemP(ProtocolManager* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager)
 {
-
-	First_ = true;
-	Kernel_ = InKernel;
-	UserLib_ = InUserLib;
-
+	FirstOpen_ = false;
+	Maestro_ = InMaestro;
+	UserL_ = InUserLib;
+	Oni_ = InOniManager;
 }
 
 void SystemP::Activate()
 {
-	GBIND("SystemP.PageClosed", this, &SystemP::PageClosed);
-	GBIND("SystemP.PhaseClosed", this, &SystemP::PhaseClosed);
 
-	GSEND0("sym.a");
+	GSEND0("sym.o");
 	
+	GBIND("sym.user<", this, &SystemP::REQ_User);
+	GBIND("sym.preusers<", this, &SystemP::REQ_PreUsers);
+	GBIND("sym.userconfig<", this, &SystemP::REQ_UserConfig);
+	GBIND("sym.config^", this, &SystemP::SAVE_User);
+	GBIND("sym.user+", this, &SystemP::CREATE_User);
 
-	if (First_)
+
+	bool LoginLastUser = Oni_->GetBool(OniTypeC::Type::Global, OniGlobalC::AUTOLOGIN_LAST_USER);
+
+
+	if (FirstOpen_)
 	{
 
 	}
-
-	GoPhasePreUser();
 }
 
-
-void SystemP::GoPhasePreUser()
+void SystemP::REQ_PreUsers()
 {
-	ActivePage = Pages::User;
-	ActivePhase = Phases::PreUser;
-	GSEND1("sym.setPhase", "puser");
+	DBUG("GHERE")
+	GSEND1("sym.users.preusers>", UserL_->Users().Vector());//sym_v_users
 }
 
-void SystemP::GoPhasePreData()
-{
-	ActivePage = Pages::Title;
-	ActivePhase = Phases::PreData;
-	GSEND1("sym.setPhase", "pdata");
-}
-
-void SystemP::GoPhasePreLoad()
+void SystemP::REQ_User(int uid)
 {
 
 }
 
-
-void SystemP::SetupPhasePreUser()
-{
-	GoUser();
-}
-
-void SystemP::SetupPhasePreData()
-{
-	TitleGo();
-}
-
-void SystemP::SetupPhasePreLoad()
+void SystemP::REQ_UserConfig(int uid)
 {
 
 }
 
-
-void SystemP::GoUser()
-{
-	ActivePage = Pages::User;
-	GSEND1("sym.setPage", "user");
-}
-
-void SystemP::SetupUser()
-{
-	GBIND("SystemP.UserSelected", this, &SystemP::UserSelected);
-	GSEND1("sym.user.a", UserLib_->Users().Vector());	
-	
-}
-
-void SystemP::UserSelected(int InUID)
-{
-	UserLib_->SetUser(InUID);
-	LOGP
-	DBUG(IFS(InUID));
-	GoPhasePreData();
-}
-
-
-void SystemP::TitleGo()
-{
-
-	ActivePage = Pages::Title;
-	GSEND1("sym.setPage", "title");
-}
-
-
-void SystemP::TitleSetup()
-{
-	GBIND("SystemP.ForwardTitle", this, &SystemP::TitleForward);
-	GSEND0("sym.title.a");
-}
-
-void SystemP::TitleForward(int InUID)
-{
-	Kernel_->SetLoadout(1);
-	LOGP
-	DBUG(IFS(InUID));
-	TitleOnward();
-}
-
-void SystemP::TitleOnward()
-{
-	SessionGo();
-}
-
-
-
-
-
-
-void SystemP::SessionGo()
-{
-	ActivePage = Pages::Session;
-	GSEND1("sym.setPage", "session");
-
-	//Kernel_->SetSession(41290);
-	//LOGP
-}
-
-void SystemP::SessionSetup()
-{
-	GBIND("SystemP.SessionSelected", this, &SystemP::SessionSelected);
-	Kernel_->SessionLib()->Sessions().Vector();
-	GSEND1("sym.session.a", Kernel_->SessionLib()->Sessions().Vector());
-	//GSEND1("sym.session.a", UserLib_->Users().Vector());
-}
-
-void SystemP::SessionSelected()
+void SystemP::SAVE_User(std::string Dat)
 {
 
 }
 
-void SystemP::PageClosed()
-{
-	switch (ActivePage) {
-		case Pages::User:
-		SetupUser();
-		break;
-		case Pages::Title:
-		TitleSetup();
-		break;
-		case Pages::Session:
-		SessionSetup();
-		break;
-	}
-}
-
-void SystemP::PhaseClosed()
-{
-	switch (ActivePhase) {
-	case Phases::PreUser:
-		SetupPhasePreUser();
-		break;
-	case Phases::PreData:
-		SetupPhasePreData();
-		break;
-	case Phases::PreLoad:
-		SetupPhasePreLoad();
-		break;
-	}
-}
-
-
-
-void SystemP::EndTitle()
+void  SystemP::CREATE_User()
 {
 
 }
-
