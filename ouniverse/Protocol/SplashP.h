@@ -13,13 +13,13 @@ Protocol for handling the UserSelection menus.
 
 
 class MajorC;
-class ProtocolManager;
+class MaestroC;
 class InputManager;
 
 class OUNIVERSE_API SplashP : public ProtocolP
 {
 	
-	friend ProtocolManager;
+	friend MaestroC;
 
 
 public:
@@ -37,13 +37,13 @@ public:
 
 	Stage CurrentStage_;
 
-	SplashP(ProtocolManager* InMaestro, InputManager* InInputManager);
+	SplashP(MaestroC* InMaestro, InputManager* InInputManager);
 
 	virtual void Activate() override;
 
 	InputManager* Input_;
 
-	ProtocolManager* Maestro_;
+	MaestroC* Maestro_;
 
 private:
 

@@ -1,6 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "System/ProtocolManager.h"
+#include "System/Maestro.h"
 #include "Protocol/SplashP.h"
 #include "Protocol/SystemP.h"
 #include "Protocol/ScribeP.h"
@@ -14,13 +14,13 @@
 #include "Min/DebugM.h"
 
 
-ProtocolManager* ProtocolManager::Create(MajorC* Major)
+MaestroC* MaestroC::Create(MajorC* Major)
 {
-	return new ProtocolManager(Major);
+	return new MaestroC(Major);
 }
 
 
-ProtocolManager::ProtocolManager(MajorC* Major)
+MaestroC::MaestroC(MajorC* Major)
 {
 
 	Oni_ = Major->Oni();
@@ -33,12 +33,12 @@ ProtocolManager::ProtocolManager(MajorC* Major)
 	
 }
 
-ProtocolP* ProtocolManager::GetProtocol(Types Type)
+ProtocolP* MaestroC::GetProtocol(Types Type)
 {
 	return Map_[Type];
 }
 
-ProtocolP* ProtocolManager::Activate(Types Type)
+ProtocolP* MaestroC::Activate(Types Type)
 {
 	ProtocolP* ActivatedProtocol = GetProtocol(Type);
 	ActivatedProtocol->Activate();
@@ -46,7 +46,7 @@ ProtocolP* ProtocolManager::Activate(Types Type)
 }
 
 
-void ProtocolManager::Start()
+void MaestroC::Start()
 {
 	bool SkipSplash = Oni_->GetBool(OniTypeC::Type::Global, OniGlobalC::SKIP_SPLASH_MOVIES);
 
@@ -64,7 +64,7 @@ void ProtocolManager::Start()
 
 
 
-void ProtocolManager::SplashEnd()
+void MaestroC::SplashEnd()
 {
 	Map_[Types::System]->Activate();
 }

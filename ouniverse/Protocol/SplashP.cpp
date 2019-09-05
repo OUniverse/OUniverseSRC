@@ -2,12 +2,12 @@
 
 #include "Protocol/SplashP.h"
 
-#include "System/ProtocolManager.h"
+#include "System/Maestro.h"
 #include "System/Glass.h"
 
 #include "Min/DebugM.h"
 
-SplashP::SplashP(ProtocolManager* InMaestro, InputManager* InInputManager)
+SplashP::SplashP(MaestroC* InMaestro, InputManager* InInputManager)
 {
 	Input_ = InInputManager;
 	Maestro_ = InMaestro;

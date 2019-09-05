@@ -29,7 +29,7 @@ PathsC* MajorC::Path()				{ return Path_; }
 UserLibC* MajorC::UserL()			{ return UserLib_; }
 ConfigManager* MajorC::Config()		{ return Config_; }
 UiManager* MajorC::Ui()				{ return Ui_; }
-ProtocolManager* MajorC::Protocol()	{ return Protocol_; }
+MaestroC* MajorC::Maestro()			{ return Maestro_; }
 SystemManager* MajorC::System()		{ return System_; }
 InputManager* MajorC::Input()		{ return Input_; }
 LogC* MajorC::Log()					{ return Log_; }

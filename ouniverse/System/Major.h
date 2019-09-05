@@ -38,7 +38,7 @@ class ConfigManager;
 class UiManager;
 class InputManager;
 class AudioManager;
-class ProtocolManager;
+class MaestroC;
 class AudioManager;
 class UViewportUE;
 class AHudUE;
@@ -71,7 +71,7 @@ public:
 	AudioManager*		Audio();
 	AControlUE*			Control();
 	UiManager*			Ui();
-	ProtocolManager*	Protocol();
+	MaestroC*			Maestro();
 	AHudUE*				Hud();
 	UWorld*				Scope();
 	UViewportUE*		Viewport();
@@ -88,7 +88,7 @@ private:
 	UserLibC*			UserLib_;
 	ConfigManager*		Config_;
 	UiManager*			Ui_;
-	ProtocolManager*	Protocol_;
+	MaestroC*			Maestro_;
 	SystemManager*		System_;
 	AudioManager*		Audio_;
 	InputManager*		Input_;

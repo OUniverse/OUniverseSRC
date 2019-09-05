@@ -11,12 +11,12 @@ Protocol for handling the MainMenu.
 #include <string>
 
 class UserLibC;
-class ProtocolManager;
+class MaestroC;
 class OniManagerC;
 
 class OUNIVERSE_API SystemP : public ProtocolP
 {
-	friend ProtocolManager;
+	friend MaestroC;
 
 public:
 
@@ -26,10 +26,10 @@ private:
 	bool FirstOpen_;
 
 	UserLibC* UserL_;
-	ProtocolManager* Maestro_;
+	MaestroC* Maestro_;
 	OniManagerC* Oni_;
 
-	SystemP(ProtocolManager* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager);
+	SystemP(MaestroC* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager);
 
 	virtual void Activate() override;
 

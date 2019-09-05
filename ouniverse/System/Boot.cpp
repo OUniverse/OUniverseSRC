@@ -12,7 +12,7 @@
 #include "System/HudUE.h"
 #include "System/SystemManager.h"
 #include "System/UiManager.h"
-#include "System/ProtocolManager.h"
+#include "System/Maestro.h"
 #include "System/InputManager.h"
 #include "System/AudioManager.h"
 #include "System/ViewportUE.h"
@@ -215,7 +215,7 @@ void BootC::PostUI_Standard()
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());
 
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
-	M->Protocol_ = ProtocolManager::Create(M);
+	M->Maestro_ = MaestroC::Create(M);
 
 	M->Terra_ = TerraC::Create();
 
@@ -223,7 +223,7 @@ void BootC::PostUI_Standard()
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	M->Protocol()->Start();
+	M->Maestro()->Start();
 
 	LOGP
 }
@@ -249,7 +249,7 @@ void BootC::PostUI_Scribe()
 	M->System_ = SystemManager::Create();
 	//M->Input_ = InputManager::Create(M->Path()->Reg());
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
-	M->Protocol_ = ProtocolManager::Create(M);
+	M->Maestro_ = MaestroC::Create(M);
 
 	M->Terra_ = TerraC::Create();
 
@@ -257,7 +257,7 @@ void BootC::PostUI_Scribe()
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	M->Protocol()->Start();
+	M->Maestro()->Start();
 
 	//M->Protocol()->Activate(ProtocolManager::Types::Scribe);
 

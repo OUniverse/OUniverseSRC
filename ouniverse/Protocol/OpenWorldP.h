@@ -12,7 +12,7 @@ Protocol for handling the MainMenu.
 class OUNIVERSE_API OpenWorldP : public ProtocolP
 {
 
-	friend ProtocolManager;
+	friend MaestroC;
 
 private:
 

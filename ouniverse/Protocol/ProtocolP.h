@@ -14,12 +14,12 @@ This is the abstract Protocol class which all actual Protocols extend from.
 
 #pragma once
 
-class ProtocolManager;
+class MaestroC;
 
 class OUNIVERSE_API ProtocolP
 {
 
-	friend ProtocolManager;
+	friend MaestroC;
 
 protected:
 

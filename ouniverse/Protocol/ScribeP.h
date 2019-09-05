@@ -24,7 +24,7 @@ class OUNIVERSE_API ScribeP : public ProtocolP
 {
 
 	
-	friend ProtocolManager;
+	friend MaestroC;
 
 
 public:

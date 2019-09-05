@@ -21,7 +21,7 @@
 
 #include "Min/DebugM.h"
 
-SystemP::SystemP(ProtocolManager* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager)
+SystemP::SystemP(MaestroC* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager)
 {
 	FirstOpen_ = false;
 	Maestro_ = InMaestro;

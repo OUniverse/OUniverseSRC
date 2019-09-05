@@ -30,7 +30,7 @@ class MajorC;
 
 class OniManagerC;
 
-class OUNIVERSE_API ProtocolManager
+class OUNIVERSE_API MaestroC
 {
 
 	friend BootC;
@@ -39,8 +39,8 @@ private:
 
 	OniManagerC* Oni_;
 
-	static ProtocolManager* Create(MajorC* Major);
-	ProtocolManager(MajorC* Major);
+	static MaestroC* Create(MajorC* Major);
+	MaestroC(MajorC* Major);
 
 	void Start();
 
