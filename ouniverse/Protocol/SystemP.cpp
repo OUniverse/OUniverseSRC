@@ -4,14 +4,11 @@
 #include "System/UserLib.h"
 #include "System/OniManager.h"
 
-#include "System/SessionLib.h"
-
 #include "System/Log.h"
 
 #include "System/Glass.h"
 
 #include "System/User^.h"
-#include "System/Session^.h"
 
 #include "System/OniType.h"
 #include "System/OniKey.h"

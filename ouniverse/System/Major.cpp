@@ -25,12 +25,15 @@ MajorC* MajorC::Create()
 
 
 UserW* MajorC::User()				{ return UserW_; }
-PathsC* MajorC::Path()				{ return Path_; }
 UserLibC* MajorC::UserL()			{ return UserLib_; }
+LoadoutW* MajorC::Loadout()			{ return LoadoutW_; }
+LoadoutLibC* MajorC::LoadoutL()		{ return LoadoutLib_; }
+SaveW* MajorC::Save()				{ return SaveW_; }
+SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
+
 ConfigManager* MajorC::Config()		{ return Config_; }
 UiManager* MajorC::Ui()				{ return Ui_; }
 MaestroC* MajorC::Maestro()			{ return Maestro_; }
-SystemManager* MajorC::System()		{ return System_; }
 InputManager* MajorC::Input()		{ return Input_; }
 LogC* MajorC::Log()					{ return Log_; }
 AudioManager* MajorC::Audio()		{ return Audio_; }
@@ -41,4 +44,3 @@ UViewportUE* MajorC::Viewport()		{ return Viewport_; }
 TerraC* MajorC::Terra()				{ return Terra_; }
 OniManagerC* MajorC::Oni()			{ return Oni_; }
 DataC* MajorC::Data()				{ return Data_; }
-KernelC* MajorC::Kernel()			{ return Kernel_; }

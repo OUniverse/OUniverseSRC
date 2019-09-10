@@ -24,14 +24,14 @@ A service locator singleton that holds the pointers to all the services.
 
 
 class UserW;
-
+class UserLibC;
+class LoadoutW;
+class LoadoutLibC;
+class SaveW;
+class SaveLibC;
 class LogC;
-class PathsC;
 class DataC;
 class TerraC;
-class KernelC;
-class UserLibC;
-class SessionLibC;
 class InputManager;
 class DisplayManager;
 class ConfigManager;
@@ -44,7 +44,6 @@ class UViewportUE;
 class AHudUE;
 class OniManagerC;
 class AControlUE;
-class SystemManager;
 
 
 class BootC;
@@ -60,13 +59,14 @@ public:
 	static MajorC* Get();
 	static MajorC* Create();
 
-	
 	UserW*				User();
-	LogC*				Log();
-	PathsC*				Path();
 	UserLibC*			UserL();
+	LoadoutW*			Loadout();
+	LoadoutLibC*		LoadoutL();
+	SaveW*				Save();
+	SaveLibC*			SaveL();
+	LogC*				Log();
 	ConfigManager*		Config();
-	SystemManager*		System();
 	InputManager*		Input();
 	AudioManager*		Audio();
 	AControlUE*			Control();
@@ -78,18 +78,19 @@ public:
 	OniManagerC*		Oni();
 	DataC*				Data();
 	TerraC*				Terra();
-	KernelC*			Kernel();
 
 private:
 
 	UserW*				UserW_;
-	LogC*				Log_;
-	PathsC*				Path_;
 	UserLibC*			UserLib_;
+	LoadoutW*			LoadoutW_;
+	LoadoutLibC*		LoadoutLib_;
+	SaveW*				SaveW_;
+	SaveLibC*			SaveLib_;
+	LogC*				Log_;
 	ConfigManager*		Config_;
 	UiManager*			Ui_;
 	MaestroC*			Maestro_;
-	SystemManager*		System_;
 	AudioManager*		Audio_;
 	InputManager*		Input_;
 	UWorld*				Scope_;
@@ -99,5 +100,4 @@ private:
 	OniManagerC*		Oni_;
 	DataC*				Data_;
 	TerraC*				Terra_;
-	KernelC*			Kernel_;
 };

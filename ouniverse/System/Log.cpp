@@ -1,8 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Log.h"
-#include "Interface/File.h"
-#include "Interface/Dir.h"
 
 #include "Misc/DateTime.h"
 
@@ -21,7 +19,7 @@ LogC* LogC::Get()
 	return &GlobalSingleton::Log;
 }
 
-LogC* LogC::Create(NewFileC InFile)
+LogC* LogC::Create(FileC InFile)
 {
 	GlobalSingleton::Log = *(new LogC(InFile));
 	return &GlobalSingleton::Log;
@@ -29,7 +27,7 @@ LogC* LogC::Create(NewFileC InFile)
 
 LogC::LogC() {}
 
-LogC::LogC(NewFileC InFile)
+LogC::LogC(FileC InFile)
 {
 	Cursor = 0;
 	Count = 0;

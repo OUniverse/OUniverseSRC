@@ -17,14 +17,13 @@ Atlas
 
 class AtlasC;
 class LoadoutC;
-class CreditLibC;
 
 class AtlasLibC
 {
 
 public:
 
-	AtlasLibC(NewFolderC InFolder);
+	AtlasLibC(FolderC InFolder);
 
 	AtlasC* Get(AtlasUID InValue);
 
@@ -53,7 +52,7 @@ public:
 
 private:
 
-	NewFolderC AtlasFolder_;
+	FolderC AtlasFolder_;
 
 	int PreLen_;
 
@@ -62,7 +61,5 @@ private:
 	MapC<AtlasUID, AtlasC*> PreLib_;
 
 	MapC<AtlasUID, AtlasC*> Lib_;
-
-	CreditLibC* CreditLib_;
 
 };

@@ -6,9 +6,7 @@
 #include "System/Major.h"
 
 #include "System/HudUE.h"
-#include "System/Paths.h"
 
-#include "Interface/File.h"
 #include "Interface/Json.h"
 
 #include "System/Glass.h"
@@ -24,7 +22,7 @@
 #include <cohtml\Binding\String.h>
 
 
-InputManager::InputManager(NewFileC InRegFile)
+InputManager::InputManager(FileC InRegFile)
 {	
 	bRebindMode = false;
 	bQuill = false;

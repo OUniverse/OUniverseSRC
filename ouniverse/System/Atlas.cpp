@@ -2,7 +2,6 @@
 
 #include "System/Atlas.h"
 #include "System/AtlasAccordLib.h"
-#include "System/Payload.h"
 
 #include "System/AtlasLib.h"
 #include "System/RevisionLib.h"
@@ -10,8 +9,6 @@
 
 #include "Interface/Int.h"
 #include "Interface/Json.h"
-#include "Interface/FileQuery.h"
-#include "Interface/File.h"
 
 #include "System/Log.h"
 
@@ -47,7 +44,7 @@ const char* AtlasC::K_LINKS_PREF	= "p";
 
 const char* AtlasC::K_FLAGS			= "f";
 
-AtlasC::AtlasC(StringC InFolderName, NewFolderC InFolder)
+AtlasC::AtlasC(StringC InFolderName, FolderC InFolder)
 {
 
 	FormLib_ = NULL;
@@ -207,7 +204,7 @@ AtlasC::AtlasC(StringC InFolderName, NewFolderC InFolder)
 	Cur = Links[AtlasC::K_LINKS_PREF];
 	AccordsPref_->AddList(&Cur);
 
-	NewFileC AtlasDevFi = Folder_.ToFile("_", "atlasdev");
+	FileC AtlasDevFi = Folder_.ToFile("_", "atlasdev");
 
 	LOG(105, AtlasDevFi.ToString(), "Path: $V$")
 
@@ -283,7 +280,7 @@ bool AtlasC::Mounted()
 	return Mounted_;
 }
 
-NewFolderC AtlasC::Folder()
+FolderC AtlasC::Folder()
 {
 	return Folder_;
 }

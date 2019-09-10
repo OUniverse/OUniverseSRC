@@ -3,22 +3,17 @@
 #include "System/AtlasLib.h"
 #include "System/Atlas.h"
 #include "System/Loadout.h"
-#include "System/CreditLib.h"
-
-#include "Interface/DirQuery.h"
 
 #include "System/Log.h"
 
 
-AtlasLibC::AtlasLibC(NewFolderC InAtlasFolder)
+AtlasLibC::AtlasLibC(FolderC InAtlasFolder)
 {
 	PreLen_ = 0;
 	Len_ = 0;
 	AtlasFolder_ = InAtlasFolder;
 
-	CreditLib_ = new CreditLibC();
-
-	ArrayC<NewFolderC> Fo = AtlasFolder_.GetFolders();
+	ArrayC<FolderC> Fo = AtlasFolder_.GetFolders();
 	LOG(31258, AtlasFolder_.ToString() / "", " Scanning directory : $V$")
 
 		int l = Fo.Len();

@@ -12,8 +12,6 @@
 #include "Form/EpochF.h"
 #include "Form/ActraF.h"
 
-#include "System/Payload.h"
-
 #include "System/Log.h"
 
 

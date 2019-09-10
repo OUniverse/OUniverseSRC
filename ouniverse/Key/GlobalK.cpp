@@ -11,3 +11,5 @@ const char* GlobalK::UID_Target			= "uu";
 const char* GlobalK::UID_Atlas_Target	= "aa";
 const char* GlobalK::Form				= "f";
 const char* GlobalK::Type				= "t";
+const char* GlobalK::Name				= "n";
+const char* GlobalK::Glyph				= "g";

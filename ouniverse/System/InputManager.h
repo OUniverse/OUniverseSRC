@@ -63,7 +63,7 @@ class OUNIVERSE_API InputManager
 
 private:
 
-	 InputManager(NewFileC InRegFile);
+	 InputManager(FileC InRegFile);
 
 public:
 

@@ -19,5 +19,6 @@ public:
 	static const char* UID_Atlas_Target;
 	static const char* Form;
 	static const char* Type;
-
+	static const char* Name;
+	static const char* Glyph;
 };

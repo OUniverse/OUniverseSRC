@@ -42,11 +42,11 @@ class OUNIVERSE_API DataC
 
 private:
 
-	static DataC* Create(ProgramStateC::State InState, NewFolderC InAtlasFolder);
+	static DataC* Create(ProgramStateC::State InState, FolderC InAtlasFolder);
 	
-	DataC(ProgramStateC::State InState, NewFolderC InAtlasFolder);
+	DataC(ProgramStateC::State InState, FolderC InAtlasFolder);
 	
-	NewFolderC AtlasFolder_;
+	FolderC AtlasFolder_;
 
 	AtlasLibC* AtlasLib_;
 

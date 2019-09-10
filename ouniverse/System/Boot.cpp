@@ -4,13 +4,9 @@
 
 #include "System/Boot.h"
 #include "System/Major.h"
-#include "System/Paths.h"
 #include "System/Log.h"
-#include "System/Kernel.h"
 #include "System/ConfigManager.h"
-#include "System/UserLib.h"
 #include "System/HudUE.h"
-#include "System/SystemManager.h"
 #include "System/UiManager.h"
 #include "System/Maestro.h"
 #include "System/InputManager.h"
@@ -24,15 +20,17 @@
 #include "System/OniManager.h"
 
 #include "System/User.h"
+#include "System/UserLib.h"
+#include "System/Loadout.h"
+#include "System/Save.h"
 
 #include "System/Data.h"
 #include "System/Terra.h"
 
-#include "Interface/Dir.h"
+
 #include "Min/DebugM.h"
 #include "System/Log.h"
 
-#include "Ui/Ui.h"
 
 #include "System/ProgramState.h"
 
@@ -115,8 +113,6 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	{
 		bModeFail = true;
 	}
-
-	M->Path_ = PathsC::Create();
 	
 	PathC::SetGlobals(); //Must be called to set global paths to reduce the amount of string assembly functions at run time.
 	M->Log_ = LogC::Create(PathC::FileLog());
@@ -201,7 +197,9 @@ void BootC::PostUI_Standard()
 
 	MajorC* M = MajorC::Get();
 
-	M->UserW_ = new UserW();
+	M->UserW_		= new UserW();
+	M->LoadoutW_	= new LoadoutW();
+	M->SaveW_		= new SaveW();
 
 	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
 
@@ -210,8 +208,6 @@ void BootC::PostUI_Standard()
 
 	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User());
 
-
-	M->System_ = SystemManager::Create();
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());
 
 	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
@@ -230,37 +226,6 @@ void BootC::PostUI_Standard()
 
 void BootC::PostUI_Scribe()
 {
-
-	//DBUG("CUI Ready...");
-	//GSEND0("ui.o")
-
-	LOG(40448, Void(), "UI is ready for bindings.")
-
-		MajorC* M = MajorC::Get();
-
-	M->Data_ = DataC::Create(ProgramState_, M->Path()->Atlas()->Get());
-
-
-	//M->Kernel_ = KernelC::Create(M->Data());
-
-	//M->UserLib_ = UserLibC::Create(M->Path()->Users(), M->Kernel());
-
-
-	M->System_ = SystemManager::Create();
-	//M->Input_ = InputManager::Create(M->Path()->Reg());
-	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
-	M->Maestro_ = MaestroC::Create(M);
-
-	M->Terra_ = TerraC::Create();
-
-	//M->UserL()->LoadUsers();
-
-	M->Hud()->ActivateInputs(M->Input());
-
-	M->Maestro()->Start();
-
-	//M->Protocol()->Activate(ProtocolManager::Types::Scribe);
-
 	LOGP
 }
 

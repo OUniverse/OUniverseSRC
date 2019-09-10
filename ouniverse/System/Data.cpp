@@ -14,13 +14,13 @@ DataC* DataC::Get()
 	return &GlobalSingleton::Data;
 }
 
-DataC* DataC::Create(ProgramStateC::State InState, NewFolderC InPath)
+DataC* DataC::Create(ProgramStateC::State InState, FolderC InPath)
 {
 	GlobalSingleton::Data = *(new DataC(InState, InPath));
 	return &GlobalSingleton::Data;
 }
 
-DataC::DataC(ProgramStateC::State InState, NewFolderC InAtlasFolder)
+DataC::DataC(ProgramStateC::State InState, FolderC InAtlasFolder)
 {
 	AtlasFolder_ = InAtlasFolder;
 	State_ = InState;

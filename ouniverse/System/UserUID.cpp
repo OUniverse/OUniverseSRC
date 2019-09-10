@@ -1,10 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/UserUID.h"
-#include "Interface/TitleParse.h"
+#include <string> 
 
 #include "Min/DebugM.h"
-#include <string>
 
 UserUID::UserUID()
 {
@@ -71,6 +70,11 @@ int UserUID::ForUI()
 int UserUID::ForLog()
 {
 	return UID_;
+}
+
+StringC UserUID::ToString()
+{
+	return StringC(std::to_string(UID_));
 }
 
 int UserUID::ParseTitle(StringC InFileName)

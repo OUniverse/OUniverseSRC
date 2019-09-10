@@ -53,7 +53,7 @@ class AtlasC
 	
 public: 
 
-	NewFolderC Folder();
+	FolderC Folder();
 
 	bool Valid();
 	
@@ -98,7 +98,7 @@ public:
 
 private:
 
-	AtlasC(StringC InFolderName, NewFolderC InFolder);
+	AtlasC(StringC InFolderName, FolderC InFolder);
 	
 	~AtlasC();
 
@@ -113,8 +113,8 @@ private:
 	bool FoundLinksSoft_;
 	bool FoundLinksPref_;
 
-	NewFolderC Folder_;
-	NewFileC AtlasFile_;
+	FolderC Folder_;
+	FileC AtlasFile_;
 
 	AtlasAccordLibC* AccordsHard_;
 	AtlasAccordLibC* AccordsSoft_;

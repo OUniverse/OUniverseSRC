@@ -45,13 +45,13 @@ class OUNIVERSE_API LogC
 
 private:
 
-	LogC(NewFileC InFile);
+	LogC(FileC InFile);
 
-	static LogC* Create(NewFileC InFile);
+	static LogC* Create(FileC InFile);
 
 	int Cursor;
 	int Count;
-	NewFileC LogFile;
+	FileC LogFile;
 
 	struct Entry
 	{
