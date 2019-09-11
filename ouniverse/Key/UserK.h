@@ -7,11 +7,11 @@ Atlas
 #pragma once
 
 
-class UserFI
+class UserK
 {
 
 public:
 
-	static const char* FileName;
-	static const char* Extension;
+	static const char* Score;
+
 };

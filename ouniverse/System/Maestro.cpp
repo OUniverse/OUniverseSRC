@@ -6,6 +6,7 @@
 #include "Protocol/ScribeP.h"
 #include "Protocol/OpenWorldP.h"
 #include "System/Major.h"
+#include "System/Log.h"
 
 #include "System/OniManager.h"
 #include "System/OniType.h"
@@ -18,7 +19,6 @@ MaestroC* MaestroC::Create(MajorC* Major)
 {
 	return new MaestroC(Major);
 }
-
 
 MaestroC::MaestroC(MajorC* Major)
 {
@@ -45,26 +45,25 @@ ProtocolP* MaestroC::Activate(Types Type)
 	return ActivatedProtocol;
 }
 
-
 void MaestroC::Start()
 {
 	bool SkipSplash = Oni_->GetBool(OniTypeC::Type::Global, OniGlobalC::SKIP_SPLASH_MOVIES);
 
 	if (SkipSplash)
 	{
+		LOG(28551, Void(), "Splash has been skipped because of config settings.")
 		Map_[Types::System]->Activate();
 	}
 	else
 	{
+		LOG(32087, Void(), "Begin Splash movies.")
 		Map_[Types::Splash]->Activate();
 	}
 
 }
 
-
-
-
 void MaestroC::SplashEnd()
 {
+	LOG(7100, Void(), "Ending Splash movies.")
 	Map_[Types::System]->Activate();
 }

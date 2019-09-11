@@ -37,6 +37,8 @@ public:
 
 	int ForLog();
 
+	StringC ToString();
+
 	int ParseTitle(StringC InFileName);
 
 

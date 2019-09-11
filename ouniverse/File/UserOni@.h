@@ -12,5 +12,6 @@ class UserOniFI
 
 public:
 
-	static const char* FULL;
+	static const char* FileName;
+	static const char* Extension;
 };

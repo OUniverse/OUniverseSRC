@@ -40,6 +40,7 @@ class OUNIVERSE_API LogC
 {
 
 	static const char* FILE_NAME;
+	static const char* Delimiter;
 
 	friend BootC;
 

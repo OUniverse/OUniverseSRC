@@ -13,3 +13,5 @@ const char* GlobalK::Form				= "f";
 const char* GlobalK::Type				= "t";
 const char* GlobalK::Name				= "n";
 const char* GlobalK::Glyph				= "g";
+const char* GlobalK::LastUsed			= "lu";
+const char* GlobalK::List				= "li";

@@ -21,4 +21,6 @@ public:
 	static const char* Type;
 	static const char* Name;
 	static const char* Glyph;
+	static const char* LastUsed;
+	static const char* List;
 };

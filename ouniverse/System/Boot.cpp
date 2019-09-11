@@ -22,7 +22,9 @@
 #include "System/User.h"
 #include "System/UserLib.h"
 #include "System/Loadout.h"
+#include "System/LoadoutLib.h"
 #include "System/Save.h"
+#include "System/SaveLib.h"
 
 #include "System/Data.h"
 #include "System/Terra.h"
@@ -129,8 +131,8 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 		}
 
 	M->Oni_ = new OniManagerC();
-	M->Oni_->Load(OniTypeC::Type::Internal, PathC::FileGlobalConfig());
-	M->Oni_->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
+	M->Oni()->Load(OniTypeC::Type::Internal, PathC::FileInternalConfig());
+	M->Oni()->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
 
 	M->Config_ = new ConfigManager(M->Oni());
 
@@ -206,7 +208,9 @@ void BootC::PostUI_Standard()
 
 	//M->Kernel_ = KernelC::Create(M->Data());
 
-	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User());
+	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User(), M->Oni());
+	M->LoadoutLib_ = new LoadoutLibC();
+	M->SaveLib_ = new SaveLibC(M->Save());
 
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());
 
@@ -215,7 +219,8 @@ void BootC::PostUI_Standard()
 
 	M->Terra_ = TerraC::Create();
 
-	M->UserL()->LoadUsers();
+	M->UserL()->Load();
+	M->UserL()->Decide();
 
 	M->Hud()->ActivateInputs(M->Input());
 

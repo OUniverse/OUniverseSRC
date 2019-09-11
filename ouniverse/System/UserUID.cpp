@@ -21,13 +21,13 @@ UserUID::UserUID(StringC InS)
 	InS.BeInt(UID_);
 }
 
-int UserUID::UID() const
+int UserUID::ToInt() const
 {
 	return UID_;
 }
 
 
-int UserUID::UID()
+int UserUID::ToInt()
 {
 	return UID_;
 }

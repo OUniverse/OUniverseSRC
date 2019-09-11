@@ -4,4 +4,5 @@
 
 
 
-const char* UserOniFI::FULL = "_.loadout";
+const char* UserOniFI::FileName = "_";
+const char* UserOniFI::Extension = "oni";

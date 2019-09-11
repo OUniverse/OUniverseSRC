@@ -4,4 +4,4 @@
 
 
 
-const char* LoadoutK::LoadoutAtlasi	= "loa";
+const char* LoadoutK::LoadoutAtlasi	= "ag";

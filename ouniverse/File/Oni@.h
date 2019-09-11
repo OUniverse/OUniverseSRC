@@ -12,5 +12,8 @@ class OniFI
 
 public:
 
-	static const char* FULL;
+	static const char* InternalFileName;
+	static const char* GlobalFileName;
+	static const char* Extension;
+
 };

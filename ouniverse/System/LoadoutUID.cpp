@@ -72,6 +72,11 @@ int LoadoutUID::ForLog()
 	return UID_;
 }
 
+StringC LoadoutUID::ToString()
+{
+	return StringC(std::to_string(UID_));
+}
+
 int LoadoutUID::ParseTitle(StringC InFileName)
 {
 	if (!InFileName.BeInt(UID_))

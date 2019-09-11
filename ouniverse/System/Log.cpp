@@ -8,6 +8,7 @@
 #include "Min/DebugM.h"
 
 const char* LogC::FILE_NAME = "log.txt";
+const char* LogC::Delimiter = "—";
 
 namespace GlobalSingleton
 {
@@ -58,7 +59,7 @@ void LogC::Stamp(LogC::Entry* Entry)
 
 StringC LogC::Entry::Brass()
 {
-	return StringC(Time_) & StringC(Code32_);
+	return StringC(Time_) + StringC(LogC::Delimiter) + StringC(Code32_);
 }
 
 
@@ -103,7 +104,7 @@ LogC::EntryBool::EntryBool(int Code32, bool InAux) : LogC::Entry(Code32)
 
 StringC LogC::EntryBool::Output()
 {
-	return Brass() & StringC(Aux_);
+	return Brass() + StringC(LogC::Delimiter) + StringC(Aux_);
 }
 
 void LogC::Write(int Code32, bool InAux)
@@ -125,7 +126,7 @@ LogC::EntryString::EntryString(int Code32, StringC InAux) : LogC::Entry(Code32)
 
 StringC LogC::EntryString::Output()
 {
-	return Brass() & StringC(Aux_);
+	return Brass() + StringC(LogC::Delimiter) + StringC(Aux_);
 }
 
 void LogC::Write(int Code32, const char* InAux)
@@ -156,7 +157,7 @@ LogC::EntryFloat::EntryFloat(int Code32, float InAux) : LogC::Entry(Code32)
 
 StringC LogC::EntryFloat::Output()
 {
-	return Brass() & StringC(Aux_);
+	return Brass() + StringC(LogC::Delimiter) + StringC(Aux_);
 }
 
 void LogC::Write(int Code32, float InAux)
@@ -177,7 +178,7 @@ LogC::EntryInt::EntryInt(int Code32, int InAux) : LogC::Entry(Code32)
 
 StringC LogC::EntryInt::Output()
 {
-	return Brass() & StringC(Aux_);
+	return Brass() + StringC(LogC::Delimiter) + StringC(Aux_);
 }
 
 void LogC::Write(int Code32, int InAux)
@@ -198,7 +199,7 @@ LogC::EntryU64::EntryU64(int Code32, U64 InAux) : LogC::Entry(Code32)
 
 StringC LogC::EntryU64::Output()
 {
-	return Brass() & StringC(Aux_);
+	return Brass() + StringC(LogC::Delimiter) + StringC(Aux_);
 }
 
 void LogC::Write(int Code32, U64 InAux)

@@ -1,17 +1,18 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Protocol/SystemP.h"
+
+
+#include "Interface/Json.h"
+
 #include "System/UserLib.h"
-#include "System/OniManager.h"
+#include "System/User.h"
 
 #include "System/Log.h"
 
 #include "System/Glass.h"
 
 #include "System/User^.h"
-
-#include "System/OniType.h"
-#include "System/OniKey.h"
 
 #include <cohtml\Binding\Vector.h>
 #include <cohtml\Binding\String.h>
@@ -20,7 +21,7 @@
 
 SystemP::SystemP(MaestroC* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager)
 {
-	FirstOpen_ = false;
+	FirstOpen_ = true;
 	Maestro_ = InMaestro;
 	UserL_ = InUserLib;
 	Oni_ = InOniManager;
@@ -29,27 +30,25 @@ SystemP::SystemP(MaestroC* InMaestro, UserLibC* InUserLib, OniManagerC* InOniMan
 void SystemP::Activate()
 {
 
-	GSEND0("sym.o");
-	
-	GBIND("sym.user<", this, &SystemP::REQ_User);
-	GBIND("sym.preusers<", this, &SystemP::REQ_PreUsers);
-	GBIND("sym.userconfig<", this, &SystemP::REQ_UserConfig);
-	GBIND("sym.config^", this, &SystemP::SAVE_User);
-	GBIND("sym.user+", this, &SystemP::CREATE_User);
-
-
-	bool LoginLastUser = Oni_->GetBool(OniTypeC::Type::Global, OniGlobalC::AUTOLOGIN_LAST_USER);
-
-
 	if (FirstOpen_)
 	{
 
+		GSEND0("sym.o");
+
+		GBIND("sym.user<", this, &SystemP::REQ_User);
+		GBIND("sym.preusers<", this, &SystemP::REQ_PreUsers);
+		GBIND("sym.userconfig<", this, &SystemP::REQ_UserConfig);
+		GBIND("sym.config^", this, &SystemP::SAVE_User);
+		GBIND("sym.user+", this, &SystemP::CREATE_User);
 	}
+
+	FirstOpen_ = false;
 }
+
+
 
 void SystemP::REQ_PreUsers()
 {
-	DBUG("GHERE")
 	GSEND1("sym.users.preusers>", UserL_->Users().Vector());//sym_v_users
 }
 

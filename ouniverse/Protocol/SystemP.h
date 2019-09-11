@@ -14,6 +14,8 @@ class UserLibC;
 class MaestroC;
 class OniManagerC;
 
+struct JsonS;
+
 class OUNIVERSE_API SystemP : public ProtocolP
 {
 	friend MaestroC;
@@ -42,7 +44,5 @@ private:
 	void SAVE_User(std::string Dat);
 
 	void CREATE_User();
-
-
 
 };

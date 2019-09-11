@@ -5,4 +5,4 @@
 
 
 const char* LoadoutFI::FileName		= "_";
-const char* LoadoutFI::Extension	= "loadout";
+const char* LoadoutFI::Extension	= "lo";

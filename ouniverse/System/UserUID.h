@@ -21,9 +21,9 @@ public:
 
 	UserUID(StringC InS);
 
-	int UID();
+	int ToInt();
 
-	int UID() const;
+	int ToInt() const;
 
 	bool operator<(const UserUID& l) const;
 

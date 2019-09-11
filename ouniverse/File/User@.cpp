@@ -4,4 +4,5 @@
 
 
 
-const char* UserFI::FULL = "_.loadout";
+const char* UserFI::FileName = "_";
+const char* UserFI::Extension = "usr";
