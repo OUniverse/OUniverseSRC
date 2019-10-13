@@ -36,7 +36,7 @@ class TimeC;
 class InputManager;
 class DisplayManager;
 class ConfigManager;
-class UiManager;
+class UiC;
 class InputManager;
 class AudioManager;
 class MaestroC;
@@ -46,6 +46,7 @@ class AHudUE;
 class OniManagerC;
 class AControlUE;
 class UTickUE;
+class FpsC;
 
 class BootC;
 
@@ -71,7 +72,7 @@ public:
 	InputManager*		Input();
 	AudioManager*		Audio();
 	AControlUE*			Control();
-	UiManager*			Ui();
+	UiC*				Ui();
 	MaestroC*			Maestro();
 	AHudUE*				Hud();
 	UWorld*				Scope();
@@ -81,6 +82,7 @@ public:
 	TerraC*				Terra();
 	TimeC*				Time();
 	UTickUE*			TickUE();
+	FpsC*				Fps();
 
 private:
 
@@ -92,7 +94,7 @@ private:
 	SaveLibC*			SaveLib_;
 	LogC*				Log_;
 	ConfigManager*		Config_;
-	UiManager*			Ui_;
+	UiC*				Ui_;
 	MaestroC*			Maestro_;
 	AudioManager*		Audio_;
 	InputManager*		Input_;
@@ -105,4 +107,5 @@ private:
 	TerraC*				Terra_;
 	TimeC*				Time_;
 	UTickUE*			TickUE_;
+	FpsC*				Fps_;
 };

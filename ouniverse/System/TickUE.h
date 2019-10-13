@@ -39,14 +39,23 @@ class OUNIVERSE_API UTickUE : public UObject
 
 public:
 
-	FDelegateHandle TickHandle;
+	FDelegateHandle Frame_H;
+	FDelegateHandle Ms100_H;
+	FDelegateHandle Ms1000_H;
 
 	UFUNCTION()
-	virtual bool OnTick(float DeltaTime);
+	virtual bool OnFrame(float DeltaTime);
+
+	UFUNCTION()
+	virtual bool OnMs100(float DeltaTime);
+
+	UFUNCTION()
+	virtual bool OnMs1000(float DeltaTime);
 
 	void BridgeAndBegin(TimeC* InTime);
 
 	TimeC* Time_;
 	UTickUE();
 	~UTickUE();
+
 };

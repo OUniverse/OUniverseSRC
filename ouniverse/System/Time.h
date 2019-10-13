@@ -25,6 +25,17 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
+#include "Interface/Event.h"
+
+EVENT1(FrameGlobalE, FrameGlobalL, EventLife, float)
+EVENT1(FramePausableE, FramePausableL, EventLife, float)
+
+EVENT1(Ms100_GlobalE, Ms100_GlobalL, EventLife, float)
+EVENT1(Ms100_PausableE, Ms100_PausableL, EventLife, float)
+
+EVENT1(Ms1000_GlobalE, Ms1000_GlobalL, EventLife, float)
+EVENT1(Ms1000_PausableE, Ms1000_PausableL, EventLife, float)
+
 class BootC;
 
 class OUNIVERSE_API TimeC
@@ -35,10 +46,34 @@ private:
 
 	static TimeC* Create();
 
+	bool Pause_;
+
 public:
 
 	static TimeC* Get();
 	TimeC();
 
 	void OnFrame(float DeltaTime);
+	void OnMs100(float DeltaTime);
+	void OnMs1000(float DeltaTime);
+
+	void Pause(bool DoPause);
+	
+	FrameGlobalE Frame_Global_;
+	FrameGlobalE Frame_Global();
+
+	FramePausableE Frame_Pausable_;	
+	FramePausableE Frame_Pausable();
+
+	Ms100_GlobalE Ms100_Global_;
+	Ms100_GlobalE Ms100_Global();
+
+	Ms100_PausableE Ms100_Pausable_;
+	Ms100_PausableE Ms100_Pausable();
+
+	Ms1000_GlobalE Ms1000_Global_;
+	Ms1000_GlobalE Ms1000_Global();
+
+	Ms1000_PausableE Ms1000_Pausable_;
+	Ms1000_PausableE Ms1000_Pausable();
 };

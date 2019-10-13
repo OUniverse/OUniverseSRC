@@ -32,7 +32,7 @@ SaveW* MajorC::Save()				{ return SaveW_; }
 SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
 
 ConfigManager* MajorC::Config()		{ return Config_; }
-UiManager* MajorC::Ui()				{ return Ui_; }
+UiC* MajorC::Ui()					{ return Ui_; }
 MaestroC* MajorC::Maestro()			{ return Maestro_; }
 InputManager* MajorC::Input()		{ return Input_; }
 LogC* MajorC::Log()					{ return Log_; }
@@ -46,3 +46,4 @@ OniManagerC* MajorC::Oni()			{ return Oni_; }
 DataC* MajorC::Data()				{ return Data_; }
 TimeC* MajorC::Time()				{ return Time_; }
 UTickUE* MajorC::TickUE()			{ return TickUE_; }
+FpsC* MajorC::Fps()					{ return Fps_; }

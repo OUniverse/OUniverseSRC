@@ -20,6 +20,7 @@
 #include "System/OniManager.h"
 #include "System/Time.h"
 #include "System/TickUE.h"
+#include "System/Fps.h"
 
 #include "System/User.h"
 #include "System/UserLib.h"
@@ -213,8 +214,8 @@ void BootC::PostUI_Standard()
 	M->Time_ = TimeC::Create();
 	M->TickUE_ = NewObject<UTickUE>();
 	M->TickUE()->BridgeAndBegin(M->Time());
-
-	//M->Kernel_ = KernelC::Create(M->Data());
+	
+	M->Fps_ = FpsC::Create(M->Time_);
 
 	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User(), M->Oni());
 	M->LoadoutLib_ = new LoadoutLibC(M->Loadout(),M->Oni());
@@ -222,7 +223,7 @@ void BootC::PostUI_Standard()
 
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());
 
-	//M->Ui_		= UiManager::Create(M->Hud()->GetGlass());
+	M->Ui_		= UiC::Create();
 	M->Maestro_ = MaestroC::Create(M);
 
 	M->Terra_ = TerraC::Create();

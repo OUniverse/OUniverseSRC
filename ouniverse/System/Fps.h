@@ -25,28 +25,35 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
+#include "Interface/Array.h"
+#include "Interface/Event.h"
+#include "Interface/DeltaGate.h"
+
+#include "System/Time.h"
+
 class BootC;
+class TimeC;
 
-
-class ConsoleU;
-class HudU;
-class ComU;
-
-class OUNIVERSE_API UiC
+class OUNIVERSE_API FpsC
 {
 	friend BootC;
 
 private:
 
-	static UiC* Create();
+	static FpsC* Create(TimeC* InTime);
 
-	ConsoleU*	Console_;
-	HudU*		Hud_;
-	ComU*		Com_;
+	FrameGlobalL FrameGlobalH;
+	
+	DeltaGateC UpdateGate;
 
 public:
 
-	static UiC* Get();
-	UiC();
+	static FpsC* Get();
+	FpsC(TimeC* InTime);
 
+	ArrayC<float> Recents_;
+
+	EventLife OnFrame(float DeltaTime);
+
+	FpsC();
 };
