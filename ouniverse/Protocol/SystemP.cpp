@@ -16,6 +16,7 @@
 #include "System/Glass.h"
 
 #include "System/User^.h"
+#include "System/Loadout^.h"
 
 #include <cohtml\Binding\Vector.h>
 #include <cohtml\Binding\String.h>
@@ -89,5 +90,5 @@ void  SystemP::CREATE_User()
 
 void SystemP::REQ_Loadouts()
 {
-	GSEND1("sym.loadouts>", LoadoutL_->Users().Vector());//sym_v_users
+	GSEND1("sym.loadouts>", LoadoutL_->Loadouts().Vector());//sym_v_users
 }

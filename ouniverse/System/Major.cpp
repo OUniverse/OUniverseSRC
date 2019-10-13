@@ -44,3 +44,5 @@ UViewportUE* MajorC::Viewport()		{ return Viewport_; }
 TerraC* MajorC::Terra()				{ return Terra_; }
 OniManagerC* MajorC::Oni()			{ return Oni_; }
 DataC* MajorC::Data()				{ return Data_; }
+TimeC* MajorC::Time()				{ return Time_; }
+UTickUE* MajorC::TickUE()			{ return TickUE_; }

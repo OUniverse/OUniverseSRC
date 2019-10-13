@@ -7,7 +7,7 @@
 #include "System/Log.h"
 #include "System/ConfigManager.h"
 #include "System/HudUE.h"
-#include "System/UiManager.h"
+#include "System/Ui.h"
 #include "System/Maestro.h"
 #include "System/InputManager.h"
 #include "System/AudioManager.h"
@@ -18,6 +18,8 @@
 #include "Engine/World.h"
 #include "System/Glass.h"
 #include "System/OniManager.h"
+#include "System/Time.h"
+#include "System/TickUE.h"
 
 #include "System/User.h"
 #include "System/UserLib.h"
@@ -206,6 +208,11 @@ void BootC::PostUI_Standard()
 
 	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
 
+
+	
+	M->Time_ = TimeC::Create();
+	M->TickUE_ = NewObject<UTickUE>();
+	M->TickUE()->BridgeAndBegin(M->Time());
 
 	//M->Kernel_ = KernelC::Create(M->Data());
 

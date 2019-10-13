@@ -32,6 +32,7 @@ class SaveLibC;
 class LogC;
 class DataC;
 class TerraC;
+class TimeC;
 class InputManager;
 class DisplayManager;
 class ConfigManager;
@@ -44,7 +45,7 @@ class UViewportUE;
 class AHudUE;
 class OniManagerC;
 class AControlUE;
-
+class UTickUE;
 
 class BootC;
 
@@ -78,6 +79,8 @@ public:
 	OniManagerC*		Oni();
 	DataC*				Data();
 	TerraC*				Terra();
+	TimeC*				Time();
+	UTickUE*			TickUE();
 
 private:
 
@@ -100,4 +103,6 @@ private:
 	OniManagerC*		Oni_;
 	DataC*				Data_;
 	TerraC*				Terra_;
+	TimeC*				Time_;
+	UTickUE*			TickUE_;
 };

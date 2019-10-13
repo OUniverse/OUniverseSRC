@@ -26,3 +26,11 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
+class OUNIVERSE_API ComU
+{
+
+public:
+
+	ComU();
+
+};

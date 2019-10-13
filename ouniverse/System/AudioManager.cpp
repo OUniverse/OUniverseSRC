@@ -12,7 +12,7 @@
 #include "Audio.h"
 #include "Developer/TargetPlatform/Public/Interfaces/IAudioFormat.h"
 
-#include "System/UiManager.h"
+#include "System/Ui.h"
 #include "Engine/World.h"
 #include "Misc/FileHelper.h"
 #include "CohtmlHUD.h"
