@@ -5,3 +5,5 @@
 
 
 const char* UserK::Score	= "s";
+
+const char* UserK::U_Score = "score";

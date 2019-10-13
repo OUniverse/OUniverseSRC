@@ -11,6 +11,7 @@ Protocol for handling the MainMenu.
 #include <string>
 
 class UserLibC;
+class LoadoutLibC;
 class MaestroC;
 class OniManagerC;
 
@@ -28,13 +29,17 @@ private:
 	bool FirstOpen_;
 
 	UserLibC* UserL_;
+	LoadoutLibC* LoadoutL_;
 	MaestroC* Maestro_;
 	OniManagerC* Oni_;
 
-	SystemP(MaestroC* InMaestro, UserLibC* InUserLib, OniManagerC* InOniManager);
+	SystemP(MaestroC* InMaestro, UserLibC* InUserLib, LoadoutLibC* InLoadoutLib, OniManagerC* InOniManager);
 
 	virtual void Activate() override;
 
+
+	void ACT_UserSelected(int uid);
+	
 	void REQ_PreUsers();
 
 	void REQ_User(int uid);
@@ -44,5 +49,7 @@ private:
 	void SAVE_User(std::string Dat);
 
 	void CREATE_User();
+
+	void REQ_Loadouts();
 
 };

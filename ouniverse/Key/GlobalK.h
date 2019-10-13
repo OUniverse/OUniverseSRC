@@ -23,4 +23,9 @@ public:
 	static const char* Glyph;
 	static const char* LastUsed;
 	static const char* List;
+
+
+	static const char* U_UID;
+	static const char* U_ID;
+	static const char* U_Glyph;
 };

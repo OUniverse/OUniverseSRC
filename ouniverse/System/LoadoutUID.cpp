@@ -21,13 +21,13 @@ LoadoutUID::LoadoutUID(StringC InS)
 	InS.BeInt(UID_);
 }
 
-int LoadoutUID::UID() const
+int LoadoutUID::ToInt() const
 {
 	return UID_;
 }
 
 
-int LoadoutUID::UID()
+int LoadoutUID::ToInt()
 {
 	return UID_;
 }

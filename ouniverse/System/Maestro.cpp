@@ -27,7 +27,7 @@ MaestroC::MaestroC(MajorC* Major)
 
 	Map_.Init(Types::MAX, NULL); 
 	Map_[Types::Splash] = new SplashP(this, Major->Input());
-	Map_[Types::System] = new SystemP(this,Major->UserL(),Major->Oni());
+	Map_[Types::System] = new SystemP(this,Major->UserL(), Major->LoadoutL(),Major->Oni());
 	Map_[Types::Scribe] = new ScribeP(Major->Data());
 	Map_[Types::OpenWorld] = new OpenWorldP();
 	

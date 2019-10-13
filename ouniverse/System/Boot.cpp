@@ -134,6 +134,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Oni()->Load(OniTypeC::Type::Internal, PathC::FileInternalConfig());
 	M->Oni()->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
 
+	DBUG(M->Oni()->GetSerializedCategory(OniTypeC::Type::Global,1).ToChar())
 	M->Config_ = new ConfigManager(M->Oni());
 
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
@@ -209,7 +210,7 @@ void BootC::PostUI_Standard()
 	//M->Kernel_ = KernelC::Create(M->Data());
 
 	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User(), M->Oni());
-	M->LoadoutLib_ = new LoadoutLibC();
+	M->LoadoutLib_ = new LoadoutLibC(M->Loadout(),M->Oni());
 	M->SaveLib_ = new SaveLibC(M->Save());
 
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());

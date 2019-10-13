@@ -14,4 +14,5 @@ public:
 
 	static const char* Score;
 
+	static const char* U_Score;
 };
