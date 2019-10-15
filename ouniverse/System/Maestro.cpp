@@ -7,11 +7,13 @@
 #include "Protocol/OpenWorldP.h"
 #include "System/Major.h"
 #include "System/Log.h"
+#include "System/Ui.h"
 
 #include "System/OniManager.h"
 #include "System/OniType.h"
 #include "System/OniKey.h"
 
+#include "Min/MajorM.h"
 #include "Min/DebugM.h"
 
 
@@ -52,7 +54,7 @@ void MaestroC::Start()
 	if (SkipSplash)
 	{
 		LOG(28551, Void(), "Splash has been skipped because of config settings.")
-		Map_[Types::System]->Activate();
+		SplashEnd();
 	}
 	else
 	{
@@ -65,5 +67,7 @@ void MaestroC::Start()
 void MaestroC::SplashEnd()
 {
 	LOG(7100, Void(), "Ending Splash movies.")
-	Map_[Types::System]->Activate();
+
+	MAJOR_IN_USAGE
+	MAJOR->Ui()->OpenSystemMenu();//Map_[Types::System]->Activate();
 }

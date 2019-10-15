@@ -23,10 +23,13 @@
 #include "System/Fps.h"
 
 #include "System/User.h"
+#include "System/UserDais.h"
 #include "System/UserLib.h"
 #include "System/Loadout.h"
+#include "System/LoadoutDais.h"
 #include "System/LoadoutLib.h"
 #include "System/Save.h"
+#include "System/SaveDais.h"
 #include "System/SaveLib.h"
 
 #include "System/Data.h"
@@ -137,7 +140,8 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Oni()->Load(OniTypeC::Type::Internal, PathC::FileInternalConfig());
 	M->Oni()->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
 
-	DBUG(M->Oni()->GetSerializedCategory(OniTypeC::Type::Global,1).ToChar())
+	//DBUG(M->Oni()->GetSerializedCategory(OniTypeC::Type::Global,1).ToChar())
+
 	M->Config_ = new ConfigManager(M->Oni());
 
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
@@ -203,9 +207,9 @@ void BootC::PostUI_Standard()
 
 	MajorC* M = MajorC::Get();
 
-	M->UserW_		= new UserW();
-	M->LoadoutW_	= new LoadoutW();
-	M->SaveW_		= new SaveW();
+	M->UserDais_	= new UserDaisC();
+	M->LoadoutDais_	= new LoadoutDaisC();
+	M->SaveDais_	= new SaveDaisC();
 
 	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
 
@@ -217,13 +221,13 @@ void BootC::PostUI_Standard()
 	
 	M->Fps_ = FpsC::Create(M->Time_);
 
-	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->User(), M->Oni());
-	M->LoadoutLib_ = new LoadoutLibC(M->Loadout(),M->Oni());
-	M->SaveLib_ = new SaveLibC(M->Save());
+	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->UserD(), M->Oni());
+	M->LoadoutLib_ = new LoadoutLibC(M->LoadoutD(),M->Oni());
+	M->SaveLib_ = new SaveLibC(M->SaveD());
 
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());
 
-	M->Ui_		= UiC::Create();
+	M->Ui_		= UiC::Create(M);
 	M->Maestro_ = MaestroC::Create(M);
 
 	M->Terra_ = TerraC::Create();

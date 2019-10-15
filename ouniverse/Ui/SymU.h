@@ -25,37 +25,46 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-class BootC;
+class UserLibC;
+class UserDaisC;
+class LoadoutLibC;
+class LoadoutDaisC;
+class OniManagerC;
 
-class MajorC;
+#include <string>
 
-class SymU;
-class HudU;
-class ConsoleU;
-
-
-
-class OUNIVERSE_API UiC
+class OUNIVERSE_API SymU
 {
-	friend BootC;
-
-private:
-
-	static UiC* Create(MajorC* Major);
-	SymU*		SystemMenu_;
-	HudU*		Hud_;
-	ConsoleU*	Console_;
 
 public:
 
-	static UiC* Get();
+	SymU(UserLibC* InUserLib, UserDaisC* InUserD, LoadoutLibC* InLoadoutLib, LoadoutDaisC* InLoadoutD, OniManagerC* InOniManager);
+
+	void Open();
+	void Close();
+
+private:
+
+	UserLibC* UserL_;
+	UserDaisC* UserDais_;
+	LoadoutLibC* LoadoutL_;
+	LoadoutDaisC* LoadoutDais_;
+	OniManagerC* Oni_;
+
+	bool Open_;
+
+	void User_REQ(int uid);
+
+	void PreUsers_REQ();
 	
-	UiC();
+	void UserConfig_REQ(int uid);
 
-	UiC(MajorC* Major);
+	void User_SAVE(std::string Dat);
 
-	void OpenSystemMenu();
-	void OpenWriter();
-	void OpenHud();
+	void User_NEW();
+
+	void UserSelected_ACT(int uid);
+	
+	void Loadouts_REQ();
 
 };

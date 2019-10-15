@@ -24,11 +24,11 @@ MajorC* MajorC::Create()
 }
 
 
-UserW* MajorC::User()				{ return UserW_; }
+UserDaisC* MajorC::UserD()			{ return UserDais_; }
 UserLibC* MajorC::UserL()			{ return UserLib_; }
-LoadoutW* MajorC::Loadout()			{ return LoadoutW_; }
+LoadoutDaisC* MajorC::LoadoutD()		{ return LoadoutDais_; }
 LoadoutLibC* MajorC::LoadoutL()		{ return LoadoutLib_; }
-SaveW* MajorC::Save()				{ return SaveW_; }
+SaveDaisC* MajorC::SaveD()			{ return SaveDais_; }
 SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
 
 ConfigManager* MajorC::Config()		{ return Config_; }

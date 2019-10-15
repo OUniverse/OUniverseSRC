@@ -23,16 +23,13 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
  */
 
+
 #pragma once
 
-class BootC;
-
-class OUNIVERSE_API RosterMemberC
+class OUNIVERSE_API SenU
 {
-	friend BootC;
 
 public:
 
-	RosterMemberC();
-
+	SenU();
 };

@@ -25,37 +25,12 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-class BootC;
 
-class MajorC;
-
-class SymU;
-class HudU;
-class ConsoleU;
-
-
-
-class OUNIVERSE_API UiC
+class OUNIVERSE_API MemberC
 {
-	friend BootC;
-
-private:
-
-	static UiC* Create(MajorC* Major);
-	SymU*		SystemMenu_;
-	HudU*		Hud_;
-	ConsoleU*	Console_;
 
 public:
 
-	static UiC* Get();
-	
-	UiC();
-
-	UiC(MajorC* Major);
-
-	void OpenSystemMenu();
-	void OpenWriter();
-	void OpenHud();
+	MemberC();
 
 };

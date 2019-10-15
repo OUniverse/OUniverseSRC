@@ -23,14 +23,25 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
  */
 
-
 #pragma once
+
+#include "System/Command.h"
+
+class InputManager;
 
 class OUNIVERSE_API ConsoleU
 {
 
 public:
 
-	ConsoleU();
+	ConsoleU(InputManager* InInput);
 
+	bool Open();
+
+private:
+
+	CommandEL CMD_Console;
+
+	bool Open_;
+	void OnConsoleKey(StrokeS InStroke);
 };

@@ -23,11 +23,11 @@ A service locator singleton that holds the pointers to all the services.
 #include "Interface/Event.h"
 
 
-class UserW;
+class UserDaisC;
 class UserLibC;
-class LoadoutW;
+class LoadoutDaisC;
 class LoadoutLibC;
-class SaveW;
+class SaveDaisC;
 class SaveLibC;
 class LogC;
 class DataC;
@@ -61,11 +61,11 @@ public:
 	static MajorC* Get();
 	static MajorC* Create();
 
-	UserW*				User();
+	UserDaisC*			UserD();
 	UserLibC*			UserL();
-	LoadoutW*			Loadout();
+	LoadoutDaisC*		LoadoutD();
 	LoadoutLibC*		LoadoutL();
-	SaveW*				Save();
+	SaveDaisC*			SaveD();
 	SaveLibC*			SaveL();
 	LogC*				Log();
 	ConfigManager*		Config();
@@ -86,11 +86,11 @@ public:
 
 private:
 
-	UserW*				UserW_;
+	UserDaisC*			UserDais_;
 	UserLibC*			UserLib_;
-	LoadoutW*			LoadoutW_;
+	LoadoutDaisC*		LoadoutDais_;
 	LoadoutLibC*		LoadoutLib_;
-	SaveW*				SaveW_;
+	SaveDaisC*			SaveDais_;
 	SaveLibC*			SaveLib_;
 	LogC*				Log_;
 	ConfigManager*		Config_;

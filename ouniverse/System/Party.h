@@ -27,17 +27,17 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 class BootC;
 
-class OUNIVERSE_API RosterC
+class OUNIVERSE_API PartyC
 {
 	friend BootC;
 
 private:
 
-	static RosterC* Create();
+	static PartyC* Create();
 
 public:
 
-	static RosterC* Get();
-	RosterC();
+	static PartyC* Get();
+	PartyC();
 
 };

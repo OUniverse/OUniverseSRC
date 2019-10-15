@@ -49,7 +49,7 @@ InputManager::InputManager(FileC InRegFile)
 	CommandLayerC* LayerMenu = new CommandLayerC(CommandLayerMenuC::MAX);
 	AddLayer(Layer::Menu, LayerMenu);
 	
-	LayerMenu->Add(CommandLayerMenuC::Console,	KeyCodeC(109, false, false, false));
+	LayerMenu->Add(CommandLayerMenuC::Console,	KeyCodeC(36, false, false, false));
 	LayerMenu->Add(CommandLayerMenuC::Enter,	KeyCodeC(13, false, false, false));
 	LayerMenu->Add(CommandLayerMenuC::Space,	KeyCodeC(32, false, false, false));
 	LayerMenu->Add(CommandLayerMenuC::Escape,	KeyCodeC(27, false, false, false));

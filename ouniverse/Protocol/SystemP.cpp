@@ -15,8 +15,6 @@
 
 #include "System/Glass.h"
 
-#include "System/User^.h"
-#include "System/Loadout^.h"
 
 #include <cohtml\Binding\Vector.h>
 #include <cohtml\Binding\String.h>
@@ -37,16 +35,7 @@ void SystemP::Activate()
 
 	if (FirstOpen_)
 	{
-		GSEND0("sym.o");
 
-		GBIND("sym.user<", this, &SystemP::REQ_User);
-		GBIND("sym.preusers<", this, &SystemP::REQ_PreUsers);
-		GBIND("sym.userconfig<", this, &SystemP::REQ_UserConfig);
-		GBIND("sym.config^", this, &SystemP::SAVE_User);
-		GBIND("sym.user+", this, &SystemP::CREATE_User);
-		GBIND("sym.user!", this, &SystemP::ACT_UserSelected);
-
-		GBIND("sym.loadouts<", this, &SystemP::REQ_Loadouts);
 
 	}
 
@@ -57,14 +46,12 @@ void SystemP::Activate()
 
 void SystemP::REQ_PreUsers()
 {
-	GSEND1("sym.users.preusers>", UserL_->Users().Vector());//sym_v_users
+
 }
 
 void SystemP::ACT_UserSelected(int uid)
 {
-	UserL_->Set(uid);
-	GSEND1("sym.user@", uid);//sym_v_users
-	LOGP
+
 }
 
 void SystemP::REQ_User(int uid)
@@ -90,5 +77,5 @@ void  SystemP::CREATE_User()
 
 void SystemP::REQ_Loadouts()
 {
-	GSEND1("sym.loadouts>", LoadoutL_->Loadouts().Vector());//sym_v_users
+
 }
