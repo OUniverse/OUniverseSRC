@@ -67,4 +67,6 @@ private:
 	
 	void Loadouts_REQ();
 
+	void LoadoutSelected_ACT(int uid);
+
 };

@@ -23,10 +23,10 @@ MajorC* MajorC::Create()
 	return &GlobalSingleton::gMajor;
 }
 
-
+UObject* MajorC::WorldContext()		{ return WorldContext_; }
 UserDaisC* MajorC::UserD()			{ return UserDais_; }
 UserLibC* MajorC::UserL()			{ return UserLib_; }
-LoadoutDaisC* MajorC::LoadoutD()		{ return LoadoutDais_; }
+LoadoutDaisC* MajorC::LoadoutD()	{ return LoadoutDais_; }
 LoadoutLibC* MajorC::LoadoutL()		{ return LoadoutLib_; }
 SaveDaisC* MajorC::SaveD()			{ return SaveDais_; }
 SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
@@ -47,3 +47,6 @@ DataC* MajorC::Data()				{ return Data_; }
 TimeC* MajorC::Time()				{ return Time_; }
 UTickUE* MajorC::TickUE()			{ return TickUE_; }
 FpsC* MajorC::Fps()					{ return Fps_; }
+CosmosC* MajorC::Cosmos()			{ return Cosmos_; }
+PartyC* MajorC::Party()				{ return Party_; }
+EtherC* MajorC::Ether()				{ return Ether_; }

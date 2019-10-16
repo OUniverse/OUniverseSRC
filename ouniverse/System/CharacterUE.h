@@ -19,26 +19,15 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 #pragma once
 
-class BootC;
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "CharacterUE.generated.h"
 
-class OUNIVERSE_API CosmosC
+UCLASS()
+class OUNIVERSE_API ACharacterUE : public ACharacter
 {
-
-	friend BootC;
+	GENERATED_BODY()
 
 public:
-
-	static CosmosC* Create();
-
-	static CosmosC* Get();
-
-	CosmosC();
-
-	void NewLevel();
-
-	void Mount();
-	void FauxMount();
-	void Dismount();
-
-	void NewLevelLoaded();
+	ACharacterUE();
 };

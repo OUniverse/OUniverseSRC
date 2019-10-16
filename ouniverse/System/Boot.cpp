@@ -21,6 +21,7 @@
 #include "System/Time.h"
 #include "System/TickUE.h"
 #include "System/Fps.h"
+#include "System/Cosmos.h"
 
 #include "System/User.h"
 #include "System/UserDais.h"
@@ -34,6 +35,8 @@
 
 #include "System/Data.h"
 #include "System/Terra.h"
+#include "System/Ether.h"
+#include "System/Party.h"
 
 
 #include "Min/DebugM.h"
@@ -111,6 +114,8 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 
 	MajorC::Create();
 	MajorC* M = MajorC::Get();
+
+	M->WorldContext_ = WorldContextObject;
 
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
@@ -230,7 +235,11 @@ void BootC::PostUI_Standard()
 	M->Ui_		= UiC::Create(M);
 	M->Maestro_ = MaestroC::Create(M);
 
+	M->Cosmos_ = CosmosC::Create();
+
 	M->Terra_ = TerraC::Create();
+	M->Ether_ = EtherC::Create(M->WorldContext(),M->Scope());
+	M->Party_ = PartyC::Create();
 
 	M->UserL()->Load();
 	M->UserL()->Decide();
@@ -238,6 +247,8 @@ void BootC::PostUI_Standard()
 	M->Hud()->ActivateInputs(M->Input());
 
 	M->Maestro()->Start();
+
+	M->Cosmos()->FauxMount();
 
 	LOGP
 }

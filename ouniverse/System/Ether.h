@@ -19,26 +19,31 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 #pragma once
 
+#include "Interface/String.h"
+
 class BootC;
+class USpaceUE;
 
-class OUNIVERSE_API CosmosC
+class ACharacterUE;
+
+class EtherC 
 {
-
 	friend BootC;
 
 public:
 
-	static CosmosC* Create();
+	static EtherC* Create(UObject* InWorldContext,UWorld* InScope);
 
-	static CosmosC* Get();
+	static EtherC* Get();
+	EtherC(UObject* InWorldContext, UWorld* InScope);
+	EtherC() {};
+	void StreamLevel(StringC InLevelID);
 
-	CosmosC();
+	void OnLevelStreamed();
 
-	void NewLevel();
+	ACharacterUE* Spawn();
 
-	void Mount();
-	void FauxMount();
-	void Dismount();
+private:
 
-	void NewLevelLoaded();
+	USpaceUE* Space_;
 };

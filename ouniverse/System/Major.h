@@ -47,6 +47,9 @@ class OniManagerC;
 class AControlUE;
 class UTickUE;
 class FpsC;
+class CosmosC;
+class EtherC;
+class PartyC;
 
 class BootC;
 
@@ -61,6 +64,7 @@ public:
 	static MajorC* Get();
 	static MajorC* Create();
 
+	UObject*			WorldContext();
 	UserDaisC*			UserD();
 	UserLibC*			UserL();
 	LoadoutDaisC*		LoadoutD();
@@ -83,9 +87,13 @@ public:
 	TimeC*				Time();
 	UTickUE*			TickUE();
 	FpsC*				Fps();
+	CosmosC*			Cosmos();
+	EtherC*				Ether();
+	PartyC*				Party();
 
 private:
 
+	UObject*			WorldContext_;
 	UserDaisC*			UserDais_;
 	UserLibC*			UserLib_;
 	LoadoutDaisC*		LoadoutDais_;
@@ -108,4 +116,7 @@ private:
 	TimeC*				Time_;
 	UTickUE*			TickUE_;
 	FpsC*				Fps_;
+	CosmosC*			Cosmos_;
+	EtherC*				Ether_;
+	PartyC*				Party_;
 };

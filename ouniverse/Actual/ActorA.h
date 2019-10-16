@@ -8,12 +8,18 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #include "Actual/ObjectA.h"
 
+
 class ActorF;
+class ACharacterUE;
 
 class OUNIVERSE_API ActorA : public ObjectA
 {
 
 public:
 
+	void Spawn();
 
+private:
+
+	ACharacterUE* CharacterUE_;
 };

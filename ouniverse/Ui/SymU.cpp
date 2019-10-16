@@ -56,6 +56,7 @@ void SymU::Open()
 	GBIND("sym.user!", this, &SymU::UserSelected_ACT);
 
 	GBIND("sym.loadouts<", this, &SymU::Loadouts_REQ);
+	GBIND("sym.loadout!", this, &SymU::LoadoutSelected_ACT);
 
 	Open_ = true;
 }
@@ -74,7 +75,7 @@ void SymU::User_REQ(int uid)
 
 void SymU::PreUsers_REQ()
 {
-	GSEND1("sym.users.preusers>", UserL_->Users().Vector());//sym_v_users
+	GSEND1("sym.preusers>", UserL_->Users().Vector());//sym_v_users
 }
 
 void SymU::UserConfig_REQ(int uid)
@@ -101,5 +102,12 @@ void SymU::UserSelected_ACT(int uid)
 
 void SymU::Loadouts_REQ()
 {
+	GSEND1("sym.loadouts>", LoadoutL_->Loadouts().Vector());//sym_v_users
+}
 
+void SymU::LoadoutSelected_ACT(int uid)
+{
+	LoadoutL_->Set(uid);
+	GSEND1("sym.loadout@", uid);//sym_v_users
+	LOGP
 }
