@@ -74,12 +74,18 @@ int SaveUID::ForLog()
 
 int SaveUID::ParseTitle(StringC InFileName)
 {
-	if (!InFileName.BeInt(UID_))
+
+	if (InFileName[0] != "S")
+	{
+		return 1;
+	}
+
+	if (!InFileName.SubString(1, -1).BeInt(UID_))
 	{
 		return 2;
 	}
 
-	if (UID_ > INT32_MAX)
+	if (UID_ > INT16_MAX)
 	{
 		return 3;
 	}

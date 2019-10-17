@@ -1,16 +1,17 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Actor Form: A placement in 3D space.
+Atlas
  */
 
 #pragma once
 
 
-class PlayableV
+class SaveFI
 {
 
 public:
 
-	PlayableV();
+	static const char* FileName;
+	static const char* Extension;
 };

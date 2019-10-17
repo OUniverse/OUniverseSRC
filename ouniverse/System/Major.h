@@ -50,6 +50,7 @@ class FpsC;
 class CosmosC;
 class EtherC;
 class PartyC;
+class SaveVatC;
 
 class BootC;
 
@@ -90,6 +91,7 @@ public:
 	CosmosC*			Cosmos();
 	EtherC*				Ether();
 	PartyC*				Party();
+	SaveVatC*			SaveV();
 
 private:
 
@@ -119,4 +121,5 @@ private:
 	CosmosC*			Cosmos_;
 	EtherC*				Ether_;
 	PartyC*				Party_;
+	SaveVatC*			SaveV_;
 };

@@ -20,25 +20,26 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 #pragma once
 
 class BootC;
+class SaveDaisC;
 
-class OUNIVERSE_API CosmosC
+class OUNIVERSE_API SaveVatC
 {
 
 	friend BootC;
 
 public:
 
-	static CosmosC* Create();
+	static SaveVatC* Create(SaveDaisC* InSaveDais);
 
-	static CosmosC* Get();
+	static SaveVatC* Get();
 
-	CosmosC();
+	SaveVatC();
 
-	void NewLevel();
+	SaveVatC(SaveDaisC* InSaveDais);
 
-	void Mount();
-	void FauxMount();
-	void Dismount();
+	void Load();
 
-	void NewLevelLoaded();
+private:
+
+	SaveDaisC* SaveD_;
 };

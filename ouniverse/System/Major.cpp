@@ -30,6 +30,7 @@ LoadoutDaisC* MajorC::LoadoutD()	{ return LoadoutDais_; }
 LoadoutLibC* MajorC::LoadoutL()		{ return LoadoutLib_; }
 SaveDaisC* MajorC::SaveD()			{ return SaveDais_; }
 SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
+SaveVatC* MajorC::SaveV()			{ return SaveV_; }
 
 ConfigManager* MajorC::Config()		{ return Config_; }
 UiC* MajorC::Ui()					{ return Ui_; }

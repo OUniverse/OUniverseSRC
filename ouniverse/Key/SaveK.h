@@ -1,16 +1,18 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Actor Form: A placement in 3D space.
+Atlas
  */
 
 #pragma once
 
 
-class PlayableV
+class SaveK
 {
 
 public:
 
-	PlayableV();
+	static const char* Score;
+
+	static const char* U_Score;
 };

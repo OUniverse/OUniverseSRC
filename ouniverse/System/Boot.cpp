@@ -32,6 +32,7 @@
 #include "System/Save.h"
 #include "System/SaveDais.h"
 #include "System/SaveLib.h"
+#include "System/SaveVat.h"
 
 #include "System/Data.h"
 #include "System/Terra.h"
@@ -212,9 +213,6 @@ void BootC::PostUI_Standard()
 
 	MajorC* M = MajorC::Get();
 
-	M->UserDais_	= new UserDaisC();
-	M->LoadoutDais_	= new LoadoutDaisC();
-	M->SaveDais_	= new SaveDaisC();
 
 	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
 
@@ -226,9 +224,14 @@ void BootC::PostUI_Standard()
 	
 	M->Fps_ = FpsC::Create(M->Time_);
 
+	M->UserDais_ = new UserDaisC(M->Oni());
+	M->LoadoutDais_ = new LoadoutDaisC();
+	M->SaveDais_ = new SaveDaisC();
+	
 	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->UserD(), M->Oni());
-	M->LoadoutLib_ = new LoadoutLibC(M->LoadoutD(),M->Oni());
+	M->LoadoutLib_ = new LoadoutLibC(M->LoadoutD(), M->Oni());
 	M->SaveLib_ = new SaveLibC(M->SaveD());
+	M->SaveV_ = new SaveVatC(M->SaveD());
 
 	M->Input_ = new InputManager(PathC::FileGlobalConfig());
 
@@ -246,9 +249,16 @@ void BootC::PostUI_Standard()
 
 	M->Hud()->ActivateInputs(M->Input());
 
-	M->Maestro()->Start();
+	//M->Maestro()->Start();
 
-	M->Cosmos()->FauxMount();
+	//M->Cosmos()->FauxMount();
+
+	M->UserL()->Set(32767);
+	M->LoadoutL()->Load(M->UserD()->Folder());
+	M->LoadoutL()->Set(1314);
+	M->SaveL()->Load(M->UserD()->Folder());	
+	M->SaveL()->Set(32767);
+	M->SaveV()->Load();
 
 	LOGP
 }
