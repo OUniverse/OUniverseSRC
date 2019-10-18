@@ -3,6 +3,7 @@
 #include "System/Data.h"
 #include "System/AtlasLib.h"
 #include "System/Atlas.h"
+#include "System/Loadout.h"
 
 namespace GlobalSingleton
 {
@@ -14,16 +15,15 @@ DataC* DataC::Get()
 	return &GlobalSingleton::Data;
 }
 
-DataC* DataC::Create(ProgramStateC::State InState, FolderC InPath)
+DataC* DataC::Create(FolderC InPath)
 {
-	GlobalSingleton::Data = *(new DataC(InState, InPath));
+	GlobalSingleton::Data = *(new DataC(InPath));
 	return &GlobalSingleton::Data;
 }
 
-DataC::DataC(ProgramStateC::State InState, FolderC InAtlasFolder)
+DataC::DataC(FolderC InAtlasFolder)
 {
 	AtlasFolder_ = InAtlasFolder;
-	State_ = InState;
 	AtlasLib_ = new AtlasLibC(AtlasFolder_);
 }
 
@@ -42,6 +42,10 @@ AtlasLibC* DataC::GetAtlasLib()
 	return AtlasLib_;
 }
 
+void DataC::Mount(LoadoutC* InLoadout)
+{
+	AtlasLib_->Mount(InLoadout->GetSelectedAtlasi());
+}
 
 void DataC::Query(FormQueryS* InQuery)
 {

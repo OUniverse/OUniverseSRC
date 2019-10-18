@@ -17,6 +17,8 @@ class OUNIVERSE_API ActorA : public ObjectA
 
 public:
 
+	ActorA();
+
 	void Spawn();
 
 private:

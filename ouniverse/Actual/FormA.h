@@ -14,6 +14,6 @@ class OUNIVERSE_API FormA
 
 public:
 
-	FormA(FormF* InFormF);
+	FormA();
 
 };

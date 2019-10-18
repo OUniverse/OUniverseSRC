@@ -24,7 +24,10 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 class BootC;
 class USpaceUE;
 
+class CameraC;
+
 class ACharacterUE;
+class ACameraUE;
 
 class EtherC 
 {
@@ -42,6 +45,8 @@ public:
 	void OnLevelStreamed();
 
 	ACharacterUE* Spawn();
+
+	ACameraUE* SpawnCamera();
 
 private:
 

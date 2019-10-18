@@ -6,6 +6,8 @@
 
 #include "System/Log.h"
 
+#include "Min/DebugM.h"
+
 
 AtlasLibC::AtlasLibC(FolderC InAtlasFolder)
 {
@@ -120,33 +122,6 @@ void AtlasLibC::Mount(ArrayC<AtlasUID> InUIDArr)
 			TryAtlas->Mount(this);
 		}
 	}
-}
-
-void AtlasLibC::Mount(LoadoutC* InLoadout)
-{
-	/**
-	//Promote all new atlases from the selected loadout.
-
-	int L = InLoadout->Atlases_.Len();
-	AtlasC* TryAtlas;
-
-
-	for (int i = 0; i < L; i++)
-	{
-		if (PreLib_.Try(InLoadout->Atlases_[i].UID_, TryAtlas))
-		{
-			LOG(11922, TryAtlas->UID(), "Promoting Atlas: $V$")
-			AddAtlas(TryAtlas);
-			TryAtlas->Mount(this);
-		}
-	}
-
-	for (int i = 0; i < Len_; i++)
-	{
-		LOG(34817, Void(), "Linking FORMS in the BOOST phase.")
-		//Lib_.At(i)->LinkBoost(this);
-	}
-	*/
 }
 
 void AtlasLibC::Query(FormQueryS* InQuery)

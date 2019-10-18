@@ -40,3 +40,8 @@ ACharacterUE* EtherC::Spawn()
 {
 	return Space_->Spawn();
 }
+
+ACameraUE* EtherC::SpawnCamera()
+{
+	return Space_->SpawnCamera();
+}

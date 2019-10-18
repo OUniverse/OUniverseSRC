@@ -15,5 +15,5 @@ class OUNIVERSE_API ObjectA : public FormA
 
 public:
 
-
+	ObjectA();
 };

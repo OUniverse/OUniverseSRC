@@ -37,8 +37,6 @@ public:
 
 	void Reset();
 
-	void Mount(LoadoutC* InLoadout);
-
 	void Mount(ArrayC<AtlasUID> InUIDArr);
 
 	void AddAtlas(AtlasC* NewAtlas);

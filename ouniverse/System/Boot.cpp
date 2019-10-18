@@ -22,6 +22,7 @@
 #include "System/TickUE.h"
 #include "System/Fps.h"
 #include "System/Cosmos.h"
+#include "System/CameraManager.h"
 
 #include "System/User.h"
 #include "System/UserDais.h"
@@ -121,7 +122,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
 	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
-
+	
 	bool bModeFail = false;
 	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
 	{
@@ -214,7 +215,7 @@ void BootC::PostUI_Standard()
 	MajorC* M = MajorC::Get();
 
 
-	M->Data_ = DataC::Create(ProgramState_, PathC::DirAtlas());
+	M->Data_ = DataC::Create(PathC::DirAtlas());
 
 
 	
@@ -251,14 +252,18 @@ void BootC::PostUI_Standard()
 
 	//M->Maestro()->Start();
 
-	//M->Cosmos()->FauxMount();
-
+	M->Camera_ = new CameraManagerC(M->Control(), M->Ether());
+	M->Camera()->CreatePrimaryCamera();
 	M->UserL()->Set(32767);
 	M->LoadoutL()->Load(M->UserD()->Folder());
 	M->LoadoutL()->Set(1314);
+	M->Data()->Mount(M->LoadoutD()->Get());
+
 	M->SaveL()->Load(M->UserD()->Folder());	
 	M->SaveL()->Set(32767);
 	M->SaveV()->Load();
+
+	M->Cosmos()->FauxMount();
 
 	LOGP
 }

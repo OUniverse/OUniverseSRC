@@ -24,8 +24,6 @@ Data is a singleton which loads all the atlas style game data.
 
 #include "System/FormQuery.h"
 
-#include "System/ProgramState.h"
-
 #include "System/AtlasUID.h"
 #include "System/FormUID.h"
 #include "System/DuetUID.h"
@@ -34,6 +32,7 @@ Data is a singleton which loads all the atlas style game data.
 class BootC;
 class AtlasLibC;
 class AtlasC;
+class LoadoutC;
 struct FormPilotS;
 
 class OUNIVERSE_API DataC
@@ -42,15 +41,13 @@ class OUNIVERSE_API DataC
 
 private:
 
-	static DataC* Create(ProgramStateC::State InState, FolderC InAtlasFolder);
+	static DataC* Create(FolderC InAtlasFolder);
 	
-	DataC(ProgramStateC::State InState, FolderC InAtlasFolder);
+	DataC(FolderC InAtlasFolder);
 	
 	FolderC AtlasFolder_;
 
 	AtlasLibC* AtlasLib_;
-
-	ProgramStateC::State State_;
 
 public:
 
@@ -63,6 +60,8 @@ public:
 	ArrayC<AtlasC*> GetAtlasPreArray();
 
 	void Query(FormQueryS* InQuery);
+
+	void Mount(LoadoutC* InLoadout);
 
 	FormWrapS GetFormWrap(DuetUID InDuet);
 

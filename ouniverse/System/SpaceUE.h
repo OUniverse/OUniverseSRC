@@ -25,8 +25,8 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 #include "SpaceUE.generated.h"
 
 class EtherC;
-
 class ACharacterUE;
+class ACameraUE;
 
 UCLASS()
 class OUNIVERSE_API USpaceUE : public UObject
@@ -44,8 +44,8 @@ public:
 	UFUNCTION()
 	void OnLevelStreamed();
 
-
 	ACharacterUE* Spawn();
+	ACameraUE* SpawnCamera();
 
 private:
 

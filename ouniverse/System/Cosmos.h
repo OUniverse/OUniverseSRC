@@ -41,4 +41,6 @@ public:
 	void Dismount();
 
 	void NewLevelLoaded();
+
+	void SpawnParty();
 };

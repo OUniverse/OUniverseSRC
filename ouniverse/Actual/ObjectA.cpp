@@ -2,4 +2,9 @@
 
 #include "Actual/ObjectA.h"
 
+#include "Interface/Json.h"
 
+ObjectA::ObjectA() : FormA()
+{
+
+}

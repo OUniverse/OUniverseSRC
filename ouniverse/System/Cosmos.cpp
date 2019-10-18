@@ -5,6 +5,7 @@
 #include "System/Ether.h"
 #include "Min/MajorM.h"
 
+#include "Actual/ActorA.h"
 
 namespace GlobalSingleton
 {
@@ -47,6 +48,7 @@ void CosmosC::NewLevel()
 {
 	MAJOR->Party();
 	MAJOR->Ether()->StreamLevel("TESTMAP");
+	SpawnParty();
 }
 
 void CosmosC::NewLevelLoaded()
@@ -55,4 +57,19 @@ void CosmosC::NewLevelLoaded()
 	//FRotator Rotation(0.0f, 0.0f, 0.0f);
 	//FActorSpawnParameters SpawnInfo;
 	//MAJOR->Scope()->SpawnActor<ACharacterUE>(Location, Rotation, SpawnInfo);
+}
+
+void CosmosC::SpawnParty()
+{
+	ActorA* Player = new ActorA();
+	Player->Spawn();
+
+	ActorA* NewActor2 = new ActorA();
+	NewActor2->Spawn();
+
+	ActorA* NewActor3 = new ActorA();
+	NewActor3->Spawn();
+
+	ActorA* NewActor4 = new ActorA();
+	NewActor4->Spawn();
 }

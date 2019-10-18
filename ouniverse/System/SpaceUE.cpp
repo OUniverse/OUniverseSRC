@@ -4,6 +4,8 @@
 #include "System/Ether.h"
 
 #include "System/CharacterUE.h"
+#include "System/CameraUE.h"
+
 #include "Engine/World.h"
 
 USpaceUE::USpaceUE()
@@ -34,4 +36,11 @@ ACharacterUE* USpaceUE::Spawn()
 	FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
 	return Scope_->SpawnActor<ACharacterUE>(Location, Rotation);
+}
+
+ACameraUE* USpaceUE::SpawnCamera()
+{
+	FVector Location(0.0f, 0.0f, 0.0f);
+	FRotator Rotation(0.0f, 0.0f, 0.0f);
+	return Scope_->SpawnActor<ACameraUE>(Location, Rotation);
 }

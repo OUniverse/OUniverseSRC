@@ -3,7 +3,7 @@
 #include "Actual/FormA.h"
 #include "Form/FormF.h"
 
-FormA::FormA(FormF* InFormF)
+FormA::FormA()
 {
 
 }

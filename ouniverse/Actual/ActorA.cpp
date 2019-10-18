@@ -7,6 +7,11 @@
 
 #include "Min/MajorM.h"
 
+ActorA::ActorA() : ObjectA()
+{
+
+}
+
 void ActorA::Spawn()
 {
 	CharacterUE_ = MAJOR->Ether()->Spawn();
