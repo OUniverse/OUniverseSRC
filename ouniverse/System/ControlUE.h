@@ -15,7 +15,6 @@ AControlUE is an exension to UE4's APlayerController.
 #include "GameFramework/PlayerController.h"
 #include "ControlUE.generated.h"
 
-class ACameraManagerUE;
 
 UCLASS()
 class OUNIVERSE_API AControlUE : public APlayerController
@@ -26,11 +25,9 @@ public:
 
 	AControlUE();
 
-	ACameraManagerUE* GetCamera();
-
 private:
 
-	UPROPERTY()
-	ACameraManagerUE* CameraManager_;
+	//UPROPERTY()
+	//ACameraManagerUE* CameraManager_;
 
 };

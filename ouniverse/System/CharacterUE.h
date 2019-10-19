@@ -25,7 +25,7 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 class USkeletalMeshComponent;
 class USpringArmComponent;
-class UCameraComponent;
+class UDollyControl;
 
 UCLASS()
 class OUNIVERSE_API ACharacterUE : public ACharacter
@@ -42,6 +42,8 @@ public:
 	USpringArmComponent* OrbitSpringArm;
 
 	UPROPERTY(EditAnywhere)
-	UCameraComponent* OrbitCamera;
+	UDollyControl* DollyControl_;
+	
+	void ControlPossess();
 
 };

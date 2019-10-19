@@ -6,21 +6,26 @@ Atlas
 
 #pragma once
 
-class AControlUE;
-class ACameraManagerUE;
+#include "Mathz/Vector.h"
+#include "Mathz/Rotator.h"
+
 class ACameraUE;
+class AControlUE;
+class EtherC;
 
 class CameraC
 {
 
 public:
 
-	CameraC();
-	
-	void AssignCameraActor(ACameraUE* InCameraActor);
+	CameraC(EtherC* InEther);
 
 	ACameraUE* CameraUE_;
 
-	ACameraUE* CameraActor();
+	void Activate(AControlUE* InControl);
+
+	void SetFOV(float InFOV);
+
+	void SetTransforms(FVector Location, FRotator Rotation);
 
 };

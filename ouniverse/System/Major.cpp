@@ -33,7 +33,7 @@ SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
 SaveVatC* MajorC::SaveV()			{ return SaveV_; }
 
 ConfigManager* MajorC::Config()		{ return Config_; }
-CameraManagerC* MajorC::Camera()			{ return Camera_; }
+CameraC* MajorC::Camera()			{ return Camera_; }
 UiC* MajorC::Ui()					{ return Ui_; }
 MaestroC* MajorC::Maestro()			{ return Maestro_; }
 InputManager* MajorC::Input()		{ return Input_; }

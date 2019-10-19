@@ -19,18 +19,17 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Camera/PlayerCameraManager.h"
-#include "CameraManagerUE.generated.h"
+#include "Components/SceneComponent.h"
+#include "Dolly.generated.h"
 
 
 UCLASS()
-class OUNIVERSE_API ACameraManagerUE : public APlayerCameraManager
+class OUNIVERSE_API UDolly : public USceneComponent
 {
 	GENERATED_BODY()
 
 public:
 
-	ACameraManagerUE();
+	UDolly();
 
 };

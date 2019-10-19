@@ -18,6 +18,8 @@ public:
 
 	ACameraUE();
 
+	void SetFOV(float InFOV);
+
 	UPROPERTY(Category = CameraActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* CameraComponent_;
 

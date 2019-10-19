@@ -22,7 +22,7 @@
 #include "System/TickUE.h"
 #include "System/Fps.h"
 #include "System/Cosmos.h"
-#include "System/CameraManager.h"
+#include "System/Camera.h"
 
 #include "System/User.h"
 #include "System/UserDais.h"
@@ -252,8 +252,8 @@ void BootC::PostUI_Standard()
 
 	//M->Maestro()->Start();
 
-	M->Camera_ = new CameraManagerC(M->Control(), M->Ether());
-	M->Camera()->CreatePrimaryCamera();
+	M->Camera_ = new CameraC(M->Ether());
+	M->Camera()->Activate(M->Control());
 	M->UserL()->Set(32767);
 	M->LoadoutL()->Load(M->UserD()->Folder());
 	M->LoadoutL()->Set(1314);

@@ -51,7 +51,7 @@ class CosmosC;
 class EtherC;
 class PartyC;
 class SaveVatC;
-class CameraManagerC;
+class CameraC;
 
 class BootC;
 
@@ -75,7 +75,7 @@ public:
 	SaveLibC*			SaveL();
 	LogC*				Log();
 	ConfigManager*		Config();
-	CameraManagerC*			Camera();
+	CameraC*			Camera();
 	InputManager*		Input();
 	AudioManager*		Audio();
 	AControlUE*			Control();
@@ -100,7 +100,7 @@ private:
 	UObject*			WorldContext_;
 	UserDaisC*			UserDais_;
 	UserLibC*			UserLib_;
-	CameraManagerC* 			Camera_;
+	CameraC* 			Camera_;
 	LoadoutDaisC*		LoadoutDais_;
 	LoadoutLibC*		LoadoutLib_;
 	SaveDaisC*			SaveDais_;

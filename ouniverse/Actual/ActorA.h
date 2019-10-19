@@ -21,7 +21,10 @@ public:
 
 	void Spawn();
 
+	void ControlPossess();
+
 private:
 
 	ACharacterUE* CharacterUE_;
+
 };

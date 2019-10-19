@@ -16,3 +16,8 @@ void ActorA::Spawn()
 {
 	CharacterUE_ = MAJOR->Ether()->Spawn();
 }
+
+void ActorA::ControlPossess()
+{
+	CharacterUE_->ControlPossess();
+}

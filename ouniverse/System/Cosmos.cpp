@@ -72,4 +72,7 @@ void CosmosC::SpawnParty()
 
 	ActorA* NewActor4 = new ActorA();
 	NewActor4->Spawn();
+
+	Player->ControlPossess();
+
 }

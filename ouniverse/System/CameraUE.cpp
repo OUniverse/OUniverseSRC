@@ -10,3 +10,9 @@ ACameraUE::ACameraUE()
 	CameraComponent_ = CreateDefaultSubobject<UCameraComponent>(TEXT("Cam"));
 	CameraComponent_->SetupAttachment(RootComponent);
 }
+
+
+void ACameraUE::SetFOV(float InFOV)
+{
+	CameraComponent_->SetFieldOfView(InFOV);
+}
