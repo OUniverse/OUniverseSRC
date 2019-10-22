@@ -45,5 +45,5 @@ void ACharacterUE::ControlPossess()
 	DollyControl_->RegisterComponent();
 	DollyControl_->SetRelativeLocation(FVector(0));
 	DollyControl_->SetRelativeRotation(FRotator(0));
-	DollyControl_->AttachTo(RootComponent, NAME_None, EAttachLocation::KeepRelativeOffset);
+	DollyControl_->AttachToComponent(RootComponent,FAttachmentTransformRules(EAttachmentRule::KeepRelative,false));
 }

@@ -20,7 +20,7 @@ Protocol for handling the UserSelection menus.
 
 class DataC;
 
-class OUNIVERSE_API ScribeP : public ProtocolP
+class OUNIVERSE_API ScribeP 
 {
 
 	
@@ -53,6 +53,6 @@ private:
 
 	ScribeP(DataC* InData);
 
-	virtual void Activate() override;
+	void Activate();
 
 };

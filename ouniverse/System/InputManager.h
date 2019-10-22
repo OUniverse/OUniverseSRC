@@ -46,6 +46,9 @@ Receives all inputs like keyboard and mouse interactions from the SInputCatch wi
 
 class BootC;
 
+class MaestroC;
+
+
 class CommandC;
 class CommandLayerC;
 
@@ -63,7 +66,7 @@ class OUNIVERSE_API InputManager
 
 private:
 
-	 InputManager(FileC InRegFile);
+	 InputManager(MaestroC* InMaestro, FileC InRegFile);
 
 public:
 
@@ -81,17 +84,9 @@ public:
 	void OnMouseWheel(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent);
 
 
-	enum Layer
-	{
-		Menu,
-		World,
-		LAYER_MAX,
-	};
-
-	CommandE ListenToCMD(Layer InLayer, int InCMD);
-
 private:
 
+	MaestroC* Maestro_;
 
 	bool bCTR;
 	bool bALT;
@@ -103,71 +98,5 @@ private:
 
 
 	MapC<int, CharKey*> QuillKeyMap;
-
-	CommandLayerC* ActiveLayer_;
-
-	void ActivateLayer(Layer ActiveLayer);
-
-	CommandLayerC* AddLayer(Layer InLayerType, CommandLayerC* InCommand);
-	ArrayC<CommandLayerC*> Layers_;
-};
-
-
-class CommandLayerC
-{
-
-public:
-
-	CommandLayerC(int InCMD_MAX);
-
-
-	CommandE Listen(int InCMD);
-
-	bool Try(KeyCodeC InKeyCode, CommandC*& InCommand);
-
-	void Add(int InCMD, KeyCodeC KeyCode);
-
-	void Rebind(int InCMD, KeyCodeC KeyCode);
-
-public:
-
-
-	ArrayC<CommandC*> Commands_;
-	MapC<KeyCodeC, CommandC*> Input_;
-
-
-};
-
-
-class CommandLayerMenuC : public CommandLayerC
-{
-	
-public:
-
-	enum CMD
-	{
-		Console,
-		Escape,
-		Enter,
-		Space,
-		MAX,
-	};
-
-};
-
-
-class CommandLayerWorldC : public CommandLayerC
-{
-
-public:
-
-	enum CMD
-	{
-		Interact,
-		Jump,
-		Run,
-		Stealth,
-		MainMenu,
-	};
 
 };

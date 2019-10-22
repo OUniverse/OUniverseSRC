@@ -1,19 +1,11 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Maestro.h"
-#include "Protocol/SplashP.h"
-#include "Protocol/SystemP.h"
-#include "Protocol/ScribeP.h"
+#include "Protocol/GlobalP.h"
+#include "Protocol/SymP.h"
 #include "Protocol/OpenWorldP.h"
 #include "System/Major.h"
-#include "System/Log.h"
-#include "System/Ui.h"
 
-#include "System/OniManager.h"
-#include "System/OniType.h"
-#include "System/OniKey.h"
-
-#include "Min/MajorM.h"
 #include "Min/DebugM.h"
 
 
@@ -24,50 +16,27 @@ MaestroC* MaestroC::Create(MajorC* Major)
 
 MaestroC::MaestroC(MajorC* Major)
 {
+	InputStackLen_ = 0;
 
-	Oni_ = Major->Oni();
+	GlobalP_ = new GlobalP(ProtocolUID::Global);
+	SymP_ = new SymP(ProtocolUID::Sym);
+	OpenWorldP_ = new OpenWorldP(ProtocolUID::OpenWorld);
 
-	Map_.Init(Types::MAX, NULL); 
-	Map_[Types::Splash] = new SplashP(this, Major->Input());
-	Map_[Types::System] = new SystemP(this,Major->UserL(), Major->LoadoutL(),Major->Oni());
-	Map_[Types::Scribe] = new ScribeP(Major->Data());
-	Map_[Types::OpenWorld] = new OpenWorldP();
-	
-}
-
-ProtocolP* MaestroC::GetProtocol(Types Type)
-{
-	return Map_[Type];
-}
-
-ProtocolP* MaestroC::Activate(Types Type)
-{
-	ProtocolP* ActivatedProtocol = GetProtocol(Type);
-	ActivatedProtocol->Activate();
-	return ActivatedProtocol;
 }
 
 void MaestroC::Start()
 {
-	bool SkipSplash = Oni_->GetBool(OniTypeC::Type::Global, OniGlobalC::SKIP_SPLASH_MOVIES);
-
-	if (SkipSplash)
-	{
-		LOG(28551, Void(), "Splash has been skipped because of config settings.")
-		SplashEnd();
-	}
-	else
-	{
-		LOG(32087, Void(), "Begin Splash movies.")
-		Map_[Types::Splash]->Activate();
-	}
 
 }
 
-void MaestroC::SplashEnd()
+InputReplyS MaestroC::OnCommand(InputSchemaC::Commands Command, bool UpDown, bool PostUI)
 {
-	LOG(7100, Void(), "Ending Splash movies.")
+	InputReplyS Reply = InputReplyS(true,true);
 
-	MAJOR_IN_USAGE
-	MAJOR->Ui()->OpenSystemMenu();//Map_[Types::System]->Activate();
+	for (int i = 0; i < InputStackLen_; i++)
+	{
+		InputStack_[i]->OnCommandInternal(&Reply, Command, UpDown, PostUI);
+	}
+
+	return Reply;
 }

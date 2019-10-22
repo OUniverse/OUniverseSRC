@@ -234,11 +234,9 @@ void BootC::PostUI_Standard()
 	M->SaveLib_ = new SaveLibC(M->SaveD());
 	M->SaveV_ = new SaveVatC(M->SaveD());
 
-	M->Input_ = new InputManager(PathC::FileGlobalConfig());
+	
 
 	M->Ui_		= UiC::Create(M);
-	M->Maestro_ = MaestroC::Create(M);
-
 	M->Cosmos_ = CosmosC::Create();
 
 	M->Terra_ = TerraC::Create();
@@ -248,12 +246,20 @@ void BootC::PostUI_Standard()
 	M->UserL()->Load();
 	M->UserL()->Decide();
 
+
+
+
+	M->Camera_ = new CameraC(M->Ether());
+	M->Camera()->Activate(M->Control());
+
+
+	M->Maestro_ = MaestroC::Create(M);
+	M->Input_ = new InputManager(M->Maestro(),PathC::FileGlobalConfig());
 	M->Hud()->ActivateInputs(M->Input());
 
 	//M->Maestro()->Start();
 
-	M->Camera_ = new CameraC(M->Ether());
-	M->Camera()->Activate(M->Control());
+	
 	M->UserL()->Set(32767);
 	M->LoadoutL()->Load(M->UserD()->Folder());
 	M->LoadoutL()->Set(1314);

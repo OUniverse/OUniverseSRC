@@ -3,18 +3,32 @@
 #include "Protocol/ProtocolP.h"
 
 
-#include "Min/DebugM.h"
-ProtocolP::ProtocolP()
+ProtocolP::ProtocolP(int InUID)
+{
+	UID_ = InUID;
+}
+
+void ProtocolP::Mount()
 {
 
 }
 
-void ProtocolP::Activate()
+void ProtocolP::Dismount()
 {
 
 }
 
-void ProtocolP::Conclude()
+InputReplyS* ProtocolP::OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI)
 {
-	
+	if(Reply->Bubble())
+	{
+		OnCommand(Reply, Command, UpDown, PostUI);
+	}
+
+	return Reply;
+}
+
+InputReplyS* ProtocolP::OnCommand(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI)
+{
+	return Reply;
 }

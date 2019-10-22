@@ -2,13 +2,7 @@
 
 #include "Protocol/OpenWorldP.h"
 
-void OpenWorldP::Activate()
+OpenWorldP::OpenWorldP(int InUID) : ProtocolP(InUID)
 {
-	//LOG(LBOOT,1,"Protocol Activated: OpenWorld");
-	//Major->UserManager->GetAllUsers();
 
-	//Major->UiManager->I_SystemMenu->King();
-
-	//Major->DataManager->LoadData();
-	//Major->WorldManager->TravelToWorld();
 }

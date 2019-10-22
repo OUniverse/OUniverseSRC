@@ -9,7 +9,7 @@ Protocol for handling the MainMenu.
 #include "Protocol/ProtocolP.h"
 
 
-class OUNIVERSE_API OpenWorldP : public ProtocolP
+class OUNIVERSE_API GlobalP : public ProtocolP
 {
 	friend MaestroC;
 
@@ -18,6 +18,6 @@ public:
 
 private:
 
-	OpenWorldP(int UID);
+	GlobalP(int UID);
 
 };

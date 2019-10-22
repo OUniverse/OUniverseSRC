@@ -14,6 +14,8 @@ This is the abstract Protocol class which all actual Protocols extend from.
 
 #pragma once
 
+#include "System/InputSchema.h"
+
 class MaestroC;
 
 class OUNIVERSE_API ProtocolP
@@ -23,10 +25,19 @@ class OUNIVERSE_API ProtocolP
 
 protected:
 
-	ProtocolP();
+	ProtocolP(int InUID);
 
 	virtual ~ProtocolP() {};
-	virtual void Activate();
 
-	virtual void Conclude();
+	virtual void Mount();
+	virtual void Dismount();
+
+private:
+
+	int UID_;
+
+public:
+
+	InputReplyS* OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
+	InputReplyS* OnCommand(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
 };
