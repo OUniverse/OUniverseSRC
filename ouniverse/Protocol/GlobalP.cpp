@@ -2,7 +2,15 @@
 
 #include "Protocol/GlobalP.h"
 
-GlobalP::GlobalP(int InUID) : ProtocolP(InUID)
+#include "Min/DebugM.h"
+GlobalP::GlobalP() : ProtocolP()
 {
 
+}
+
+
+InputReplyS GlobalP::Forward(InputActionS InIA)
+{
+	DBUG("WE HAVE ACHIEVED THE GOAL");
+	return InputReplyS();
 }

@@ -23,6 +23,12 @@ public:
 
 	void ControlPossess();
 
+	void Mount(ACharacterUE* InCharacterUE);
+
+	void Dismount();
+
+	ACharacterUE* GetCharacterUE();
+
 private:
 
 	ACharacterUE* CharacterUE_;

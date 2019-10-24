@@ -6,8 +6,6 @@
 
 #include "Key/GlobalK.h"
 
-#include "System/Glass.h"
-
 #include "System/Atlas^.h"
 
 #include "Form/FormF.h"
@@ -29,22 +27,22 @@ ScribeP::ScribeP(DataC* InData)
 void ScribeP::Activate()
 {
 	DBUG("SCRIBE PROTOCOL ACTIVE")
-		DBUG(FCommandLine::GetOriginal())
+	DBUG(FCommandLine::GetOriginal())
 
-	GBIND("AtlasPreREQ", this, &ScribeP::UI_AtlasiPreREQ);
-	GBIND("AtlasiMOUNT", this, &ScribeP::UI_AtlasiMount);
-	GBIND("FormQUERY", this, &ScribeP::UI_FormQUERY);
-	GBIND("FormREQ", this, &ScribeP::UI_FormREQ);
-	GBIND("FormSAVE", this, &ScribeP::UI_FormSAVE);
+	//GBIND("AtlasPreREQ", this, &ScribeP::UI_AtlasiPreREQ);
+	//GBIND("AtlasiMOUNT", this, &ScribeP::UI_AtlasiMount);
+	//GBIND("FormQUERY", this, &ScribeP::UI_FormQUERY);
+	//GBIND("FormREQ", this, &ScribeP::UI_FormREQ);
+	//GBIND("FormSAVE", this, &ScribeP::UI_FormSAVE);
 
-	GSEND0("start");
+	//GSEND0("start");
 
 	//GSEND1("data.rec_atlaspre", Data_->GetAtlasPreArray().Vector());
 }
 
 void ScribeP::UI_AtlasiPreREQ()
 {
-		GSEND1("atlasipre>", Data_->GetAtlasPreArray().Vector());
+		//GSEND1("atlasipre>", Data_->GetAtlasPreArray().Vector());
 }
 
 void ScribeP::UI_AtlasiMount(std::vector<int> AtlasiArr, bool ReqScribe)
@@ -89,7 +87,7 @@ void ScribeP::UI_FormQUERY(std::string InQuery)
 		FormPilots.Add(new FormPilotS(LoopDuet, CurForm.Form()->ID(), CurForm.Form()->Type()));
 	}
 
-	GSEND1("formlist>", FormPilots.Vector());
+	//GSEND1("formlist>", FormPilots.Vector());
 
 	L = FormPilots.Len();
 
@@ -111,7 +109,7 @@ void ScribeP::UI_FormREQ(int InAtlasUID, int InFormUID)
 
 	FormWrapS FormWrap = Data_->GetFormWrap(DuetUID(AU, FU));
 
-	GSEND2("form>", FormWrap.Atlas()->UID().ForUI(), FormWrap.Form()->Serialize().ToChar());
+	//GSEND2("form>", FormWrap.Atlas()->UID().ForUI(), FormWrap.Form()->Serialize().ToChar());
 }
 
 void ScribeP::UI_FormSAVE(std::string InFormJ)

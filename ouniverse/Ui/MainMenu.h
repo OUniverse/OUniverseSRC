@@ -23,14 +23,25 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
  */
 
-
 #pragma once
 
-class OUNIVERSE_API HudU
+#include "Ui/ViewMenu.h"
+#include "MainMenu.generated.h"
+
+class MajorC;
+
+UCLASS(Blueprintable)
+class OUNIVERSE_API UMainMenu : public UViewMenu
 {
+
+	GENERATED_BODY()
+
+private:
+
+
 
 public:
 
-	HudU();
+	void Init();
 
 };

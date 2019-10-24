@@ -19,17 +19,25 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 #pragma once
 
-#include "Components/SceneComponent.h"
+#include "Component/Dolly.h"
 #include "DollyControl.generated.h"
 
+class USpringArmComponent;
+class UDolly;
 
-UCLASS()
-class OUNIVERSE_API UDollyControl : public USceneComponent
+UCLASS(meta = (BlueprintSpawnableComponent))
+class OUNIVERSE_API UDollyControl : public UDolly
 {
 	GENERATED_BODY()
 
 public:
 
 	UDollyControl();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USpringArmComponent* Boom_;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UDolly* Dolly_;
 
 };

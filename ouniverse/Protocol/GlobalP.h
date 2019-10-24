@@ -18,6 +18,7 @@ public:
 
 private:
 
-	GlobalP(int UID);
+	GlobalP();
 
+	virtual InputReplyS Forward(InputActionS InIA);
 };

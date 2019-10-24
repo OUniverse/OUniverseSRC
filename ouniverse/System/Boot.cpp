@@ -7,22 +7,18 @@
 #include "System/Log.h"
 #include "System/ConfigManager.h"
 #include "System/HudUE.h"
-#include "System/Ui.h"
 #include "System/Maestro.h"
-#include "System/InputManager.h"
 #include "System/AudioManager.h"
 #include "System/ViewportUE.h"
 #include "System/ControlUE.h"
 #include "Kismet/GameplayStatics.h"
 #include "System/Mode.h"
 #include "Engine/World.h"
-#include "System/Glass.h"
 #include "System/OniManager.h"
 #include "System/Time.h"
 #include "System/TickUE.h"
 #include "System/Fps.h"
 #include "System/Cosmos.h"
-#include "System/Camera.h"
 
 #include "System/User.h"
 #include "System/UserDais.h"
@@ -37,8 +33,6 @@
 
 #include "System/Data.h"
 #include "System/Terra.h"
-#include "System/Ether.h"
-#include "System/Party.h"
 
 
 #include "Min/DebugM.h"
@@ -76,11 +70,6 @@ void UBoot::Boot(EBootMethod InBootMethod, UObject* WorldContextObject)
 	BootC::Create(InBootMethod, WorldContextObject);
 }
 
-void UBoot::UiReady()
-{
-	BootC::Get()->PostUI();
-}
-
 
 BootC::BootC(EBootMethod InBootMethod, UObject* WorldContextObject)
 {
@@ -110,8 +99,13 @@ BootC::BootC(EBootMethod InBootMethod, UObject* WorldContextObject)
 
 void BootC::Primal_Standard(UObject* WorldContextObject)
 {
-	if (GEngine)
-		DBUG("Standard Boot Activated.")
+
+	if (!GEngine)
+	{
+		DBUG("NO GENGINE.")
+			return;
+	}
+	DBUG("Standard Boot Activated.")
 
 
 	MajorC::Create();
@@ -122,13 +116,13 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
 	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
-	
+
 	bool bModeFail = false;
 	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
 	{
 		bModeFail = true;
 	}
-	
+
 	PathC::SetGlobals(); //Must be called to set global paths to reduce the amount of string assembly functions at run time.
 	M->Log_ = LogC::Create(PathC::FileLog());
 
@@ -154,10 +148,71 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
+	M->Hud()->HUD_SUPER_ON();
 
-	M->Hud()->HUD_SUPER_ON(AHudUE::HudTypes::Standard);
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
+
+
+	M->Data_ = DataC::Create(PathC::DirAtlas());
+
+
+
+	M->Time_ = TimeC::Create();
+	M->TickUE_ = NewObject<UTickUE>();
+	M->TickUE()->BridgeAndBegin(M->Time());
+
+	M->Fps_ = FpsC::Create(M->Time_);
+
+	M->UserDais_ = new UserDaisC(M->Oni());
+	M->LoadoutDais_ = new LoadoutDaisC();
+	M->SaveDais_ = new SaveDaisC();
+
+	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->UserD(), M->Oni());
+	M->LoadoutLib_ = new LoadoutLibC(M->LoadoutD(), M->Oni());
+	M->SaveLib_ = new SaveLibC(M->SaveD());
+	M->SaveV_ = new SaveVatC(M->SaveD());
+
+
+	M->Ui_ = M->Hud()->GetUI();
+
+
+	M->Cosmos_ = NewObject<UCosmos>();
+	M->Cosmos()->Init(M->Control(),M->WorldContext(), M->Scope());
+	M->Camera_ = M->Cosmos()->SpawnCamera();
+	M->Control()->SetCamera(M->Camera());
+	
+	M->Terra_ = TerraC::Create();
+
+
+	M->UserL()->Load();
+	M->UserL()->Decide();
+
+
+
+
+
+
+
+	M->Maestro_ = MaestroC::Create(M);
+	M->Control()->Init(M->Maestro());
+
+	//M->Maestro()->Start();
+
+	
+
+	M->UserL()->Set(32767);
+	M->LoadoutL()->Load(M->UserD()->Folder());
+	M->LoadoutL()->Set(1314);
+	M->Data()->Mount(M->LoadoutD()->Get());
+
+	M->SaveL()->Load(M->UserD()->Folder());
+	M->SaveL()->Set(32767);
+	M->SaveV()->Load();
+
+	//M->Cosmos()->FauxMount();
+
+	M->Maestro()->FauxStart();
 
 	LOGP
 }
@@ -174,120 +229,5 @@ void BootC::Primal_UiIso(UObject* WorldContextObject)
 
 void BootC::Primal_Test(UObject* WorldContextObject)
 {
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-void BootC::PostUI()
-{
-	if (ProgramState_ == ProgramStateC::State::Standard)
-	{
-		PostUI_Standard();
-	}
-	else if (ProgramState_ == ProgramStateC::State::Scribe)
-	{
-		PostUI_Scribe();
-	}
-	else if (ProgramState_ == ProgramStateC::State::UiIso)
-	{
-		PostUI_UiIso();
-	}
-}
-
-
-void BootC::PostUI_Standard()
-{
-
-	//DBUG("CUI Ready...");
-	//GSEND0("ui.o")
-
-	LOG(40448, Void(), "UI is ready for bindings.")
-
-	MajorC* M = MajorC::Get();
-
-
-	M->Data_ = DataC::Create(PathC::DirAtlas());
-
-
-	
-	M->Time_ = TimeC::Create();
-	M->TickUE_ = NewObject<UTickUE>();
-	M->TickUE()->BridgeAndBegin(M->Time());
-	
-	M->Fps_ = FpsC::Create(M->Time_);
-
-	M->UserDais_ = new UserDaisC(M->Oni());
-	M->LoadoutDais_ = new LoadoutDaisC();
-	M->SaveDais_ = new SaveDaisC();
-	
-	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->UserD(), M->Oni());
-	M->LoadoutLib_ = new LoadoutLibC(M->LoadoutD(), M->Oni());
-	M->SaveLib_ = new SaveLibC(M->SaveD());
-	M->SaveV_ = new SaveVatC(M->SaveD());
-
-	
-
-	M->Ui_		= UiC::Create(M);
-	M->Cosmos_ = CosmosC::Create();
-
-	M->Terra_ = TerraC::Create();
-	M->Ether_ = EtherC::Create(M->WorldContext(),M->Scope());
-	M->Party_ = PartyC::Create();
-
-	M->UserL()->Load();
-	M->UserL()->Decide();
-
-
-
-
-	M->Camera_ = new CameraC(M->Ether());
-	M->Camera()->Activate(M->Control());
-
-
-	M->Maestro_ = MaestroC::Create(M);
-	M->Input_ = new InputManager(M->Maestro(),PathC::FileGlobalConfig());
-	M->Hud()->ActivateInputs(M->Input());
-
-	//M->Maestro()->Start();
-
-	
-	M->UserL()->Set(32767);
-	M->LoadoutL()->Load(M->UserD()->Folder());
-	M->LoadoutL()->Set(1314);
-	M->Data()->Mount(M->LoadoutD()->Get());
-
-	M->SaveL()->Load(M->UserD()->Folder());	
-	M->SaveL()->Set(32767);
-	M->SaveV()->Load();
-
-	M->Cosmos()->FauxMount();
-
-	LOGP
-}
-
-void BootC::PostUI_Scribe()
-{
-	LOGP
-}
-
-void BootC::PostUI_UiIso()
-{
-	DBUG("PostUI_UiISO_CUI Ready...");
-
-	LOG(40448, Void(), "UI is ready for bindings.")
-
-		MajorC* M = MajorC::Get();
-
-	//M->Input_ = InputManager::Create(M->Path()->Reg());
-	M->Hud()->ActivateInputs(M->Input());
 
 }

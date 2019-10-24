@@ -23,14 +23,28 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
  */
 
-
 #pragma once
 
-class OUNIVERSE_API ComU
+#include "Blueprint/UserWidget.h"
+#include "ViewPage.generated.h"
+
+
+UCLASS(Blueprintable)
+class OUNIVERSE_API UViewPage : public UUserWidget
 {
+
+	GENERATED_BODY()
+
+private:
+
+
 
 public:
 
-	ComU();
+	void Init();
 
+	bool CloseInternal();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "ViewEvents")
+	void OnClose(bool& Result);
 };

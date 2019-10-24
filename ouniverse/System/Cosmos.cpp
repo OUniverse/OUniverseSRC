@@ -1,78 +1,64 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Cosmos.h"
-
-#include "System/Ether.h"
 #include "Min/MajorM.h"
+#include "Engine/World.h"
+
+#include "System/ControlUE.h"
+#include "System/CharacterUE.h"
+#include "System/CameraUE.h"
+#include "Component/DollyControl.h"
 
 #include "Actual/ActorA.h"
 
-namespace GlobalSingleton
+
+
+void UCosmos::Init(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope)
 {
-	CosmosC Cosmos;
+	Control_ = InControl;
+	WorldContext_ = InWorldContext;
+	Scope_ = InScope;
 }
 
-CosmosC* CosmosC::Get()
-{
-	return &GlobalSingleton::Cosmos;
-}
-
-CosmosC* CosmosC::Create()
-{
-	GlobalSingleton::Cosmos = *(new CosmosC());
-	return &GlobalSingleton::Cosmos;
-}
-
-CosmosC::CosmosC()
+void UCosmos::Mount()
 {
 
 }
 
-void CosmosC::Mount()
-{
-	NewLevel();
-}
-
-void CosmosC::FauxMount()
-{
-	NewLevel();
-}
-
-void CosmosC::Dismount()
+void UCosmos::Dismount()
 {
 
 }
 
-
-void CosmosC::NewLevel()
+void UCosmos::LoadLevel(StringC LevelName)
 {
-	MAJOR->Party();
-	MAJOR->Ether()->StreamLevel("TESTMAP");
-	SpawnParty();
+	bool bFound = true;
+	StreamedLevel_ = ULevelStreamingDynamic::LoadLevelInstance(WorldContext_, LevelName.ToChar(), FVector(0.0f), FRotator(0.0f), bFound);
+	StreamedLevel_->OnLevelLoaded.AddDynamic(this, &UCosmos::OnLevelStreamed);
+}
+void UCosmos::OnLevelStreamed()
+{
+
 }
 
-void CosmosC::NewLevelLoaded()
+void UCosmos::SpawnParty(ArrayC<ActorA*> InPartyActors)
 {
-	//FVector Location(0.0f, 0.0f, 0.0f);
-	//FRotator Rotation(0.0f, 0.0f, 0.0f);
-	//FActorSpawnParameters SpawnInfo;
-	//MAJOR->Scope()->SpawnActor<ACharacterUE>(Location, Rotation, SpawnInfo);
+	SpawnCharacter(InPartyActors[0]);
 }
 
-void CosmosC::SpawnParty()
+ACharacterUE* UCosmos::SpawnCharacter(ActorA* InActor)
 {
-	ActorA* Player = new ActorA();
-	Player->Spawn();
+	TSoftClassPtr<ACharacterUE> CharacterClass = TSoftClassPtr<ACharacterUE>(FSoftClassPath("/Game/bp/system/character.character_C"));
+	FVector Location(0.0f, 0.0f, 0.0f);
+	FRotator Rotation(0.0f, 0.0f, 0.0f);
+	ACharacterUE* NewActor = Scope_->SpawnActor<ACharacterUE>(CharacterClass.LoadSynchronous(),Location, Rotation);
+	InActor->Mount(NewActor);
+	return NewActor;
+}
 
-	ActorA* NewActor2 = new ActorA();
-	NewActor2->Spawn();
-
-	ActorA* NewActor3 = new ActorA();
-	NewActor3->Spawn();
-
-	ActorA* NewActor4 = new ActorA();
-	NewActor4->Spawn();
-
-	Player->ControlPossess();
-
+ACameraUE* UCosmos::SpawnCamera()
+{
+	FVector Location(0.0f, 0.0f, 0.0f);
+	FRotator Rotation(0.0f, 0.0f, 0.0f);
+	return Scope_->SpawnActor<ACameraUE>(Location, Rotation);
 }

@@ -7,14 +7,14 @@
 // WARNING INIT is already registered with Viewport so use a different name
 
 
-void UViewportUE::LostFocus(FViewport * Viewport)
+void UViewportUE::LostFocus(FViewport * InViewport)
 {
-	Super::LostFocus(Viewport);
+	Super::LostFocus(InViewport);
 	//DEBUGPRINT(FColor::Turquoise, "Game Lost Focus...");
 }
 
-void UViewportUE::ReceivedFocus(FViewport * Viewport)
+void UViewportUE::ReceivedFocus(FViewport * InViewport)
 {
-	Super::ReceivedFocus(Viewport);
+	Super::ReceivedFocus(InViewport);
 	//DEBUGPRINT(FColor::Turquoise, "Game Gained Focus...");
 }

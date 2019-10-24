@@ -3,8 +3,6 @@
 #include "Actual/ActorA.h"
 
 #include "System/CharacterUE.h"
-#include "System/Ether.h"
-
 #include "Min/MajorM.h"
 
 ActorA::ActorA() : ObjectA()
@@ -12,12 +10,17 @@ ActorA::ActorA() : ObjectA()
 
 }
 
-void ActorA::Spawn()
+void ActorA::Mount(ACharacterUE* InCharacter)
 {
-	CharacterUE_ = MAJOR->Ether()->Spawn();
+	CharacterUE_ = InCharacter;
 }
 
-void ActorA::ControlPossess()
+void ActorA::Dismount()
 {
-	CharacterUE_->ControlPossess();
+
+}
+
+ACharacterUE* ActorA::GetCharacterUE()
+{
+	return CharacterUE_;
 }

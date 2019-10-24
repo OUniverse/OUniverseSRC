@@ -25,19 +25,22 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-class BootC;
+#include "Interface/Array.h"
+
+class ActorA;
 
 class OUNIVERSE_API PartyC
 {
-	friend BootC;
-
-private:
-
-	static PartyC* Create();
 
 public:
 
-	static PartyC* Get();
 	PartyC();
 
+	void Faux();
+
+	ArrayC<ActorA*> Members_;
+
+	ActorA* Member(int index);
+
+	ArrayC<ActorA*> GetActors();
 };

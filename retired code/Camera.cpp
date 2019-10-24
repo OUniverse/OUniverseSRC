@@ -3,7 +3,7 @@
 #include "System/Camera.h"
 #include "System/ControlUE.h"
 #include "System/CameraUE.h"
-#include "System/Ether.h"
+
 
 CameraC::CameraC(EtherC* InEther)
 {

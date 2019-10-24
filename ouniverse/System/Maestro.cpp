@@ -1,12 +1,10 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Maestro.h"
-#include "Protocol/GlobalP.h"
-#include "Protocol/SymP.h"
-#include "Protocol/OpenWorldP.h"
 #include "System/Major.h"
 
-#include "Min/DebugM.h"
+#include "Protocol/GlobalP.h"
+#include "Protocol/WorldP.h"
 
 
 MaestroC* MaestroC::Create(MajorC* Major)
@@ -16,12 +14,9 @@ MaestroC* MaestroC::Create(MajorC* Major)
 
 MaestroC::MaestroC(MajorC* Major)
 {
-	InputStackLen_ = 0;
-
-	GlobalP_ = new GlobalP(ProtocolUID::Global);
-	SymP_ = new SymP(ProtocolUID::Sym);
-	OpenWorldP_ = new OpenWorldP(ProtocolUID::OpenWorld);
-
+	Global_ = new GlobalP();
+	World_ = new WorldP(Major->Control(),Major->Cosmos());
+	Add(Global_);
 }
 
 void MaestroC::Start()
@@ -29,14 +24,8 @@ void MaestroC::Start()
 
 }
 
-InputReplyS MaestroC::OnCommand(InputSchemaC::Commands Command, bool UpDown, bool PostUI)
+void MaestroC::FauxStart()
 {
-	InputReplyS Reply = InputReplyS(true,true);
-
-	for (int i = 0; i < InputStackLen_; i++)
-	{
-		InputStack_[i]->OnCommandInternal(&Reply, Command, UpDown, PostUI);
-	}
-
-	return Reply;
+	Add(World_);
+	World_->Start();
 }

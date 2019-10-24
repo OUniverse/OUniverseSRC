@@ -9,6 +9,8 @@ Atlas
 #include "GameFramework/Actor.h"
 #include "CameraUE.generated.h"
 
+class UCameraComponent;
+
 UCLASS()
 class OUNIVERSE_API ACameraUE : public AActor
 {
@@ -23,8 +25,5 @@ public:
 	UPROPERTY(Category = CameraActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* CameraComponent_;
 
-	UPROPERTY(Category = CameraActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class USceneComponent* SceneComponent_;
-
-	
+	void SetGoal(UCameraComponent* InCam);
 };

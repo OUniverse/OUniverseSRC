@@ -23,14 +23,24 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
  */
 
-
 #pragma once
 
-class OUNIVERSE_API WriU
+#include "Blueprint/UserWidget.h"
+#include "ViewNav.generated.h"
+
+
+UCLASS(Blueprintable)
+class OUNIVERSE_API UViewNav : public UUserWidget
 {
+
+	GENERATED_BODY()
+
+private:
+
+
 
 public:
 
-	WriU();
+	void Init();
 
 };

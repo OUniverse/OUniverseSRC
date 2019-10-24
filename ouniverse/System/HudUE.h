@@ -20,11 +20,7 @@ This is an extension of Coherent Lab's extension for further control.
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "CohtmlGameHUD.h"
 #include "Interface/String.h"
-#include "SCohtmlInputForward.h"
-
-#include "Interface/Event.h"
 #include "Interface/String.h"
 
 #include "HudUE.generated.h"
@@ -33,46 +29,25 @@ This is an extension of Coherent Lab's extension for further control.
 
 
 class UGameViewportClient;
-class UInputManager;
-
-class InputManager;
-
-class GlassC;
+class UUi;
 
 UCLASS()
-class OUNIVERSE_API AHudUE : public ACohtmlGameHUD
+class OUNIVERSE_API AHudUE : public AHUD
 {
 	GENERATED_BODY()
 
 public:
 
-	enum HudTypes
-	{
-		Standard,
-		Scribe,
-		Iso,
-	};
-
-	void HUD_SUPER_ON(HudTypes HudType);
-	void ActivateInputs(InputManager* Input);
-
-
-	UFUNCTION()//Has to be UFunction for Coherent's PreBind function call.
-	void ViewReady();
 
 	UGameViewportClient* Viewport;
-	TSharedPtr<class SInputCatch> InputNet;
+
+	void HUD_SUPER_ON();
+
+	UUi* GetUI();
+
+private:
 
 	UPROPERTY()
-	UCohtmlHUD* CoHud_;
+	UUi* Ui_;
 
-	TSharedPtr<class SCohtmlInputForward> CoBridge_;
-
-	void SetView(const char* InURL);
-
-	Event0C<EventLife> OnViewReady_;
-
-	void SetPath(StringC InPath);
-
-	StringC Path_;
 };

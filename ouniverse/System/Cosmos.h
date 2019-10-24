@@ -17,30 +17,47 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
  */
 
+
 #pragma once
 
-class BootC;
+#include "UObject/NoExportTypes.h"
+#include "Interface/String.h"
+#include "Engine/LevelStreamingDynamic.h"
+#include "Cosmos.generated.h"
 
-class OUNIVERSE_API CosmosC
+
+class AControlUE;
+class ACameraUE;
+class ACharacterUE;
+class ActorA;
+
+UCLASS()
+class OUNIVERSE_API UCosmos : public UObject
 {
 
-	friend BootC;
+	GENERATED_BODY()
 
 public:
 
-	static CosmosC* Create();
+	void Init(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope);
 
-	static CosmosC* Get();
-
-	CosmosC();
-
-	void NewLevel();
+	void LoadLevel(StringC LevelName);
 
 	void Mount();
-	void FauxMount();
 	void Dismount();
 
-	void NewLevelLoaded();
+	void SpawnParty(ArrayC<ActorA*> InPartyActors);
 
-	void SpawnParty();
+	ACharacterUE* SpawnCharacter(ActorA* InActor);
+	ACameraUE* SpawnCamera();
+
+	UFUNCTION()
+	void OnLevelStreamed();
+
+private:
+
+	AControlUE* Control_;
+	UObject* WorldContext_;
+	UWorld* Scope_;
+	ULevelStreamingDynamic* StreamedLevel_;
 };

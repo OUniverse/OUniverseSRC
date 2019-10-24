@@ -8,7 +8,8 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
-
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h" 
 #include "Components/SkeletalMeshComponent.h"
 
 #include "Component/DollyControl.h"
@@ -28,6 +29,25 @@ ACharacterUE::ACharacterUE()
 	USkeletalMesh* TestMesh = Mesh_SP.LoadSynchronous();
 	Skeleton_->SetSkeletalMesh(TestMesh);
 
+	OrbitBoom_ = CreateDefaultSubobject<USpringArmComponent>(TEXT("OrbitBoom"));
+	OrbitBoom_->SetupAttachment(RootComponent);
+	OrbitBoom_->TargetArmLength = 750.f;
+	OrbitBoom_->SocketOffset = FVector(0.f, 0.f, 0.f);
+	OrbitBoom_->RelativeLocation = FVector(0.f, 0.f, 170.f);
+	OrbitBoom_->RelativeRotation = FRotator(-10.f, 0.f, 0.f);
+	OrbitBoom_->TargetArmLength = 400.f;
+	OrbitBoom_->bEnableCameraLag = true;
+	OrbitBoom_->CameraLagSpeed = 3.0f;
+
+	OrbitCam_ = CreateDefaultSubobject<UCameraComponent>(TEXT("OrbitCam"));
+	OrbitCam_->SetupAttachment(OrbitBoom_, USpringArmComponent::SocketName);
+
+
+	//DollyControl_ = CreateDefaultSubobject<UDollyControl>(TEXT("ControlDolly"));
+	//DollyControl_->AttachToComponent(RootComponent, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
+	//DollyControl_->SetRelativeLocation(FVector(0));
+	//DollyControl_->SetRelativeRotation(FRotator(0));
+
 	//OrbitSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraSpringArm"));
 	//OrbitSpringArm->SetupAttachment(RootComponent);
 	//OrbitSpringArm->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 50.0f), FRotator(-10.0f, 0.0f, 0.0f));
@@ -41,9 +61,16 @@ ACharacterUE::ACharacterUE()
 
 void ACharacterUE::ControlPossess()
 {
+	/**
 	DollyControl_ = NewObject<UDollyControl>(this,UDollyControl::StaticClass(),TEXT("Control Dolly"));
 	DollyControl_->RegisterComponent();
+	DollyControl_->AttachToComponent(RootComponent,FAttachmentTransformRules(EAttachmentRule::KeepRelative,false));
 	DollyControl_->SetRelativeLocation(FVector(0));
 	DollyControl_->SetRelativeRotation(FRotator(0));
-	DollyControl_->AttachToComponent(RootComponent,FAttachmentTransformRules(EAttachmentRule::KeepRelative,false));
+	*/
+}
+
+UCameraComponent* ACharacterUE::GetControlCam()
+{
+	return OrbitCam_;
 }

@@ -33,11 +33,8 @@ class LogC;
 class DataC;
 class TerraC;
 class TimeC;
-class InputManager;
-class DisplayManager;
 class ConfigManager;
-class UiC;
-class InputManager;
+class UUi;
 class AudioManager;
 class MaestroC;
 class AudioManager;
@@ -47,12 +44,9 @@ class OniManagerC;
 class AControlUE;
 class UTickUE;
 class FpsC;
-class CosmosC;
-class EtherC;
-class PartyC;
+class UCosmos;
 class SaveVatC;
-class CameraC;
-
+class ACameraUE;
 class BootC;
 
 
@@ -75,11 +69,10 @@ public:
 	SaveLibC*			SaveL();
 	LogC*				Log();
 	ConfigManager*		Config();
-	CameraC*			Camera();
-	InputManager*		Input();
+	ACameraUE*			Camera();
 	AudioManager*		Audio();
 	AControlUE*			Control();
-	UiC*				Ui();
+	UUi*				Ui();
 	MaestroC*			Maestro();
 	AHudUE*				Hud();
 	UWorld*				Scope();
@@ -90,9 +83,7 @@ public:
 	TimeC*				Time();
 	UTickUE*			TickUE();
 	FpsC*				Fps();
-	CosmosC*			Cosmos();
-	EtherC*				Ether();
-	PartyC*				Party();
+	UCosmos*			Cosmos();
 	SaveVatC*			SaveV();
 
 private:
@@ -100,17 +91,16 @@ private:
 	UObject*			WorldContext_;
 	UserDaisC*			UserDais_;
 	UserLibC*			UserLib_;
-	CameraC* 			Camera_;
+	ACameraUE* 			Camera_;
 	LoadoutDaisC*		LoadoutDais_;
 	LoadoutLibC*		LoadoutLib_;
 	SaveDaisC*			SaveDais_;
 	SaveLibC*			SaveLib_;
 	LogC*				Log_;
 	ConfigManager*		Config_;
-	UiC*				Ui_;
+	UUi*				Ui_;
 	MaestroC*			Maestro_;
 	AudioManager*		Audio_;
-	InputManager*		Input_;
 	UWorld*				Scope_;
 	UViewportUE*		Viewport_;
 	AHudUE*				Hud_;
@@ -121,8 +111,6 @@ private:
 	TimeC*				Time_;
 	UTickUE*			TickUE_;
 	FpsC*				Fps_;
-	CosmosC*			Cosmos_;
-	EtherC*				Ether_;
-	PartyC*				Party_;
+	UCosmos*			Cosmos_;
 	SaveVatC*			SaveV_;
 };

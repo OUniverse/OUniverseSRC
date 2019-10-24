@@ -3,9 +3,9 @@
 #include "Protocol/ProtocolP.h"
 
 
-ProtocolP::ProtocolP(int InUID)
+ProtocolP::ProtocolP()
 {
-	UID_ = InUID;
+
 }
 
 void ProtocolP::Mount()
@@ -18,6 +18,7 @@ void ProtocolP::Dismount()
 
 }
 
+/**
 InputReplyS* ProtocolP::OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI)
 {
 	if(Reply->Bubble())
@@ -32,3 +33,4 @@ InputReplyS* ProtocolP::OnCommand(InputReplyS* Reply, InputSchemaC::Commands Com
 {
 	return Reply;
 }
+*/

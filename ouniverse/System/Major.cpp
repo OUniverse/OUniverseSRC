@@ -33,10 +33,9 @@ SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
 SaveVatC* MajorC::SaveV()			{ return SaveV_; }
 
 ConfigManager* MajorC::Config()		{ return Config_; }
-CameraC* MajorC::Camera()			{ return Camera_; }
-UiC* MajorC::Ui()					{ return Ui_; }
+ACameraUE* MajorC::Camera()			{ return Camera_; }
+UUi* MajorC::Ui()					{ return Ui_; }
 MaestroC* MajorC::Maestro()			{ return Maestro_; }
-InputManager* MajorC::Input()		{ return Input_; }
 LogC* MajorC::Log()					{ return Log_; }
 AudioManager* MajorC::Audio()		{ return Audio_; }
 AControlUE* MajorC::Control()		{ return Control_; }
@@ -49,6 +48,4 @@ DataC* MajorC::Data()				{ return Data_; }
 TimeC* MajorC::Time()				{ return Time_; }
 UTickUE* MajorC::TickUE()			{ return TickUE_; }
 FpsC* MajorC::Fps()					{ return Fps_; }
-CosmosC* MajorC::Cosmos()			{ return Cosmos_; }
-PartyC* MajorC::Party()				{ return Party_; }
-EtherC* MajorC::Ether()				{ return Ether_; }
+UCosmos* MajorC::Cosmos()			{ return Cosmos_; }

@@ -1,8 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "Protocol/SymP.h"
+#include "Ui/ViewNav.h"
 
-SymP::SymP()
+
+void UViewNav::Init()
 {
 
 }

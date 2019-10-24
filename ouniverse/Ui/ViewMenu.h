@@ -25,37 +25,22 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-class BootC;
-
-class MajorC;
-
-class SymU;
-class HudU;
-class ConsoleU;
+#include "Blueprint/UserWidget.h"
+#include "ViewMenu.generated.h"
 
 
-
-class OUNIVERSE_API UiC
+UCLASS(Blueprintable)
+class OUNIVERSE_API UViewMenu : public UUserWidget
 {
-	friend BootC;
+
+	GENERATED_BODY()
 
 private:
 
-	static UiC* Create(MajorC* Major);
-	SymU*		SystemMenu_;
-	HudU*		Hud_;
-	ConsoleU*	Console_;
+
 
 public:
 
-	static UiC* Get();
-	
-	UiC();
-
-	UiC(MajorC* Major);
-
-	void OpenSystemMenu();
-	void OpenWriter();
-	void OpenHud();
+	void Init();
 
 };

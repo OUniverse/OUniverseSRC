@@ -25,48 +25,25 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-class UserLibC;
-class UserDaisC;
-class LoadoutLibC;
-class LoadoutDaisC;
-class OniManagerC;
+#include "Blueprint/UserWidget.h"
+#include "Ui.generated.h"
 
-#include <string>
+class UMainMenu;
 
-class OUNIVERSE_API SymU
+UCLASS(Blueprintable)
+class OUNIVERSE_API UUi : public UUserWidget
 {
+
+	GENERATED_BODY()
 
 public:
 
-	SymU(UserLibC* InUserLib, UserDaisC* InUserD, LoadoutLibC* InLoadoutLib, LoadoutDaisC* InLoadoutD, OniManagerC* InOniManager);
+	void Init();
 
-	void Open();
-	void Close();
+	void OpenMainMenu();
 
 private:
 
-	UserLibC* UserL_;
-	UserDaisC* UserDais_;
-	LoadoutLibC* LoadoutL_;
-	LoadoutDaisC* LoadoutDais_;
-	OniManagerC* Oni_;
-
-	bool Open_;
-
-	void User_REQ(int uid);
-
-	void PreUsers_REQ();
-	
-	void UserConfig_REQ(int uid);
-
-	void User_SAVE(std::string Dat);
-
-	void User_NEW();
-
-	void UserSelected_ACT(int uid);
-	
-	void Loadouts_REQ();
-
-	void LoadoutSelected_ACT(int uid);
+	UMainMenu* MainMenu_;
 
 };

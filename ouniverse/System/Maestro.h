@@ -23,18 +23,18 @@ An example of different states would be the System Menu compared to Open World. 
 #pragma once
 
 #include "Interface/Array.h"
-#include "System/InputSchema.h"
+#include "Interface/String.h"
+
+#include "System/Input.h"
 
 class BootC;
 class MajorC;
 
 class ProtocolP;
-
 class GlobalP;
-class SymP;
-class OpenWorldP;
+class WorldP;
 
-class OUNIVERSE_API MaestroC
+class OUNIVERSE_API MaestroC : public InputSchemaStackC
 {
 
 	friend BootC;
@@ -46,8 +46,14 @@ private:
 	MaestroC(MajorC* Major);
 
 	void Start();
+	void FauxStart();
+
+	GlobalP* Global_;
+	WorldP* World_;
 
 public:
+
+	//void Action(InputSchemaC::Command InAction, InputStrokeS InStroke);
 
 	enum ProtocolUID
 	{
@@ -57,19 +63,4 @@ public:
 		Scribe,
 		MAX,
 	};
-
-
-private:
-
-	GlobalP*		GlobalP_;
-	SymP*			SymP_;
-	OpenWorldP*		OpenWorldP_;
-
-	int InputStackLen_;
-	ArrayC<ProtocolP*> InputStack_;
-
-public:
-
-	InputReplyS OnCommand(InputSchemaC::Commands Command, bool UpDown, bool PostUI);
-
 };

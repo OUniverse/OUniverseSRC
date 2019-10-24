@@ -14,18 +14,18 @@ This is the abstract Protocol class which all actual Protocols extend from.
 
 #pragma once
 
-#include "System/InputSchema.h"
+#include "System/Input.h"
 
 class MaestroC;
 
-class OUNIVERSE_API ProtocolP
+class OUNIVERSE_API ProtocolP : public InputSchemaC
 {
 
 	friend MaestroC;
 
 protected:
 
-	ProtocolP(int InUID);
+	ProtocolP();
 
 	virtual ~ProtocolP() {};
 
@@ -34,10 +34,8 @@ protected:
 
 private:
 
-	int UID_;
-
 public:
 
-	InputReplyS* OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
-	InputReplyS* OnCommand(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
+	//InputReplyS* OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
+	//InputReplyS* OnCommand(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
 };

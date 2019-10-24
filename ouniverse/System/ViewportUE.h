@@ -29,6 +29,6 @@ public:
 
 	//UE4 already was using UGameViewportClient::Init()
 
-	void LostFocus(FViewport * Viewport) override;
-	void ReceivedFocus(FViewport * Viewport) override;
+	void LostFocus(FViewport* InViewport) override;
+	void ReceivedFocus(FViewport* InViewport) override;
 };

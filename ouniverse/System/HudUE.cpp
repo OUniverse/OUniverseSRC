@@ -1,34 +1,16 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/HudUE.h"
-#include "System/InputCatch.h"
 #include "Widgets/SWeakWidget.h"
 #include "Engine/GameViewportClient.h"
-#include "GameFramework/PlayerController.h"
-#include "CohtmlHUD.h"
-#include "CohtmlInputActor.h"
-#include "SCohtmlInputForward.h"
-#include "System/Boot.h"
-
-#include "System/Glass.h"
-
-
+#include "Blueprint/UserWidget.h"
+#include "Ui/Ui.h"
 #include "Min/DebugM.h"
 
-void AHudUE::HUD_SUPER_ON(HudTypes HudType)
+void AHudUE::HUD_SUPER_ON()
 {
 
-	FVector Location(0.0f, 0.0f, 0.0f);
-	FRotator Rotation(0.0f, 0.0f, 0.0f);
-	FActorSpawnParameters SpawnInfo;
-	ACohtmlInputActor* UiInputActor = GetWorld()->SpawnActor<ACohtmlInputActor>(Location, Rotation, SpawnInfo);
-	UiInputActor->Initialize();
-	UiInputActor->AlwaysAcceptMouseInput(true);
-	UiInputActor->SetCohtmlViewFocus(CoHud_);
-	UiInputActor->SetCohtmlInputFocus(true);
-	CoBridge_ = UiInputActor->GetWidget();
-	CoHud_ = GetCohtmlHUD();
-
+	/**
 	SAssignNew(InputNet, SInputCatch).GameHUD(this);
 	if (GEngine && GEngine->GameViewport)
 	{
@@ -36,42 +18,28 @@ void AHudUE::HUD_SUPER_ON(HudTypes HudType)
 		Viewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(InputNet.ToSharedRef()));
 	}
 
-	//FSlateApplication::Get().SetKeyboardFocus(InputNet);
+	//FSlateApplication::Get().SetKeyboardFocus(InputNet);	
 
-	GlassC::Create(this);
+	Ui_ = CreateWidget<UUi>(GetGameInstance(), UUi::StaticClass());
+	Ui_->AddToViewport();
+	//Ui_->SetVisibility(ESlateVisibility::Visible);
 
-	if (HudType == HudTypes::Standard)
-	{
-		SetView("coui://ui//main.html");
-	}
-	else if (HudType == HudTypes::Scribe)
-	{
-		SetView("coui://ui//scribe.html");
 
-	}
-	else if (HudType == HudTypes::Iso)
-	{
-		SetView(Path_.ToChar());
-	}
+	//FStringClassReference MyWidgetClassRef(TEXT("/Game/uigame/NewWidgetBlueprint.NewWidgetBlueprint_C"));
+	//if (UClass * MyWidgetClass = MyWidgetClassRef.TryLoadClass<UUserWidget>())
+	//{
+	//	UUserWidget* MyWidget = CreateWidget<UUserWidget>(GetGameInstance(), MyWidgetClass);
+	//	MyWidget->AddToViewport();
+	//}
+
+	*/
+	TSoftClassPtr<UUserWidget> WidgetClass = TSoftClassPtr<UUserWidget>(FSoftClassPath("/Game/uigame/NewWidgetBlueprint.NewWidgetBlueprint_C"));
+	UClass* MyWidgetClass = WidgetClass.LoadSynchronous();
+	UUserWidget* MyWidget = CreateWidget<UUserWidget>(GetGameInstance(), MyWidgetClass);
+	MyWidget->AddToViewport();
 }
 
-void AHudUE::ActivateInputs(InputManager* Input)
+UUi* AHudUE::GetUI()
 {
-	InputNet->InputRelay = Input;
-}
-
-void AHudUE::SetPath(StringC InPath)
-{
-	Path_ = InPath;
-}
-
-void AHudUE::SetView(const char* InURL)
-{
-	SetupView(InURL, true, true);
-	GetCohtmlHUD()->ReadyForBindings.AddDynamic(this, &AHudUE::ViewReady);
-}
-
-void AHudUE::ViewReady()
-{
-	UBoot::UiReady();
+	return Ui_;
 }

@@ -42,8 +42,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "OUniverse", meta = (WorldContext = "WorldContextObject", ShowWorldContextPin))
 	static void Boot(EBootMethod BootMethod, UObject* WorldContextObject);
 
-	static void UiReady();
-
 };
 
 
@@ -66,10 +64,4 @@ public:
 	void Primal_Scribe(UObject* WorldContextObject);
 	void Primal_UiIso(UObject* WorldContextObject);
 	void Primal_Test(UObject* WorldContextObject);
-
-	void PostUI();
-	void PostUI_Standard();
-	void PostUI_Scribe();
-	void PostUI_UiIso();
-
 };
