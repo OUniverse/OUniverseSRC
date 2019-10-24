@@ -40,11 +40,12 @@ class OUNIVERSE_API UCosmos : public UObject
 public:
 
 	void Init(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope);
-
+	
 	void LoadLevel(StringC LevelName);
 
 	void Mount();
 	void Dismount();
+
 
 	void SpawnParty(ArrayC<ActorA*> InPartyActors);
 
