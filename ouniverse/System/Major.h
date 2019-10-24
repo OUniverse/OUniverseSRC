@@ -21,7 +21,7 @@ A service locator singleton that holds the pointers to all the services.
 #include "CoreMinimal.h"
 #include "Min/HttpM.h"
 #include "Interface/Event.h"
-
+#include "UObject/NoExportTypes.h"
 
 class UserDaisC;
 class UserLibC;
