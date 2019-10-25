@@ -9,43 +9,45 @@
 
 namespace GlobalSingleton
 {
-	MajorC gMajor;
+	UMajor* gMajor;
 }
 
-MajorC* MajorC::Get()
+UMajor* UMajor::Get()
 {
-	return &GlobalSingleton::gMajor;
+	return GlobalSingleton::gMajor;
 }
 
-MajorC* MajorC::Create()
+UMajor* UMajor::Create()
 {
-	GlobalSingleton::gMajor = *(new MajorC());
-	return &GlobalSingleton::gMajor;
+	UMajor* M = NewObject<UMajor>();
+	GlobalSingleton::gMajor = M;
+	return M;
 }
 
-UObject* MajorC::WorldContext()		{ return WorldContext_; }
-UserDaisC* MajorC::UserD()			{ return UserDais_; }
-UserLibC* MajorC::UserL()			{ return UserLib_; }
-LoadoutDaisC* MajorC::LoadoutD()	{ return LoadoutDais_; }
-LoadoutLibC* MajorC::LoadoutL()		{ return LoadoutLib_; }
-SaveDaisC* MajorC::SaveD()			{ return SaveDais_; }
-SaveLibC* MajorC::SaveL()			{ return SaveLib_; }
-SaveVatC* MajorC::SaveV()			{ return SaveV_; }
+UObject* UMajor::WorldContext()		{ return WorldContext_; }
+UserDaisC* UMajor::UserD()			{ return UserDais_; }
+UserLibC* UMajor::UserL()			{ return UserLib_; }
+LoadoutDaisC* UMajor::LoadoutD()	{ return LoadoutDais_; }
+LoadoutLibC* UMajor::LoadoutL()		{ return LoadoutLib_; }
+SaveDaisC* UMajor::SaveD()			{ return SaveDais_; }
+SaveLibC* UMajor::SaveL()			{ return SaveLib_; }
+SaveVatC* UMajor::SaveV()			{ return SaveV_; }
 
-ConfigManager* MajorC::Config()		{ return Config_; }
-ACameraUE* MajorC::Camera()			{ return Camera_; }
-UUi* MajorC::Ui()					{ return Ui_; }
-MaestroC* MajorC::Maestro()			{ return Maestro_; }
-LogC* MajorC::Log()					{ return Log_; }
-AudioManager* MajorC::Audio()		{ return Audio_; }
-AControlUE* MajorC::Control()		{ return Control_; }
-UWorld* MajorC::Scope()				{ return Scope_; }
-AHudUE* MajorC::Hud()				{ return Hud_; }
-UViewportUE* MajorC::Viewport()		{ return Viewport_; }
-TerraC* MajorC::Terra()				{ return Terra_; }
-OniManagerC* MajorC::Oni()			{ return Oni_; }
-DataC* MajorC::Data()				{ return Data_; }
-TimeC* MajorC::Time()				{ return Time_; }
-UTickUE* MajorC::TickUE()			{ return TickUE_; }
-FpsC* MajorC::Fps()					{ return Fps_; }
-UCosmos* MajorC::Cosmos()			{ return Cosmos_; }
+ConfigManager* UMajor::Config()		{ return Config_; }
+ACameraUE* UMajor::Camera()			{ return Camera_; }
+UUi* UMajor::Ui()					{ return Ui_; }
+UMaestro* UMajor::Maestro()			{ return Maestro_; }
+LogC* UMajor::Log()					{ return Log_; }
+AudioManager* UMajor::Audio()		{ return Audio_; }
+AControlUE* UMajor::Control()		{ return Control_; }
+UWorld* UMajor::Scope()				{ return Scope_; }
+AHudUE* UMajor::Hud()				{ return Hud_; }
+UViewportUE* UMajor::Viewport()		{ return Viewport_; }
+TerraC* UMajor::Terra()				{ return Terra_; }
+OniManagerC* UMajor::Oni()			{ return Oni_; }
+DataC* UMajor::Data()				{ return Data_; }
+DatLibC* UMajor::Dat()				{ return Dat_; }
+TimeC* UMajor::Time()				{ return Time_; }
+UTickUE* UMajor::TickUE()			{ return TickUE_; }
+FpsC* UMajor::Fps()					{ return Fps_; }
+UCosmos* UMajor::Cosmos()			{ return Cosmos_; }

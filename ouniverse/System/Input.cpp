@@ -102,19 +102,57 @@ bool InputActionS::Help()
 
 
 
-InputSchemaStackC::InputSchemaStackC()
+
+
+
+
+
+static UInputBeacon* Create(UInputSchema* InSchema)
+{
+	UInputBeacon* Obj = NewObject<UInputBeacon>();
+	Obj->Set(InSchema);
+	return Obj;
+}
+
+UInputSchema* UInputBeacon::Get()
+{
+	return Schema_;
+}
+
+void UInputBeacon::Set(UInputSchema* InSchema)
+{
+	Schema_ = InSchema;
+}
+
+
+
+
+
+
+
+
+
+UInputSchemaStack::UInputSchemaStack() {}
+
+UInputSchemaStack* UInputSchemaStack::Create()
+{
+	UInputSchemaStack* Obj = NewObject<UInputSchemaStack>();
+	Obj->Init();
+	return Obj;
+}
+
+void UInputSchemaStack::Init()
 {
 	Len_ = 0;
 }
 
-
-void InputSchemaStackC::Add(InputSchemaC* InSchema)
+void UInputSchemaStack::Add(UInputSchema* InSchema)
 {
 	Len_++;
-	Stack_.Add(InSchema);
+	Stack_.Emplace(InSchema);
 }
 
-InputReplyS InputSchemaStackC::Process(InputReplyS(InputSchemaC::* PTR)(InputActionS), InputActionS InIA)
+InputReplyS UInputSchemaStack::Process(InputReplyS(UInputSchema::* PTR)(InputActionS), InputActionS InIA)
 {
 	for (int i = Len_-1; i > -1; i--)
 	{
@@ -130,75 +168,75 @@ InputReplyS InputSchemaStackC::Process(InputReplyS(InputSchemaC::* PTR)(InputAct
 }
 
 
-InputReplyS InputSchemaStackC::MouseR(InputActionS InIA)
+InputReplyS UInputSchemaStack::MouseR(InputActionS InIA)
 {
 	return InputReplyS();
 }
 
-InputReplyS InputSchemaStackC::MouseL(InputActionS InIA)
+InputReplyS UInputSchemaStack::MouseL(InputActionS InIA)
 {
-	return Process(&InputSchemaC::MouseL,InIA);
+	return Process(&UInputSchema::MouseL,InIA);
 }
 
-InputReplyS InputSchemaStackC::MouseM(InputActionS InIA)
+InputReplyS UInputSchemaStack::MouseM(InputActionS InIA)
 {
-	return Process(&InputSchemaC::MouseL, InIA);
+	return Process(&UInputSchema::MouseL, InIA);
 }
 
-InputReplyS InputSchemaStackC::Forward(InputActionS InIA)
+InputReplyS UInputSchemaStack::Forward(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Forward, InIA);
+	return Process(&UInputSchema::Forward, InIA);
 }
-InputReplyS InputSchemaStackC::Back(InputActionS InIA)
+InputReplyS UInputSchemaStack::Back(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Back, InIA);
+	return Process(&UInputSchema::Back, InIA);
 }
-InputReplyS InputSchemaStackC::Left(InputActionS InIA)
+InputReplyS UInputSchemaStack::Left(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Left, InIA);
+	return Process(&UInputSchema::Left, InIA);
 }
-InputReplyS InputSchemaStackC::Right(InputActionS InIA)
+InputReplyS UInputSchemaStack::Right(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Right, InIA);
-}
-
-InputReplyS InputSchemaStackC::Selector0(InputActionS InIA)
-{
-	return Process(&InputSchemaC::Selector0, InIA);
-}
-InputReplyS InputSchemaStackC::Selector1(InputActionS InIA)
-{
-	return Process(&InputSchemaC::Selector1, InIA);
-}
-InputReplyS InputSchemaStackC::Selector2(InputActionS InIA)
-{
-	return Process(&InputSchemaC::Selector2, InIA);
+	return Process(&UInputSchema::Right, InIA);
 }
 
-InputReplyS InputSchemaStackC::Selector3(InputActionS InIA)
+InputReplyS UInputSchemaStack::Selector0(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Selector3, InIA);
+	return Process(&UInputSchema::Selector0, InIA);
+}
+InputReplyS UInputSchemaStack::Selector1(InputActionS InIA)
+{
+	return Process(&UInputSchema::Selector1, InIA);
+}
+InputReplyS UInputSchemaStack::Selector2(InputActionS InIA)
+{
+	return Process(&UInputSchema::Selector2, InIA);
 }
 
-InputReplyS InputSchemaStackC::Interact(InputActionS InIA)
+InputReplyS UInputSchemaStack::Selector3(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Interact, InIA);
-}
-InputReplyS InputSchemaStackC::Jump(InputActionS InIA)
-{
-	return Process(&InputSchemaC::Jump, InIA);
+	return Process(&UInputSchema::Selector3, InIA);
 }
 
-InputReplyS InputSchemaStackC::Console(InputActionS InIA)
+InputReplyS UInputSchemaStack::Interact(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Console, InIA);
+	return Process(&UInputSchema::Interact, InIA);
 }
-InputReplyS InputSchemaStackC::PrintScreen(InputActionS InIA)
+InputReplyS UInputSchemaStack::Jump(InputActionS InIA)
 {
-	return Process(&InputSchemaC::PrintScreen, InIA);
+	return Process(&UInputSchema::Jump, InIA);
 }
 
-InputReplyS InputSchemaStackC::Escape(InputActionS InIA)
+InputReplyS UInputSchemaStack::Console(InputActionS InIA)
 {
-	return Process(&InputSchemaC::Escape, InIA);
+	return Process(&UInputSchema::Console, InIA);
+}
+InputReplyS UInputSchemaStack::PrintScreen(InputActionS InIA)
+{
+	return Process(&UInputSchema::PrintScreen, InIA);
+}
+
+InputReplyS UInputSchemaStack::Escape(InputActionS InIA)
+{
+	return Process(&UInputSchema::Escape, InIA);
 }

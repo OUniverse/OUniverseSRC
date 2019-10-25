@@ -15,27 +15,26 @@ This is the abstract Protocol class which all actual Protocols extend from.
 #pragma once
 
 #include "System/Input.h"
+#include "Protocol.generated.h"
 
-class MaestroC;
+class UMaestro;
 
-class OUNIVERSE_API ProtocolP : public InputSchemaC
+UCLASS()
+class OUNIVERSE_API UProtocol : public UInputSchema
 {
+	GENERATED_BODY()
 
-	friend MaestroC;
+	friend UMaestro;
 
 protected:
 
-	ProtocolP();
+	UProtocol();
 
-	virtual ~ProtocolP() {};
+	virtual ~UProtocol() {};
 
 	virtual void Mount();
 	virtual void Dismount();
 
 private:
 
-public:
-
-	//InputReplyS* OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
-	//InputReplyS* OnCommand(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI);
 };

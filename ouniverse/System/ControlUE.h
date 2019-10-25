@@ -17,7 +17,7 @@ AControlUE is an exension to UE4's APlayerController.
 #include "ControlUE.generated.h"
 
 
-class MaestroC;
+class UMaestro;
 class ACameraUE;
 
 UCLASS()
@@ -29,7 +29,7 @@ public:
 
 	AControlUE();
 
-	void Init(MaestroC* InMaestro);
+	void Init(UMaestro* InMaestro);
 
 	void SetCamera(ACameraUE* InCamera);
 
@@ -97,8 +97,10 @@ public:
 
 private:
 
-	MaestroC* Maestro_;
+	UPROPERTY()
+	UMaestro* Maestro_;
 
+	UPROPERTY()
 	ACameraUE* Camera_;
 
 	bool CTR_;

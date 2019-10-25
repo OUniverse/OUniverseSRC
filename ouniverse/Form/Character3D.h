@@ -21,7 +21,10 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "CharacterUE.generated.h"
+#include "Character3D.generated.h"
+
+class UInputSchemaStack;
+class UInputCharacter;
 
 class USkeletalMeshComponent;
 class USpringArmComponent;
@@ -29,13 +32,16 @@ class UCameraComponent;
 class UDollyControl;
 class UDolly;
 
-UCLASS()
-class OUNIVERSE_API ACharacterUE : public ACharacter
+UCLASS(Blueprintable)
+class OUNIVERSE_API ACharacter3D : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	ACharacterUE();
+
+	static const char* Class;
+
+	ACharacter3D();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USkeletalMeshComponent* Skeleton_;
@@ -49,7 +55,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UDollyControl* DollyControl_;
 	
-	void ControlPossess();
+	UInputSchemaStack* Possess();
 
 	UCameraComponent* GetControlCam();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UInputSchemaStack* Input_;
+
+
 };

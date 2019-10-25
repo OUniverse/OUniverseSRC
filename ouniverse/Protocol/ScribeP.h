@@ -6,7 +6,7 @@ Protocol for handling the UserSelection menus.
 
 #pragma once
 
-#include "Protocol/ProtocolP.h"
+#include "Protocol/Protocol.h"
 
 #include "Interface/Int.h"
 #include "Interface/Json.h"
@@ -24,7 +24,7 @@ class OUNIVERSE_API ScribeP
 {
 
 	
-	friend MaestroC;
+	friend UMaestro;
 
 
 public:

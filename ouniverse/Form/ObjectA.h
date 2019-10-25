@@ -6,7 +6,7 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #pragma once
 
-#include "Actual/FormA.h"
+#include "Form/FormA.h"
 
 class ObjectF;
 

@@ -26,21 +26,28 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 #pragma once
 
 #include "Interface/Array.h"
+#include "Containers/Array.h"
+#include "UObject/NoExportTypes.h"
+#include "Party.generated.h"
 
-class ActorA;
+class CharacterD;
+class UCharacterE;
 
-class OUNIVERSE_API PartyC
+UCLASS()
+class OUNIVERSE_API UParty : public UObject
 {
+	GENERATED_BODY()
 
 public:
 
-	PartyC();
+	UParty();
+	static UParty* Create();
+	void Init();
 
 	void Faux();
 
-	ArrayC<ActorA*> Members_;
+	CharacterD* Player_;
 
-	ActorA* Member(int index);
+	TArray<UCharacterE*> MembersEx_;
 
-	ArrayC<ActorA*> GetActors();
 };

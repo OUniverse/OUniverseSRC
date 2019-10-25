@@ -3,28 +3,35 @@
 #include "System/Maestro.h"
 #include "System/Major.h"
 
-#include "Protocol/GlobalP.h"
-#include "Protocol/WorldP.h"
+#include "Protocol/GlobalPro.h"
+#include "Protocol/WorldPro.h"
 
-
-MaestroC* MaestroC::Create(MajorC* Major)
+UMaestro::UMaestro()
 {
-	return new MaestroC(Major);
+
 }
 
-MaestroC::MaestroC(MajorC* Major)
+
+UMaestro* UMaestro::Create(UMajor* Major)
 {
-	Global_ = new GlobalP();
-	World_ = new WorldP(Major->Control(),Major->Cosmos());
+	UMaestro* Obj = NewObject<UMaestro>();
+	Obj->Init(Major);
+	return Obj;
+}
+
+void UMaestro::Init(UMajor* Major)
+{
+	Global_ = UGlobalPro::Create();
+	World_ = UWorldPro::Create(Major->Control(),Major->Cosmos());
 	Add(Global_);
 }
 
-void MaestroC::Start()
+void UMaestro::Start()
 {
 
 }
 
-void MaestroC::FauxStart()
+void UMaestro::FauxStart()
 {
 	Add(World_);
 	World_->Start();

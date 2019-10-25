@@ -13,7 +13,7 @@ AControlUE::AControlUE()
 }
 
 
-void AControlUE::Init(MaestroC* InMaestro)
+void AControlUE::Init(UMaestro* InMaestro)
 {
 	Maestro_ = InMaestro;
 

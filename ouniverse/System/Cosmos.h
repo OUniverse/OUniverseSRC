@@ -25,10 +25,10 @@ Cosmos is a singleton service that acts like a 3D space bucket. All 3D space obj
 #include "Engine/LevelStreamingDynamic.h"
 #include "Cosmos.generated.h"
 
-
+class AActor;
 class AControlUE;
 class ACameraUE;
-class ACharacterUE;
+class ACharacter3D;
 class ActorA;
 
 UCLASS()
@@ -39,8 +39,14 @@ class OUNIVERSE_API UCosmos : public UObject
 
 public:
 
+	UCosmos();
+	static UCosmos* Get();
+	static UCosmos* Create(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope);
 	void Init(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope);
 	
+	UWorld* Scope();
+	bool RegisterSpawn(AActor* InAct);
+
 	void LoadLevel(StringC LevelName);
 
 	void Mount();
@@ -49,7 +55,7 @@ public:
 
 	void SpawnParty(ArrayC<ActorA*> InPartyActors);
 
-	ACharacterUE* SpawnCharacter(ActorA* InActor);
+	ACharacter3D* SpawnCharacter(ActorA* InActor);
 	ACameraUE* SpawnCamera();
 
 	UFUNCTION()

@@ -3,6 +3,7 @@
 //O:\ouniverse\ouniverse\SourceMVS\include
 
 #include "System/Boot.h"
+#include "System/GameInstanceUE.h"
 #include "System/Major.h"
 #include "System/Log.h"
 #include "System/ConfigManager.h"
@@ -20,6 +21,8 @@
 #include "System/Fps.h"
 #include "System/Cosmos.h"
 
+#include "System/Data.h"
+#include "System/DatLib.h"
 #include "System/User.h"
 #include "System/UserDais.h"
 #include "System/UserLib.h"
@@ -31,7 +34,7 @@
 #include "System/SaveLib.h"
 #include "System/SaveVat.h"
 
-#include "System/Data.h"
+
 #include "System/Terra.h"
 
 
@@ -107,13 +110,23 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	}
 	DBUG("Standard Boot Activated.")
 
+	UObject* WorldContextObject_PRE = WorldContextObject;
+	UWorld* Scope_PRE = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
+	UGameInstanceUE* Singleton = Cast<UGameInstanceUE>(Scope_PRE->GetGameInstance());
 
-	MajorC::Create();
-	MajorC* M = MajorC::Get();
+	if (!Singleton) 
+	{
+		DBUG("GameInstance was not set to UGameInstanceUE.")
+			return;
+	}
 
-	M->WorldContext_ = WorldContextObject;
+	UMajor* M = UMajor::Create();
+	Singleton->Major_ = M;
 
-	M->Scope_ = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
+
+
+	M->WorldContext_ = WorldContextObject_PRE;
+	M->Scope_ = Scope_PRE;
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
 	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
 
@@ -154,6 +167,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
 
+	M->Dat_ = DatLibC::Create();
 	M->Data_ = DataC::Create(PathC::DirAtlas());
 
 
@@ -177,8 +191,8 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Ui_ = M->Hud()->GetUI();
 
 
-	M->Cosmos_ = NewObject<UCosmos>();
-	M->Cosmos()->Init(M->Control(),M->WorldContext(), M->Scope());
+	M->Cosmos_ = UCosmos::Create(M->Control(), M->WorldContext(), M->Scope());
+
 	M->Camera_ = M->Cosmos()->SpawnCamera();
 	M->Control()->SetCamera(M->Camera());
 	
@@ -194,7 +208,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 
 
 
-	M->Maestro_ = MaestroC::Create(M);
+	M->Maestro_ = UMaestro::Create(M);
 	M->Control()->Init(M->Maestro());
 
 	//M->Maestro()->Start();

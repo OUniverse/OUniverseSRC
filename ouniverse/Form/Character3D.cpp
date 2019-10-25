@@ -1,8 +1,9 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-#include "System/CharacterUE.h"
+#include "Form/Character3D.h"
 
-#include "HeadMountedDisplayFunctionLibrary.h"
+#include "System/Input.h"
+#include "Io/CharacterIo.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -14,7 +15,9 @@
 
 #include "Component/DollyControl.h"
 
-ACharacterUE::ACharacterUE()
+const char* ACharacter3D::Class = "/Game/class/3d/Character3D.Character3D_C";
+
+ACharacter3D::ACharacter3D()
 {
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -59,18 +62,13 @@ ACharacterUE::ACharacterUE()
 	//CamControl_->SetupAttachment(OrbitSpringArm, USpringArmComponent::SocketName);
 }
 
-void ACharacterUE::ControlPossess()
+UInputSchemaStack* ACharacter3D::Possess()
 {
-	/**
-	DollyControl_ = NewObject<UDollyControl>(this,UDollyControl::StaticClass(),TEXT("Control Dolly"));
-	DollyControl_->RegisterComponent();
-	DollyControl_->AttachToComponent(RootComponent,FAttachmentTransformRules(EAttachmentRule::KeepRelative,false));
-	DollyControl_->SetRelativeLocation(FVector(0));
-	DollyControl_->SetRelativeRotation(FRotator(0));
-	*/
+	Input_ = UInputSchemaStack::Create();
+	return Input_;
 }
 
-UCameraComponent* ACharacterUE::GetControlCam()
+UCameraComponent* ACharacter3D::GetControlCam()
 {
 	return OrbitCam_;
 }

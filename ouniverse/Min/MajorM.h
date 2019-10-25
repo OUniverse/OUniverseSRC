@@ -11,4 +11,4 @@ Wrapper around the LOG singleton.
 #include "System/Major.h"
 
 #define MAJOR_IN_USAGE
-#define MAJOR MajorC::Get()
+#define MAJOR UMajor::Get()

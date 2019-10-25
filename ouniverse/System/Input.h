@@ -3,6 +3,8 @@
 #pragma once
 
 #include "Interface/Array.h"
+#include "UObject/NoExportTypes.h"
+#include "Input.generated.h"
 
 class OUNIVERSE_API InputReplyS
 {
@@ -86,12 +88,15 @@ class InputAxisS
 
 };
 
-class OUNIVERSE_API InputSchemaC
+UCLASS()
+class OUNIVERSE_API UInputSchema : public UObject
 {
+
+	GENERATED_BODY()
 
 public:
 	
-	virtual ~InputSchemaC() {};
+	virtual ~UInputSchema() {};
 
 	virtual InputReplyS MouseL(InputActionS InIA) { return false; };
 	virtual InputReplyS MouseR(InputActionS InIA) { return false; };
@@ -117,17 +122,41 @@ public:
 	virtual InputReplyS Escape(InputActionS InIA) { return false; };
 };
 
-class OUNIVERSE_API InputSchemaStackC : public InputSchemaC
+UCLASS()
+class OUNIVERSE_API UInputBeacon : public UObject
 {
+
+	GENERATED_BODY()
 
 public:
 
-	InputSchemaStackC();
-	virtual ~InputSchemaStackC() {};
+	static UInputBeacon* Create(UInputSchema* InSchema);
 
-	void Add(InputSchemaC* InSchema);
+	virtual ~UInputBeacon() {};
+	UInputSchema* Schema_;
+		
 
-	InputReplyS Process(InputReplyS(InputSchemaC::* PTR)(InputActionS), InputActionS InIA);
+	UInputSchema* Get();	
+	void Set(UInputSchema* InSchema);
+	
+};
+
+UCLASS()
+class OUNIVERSE_API UInputSchemaStack : public UInputSchema
+{
+	GENERATED_BODY()
+
+public:
+
+	UInputSchemaStack();
+	static UInputSchemaStack* Create();
+	virtual ~UInputSchemaStack() {};
+
+	void Init();
+
+	void Add(UInputSchema* InSchema);
+
+	InputReplyS Process(InputReplyS(UInputSchema::* PTR)(InputActionS), InputActionS InIA);
 
 	virtual InputReplyS MouseL(InputActionS InIA) override;
 	virtual InputReplyS MouseR(InputActionS InIA) override;
@@ -154,6 +183,7 @@ public:
 
 	int Len_;
 
-	ArrayC<InputSchemaC*> Stack_;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TArray<UInputSchema*> Stack_;
 };
 

@@ -22,6 +22,7 @@ A service locator singleton that holds the pointers to all the services.
 #include "Min/HttpM.h"
 #include "Interface/Event.h"
 #include "UObject/NoExportTypes.h"
+#include "Major.generated.h"
 
 class UserDaisC;
 class UserLibC;
@@ -31,12 +32,13 @@ class SaveDaisC;
 class SaveLibC;
 class LogC;
 class DataC;
+class DatLibC;
 class TerraC;
 class TimeC;
 class ConfigManager;
 class UUi;
 class AudioManager;
-class MaestroC;
+class UMaestro;
 class AudioManager;
 class UViewportUE;
 class AHudUE;
@@ -50,15 +52,18 @@ class ACameraUE;
 class BootC;
 
 
-class OUNIVERSE_API MajorC
+UCLASS()
+class OUNIVERSE_API UMajor : public UObject
 {
+	GENERATED_BODY()
+
 	friend BootC;
 
 public:
 
-	MajorC() {};
-	static MajorC* Get();
-	static MajorC* Create();
+	UMajor() {};
+	static UMajor* Get();
+	static UMajor* Create();
 
 	UObject*			WorldContext();
 	UserDaisC*			UserD();
@@ -73,12 +78,13 @@ public:
 	AudioManager*		Audio();
 	AControlUE*			Control();
 	UUi*				Ui();
-	MaestroC*			Maestro();
+	UMaestro*			Maestro();
 	AHudUE*				Hud();
 	UWorld*				Scope();
 	UViewportUE*		Viewport();
 	OniManagerC*		Oni();
 	DataC*				Data();
+	DatLibC*			Dat();
 	TerraC*				Terra();
 	TimeC*				Time();
 	UTickUE*			TickUE();
@@ -99,7 +105,7 @@ private:
 	LogC*				Log_;
 	ConfigManager*		Config_;
 	UUi*				Ui_;
-	MaestroC*			Maestro_;
+	UMaestro*			Maestro_;
 	AudioManager*		Audio_;
 	UWorld*				Scope_;
 	UViewportUE*		Viewport_;
@@ -107,10 +113,12 @@ private:
 	AControlUE*			Control_;
 	OniManagerC*		Oni_;
 	DataC*				Data_;
+	DatLibC*			Dat_;
 	TerraC*				Terra_;
 	TimeC*				Time_;
 	UTickUE*			TickUE_;
 	FpsC*				Fps_;
+	UPROPERTY()
 	UCosmos*			Cosmos_;
 	SaveVatC*			SaveV_;
 };

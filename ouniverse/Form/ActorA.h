@@ -6,11 +6,11 @@ The GraphicsManager is a Singleton extension to MAJOR and manages global graphic
 
 #pragma once
 
-#include "Actual/ObjectA.h"
+#include "Form/ObjectA.h"
 
 
 class ActorF;
-class ACharacterUE;
+class ACharacter3D;
 
 class OUNIVERSE_API ActorA : public ObjectA
 {
@@ -23,14 +23,14 @@ public:
 
 	void ControlPossess();
 
-	void Mount(ACharacterUE* InCharacterUE);
+	void Mount(ACharacter3D* InCharacterUE);
 
 	void Dismount();
 
-	ACharacterUE* GetCharacterUE();
+	ACharacter3D* M3D();
 
 private:
 
-	ACharacterUE* CharacterUE_;
+	ACharacter3D* M3D_;
 
 };

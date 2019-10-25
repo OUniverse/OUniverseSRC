@@ -1,24 +1,23 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Party.h"
-#include "Actual/ActorA.h"
+#include "Form/CharacterD.h"
 
-PartyC::PartyC()
+UParty::UParty() {}
+
+UParty* UParty::Create()
 {
-
+	UParty* Obj = NewObject<UParty>();
+	Obj->Init();
+	return Obj;
 }
 
-void PartyC::Faux()
+void UParty::Init()
 {
-	Members_.Add(new ActorA());
+	
 }
 
-ActorA* PartyC::Member(int index)
+void UParty::Faux()
 {
-	return Members_[index];
-}
-
-ArrayC<ActorA*> PartyC::GetActors()
-{
-	return Members_;
+	//Player_ = new UCharacterDat();
 }

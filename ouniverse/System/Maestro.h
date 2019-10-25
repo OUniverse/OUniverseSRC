@@ -26,30 +26,35 @@ An example of different states would be the System Menu compared to Open World. 
 #include "Interface/String.h"
 
 #include "System/Input.h"
+#include "Maestro.generated.h"
 
 class BootC;
-class MajorC;
+class UMajor;
 
-class ProtocolP;
-class GlobalP;
-class WorldP;
+class UProtocol;
+class UGlobalPro;
+class UWorldPro;
 
-class OUNIVERSE_API MaestroC : public InputSchemaStackC
+UCLASS()
+class OUNIVERSE_API UMaestro : public UInputSchemaStack
 {
+	GENERATED_BODY()
 
 	friend BootC;
 
 private:
 
-
-	static MaestroC* Create(MajorC* Major);
-	MaestroC(MajorC* Major);
+	UMaestro();
+	static UMaestro* Create(UMajor* Major);
+	void Init(UMajor* Major);
 
 	void Start();
 	void FauxStart();
 
-	GlobalP* Global_;
-	WorldP* World_;
+	UPROPERTY()
+	UGlobalPro* Global_;
+	UPROPERTY()
+	UWorldPro* World_;
 
 public:
 
