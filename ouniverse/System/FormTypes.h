@@ -19,6 +19,7 @@ public:
 		Actor,
 		Epoch,
 		Actra,
+		Character,
 		TYPES_MAX,
 	};
 

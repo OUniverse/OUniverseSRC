@@ -9,18 +9,20 @@ int EpochF::Type()
 	return FormTypesC::Types::Epoch;
 }
 
-EpochF::EpochF(JsonS& InJ) : FormF(Json_)
+EpochF::EpochF()
 {
 
 }
 
 FormF* EpochF::Create(JsonS& InJ)
 { 
-	return new EpochF(InJ);
+	FormF* Obj = new EpochF();
+	Obj->Setup(InJ);
+	return Obj;
 }
 
 
-void EpochF::Marshal()
+void EpochF::Demarshal()
 {
-	FormF::Marshal();
+	FormF::Demarshal();
 }

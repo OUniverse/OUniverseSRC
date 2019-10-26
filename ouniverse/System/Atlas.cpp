@@ -232,6 +232,13 @@ AtlasC::~AtlasC()
 	delete AmendmentLib_;
 }
 
+bool AtlasC::Try(FormUID UID, FormF*& InForm)
+{
+	bool bFound = false;
+	bFound = FormLib_->Try(UID, InForm);
+	return bFound;
+}
+
 bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 {
 	FormLib_ = new FormLibC(this);
@@ -266,7 +273,6 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 	
 	Mounted_ = true;
 
-	SaveDoc();
 	return Mounted_;
 }
 
@@ -278,6 +284,11 @@ void AtlasC::Dismount()
 bool AtlasC::Mounted()
 {
 	return Mounted_;
+}
+
+void AtlasC::Demarshal()
+{
+	FormLib_->Demarshal();
 }
 
 FolderC AtlasC::Folder()

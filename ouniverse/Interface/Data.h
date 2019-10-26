@@ -17,19 +17,25 @@ Data is a singleton which loads all the atlas style game data.
 
 #pragma once
 
-#include "Interface/Map.h"
 #include "System/DuetUID.h"
-#include "System/Data.h"
 
-class OUNIVERSE_API DataLibC
+class FormF;
+
+class OUNIVERSE_API DataC
 {
 
 public:
 
-	DataLibC();
-	static DataLibC* Create();
+	DataC(int Atlas, int Form);
+	DataC(DuetUID InDuet);
+
+	bool Found();
+	FormF* Form();
+	int Error();
 
 private:
 
-	MapC<DuetUID, DataC*> Lib_;
+	bool Found_;
+	FormF* Form_;
+	int Error_;
 };

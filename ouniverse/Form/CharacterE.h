@@ -5,7 +5,7 @@
 #include "Form/ObjectE.h"
 #include "CharacterE.generated.h"
 
-class CharacterD;
+class CharacterF;
 class ACharacter3D;
 
 UCLASS(Blueprintable)
@@ -15,18 +15,20 @@ class OUNIVERSE_API UCharacterE : public UObjectE
 
 public:
 
-	static UCharacterE* Create(CharacterD* InDat);
+	static UCharacterE* Create(CharacterF* InForm);
 
-	void Init(CharacterD* InDat);
+	void Init(CharacterF* InForm);
 
 	virtual AActor* Spawn() override;
+
+	void Test();
 
 	UFUNCTION()
 	ACharacter3D* Character3D();
 	UPROPERTY()
 	ACharacter3D* Character3D_;
 
-	CharacterD* Dat();
-	CharacterD* Dat_;
+	CharacterF* Form();
+	CharacterF* Form_;
 	
 };

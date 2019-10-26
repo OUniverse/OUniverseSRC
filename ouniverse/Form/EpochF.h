@@ -13,10 +13,10 @@ class EpochF : public FormF
 
 public:
 
-	EpochF(JsonS& InJ);
+	EpochF();
 	static FormF* Create(JsonS& InJ);
 
-	virtual void Marshal() override;
+	virtual void Demarshal() override;
 
 	virtual int Type() override;
 };

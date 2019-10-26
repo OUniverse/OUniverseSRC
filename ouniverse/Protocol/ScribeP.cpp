@@ -1,7 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Protocol/ScribeP.h"
-#include "System/Data.h"
 #include "System/AtlasLib.h"
 
 #include "Key/GlobalK.h"

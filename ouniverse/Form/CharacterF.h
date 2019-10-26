@@ -1,23 +1,30 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 /**
-Ref Form: A placement in 3D space.
+Actra Form: A placement in 3D space.
  */
 
 #pragma once
 
 #include "Form/FormF.h"
 
-class RefF : public FormF
+
+class UCharacterE;
+
+class CharacterF : public FormF
 {
 
 public:
 
-	RefF();
+	CharacterF();
+
 	static FormF* Create(JsonS& InJ);
 
 	virtual int Type() override;
 
 	virtual void Demarshal() override;
 
+	UCharacterE* CreateEx();
+
+	StringC Name_;
 };

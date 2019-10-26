@@ -22,7 +22,6 @@
 #include "System/Cosmos.h"
 
 #include "System/AtlasLib.h"
-#include "System/DataLib.h"
 #include "System/User.h"
 #include "System/UserDais.h"
 #include "System/UserLib.h"
@@ -167,7 +166,6 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
 
-	M->Data_	= DataLibC::Create();
 	M->Atlas_	= AtlasLibC::Create(PathC::DirAtlas());
 
 	M->Time_	= TimeC::Create();

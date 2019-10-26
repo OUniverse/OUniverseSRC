@@ -10,18 +10,20 @@ int ActraF::Type()
 	return FormTypesC::Types::Actra;
 }
 
-ActraF::ActraF(JsonS& InJ) : FormF(Json_)
+ActraF::ActraF()
 {
 
 }
 
 FormF* ActraF::Create(JsonS& InJ)
 { 
-	return new ActraF(InJ);
+	FormF* Obj = new ActraF();
+	Obj->Setup(InJ);
+	return Obj;
 }
 
 
-void ActraF::Marshal()
+void ActraF::Demarshal()
 {
-	FormF::Marshal();
+	FormF::Demarshal();
 }

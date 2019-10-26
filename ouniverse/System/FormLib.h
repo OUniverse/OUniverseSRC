@@ -30,9 +30,13 @@ public:
 
 	int Len();
 
+	void Demarshal();
+
 	AtlasC* OwningAtlas;
 
 	FormF* Get(FormUID InUID);
+
+	bool Try(FormUID InUID, FormF*& InForm);
 
 	void Add(FormF* InForm);
 

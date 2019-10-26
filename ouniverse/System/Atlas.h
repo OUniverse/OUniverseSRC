@@ -57,11 +57,15 @@ public:
 
 	bool Valid();
 	
+	bool Try(FormUID UID, FormF*& InForm);
+
 	bool Mount(AtlasLibC* InAtlasLib);
 
 	void Dismount();
 
 	bool Mounted();
+
+	void Demarshal();
 
 	AtlasUID UID();
 

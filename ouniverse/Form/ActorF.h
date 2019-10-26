@@ -13,10 +13,10 @@ class ActorF : public ObjectF
 
 public:
 
-	ActorF(JsonS& InJ);
+	ActorF();
 	static FormF* Create(JsonS& InJ);
 
 	virtual int Type() override;
 
-	virtual void Marshal() override;
+	virtual void Demarshal() override;
 };

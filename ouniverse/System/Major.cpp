@@ -46,7 +46,6 @@ UViewportUE* UMajor::Viewport()		{ return Viewport_; }
 TerraC* UMajor::Terra()				{ return Terra_; }
 OniManagerC* UMajor::Oni()			{ return Oni_; }
 AtlasLibC* UMajor::Atlas()			{ return Atlas_; }
-DataLibC* UMajor::Dat()				{ return Data_; }
 TimeC* UMajor::Time()				{ return Time_; }
 UTickUE* UMajor::TickUE()			{ return TickUE_; }
 FpsC* UMajor::Fps()					{ return Fps_; }

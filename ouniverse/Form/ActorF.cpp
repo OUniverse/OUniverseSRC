@@ -10,18 +10,20 @@ int ActorF::Type()
 	return FormTypesC::Types::Actor;
 }
 
-ActorF::ActorF(JsonS& InJ) : ObjectF(Json_)
+ActorF::ActorF()
 {
 
 }
 
 FormF* ActorF::Create(JsonS& InJ)
 { 
-	return new ActorF(InJ);
+	FormF* Obj = new ActorF();
+	Obj->Setup(InJ);
+	return Obj;
 }
 
 
-void ActorF::Marshal()
+void ActorF::Demarshal()
 {
-	ObjectF::Marshal();
+	ObjectF::Demarshal();
 }

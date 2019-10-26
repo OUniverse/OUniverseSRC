@@ -9,9 +9,20 @@
 #include "Min/DebugM.h"
 
 
+namespace Global
+{
+	AtlasLibC* AtlasLib;
+}
+
+AtlasLibC* AtlasLibC::Get()
+{
+	return Global::AtlasLib;
+}
+
 AtlasLibC* AtlasLibC::Create(FolderC InFolder)
 {
 	AtlasLibC* Obj = new AtlasLibC(InFolder);
+	Global::AtlasLib = Obj;
 	return Obj;
 }
 
@@ -100,9 +111,33 @@ int AtlasLibC::Len()
 	return Len_;
 }
 
-bool AtlasLibC::Try(AtlasUID InUID, AtlasC* Out)
+bool AtlasLibC::Try(AtlasUID InUID, AtlasC*& Out)
 {
 	return PreLib_.Try(InUID, Out);
+}
+
+bool AtlasLibC::TryForm(DuetUID DUID, FormF*& InForm, int& Error)
+{
+	AtlasC* tAtlas;
+	Error = 0;
+
+	bool bFound = Try(DUID.Atlas(),tAtlas);
+	
+	if (bFound)
+	{
+		
+		bFound = tAtlas->Try(DUID.Form(), InForm);
+		if (!bFound)
+		{
+			Error = 2;
+		}
+	}
+	else
+	{
+		Error = 1;
+	}
+
+	return bFound;
 }
 
 void AtlasLibC::Reset()
@@ -128,6 +163,13 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 			AddAtlas(TryAtlas);
 			TryAtlas->Mount(this);
 		}
+	}
+
+	L = Lib_.Len();
+
+	for (int i = 0; i < L; i++)
+	{
+		Lib_.At(i)->Demarshal();
 	}
 }
 

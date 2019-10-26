@@ -9,18 +9,20 @@ int ObjectF::Type()
 	return FormTypesC::Types::Object;
 }
 
-ObjectF::ObjectF(JsonS& InJ) : FormF(Json_)
+ObjectF::ObjectF()
 {
 
 }
 
 FormF* ObjectF::Create(JsonS& InJ)
 { 
-	return new ObjectF(InJ);
+	FormF* Obj = new ObjectF();
+	Obj->Setup(InJ);
+	return Obj;
 }
 
 
-void ObjectF::Marshal()
+void ObjectF::Demarshal()
 {
-	FormF::Marshal();
+	FormF::Demarshal();
 }

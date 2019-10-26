@@ -19,6 +19,7 @@ Atlas
 
 class AtlasC;
 class LoadoutC;
+class FormF;
 
 class AtlasLibC
 {
@@ -26,6 +27,8 @@ class AtlasLibC
 public:
 
 	static AtlasLibC* Create(FolderC InFolder);
+	
+	static AtlasLibC* Get();
 
 	AtlasLibC(FolderC InFolder);
 
@@ -37,7 +40,7 @@ public:
 
 	int Len();
 
-	bool Try(AtlasUID InUID, AtlasC* Out);
+	bool Try(AtlasUID InUID, AtlasC*& Out);
 
 	void Reset();
 
@@ -53,6 +56,7 @@ public:
 
 	FormWrapS GetFormWrap(DuetUID InDuet);
 
+	bool TryForm(DuetUID DUID, FormF*& InForm, int& Error);
 
 	void UpdateForm(DuetUID InDuet, JsonS& FormJ);
 

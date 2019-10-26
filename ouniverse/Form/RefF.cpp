@@ -10,18 +10,20 @@ int RefF::Type()
 }
 
 
-RefF::RefF(JsonS& InJ) : FormF(Json_)
+RefF::RefF()
 {
 
 }
 
 FormF* RefF::Create(JsonS& InJ)
 { 
-	return new RefF(InJ);
+	FormF* Obj = new RefF();
+	Obj->Setup(InJ);
+	return Obj;
 }
 
 
-void RefF::Marshal()
+void RefF::Demarshal()
 {
-	FormF::Marshal();
+	FormF::Demarshal();
 }

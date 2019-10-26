@@ -1,22 +1,23 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Form/CharacterE.h"
-#include "Form/CharacterD.h"
+#include "Form/CharacterF.h"
 #include "Form/Character3D.h"
 
 #include "System/Cosmos.h"
 
+#include "Min/DebugM.h"
 
-UCharacterE* UCharacterE::Create(CharacterD* InDat)
+UCharacterE* UCharacterE::Create(CharacterF* InForm)
 {
 	UCharacterE* Obj = NewObject<UCharacterE>();
-	Obj->Init(InDat);
+	Obj->Init(InForm);
 	return Obj;
 }
 
-void UCharacterE::Init(CharacterD* InDat)
+void UCharacterE::Init(CharacterF* InForm)
 {
-	Dat_ = InDat;
+	Form_ = InForm;
 }
 
 AActor* UCharacterE::Spawn()
@@ -33,7 +34,12 @@ ACharacter3D* UCharacterE::Character3D()
 	return Character3D_;
 }
 
-CharacterD* UCharacterE::Dat()
+CharacterF* UCharacterE::Form()
 {
-	return Dat_;
+	return Form_;
+}
+
+void UCharacterE::Test()
+{
+	DBUG(Form_->Name_.ToChar());
 }

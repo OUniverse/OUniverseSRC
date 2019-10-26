@@ -5,25 +5,34 @@
 #include "Interface/Json.h"
 #include "Key/GlobalK.h"
 
-
 int FormF::Type()
 {
 	return FormTypesC::Types::Form;
 }
 
-FormF::FormF(JsonS& InJ)
+FormF::FormF()
 {
-	Json_ = InJ;
-	UID_ = Json_.ToFormUID(GlobalK::UID);
-	ID_ =  Json_.String(GlobalK::ID);
+
 }
 
 FormF* FormF::Create(JsonS& InJ)
 { 
-	return new FormF(InJ); 
+	FormF* Obj = new FormF();
+	Obj->Setup(InJ);
+	return Obj;
 }
 
-void FormF::Marshal() {}	
+void FormF::Setup(JsonS& InJ)
+{
+	Json_ = InJ;
+	UID_ = Json_.ToFormUID(GlobalK::UID);
+	ID_ = Json_.String(GlobalK::ID);
+}
+
+void FormF::Demarshal() 
+{
+
+}	
 
 FormUID FormF::UID()
 {

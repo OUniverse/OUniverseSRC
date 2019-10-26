@@ -18,11 +18,13 @@ public:
 
 	static FormF* Create(JsonS& InJ);
 
-	FormF(JsonS& InJ);
+	FormF();
+
+	void Setup(JsonS& InJ);
 
 	virtual int Type();
 		
-	virtual void Marshal();
+	virtual void Demarshal();
 		
 	virtual ~FormF() {};
 

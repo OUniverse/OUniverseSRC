@@ -32,7 +32,7 @@ class SaveDaisC;
 class SaveLibC;
 class LogC;
 class AtlasLibC;
-class DataLibC;
+class DeprecLibC;
 class TerraC;
 class TimeC;
 class ConfigManager;
@@ -84,7 +84,6 @@ public:
 	UViewportUE*		Viewport();
 	OniManagerC*		Oni();
 	AtlasLibC*			Atlas();
-	DataLibC*			Dat();
 	TerraC*				Terra();
 	TimeC*				Time();
 	UTickUE*			TickUE();
@@ -113,7 +112,6 @@ private:
 	AControlUE*			Control_;
 	OniManagerC*		Oni_;
 	AtlasLibC*			Atlas_;
-	DataLibC*			Data_;
 	TerraC*				Terra_;
 	TimeC*				Time_;
 	UTickUE*			TickUE_;
