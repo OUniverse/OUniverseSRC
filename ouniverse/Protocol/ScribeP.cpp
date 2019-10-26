@@ -60,7 +60,7 @@ void ScribeP::UI_AtlasiMount(std::vector<int> AtlasiArr, bool ReqScribe)
 	}
 
 
-	Data_->GetAtlasLib()->Mount(Atlasi);
+//	Data_->GetAtlasLib()->Mount(Atlasi);
 
 
 	if (ReqScribe)
@@ -73,7 +73,7 @@ void ScribeP::UI_AtlasiMount(std::vector<int> AtlasiArr, bool ReqScribe)
 void ScribeP::UI_FormQUERY(std::string InQuery)
 {
 	FormQueryS* Query = new FormQueryS(InQuery);
-	Data_->Query(Query);
+	//Data_->Query(Query);
 
 	int L = Query->ValidForms_.Len();
 
@@ -107,7 +107,7 @@ void ScribeP::UI_FormREQ(int InAtlasUID, int InFormUID)
 	AtlasUID AU = AtlasUID(InAtlasUID);
 	FormUID FU = FormUID(InFormUID);
 
-	FormWrapS FormWrap = Data_->GetFormWrap(DuetUID(AU, FU));
+	//FormWrapS FormWrap = Data_->GetFormWrap(DuetUID(AU, FU));
 
 	//GSEND2("form>", FormWrap.Atlas()->UID().ForUI(), FormWrap.Form()->Serialize().ToChar());
 }
@@ -129,17 +129,17 @@ void ScribeP::UI_AtlasDocSAVE(int InAtlasUID)
 
 void ScribeP::UpdateForm(DuetUID InDuet, JsonS InJ)
 {
-	Data_->UpdateForm(InDuet, InJ);
+	//Data_->UpdateForm(InDuet, InJ);
 }
 
 void ScribeP::UpdateAtlas(AtlasUID InAtlasUID, std::string AtlasJson)
 {
 	JsonS J = JsonS(StringC(AtlasJson));
-	Data_->UpdateAtlas(InAtlasUID, J);
+	//Data_->UpdateAtlas(InAtlasUID, J);
 }
 
 void ScribeP::SaveAtlasDoc(AtlasUID InAtlasUID)
 {
-	Data_->SaveAtlasDoc(InAtlasUID);
+	//Data_->SaveAtlasDoc(InAtlasUID);
 }
 

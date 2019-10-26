@@ -46,8 +46,11 @@ public:
 
 	void Faux();
 
-	CharacterD* Player_;
+	void Spawn();
+
+	UCharacterE* Player_;
 
 	TArray<UCharacterE*> MembersEx_;
+
 
 };

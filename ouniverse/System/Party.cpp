@@ -2,6 +2,7 @@
 
 #include "System/Party.h"
 #include "Form/CharacterD.h"
+#include "Form/CharacterE.h"
 
 UParty::UParty() {}
 
@@ -19,5 +20,10 @@ void UParty::Init()
 
 void UParty::Faux()
 {
-	//Player_ = new UCharacterDat();
+	Player_ = (new CharacterD())->CreateEx();
+}
+
+void UParty::Spawn()
+{
+	Player_->Spawn();
 }

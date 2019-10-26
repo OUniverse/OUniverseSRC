@@ -5,7 +5,7 @@
 #include "System/ControlUE.h"
 #include "System/Party.h"
 
-#include "Form/ActorA.h"
+#include "Form/CharacterE.h"
 #include "Form/Character3D.h"
 #include "System/CameraUE.h"
 #include "Min/DebugM.h"
@@ -34,14 +34,15 @@ void UWorldPro::Start()
 {
 	Cosmos_->LoadLevel(StringC("TESTMAP"));
 	Party_->Faux();
-	//Cosmos_->SpawnParty(Party_->GetActors());
-	//Possess(Party_->Member(0));
+	Party_->Spawn();
+
+	Possess(Party_->Player_);
 };
 
-void UWorldPro::Possess(ActorA* InActor)
+void UWorldPro::Possess(UCharacterE* InChar)
 {
-	Control_->GetCamera()->SetGoal(InActor->M3D()->GetControlCam());
-	InActor->M3D()->Possess();
+	Control_->GetCamera()->SetGoal(InChar->Character3D()->GetControlCam());
+	InChar->Character3D()->Possess();
 }
 
 InputReplyS UWorldPro::Forward(InputActionS InIA)

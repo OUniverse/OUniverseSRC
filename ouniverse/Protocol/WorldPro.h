@@ -14,7 +14,7 @@ Protocol for handling the MainMenu.
 class UCosmos;
 class AControlUE;
 class UParty;
-class ActorA;
+class UCharacterE;
 
 
 UCLASS()
@@ -32,7 +32,7 @@ public:
 
 	virtual InputReplyS Forward(InputActionS InIA) override;
 
-	void Possess(ActorA* InActor);
+	void Possess(UCharacterE* InEx);
 
 private:
 

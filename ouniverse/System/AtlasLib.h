@@ -10,10 +10,12 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Array.h"
 #include "Interface/Url.h"
+#include "Interface/Json.h"
 
 #include "System/FormQuery.h"
 
 #include "System/AtlasUID.h"
+#include "System/DuetUID.h"
 
 class AtlasC;
 class LoadoutC;
@@ -23,9 +25,11 @@ class AtlasLibC
 
 public:
 
+	static AtlasLibC* Create(FolderC InFolder);
+
 	AtlasLibC(FolderC InFolder);
 
-	AtlasC* Get(AtlasUID InValue);
+	AtlasC* GetAtlas(AtlasUID InValue);
 
 	AtlasC* At(int Index);
 
@@ -37,7 +41,7 @@ public:
 
 	void Reset();
 
-	void Mount(ArrayC<AtlasUID> InUIDArr);
+	void Mount(LoadoutC* InLoadout);
 
 	void AddAtlas(AtlasC* NewAtlas);
 
@@ -47,6 +51,14 @@ public:
 
 	void Query(FormQueryS* InQuery);
 
+	FormWrapS GetFormWrap(DuetUID InDuet);
+
+
+	void UpdateForm(DuetUID InDuet, JsonS& FormJ);
+
+	void UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ);
+
+	void SaveAtlasDoc(AtlasUID InAtlasUID);
 
 private:
 

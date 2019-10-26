@@ -21,8 +21,8 @@
 #include "System/Fps.h"
 #include "System/Cosmos.h"
 
-#include "System/Data.h"
-#include "System/DatLib.h"
+#include "System/AtlasLib.h"
+#include "System/DataLib.h"
 #include "System/User.h"
 #include "System/UserDais.h"
 #include "System/UserLib.h"
@@ -167,13 +167,11 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
 
-	M->Dat_ = DatLibC::Create();
-	M->Data_ = DataC::Create(PathC::DirAtlas());
+	M->Data_	= DataLibC::Create();
+	M->Atlas_	= AtlasLibC::Create(PathC::DirAtlas());
 
-
-
-	M->Time_ = TimeC::Create();
-	M->TickUE_ = NewObject<UTickUE>();
+	M->Time_	= TimeC::Create();
+	M->TickUE_	= NewObject<UTickUE>();
 	M->TickUE()->BridgeAndBegin(M->Time());
 
 	M->Fps_ = FpsC::Create(M->Time_);
@@ -218,7 +216,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->UserL()->Set(32767);
 	M->LoadoutL()->Load(M->UserD()->Folder());
 	M->LoadoutL()->Set(1314);
-	M->Data()->Mount(M->LoadoutD()->Get());
+	M->Atlas()->Mount(M->LoadoutD()->Get());
 
 	M->SaveL()->Load(M->UserD()->Folder());
 	M->SaveL()->Set(32767);

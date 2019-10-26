@@ -9,6 +9,12 @@
 #include "Min/DebugM.h"
 
 
+AtlasLibC* AtlasLibC::Create(FolderC InFolder)
+{
+	AtlasLibC* Obj = new AtlasLibC(InFolder);
+	return Obj;
+}
+
 AtlasLibC::AtlasLibC(FolderC InAtlasFolder)
 {
 	PreLen_ = 0;
@@ -74,7 +80,7 @@ ArrayC<AtlasC*> AtlasLibC::GetAtlasPreArray()
 	return AtlasPreArr;
 }
 
-AtlasC* AtlasLibC::Get(AtlasUID InValue)
+AtlasC* AtlasLibC::GetAtlas(AtlasUID InValue)
 {
 	return PreLib_[InValue];
 }
@@ -108,14 +114,15 @@ void AtlasLibC::Reset()
 	}
 }
 
-void AtlasLibC::Mount(ArrayC<AtlasUID> InUIDArr)
+void AtlasLibC::Mount(LoadoutC* InLoadout)
 {
-	int L = InUIDArr.Len();
+	ArrayC<AtlasUID> UIDArr = InLoadout->GetSelectedAtlasi();
+	int L = UIDArr.Len();
 	AtlasC* TryAtlas;
 
 	for (int i = 0; i < L; i++)
 	{
-		if (PreLib_.Try(InUIDArr[i], TryAtlas))
+		if (PreLib_.Try(UIDArr[i], TryAtlas))
 		{
 			LOG(11922, TryAtlas->UID().ForLog(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
@@ -132,4 +139,24 @@ void AtlasLibC::Query(FormQueryS* InQuery)
 		Lib_.At(i)->Query(InQuery);
 	}
 
+}
+
+FormWrapS AtlasLibC::GetFormWrap(DuetUID InDuet)
+{
+	return GetAtlas(InDuet.Atlas())->GetFormWrap(InDuet.Form());
+}
+
+void AtlasLibC::UpdateForm(DuetUID InDuet, JsonS& FormJ)
+{
+	GetAtlas(InDuet.Atlas())->UpdateForm(InDuet.Form(), FormJ);
+}
+
+void AtlasLibC::UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ)
+{
+	GetAtlas(InAtlasUID)->Update(AtlasJ);
+}
+
+void AtlasLibC::SaveAtlasDoc(AtlasUID InAtlasUID)
+{
+	GetAtlas(InAtlasUID)->SaveDoc();
 }

@@ -2,21 +2,24 @@
 
 #pragma once
 
-#include "UObject/NoExportTypes.h"
-
+#include "Form/FormD.h"
+#include "inttypes.h"
 
 class UCharacterE;
 
 
-class OUNIVERSE_API CharacterD : public UObject
+class OUNIVERSE_API CharacterD : public FormD
 {
 
 public:
 
 	CharacterD();
 
+	UCharacterE* CreateEx();
+
 private:
 
-	UCharacterE* CreateEx();
+	uint8_t Level;
+	
 
 };
