@@ -25,6 +25,4 @@ public:
 	virtual void Demarshal() override;
 
 	UCharacterE* CreateEx();
-
-	StringC Name_;
 };

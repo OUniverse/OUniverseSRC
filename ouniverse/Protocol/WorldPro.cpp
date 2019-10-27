@@ -42,7 +42,7 @@ void UWorldPro::Start()
 void UWorldPro::Possess(UCharacterE* InChar)
 {
 	Control_->GetCamera()->SetGoal(InChar->Character3D()->GetControlCam());
-	InChar->Character3D()->Possess();
+	InChar->Possess();
 }
 
 InputReplyS UWorldPro::Forward(InputActionS InIA)

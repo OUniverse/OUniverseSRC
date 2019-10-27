@@ -31,4 +31,8 @@ public:
 	CharacterF* Form();
 	CharacterF* Form_;
 	
+//Unique
+public:
+
+	void Possess();
 };

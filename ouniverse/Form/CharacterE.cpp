@@ -43,3 +43,8 @@ void UCharacterE::Test()
 {
 	DBUG(Form_->Name_.ToChar());
 }
+
+void UCharacterE::Possess()
+{
+
+}

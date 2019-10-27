@@ -62,5 +62,5 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UInputSchemaStack* Input_;
 
-
+	void Possess();
 };
