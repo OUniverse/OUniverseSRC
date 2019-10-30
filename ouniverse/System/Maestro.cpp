@@ -2,9 +2,11 @@
 
 #include "System/Maestro.h"
 #include "System/Major.h"
+#include "Ui/Ui.h"
 
 #include "Protocol/GlobalPro.h"
 #include "Protocol/WorldPro.h"
+#include "Protocol/WriterPro.h"
 
 UMaestro::UMaestro()
 {
@@ -21,9 +23,11 @@ UMaestro* UMaestro::Create(UMajor* Major)
 
 void UMaestro::Init(UMajor* Major)
 {
+	Ui_ = Major->Ui();
 	Global_ = UGlobalPro::Create();
 	World_ = UWorldPro::Create(Major->Control(),Major->Cosmos());
-	Add(Global_);
+	Writer_ = UWriterPro::Create();
+	AddInputSchema(Global_);
 }
 
 void UMaestro::Start()
@@ -33,6 +37,11 @@ void UMaestro::Start()
 
 void UMaestro::FauxStart()
 {
-	Add(World_);
+	AddInputSchema(World_);
 	World_->Start();
+}
+
+void UMaestro::WriterStart()
+{
+	Ui_->OpenWriter();
 }

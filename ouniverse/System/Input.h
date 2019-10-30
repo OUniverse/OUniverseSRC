@@ -2,24 +2,10 @@
 
 #pragma once
 
-#include "Interface/Array.h"
 #include "UObject/NoExportTypes.h"
 #include "Input.generated.h"
 
-class OUNIVERSE_API InputReplyS
-{
-
-public:
-
-	InputReplyS();
-	InputReplyS(bool InHandled);
-
-	void Set(bool InHandled);
-	bool Handled();
-private:
-
-	bool Handled_;
-};
+class UCharacterA;
 
 class OUNIVERSE_API InputC
 {
@@ -42,45 +28,39 @@ public:
 	};
 };
 
-class InputActionS
+USTRUCT(BlueprintType)
+struct FInputAction
 {
-
+	GENERATED_BODY()
 
 public:
 
-	InputActionS();
+	bool Press;
 
-	InputActionS(bool InPress, bool InCTR, bool InALT, bool InSHIFT, bool InHelp);
+	bool ALT;
 
-	void SetAction(InputC::Action InAction);
+	bool SHIFT;
 
-private:
+	bool CTR;
 
-	InputC::Action Action_;
+	bool HELP;
 
-	bool Press_;
-	bool ALT_;
-	bool SHIFT_;
-	bool CTR_;
-	bool HELP_;
+	FInputAction()
+	{
+		CTR = false;
+		ALT = false;
+		SHIFT = false;
+		HELP = false;
+	};
 
-	void SetPress(bool InPress);
-	void SetCTR(bool InPress);
-	void SetALT(bool InPress);
-	void SetSHIFT(bool InPress);
-	void SetHELP(bool InPress);
-
-	int Action();
-
-	bool Pressed();
-
-	bool CTR();
-
-	bool ALT();
-
-	bool Shift();
-
-	bool Help();
+	FInputAction(bool InPress, bool InCTR, bool InALT, bool InSHIFT, bool InHelp)
+	{
+		Press = InPress;
+		CTR = InCTR;
+		ALT = InALT;
+		SHIFT = InSHIFT;
+		HELP = InHelp;
+	};
 };
 
 class InputAxisS
@@ -96,94 +76,112 @@ class OUNIVERSE_API UInputSchema : public UObject
 
 public:
 	
-	virtual ~UInputSchema() {};
+	virtual bool AxisLX(float AxisValue) { return false; };
+	virtual bool AxisLY(float AxisValue) { return false; };
+	virtual bool AxisRX(float AxisValue) { return false; };
+	virtual bool AxisRY(float AxisValue) { return false; };
 
-	virtual InputReplyS MouseL(InputActionS InIA) { return false; };
-	virtual InputReplyS MouseR(InputActionS InIA) { return false; };
-	virtual InputReplyS MouseM(InputActionS InIA) { return false; };
 
+	virtual bool MouseL(bool Down) { return false; };
+	virtual bool MouseR(bool Down) { return false; };
+	virtual bool MouseM(bool Down) { return false; };
+	virtual bool WheelUp(bool Down) { return false; };
+	virtual bool WheelDown(bool Down) { return false; };
 
-	virtual InputReplyS Forward(InputActionS InIA) { return false; };
-	virtual InputReplyS Back(InputActionS InIA) { return false; };
-	virtual InputReplyS Left(InputActionS InIA) { return false; };
-	virtual InputReplyS Right(InputActionS InIA) { return false; };
+	virtual bool Up(bool Down) { return false; };
+	virtual bool Down(bool Down) { return false; };
+	virtual bool Left(bool Down) { return false; };
+	virtual bool Right(bool Down) { return false; };
 
-	virtual InputReplyS Selector0(InputActionS InIA) { return false; };
-	virtual InputReplyS Selector1(InputActionS InIA) { return false; };
-	virtual InputReplyS Selector2(InputActionS InIA) { return false; };
-	virtual InputReplyS Selector3(InputActionS InIA) { return false; };
+	virtual bool Selector0(bool Down) { return false; };
+	virtual bool Selector1(bool Down) { return false; };
+	virtual bool Selector2(bool Down) { return false; };
+	virtual bool Selector3(bool Down) { return false; };
 
-	virtual InputReplyS Interact(InputActionS InIA) { return false; };
-	virtual InputReplyS Jump(InputActionS InIA) { return false; };
+	virtual bool Interact(bool Down) { return false; };
+	virtual bool Jump(bool Down) { return false; };
 
-	virtual InputReplyS Console(InputActionS InIA) { return false; };
-	virtual InputReplyS PrintScreen(InputActionS InIA) { return false; };
+	virtual bool Console(bool Down) { return false; };
+	virtual bool PrintScreen(bool Down) { return false; };
 
-	virtual InputReplyS Escape(InputActionS InIA) { return false; };
-};
-
-UCLASS()
-class OUNIVERSE_API UInputBeacon : public UObject
-{
-
-	GENERATED_BODY()
-
-public:
-
-	static UInputBeacon* Create(UInputSchema* InSchema);
-
-	virtual ~UInputBeacon() {};
-	UInputSchema* Schema_;
-		
-
-	UInputSchema* Get();	
-	void Set(UInputSchema* InSchema);
-	
+	virtual bool Escape(bool Down) { return false; };
 };
 
 UCLASS()
 class OUNIVERSE_API UInputSchemaStack : public UInputSchema
 {
+
 	GENERATED_BODY()
 
 public:
 
-	UInputSchemaStack();
+
 	static UInputSchemaStack* Create();
-	virtual ~UInputSchemaStack() {};
 
 	void Init();
 
-	void Add(UInputSchema* InSchema);
+	void AddInputSchema(UInputSchema* InSchema);
 
-	InputReplyS Process(InputReplyS(UInputSchema::* PTR)(InputActionS), InputActionS InIA);
+	bool Process(bool(UInputSchema::* PTR)(bool), bool Down);
 
-	virtual InputReplyS MouseL(InputActionS InIA) override;
-	virtual InputReplyS MouseR(InputActionS InIA) override;
-	virtual InputReplyS MouseM(InputActionS InIA) override;
+	bool ProcessAxis(bool(UInputSchema::* PTR)(float), float AxisValue);
 
-	virtual InputReplyS Forward(InputActionS InIA) override;
-	virtual InputReplyS Back(InputActionS InIA) override;
-	virtual InputReplyS Left(InputActionS InIA) override;
-	virtual InputReplyS Right(InputActionS InIA) override;
+	virtual bool AxisLX(float AxisValue) override;
+	virtual bool AxisLY(float AxisValue) override;
+	virtual bool AxisRX(float AxisValue) override;
+	virtual bool AxisRY(float AxisValue) override;
 
-	virtual InputReplyS Selector0(InputActionS InIA) override;
-	virtual InputReplyS Selector1(InputActionS InIA) override;
-	virtual InputReplyS Selector2(InputActionS InIA) override;
-	virtual InputReplyS Selector3(InputActionS InIA) override;
+	virtual bool MouseL(bool Down) override;
+	virtual bool MouseR(bool Down) override;
+	virtual bool MouseM(bool Down) override;
+	virtual bool WheelUp(bool Down) override;
+	virtual bool WheelDown(bool Down) override;
 
-	virtual InputReplyS Interact(InputActionS InIA) override;
-	virtual InputReplyS Jump(InputActionS InIA) override;
+	virtual bool Up(bool Down) override;
+	virtual bool Down(bool Down) override;
+	virtual bool Left(bool Down) override;
+	virtual bool Right(bool Down) override;
 
-	virtual InputReplyS Console(InputActionS InIA) override;
-	virtual InputReplyS PrintScreen(InputActionS InIA) override;
+	virtual bool Selector0(bool Down) override;
+	virtual bool Selector1(bool Down) override;
+	virtual bool Selector2(bool Down) override;
+	virtual bool Selector3(bool Down) override;
 
-	virtual InputReplyS Escape(InputActionS InIA) override;
+	virtual bool Interact(bool Down) override;
+	virtual bool Jump(bool Down) override;
 
+	virtual bool Console(bool Down) override;
+	virtual bool PrintScreen(bool Down) override;
+
+	virtual bool Escape(bool Down) override;
+
+	
 
 	int Len_;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	TArray<UInputSchema*> Stack_;
 };
 
+UCLASS()
+class OUNIVERSE_API UInputSchemaCharacter : public UInputSchema
+{
+
+	GENERATED_BODY()
+
+public:
+
+	UCharacterA* Character_;
+
+	void SetCharacter(UCharacterA* InChar);
+
+	virtual bool AxisLX(float AxisValue) override;
+	virtual bool AxisLY(float AxisValue) override;
+
+	virtual bool AxisRX(float AxisValue) override;
+	virtual bool AxisRY(float AxisValue) override;
+
+	virtual bool Up(bool Down) override;
+	virtual bool WheelUp(bool Down) override;
+	virtual bool WheelDown(bool Down) override;
+};

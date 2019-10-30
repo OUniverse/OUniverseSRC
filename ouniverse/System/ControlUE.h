@@ -25,6 +25,10 @@ class OUNIVERSE_API AControlUE : public APlayerController
 {
 	GENERATED_BODY()
 
+	virtual void PlayerTick(float DeltaTime) override;
+
+	virtual void SetupInputComponent() override;
+
 public:
 
 	AControlUE();
@@ -35,8 +39,8 @@ public:
 
 	ACameraUE* GetCamera();
 
-	InputActionS GetInputAction(bool InPressed);
-
+	FInputAction GetInputAction(bool InPressed);
+	
 	UFUNCTION()
 	void Test();
 
@@ -56,31 +60,39 @@ public:
 	void Member3();
 
 	UFUNCTION()
-	void MoveForward_D();
+	void Up_D();
 	UFUNCTION()
-	void MoveForward_U();
+	void Up_U();
 
 	UFUNCTION()
-	void MoveBack_D();
+	void Down_D();
 	UFUNCTION()
-	void MoveBack_U();
+	void Down_U();
 
 	UFUNCTION()
-	void MoveLeft_D();
+	void Left_D();
 	UFUNCTION()
-	void MoveLeft_U();
+	void Left_U();
 
 	UFUNCTION()
-	void MoveRight_D();
+	void Right_D();
 	UFUNCTION()
-	void MoveRight_U();
+	void Right_U();
 
 	UFUNCTION()
-	void MouseX(float AxisValue);
+	void Wheel_D();
 	UFUNCTION()
-	void MouseY(float AxisValue);
+	void Wheel_U();
+
 	UFUNCTION()
-	void MouseW(float AxisValue);
+	void AxisLX(float AxisValue);
+	UFUNCTION()
+	void AxisLY(float AxisValue);
+
+	UFUNCTION()
+	void AxisRX(float AxisValue);
+	UFUNCTION()
+	void AxisRY(float AxisValue);
 
 	UFUNCTION()
 	void MouseL_D();
@@ -108,6 +120,12 @@ private:
 	bool SHIFT_;
 	bool HELP_;
 
+	bool ForwardsPressed_;
+	bool BackwardsPressed_;
+	bool LeftPressed_;
+	bool RightPressed_;
+
+	bool LeftDown_;
 	//UPROPERTY()
 	//ACameraManagerUE* CameraManager_;
 

@@ -1,19 +1,43 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Ui.h"
-#include "Ui/MainMenu.h"
+#include "System/Major.h"
+#include "System/Class.h"
 
-void UUi::Init()
+#include "Ui/Writer_Max.h"
+
+namespace Global
 {
-	TSoftClassPtr<UUserWidget> WidgetClass = TSoftClassPtr<UUserWidget>(FSoftClassPath("/Game/ui/vm_mainmenu.vm_mainmenu_C"));
-	UClass* MyWidgetClass = WidgetClass.LoadSynchronous();
-	MainMenu_ = CreateWidget<UMainMenu>(GetGameInstance(), MyWidgetClass);
-	MainMenu_->Init();
+	UUi* Ui;
+}
 
-	//MainMenu_->AddToViewport();
+
+UUi* UUi::Create(UMajor* M)
+{
+	UUi* Neu = CreateWidget<UUi>(M->Scope(), ClassC::U_Ui());
+	Neu->Init(M);
+	Global::Ui = Neu;
+	Neu->AddToViewport();
+	return Neu;
+}
+
+UUi* UUi::Get()
+{
+	return Global::Ui;
+}
+
+void UUi::Init(UMajor* M)
+{
+	Scope_ = M->Scope();
+	Writer_ = CreateWidget<UWriter_Max>(M->Scope(), ClassC::Writer_Max());
 }
 
 void UUi::OpenMainMenu()
 {
-	MainMenu_->AddToViewport();
+	//MainMenu_->AddToViewport();
+}
+
+void UUi::OpenWriter()
+{
+	Writer_->AddToViewport();
 }

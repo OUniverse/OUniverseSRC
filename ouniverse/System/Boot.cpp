@@ -5,6 +5,8 @@
 #include "System/Boot.h"
 #include "System/GameInstanceUE.h"
 #include "System/Major.h"
+#include "System/Class.h"
+
 #include "System/Log.h"
 #include "System/ConfigManager.h"
 #include "System/HudUE.h"
@@ -20,6 +22,7 @@
 #include "System/TickUE.h"
 #include "System/Fps.h"
 #include "System/Cosmos.h"
+#include "Ui/Ui.h"
 
 #include "System/AtlasLib.h"
 #include "System/User.h"
@@ -45,6 +48,8 @@
 
 
 #include "Interface/Url.h"
+
+#include "Interface/Data.h"
 
 namespace GlobalVars
 {
@@ -81,25 +86,13 @@ BootC::BootC(EBootMethod InBootMethod, UObject* WorldContextObject)
 	switch (InBootMethod) {
 	case EBootMethod::Standard:
 		ProgramState_ = ProgramStateC::State::Standard;
-		Primal_Standard(WorldContextObject);
-		break;
-	case EBootMethod::Scribe:
-		ProgramState_ = ProgramStateC::State::Scribe;
-		Primal_Scribe(WorldContextObject);
-		break;
-	case EBootMethod::Test:
-		ProgramState_ = ProgramStateC::State::Test;
-		Primal_Test(WorldContextObject);
-		break;
-	case EBootMethod::UiIso:
-		ProgramState_ = ProgramStateC::State::UiIso;
-		Primal_UiIso(WorldContextObject);
+		Standard(WorldContextObject);
 		break;
 	}
 }
 
 
-void BootC::Primal_Standard(UObject* WorldContextObject)
+void BootC::Standard(UObject* WorldContextObject)
 {
 
 	if (!GEngine)
@@ -119,10 +112,13 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 			return;
 	}
 
+
+
+
 	UMajor* M = UMajor::Create();
 	Singleton->Major_ = M;
 
-
+	
 
 	M->WorldContext_ = WorldContextObject_PRE;
 	M->Scope_ = Scope_PRE;
@@ -133,6 +129,13 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
 	{
 		bModeFail = true;
+	}
+
+	ClassC::Setup();
+	if (!ClassC::IsSetup())
+	{
+		DBUG("ClassC was not setup properly.")
+			return;
 	}
 
 	PathC::SetGlobals(); //Must be called to set global paths to reduce the amount of string assembly functions at run time.
@@ -160,8 +163,6 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->Control_ = Cast<AControlUE>(UGameplayStatics::GetPlayerController(WorldContextObject, 0));
 
 	M->Hud_ = Cast<AHudUE>(M->Control()->GetHUD());
-	M->Hud()->HUD_SUPER_ON();
-
 
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
@@ -184,8 +185,7 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->SaveV_ = new SaveVatC(M->SaveD());
 
 
-	M->Ui_ = M->Hud()->GetUI();
-
+	M->Ui_ = UUi::Create(M);
 
 	M->Cosmos_ = UCosmos::Create(M->Control(), M->WorldContext(), M->Scope());
 
@@ -206,9 +206,6 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 
 	M->Maestro_ = UMaestro::Create(M);
 	M->Control()->Init(M->Maestro());
-
-	//M->Maestro()->Start();
-
 	
 
 	M->UserL()->Set(32767);
@@ -220,24 +217,8 @@ void BootC::Primal_Standard(UObject* WorldContextObject)
 	M->SaveL()->Set(32767);
 	M->SaveV()->Load();
 
-	//M->Cosmos()->FauxMount();
 
-	M->Maestro()->FauxStart();
-
+	//M->Maestro()->FauxStart();
+	M->Maestro()->WriterStart();
 	LOGP
-}
-
-void BootC::Primal_Scribe(UObject* WorldContextObject)
-{
-	LOGP
-}
-
-void BootC::Primal_UiIso(UObject* WorldContextObject)
-{
-	LOGP
-}
-
-void BootC::Primal_Test(UObject* WorldContextObject)
-{
-
 }

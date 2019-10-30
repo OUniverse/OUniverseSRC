@@ -60,8 +60,5 @@ public:
 
 	BootC(EBootMethod InBootMethod, UObject* WorldContextObject);
 
-	void Primal_Standard(UObject* WorldContextObject);
-	void Primal_Scribe(UObject* WorldContextObject);
-	void Primal_UiIso(UObject* WorldContextObject);
-	void Primal_Test(UObject* WorldContextObject);
+	void Standard(UObject* WorldContextObject);
 };

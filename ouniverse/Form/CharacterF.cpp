@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Form/CharacterF.h"
-#include "Form/CharacterE.h"
+#include "Form/CharacterA.h"
 
 #include "System/FormTypes.h"
 #include "Interface/Json.h"
@@ -12,9 +12,9 @@ int CharacterF::Type()
 	return FormTypesC::Types::Character;
 }
 
-UCharacterE* CharacterF::CreateEx()
+UCharacterA* CharacterF::CreateEx()
 {
-	return UCharacterE::Create(this);
+	return UCharacterA::Create(this);
 }
 
 CharacterF::CharacterF()
@@ -31,5 +31,6 @@ FormF* CharacterF::Create(JsonS& InJ)
 
 void CharacterF::Demarshal()
 {
+	Name_ = "THIS IS A TEST";
 	FormF::Demarshal();
 }

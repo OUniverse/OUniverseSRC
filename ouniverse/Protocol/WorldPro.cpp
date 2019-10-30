@@ -5,7 +5,7 @@
 #include "System/ControlUE.h"
 #include "System/Party.h"
 
-#include "Form/CharacterE.h"
+#include "Form/CharacterA.h"
 #include "Form/Character3D.h"
 #include "System/CameraUE.h"
 #include "Min/DebugM.h"
@@ -28,6 +28,8 @@ void UWorldPro::Init(AControlUE* InControl, UCosmos* InCosmos)
 	Cosmos_ = InCosmos;
 	Control_ = InControl;
 	Party_ = UParty::Create();
+	//Populace_ = PopulaceC::Create();
+	CharacterInputBeacon_ = NewObject<UInputSchemaCharacter>();
 }
 
 void UWorldPro::Start()
@@ -36,18 +38,16 @@ void UWorldPro::Start()
 	Party_->Faux();
 	Party_->Spawn();
 
-	Possess(Party_->Player_);
+	Possess(Party_->Members_[0]);
 };
 
-void UWorldPro::Possess(UCharacterE* InChar)
+void UWorldPro::Possess(UCharacterA* InChar)
 {
-	Control_->GetCamera()->SetGoal(InChar->Character3D()->GetControlCam());
+	CharacterInputBeacon_->SetCharacter(InChar);
+	AddInputSchema(CharacterInputBeacon_);
+	PossessedCharacter_ = InChar;
 	InChar->Possess();
-}
+	Control_->GetCamera()->SetGoal(InChar->Character3D()->GetControlCam());
+	Control_->Possess(InChar->Character3D());
 
-InputReplyS UWorldPro::Forward(InputActionS InIA)
-{
-	DBUG("FORWARD GO GO GO GO ")
-	return true;
 }
-

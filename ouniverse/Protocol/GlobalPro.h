@@ -25,5 +25,5 @@ private:
 
 	UGlobalPro();
 
-	virtual InputReplyS Forward(InputActionS InIA);
+	virtual bool Up(bool Down);
 };

@@ -7,9 +7,9 @@ Actra Form: A placement in 3D space.
 #pragma once
 
 #include "Form/FormF.h"
+#include "Interface/String.h"
 
-
-class UCharacterE;
+class UCharacterA;
 
 class CharacterF : public FormF
 {
@@ -24,5 +24,7 @@ public:
 
 	virtual void Demarshal() override;
 
-	UCharacterE* CreateEx();
+	UCharacterA* CreateEx();
+
+	StringC Name_;
 };

@@ -1,138 +1,8 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Input.h"
-
-#include "Min/DebugM.h"
-
-InputReplyS::InputReplyS()
-{
-	Handled_ = false;
-}
-
-InputReplyS::InputReplyS(bool InHandled)
-{
-	Handled_ = InHandled;
-}
-
-void InputReplyS::Set(bool InHandled)
-{
-	Handled_ = InHandled;
-}
-
-bool InputReplyS::Handled()
-{
-	return Handled_;
-}
-
-InputActionS::InputActionS()
-{
-	CTR_ = false;
-	ALT_ = false;
-	SHIFT_ = false;
-	HELP_ = false;
-}
-
-InputActionS::InputActionS(bool InPress, bool InCTR, bool InALT, bool InSHIFT, bool InHelp)
-{
-	Press_ = InPress;
-	CTR_ = InCTR;
-	ALT_ = InALT;	
-	SHIFT_ = InSHIFT;
-	HELP_ = InHelp;
-}
-
-void InputActionS::SetAction(InputC::Action InAction)
-{
-	Action_ = InAction;
-}
-
-void InputActionS::SetPress(bool InPress)
-{
-	Press_ = InPress;
-}
-void InputActionS::SetCTR(bool InPress)
-{
-	CTR_ = InPress;
-}
-
-void InputActionS::SetALT(bool InPress)
-{
-	ALT_ = InPress;
-}
-void InputActionS::SetSHIFT(bool InPress)
-{
-	SHIFT_ = InPress;
-}
-
-void InputActionS::SetHELP(bool InPress)
-{
-	HELP_ = InPress;
-}
-
-int InputActionS::Action()
-{
-	return Action_;
-}
-
-bool InputActionS::Pressed()
-{
-	return Press_;
-}
-
-bool InputActionS::CTR()
-{
-	return CTR_;
-}
-
-bool InputActionS::ALT()
-{
-	return ALT_;
-}
-
-bool InputActionS::Shift()
-{
-	return SHIFT_;
-}
-
-bool InputActionS::Help()
-{
-	return HELP_;
-}
-
-
-
-
-
-
-
-
-
-static UInputBeacon* Create(UInputSchema* InSchema)
-{
-	UInputBeacon* Obj = NewObject<UInputBeacon>();
-	Obj->Set(InSchema);
-	return Obj;
-}
-
-UInputSchema* UInputBeacon::Get()
-{
-	return Schema_;
-}
-
-void UInputBeacon::Set(UInputSchema* InSchema)
-{
-	Schema_ = InSchema;
-}
-
-
-
-
-
-
-
-
-
-UInputSchemaStack::UInputSchemaStack() {}
+#include "Form/CharacterA.h"
+#include "Component/CharacterInput.h"
 
 UInputSchemaStack* UInputSchemaStack::Create()
 {
@@ -146,19 +16,19 @@ void UInputSchemaStack::Init()
 	Len_ = 0;
 }
 
-void UInputSchemaStack::Add(UInputSchema* InSchema)
+void UInputSchemaStack::AddInputSchema(UInputSchema* InSchema)
 {
 	Len_++;
 	Stack_.Emplace(InSchema);
 }
 
-InputReplyS UInputSchemaStack::Process(InputReplyS(UInputSchema::* PTR)(InputActionS), InputActionS InIA)
+bool UInputSchemaStack::Process(bool(UInputSchema::* PTR)(bool), bool Down)
 {
 	for (int i = Len_-1; i > -1; i--)
 	{
-		InputReplyS Reply = (Stack_[i]->*PTR)(InIA);
+		bool Reply = (Stack_[i]->*PTR)(Down);
 		
-		if (Reply.Handled() == true)
+		if (Reply)
 		{
 			return true;
 		}
@@ -167,76 +37,105 @@ InputReplyS UInputSchemaStack::Process(InputReplyS(UInputSchema::* PTR)(InputAct
 	return false;
 }
 
+bool UInputSchemaStack::ProcessAxis(bool(UInputSchema::* PTR)(float), float AxisValue)
+{
+	for (int i = Len_ - 1; i > -1; i--)
+	{
+		bool Reply = (Stack_[i]->*PTR)(AxisValue);
 
-InputReplyS UInputSchemaStack::MouseR(InputActionS InIA)
-{
-	return InputReplyS();
-}
+		if (Reply)
+		{
+			return true;
+		}
+	}
 
-InputReplyS UInputSchemaStack::MouseL(InputActionS InIA)
-{
-	return Process(&UInputSchema::MouseL,InIA);
-}
-
-InputReplyS UInputSchemaStack::MouseM(InputActionS InIA)
-{
-	return Process(&UInputSchema::MouseL, InIA);
-}
-
-InputReplyS UInputSchemaStack::Forward(InputActionS InIA)
-{
-	return Process(&UInputSchema::Forward, InIA);
-}
-InputReplyS UInputSchemaStack::Back(InputActionS InIA)
-{
-	return Process(&UInputSchema::Back, InIA);
-}
-InputReplyS UInputSchemaStack::Left(InputActionS InIA)
-{
-	return Process(&UInputSchema::Left, InIA);
-}
-InputReplyS UInputSchemaStack::Right(InputActionS InIA)
-{
-	return Process(&UInputSchema::Right, InIA);
+	return false;
 }
 
-InputReplyS UInputSchemaStack::Selector0(InputActionS InIA)
+bool UInputSchemaStack::MouseR(bool Down)
 {
-	return Process(&UInputSchema::Selector0, InIA);
-}
-InputReplyS UInputSchemaStack::Selector1(InputActionS InIA)
-{
-	return Process(&UInputSchema::Selector1, InIA);
-}
-InputReplyS UInputSchemaStack::Selector2(InputActionS InIA)
-{
-	return Process(&UInputSchema::Selector2, InIA);
+	return bool();
 }
 
-InputReplyS UInputSchemaStack::Selector3(InputActionS InIA)
+bool UInputSchemaStack::MouseL(bool Down)
 {
-	return Process(&UInputSchema::Selector3, InIA);
+	return Process(&UInputSchema::MouseL,Down);
 }
 
-InputReplyS UInputSchemaStack::Interact(InputActionS InIA)
+bool UInputSchemaStack::MouseM(bool Down)
 {
-	return Process(&UInputSchema::Interact, InIA);
-}
-InputReplyS UInputSchemaStack::Jump(InputActionS InIA)
-{
-	return Process(&UInputSchema::Jump, InIA);
+	return Process(&UInputSchema::MouseL, Down);
 }
 
-InputReplyS UInputSchemaStack::Console(InputActionS InIA)
+bool UInputSchemaStack::WheelUp(bool Down) { return Process(&UInputSchema::WheelUp, Down); }
+bool UInputSchemaStack::WheelDown(bool Down) { return Process(&UInputSchema::WheelDown, Down); }
+
+bool UInputSchemaStack::Up(bool Down){ return Process(&UInputSchema::Up, Down);}
+bool UInputSchemaStack::Down(bool Down) { return Process(&UInputSchema::Down, Down);}
+bool UInputSchemaStack::Left(bool Down) { return Process(&UInputSchema::Left, Down);}
+bool UInputSchemaStack::Right(bool Down) {	return Process(&UInputSchema::Right, Down);}
+
+bool UInputSchemaStack::Selector0(bool Down)
 {
-	return Process(&UInputSchema::Console, InIA);
+	return Process(&UInputSchema::Selector0, Down);
 }
-InputReplyS UInputSchemaStack::PrintScreen(InputActionS InIA)
+bool UInputSchemaStack::Selector1(bool Down)
 {
-	return Process(&UInputSchema::PrintScreen, InIA);
+	return Process(&UInputSchema::Selector1, Down);
+}
+bool UInputSchemaStack::Selector2(bool Down)
+{
+	return Process(&UInputSchema::Selector2, Down);
 }
 
-InputReplyS UInputSchemaStack::Escape(InputActionS InIA)
+bool UInputSchemaStack::Selector3(bool Down)
 {
-	return Process(&UInputSchema::Escape, InIA);
+	return Process(&UInputSchema::Selector3, Down);
 }
+
+bool UInputSchemaStack::Interact(bool Down)
+{
+	return Process(&UInputSchema::Interact, Down);
+}
+bool UInputSchemaStack::Jump(bool Down)
+{
+	return Process(&UInputSchema::Jump, Down);
+}
+
+bool UInputSchemaStack::Console(bool Down)
+{
+	return Process(&UInputSchema::Console, Down);
+}
+bool UInputSchemaStack::PrintScreen(bool Down)
+{
+	return Process(&UInputSchema::PrintScreen, Down);
+}
+
+bool UInputSchemaStack::Escape(bool Down)
+{
+	return Process(&UInputSchema::Escape, Down);
+}
+
+bool UInputSchemaStack::AxisLX(float AxisValue) { return ProcessAxis(&UInputSchema::AxisLX, AxisValue); }
+bool UInputSchemaStack::AxisLY(float AxisValue) { return ProcessAxis(&UInputSchema::AxisLY, AxisValue); }
+bool UInputSchemaStack::AxisRX(float AxisValue) { return ProcessAxis(&UInputSchema::AxisRX, AxisValue); }
+bool UInputSchemaStack::AxisRY(float AxisValue) { return ProcessAxis(&UInputSchema::AxisRY, AxisValue); }
+
+
+
+
+
+void UInputSchemaCharacter::SetCharacter(UCharacterA* InChar)
+{
+	Character_ = InChar;
+}
+
+bool UInputSchemaCharacter::AxisLX(float AxisValue) { return Character_->Input_->AxisLX(AxisValue); }
+bool UInputSchemaCharacter::AxisLY(float AxisValue) { return Character_->Input_->AxisLY(AxisValue); }
+bool UInputSchemaCharacter::AxisRX(float AxisValue) { return Character_->Input_->AxisRX(AxisValue); }
+bool UInputSchemaCharacter::AxisRY(float AxisValue) { return Character_->Input_->AxisRY(AxisValue); }
+
+bool UInputSchemaCharacter::Up(bool Down) { return false; }
+
+bool UInputSchemaCharacter::WheelUp(bool Down) { return Character_->Input_->WheelUp(Down); }
+bool UInputSchemaCharacter::WheelDown(bool Down) { return Character_->Input_->WheelDown(Down); }

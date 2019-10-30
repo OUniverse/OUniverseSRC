@@ -9,8 +9,6 @@
 #include "System/CameraUE.h"
 #include "Component/DollyControl.h"
 
-#include "Form/ActorA.h"
-
 
 namespace Global
 {
@@ -74,25 +72,6 @@ void UCosmos::LoadLevel(StringC LevelName)
 void UCosmos::OnLevelStreamed()
 {
 
-}
-
-void UCosmos::SpawnParty(ArrayC<ActorA*> InPartyActors)
-{
-	SpawnCharacter(InPartyActors[0]);
-}
-
-ACharacter3D* UCosmos::SpawnCharacter(ActorA* InActor)
-{
-	TSoftClassPtr<ACharacter3D> CharacterClass = TSoftClassPtr<ACharacter3D>(FSoftClassPath(ACharacter3D::Class));
-	FVector Location(0.0f, 0.0f, 0.0f);
-	FRotator Rotation(0.0f, 0.0f, 0.0f);
-	ACharacter3D* NewActor = Scope_->SpawnActor<ACharacter3D>(CharacterClass.LoadSynchronous(),Location, Rotation);
-	if (!NewActor)
-	{
-		FGenericPlatformMisc::RequestExit(true);
-	}
-	InActor->Mount(NewActor);
-	return NewActor;
 }
 
 ACameraUE* UCosmos::SpawnCamera()

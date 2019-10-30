@@ -31,7 +31,7 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 #include "Party.generated.h"
 
 class CharacterD;
-class UCharacterE;
+class UCharacterA;
 
 UCLASS()
 class OUNIVERSE_API UParty : public UObject
@@ -48,9 +48,8 @@ public:
 
 	void Spawn();
 
-	UCharacterE* Player_;
-
-	TArray<UCharacterE*> MembersEx_;
+	UPROPERTY()
+	TArray<UCharacterA*> Members_;
 
 
 };

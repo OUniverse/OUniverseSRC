@@ -21,9 +21,9 @@ AtlasLibC* AtlasLibC::Get()
 
 AtlasLibC* AtlasLibC::Create(FolderC InFolder)
 {
-	AtlasLibC* Obj = new AtlasLibC(InFolder);
-	Global::AtlasLib = Obj;
-	return Obj;
+	AtlasLibC* Neu = new AtlasLibC(InFolder);
+	Global::AtlasLib = Neu;
+	return Neu;
 }
 
 AtlasLibC::AtlasLibC(FolderC InAtlasFolder)

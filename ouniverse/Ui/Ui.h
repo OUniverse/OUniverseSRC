@@ -28,7 +28,10 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 #include "Blueprint/UserWidget.h"
 #include "Ui.generated.h"
 
-class UMainMenu;
+class UMajor;
+class UWorld;
+
+class UWriter_Max;
 
 UCLASS(Blueprintable)
 class OUNIVERSE_API UUi : public UUserWidget
@@ -38,12 +41,18 @@ class OUNIVERSE_API UUi : public UUserWidget
 
 public:
 
-	void Init();
+	static UUi* Create(UMajor* M);
+	static UUi* Get();
+
+	void Init(UMajor* M);
 
 	void OpenMainMenu();
 
-private:
 
-	UMainMenu* MainMenu_;
+	void OpenWriter();
 
+	UWorld* Scope_;
+
+	UPROPERTY()
+	UWriter_Max* Writer_;
 };

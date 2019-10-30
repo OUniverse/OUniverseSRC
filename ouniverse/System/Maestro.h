@@ -30,19 +30,19 @@ An example of different states would be the System Menu compared to Open World. 
 
 class BootC;
 class UMajor;
+class UUi;
 
 class UProtocol;
 class UGlobalPro;
 class UWorldPro;
+class UWriterPro;
 
 UCLASS()
 class OUNIVERSE_API UMaestro : public UInputSchemaStack
 {
 	GENERATED_BODY()
 
-	friend BootC;
-
-private:
+public:
 
 	UMaestro();
 	static UMaestro* Create(UMajor* Major);
@@ -50,11 +50,16 @@ private:
 
 	void Start();
 	void FauxStart();
+	void WriterStart();
 
 	UPROPERTY()
 	UGlobalPro* Global_;
 	UPROPERTY()
 	UWorldPro* World_;
+	UPROPERTY()
+	UWriterPro* Writer_;
+
+	UUi* Ui_;
 
 public:
 
@@ -65,7 +70,7 @@ public:
 		Global,
 		Sym,
 		OpenWorld,
-		Scribe,
+		Writer,
 		MAX,
 	};
 };

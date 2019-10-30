@@ -52,10 +52,6 @@ public:
 	void Mount();
 	void Dismount();
 
-
-	void SpawnParty(ArrayC<ActorA*> InPartyActors);
-
-	ACharacter3D* SpawnCharacter(ActorA* InActor);
 	ACameraUE* SpawnCamera();
 
 	UFUNCTION()

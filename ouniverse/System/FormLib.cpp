@@ -6,12 +6,12 @@
 #include "Key/GlobalK.h"
 
 #include "Form/FormF.h"
-#include "Form/RefF.h"
-#include "Form/ObjectF.h"
-#include "Form/ActorF.h"
-#include "Form/EpochF.h"
-#include "Form/ActraF.h"
+#include "Form/ObjF.h"
 #include "Form/CharacterF.h"
+#include "Form/WorldF.h"
+#include "Form/EpochF.h"
+#include "Form/RegionF.h"
+#include "Form/AreaF.h"
 
 #include "System/Log.h"
 
@@ -23,12 +23,12 @@ FormLibC::FormLibC(AtlasC* InOwningAtlas)
 
 	FactoryArray.Init(FormTypesC::Types::TYPES_MAX, NULL);
 	FactoryArray[FormTypesC::Types::Form]		= FormF::Create;
-	FactoryArray[FormTypesC::Types::Ref]		= RefF::Create;
-	FactoryArray[FormTypesC::Types::Object]		= ObjectF::Create;
-	FactoryArray[FormTypesC::Types::Actor]		= ActorF::Create;
-	FactoryArray[FormTypesC::Types::Epoch]		= EpochF::Create;
+	FactoryArray[FormTypesC::Types::Obj]		= ObjF::Create;
 	FactoryArray[FormTypesC::Types::Character]	= CharacterF::Create;
-
+	FactoryArray[FormTypesC::Types::World]		= WorldF::Create;
+	FactoryArray[FormTypesC::Types::Epoch]		= EpochF::Create;
+	FactoryArray[FormTypesC::Types::Region]		= RegionF::Create;
+	FactoryArray[FormTypesC::Types::Area]		= AreaF::Create;
 }
 
 FormLibC::~FormLibC()
@@ -83,7 +83,6 @@ FormF* FormLibC::Get(FormUID InUID)
 
 bool FormLibC::Try(FormUID InUID, FormF*& InForm)
 {
-
 	return Lib_.Try(InUID, InForm);
 }
 

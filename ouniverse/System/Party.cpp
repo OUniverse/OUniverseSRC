@@ -2,7 +2,7 @@
 
 #include "System/Party.h"
 #include "Form/CharacterF.h"
-#include "Form/CharacterE.h"
+#include "Form/CharacterA.h"
 #include "Interface/Data.h"
 
 #include "Min/DebugM.h"
@@ -23,12 +23,17 @@ void UParty::Init()
 
 void UParty::Faux()
 {
-	DataC Dat = DataC(DuetUID(2147483647, 55));
-	CharacterF* Character = static_cast<CharacterF*>(Dat.Form());
-	Player_ = Character->CreateEx();
+	DataC Dat = DataC(DuetUID(1, 55));
+	CharacterF* Character = static_cast<CharacterF*>(Dat.Form());	
+	Members_.Emplace(Character->CreateEx());
+
+	Dat = DataC(DuetUID(1, 56));
+	Character = static_cast<CharacterF*>(Dat.Form());
+	Members_.Emplace(Character->CreateEx());
 }
 
 void UParty::Spawn()
 {
-	Player_->Spawn();
+	Members_[0]->Spawn();
+	Members_[1]->Spawn();
 }

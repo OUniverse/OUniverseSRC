@@ -3,6 +3,8 @@
 #include "Interface/Data.h"
 #include "System/AtlasLib.h"
 
+#include "Min/DebugM.h"
+
 DataC::DataC(int Atlas, int Form)
 {
 	Error_ = 0;
@@ -14,7 +16,6 @@ DataC::DataC(DuetUID InDuet)
 {
 	Error_ = 0;
 	Found_ = AtlasLibC::Get()->TryForm(InDuet, Form_, Error_);
-
 }
 
 bool DataC::Found()

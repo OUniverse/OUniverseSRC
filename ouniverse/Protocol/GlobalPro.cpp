@@ -14,8 +14,7 @@ UGlobalPro* UGlobalPro::Create()
 	return NewObject<UGlobalPro>();
 }
 
-InputReplyS UGlobalPro::Forward(InputActionS InIA)
+bool UGlobalPro::Up(bool Down)
 {
-	DBUG("WE HAVE ACHIEVED THE GOAL");
-	return InputReplyS();
+	return false;
 }

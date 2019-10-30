@@ -20,16 +20,8 @@ This is an extension of Coherent Lab's extension for further control.
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "Interface/String.h"
-#include "Interface/String.h"
-
 #include "HudUE.generated.h"
 
-
-
-
-class UGameViewportClient;
-class UUi;
 
 UCLASS()
 class OUNIVERSE_API AHudUE : public AHUD
@@ -39,15 +31,8 @@ class OUNIVERSE_API AHudUE : public AHUD
 public:
 
 
-	UGameViewportClient* Viewport;
-
-	void HUD_SUPER_ON();
-
-	UUi* GetUI();
 
 private:
 
-	UPROPERTY()
-	UUi* Ui_;
 
 };

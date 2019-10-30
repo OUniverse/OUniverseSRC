@@ -32,16 +32,20 @@ class UCameraComponent;
 class UDollyControl;
 class UDolly;
 
+
 UCLASS(Blueprintable)
 class OUNIVERSE_API ACharacter3D : public ACharacter
 {
 	GENERATED_BODY()
 
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
 public:
 
-	static const char* Class;
-
 	ACharacter3D();
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USkeletalMeshComponent* Skeleton_;
@@ -55,12 +59,24 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UDollyControl* DollyControl_;
 	
-	UInputSchemaStack* Possess();
-
 	UCameraComponent* GetControlCam();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UInputSchemaStack* Input_;
+	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseTurnRate;
 
-	void Possess();
+	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseLookUpRate;
+	
+
+	float CamZoomGoal;
+
+public:
+
+	void MoveX(float Value);
+	void MoveY(float Value);
+	void TurnY(float Value);
+	void LookX(float Value);
+	void Zoom(float AxisValue);
 };

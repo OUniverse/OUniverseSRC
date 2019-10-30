@@ -103,7 +103,9 @@ private:
 	SaveLibC*			SaveLib_;
 	LogC*				Log_;
 	ConfigManager*		Config_;
+	UPROPERTY()
 	UUi*				Ui_;
+	UPROPERTY()
 	UMaestro*			Maestro_;
 	AudioManager*		Audio_;
 	UWorld*				Scope_;

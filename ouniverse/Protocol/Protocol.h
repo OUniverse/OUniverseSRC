@@ -20,7 +20,7 @@ This is the abstract Protocol class which all actual Protocols extend from.
 class UMaestro;
 
 UCLASS()
-class OUNIVERSE_API UProtocol : public UInputSchema
+class OUNIVERSE_API UProtocol : public UInputSchemaStack
 {
 	GENERATED_BODY()
 
