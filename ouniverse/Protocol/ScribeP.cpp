@@ -5,7 +5,7 @@
 
 #include "Key/GlobalK.h"
 
-#include "System/Atlas^.h"
+#include "System/Atlas_.h"
 
 #include "Form/FormF.h"
 #include "System/FormPilot.h"
@@ -82,7 +82,7 @@ void ScribeP::UI_FormQUERY(std::string InQuery)
 	for (int i = 0; i < L; i++)
 	{
 		CurForm = Query->ValidForms_[i];
-		LoopDuet = DuetUID(CurForm.Atlas()->UID(), CurForm.Form()->UID());
+		//LoopDuet = DuetUID(CurForm.Atlas()->UID(), CurForm.Form()->UID());
 		FormPilots.Add(new FormPilotS(LoopDuet, CurForm.Form()->ID(), CurForm.Form()->Type()));
 	}
 

@@ -15,8 +15,10 @@ Atlas
 #include "System/AtlasUID.h"
 
 #include "System/FormQuery.h"
+#include "CoreMinimal.h"
 
 class AtlasLibC;
+class UAtlas;
 
 class FormF;
 class PayloadC;
@@ -26,8 +28,11 @@ class RevisionLibC;
 class AmendmentLibC;
 class AtlasAccordLibC;
 
+class UTexture2D;
+
 class AtlasC
 {
+
 	static const char* FILE_NAME;
 	static const char* FILE_NAME_DEV;
 
@@ -53,6 +58,13 @@ class AtlasC
 	
 public: 
 
+
+	static enum GFXSize {
+		Large,
+		Medium,
+		Small,
+	};
+
 	FolderC Folder();
 
 	bool Valid();
@@ -67,19 +79,19 @@ public:
 
 	void Demarshal();
 
-	AtlasUID UID();
-
-	StringC ID_;
-	StringC Name_;
-	StringC Icon_;
-	StringC Desc_;
-	StringC Author_;
-	StringC Website_;
-	StringC Date_;	
-	StringC VerVis_;
-	int VerInc_;
-	int VerUpdate_;
-	StringC WebSocket_;
+	AtlasUID UID();	
+	StringC ID();
+	StringC Name();
+	StringC Desc();
+	StringC Author();
+	StringC Website();
+	StringC Date();
+	StringC VerVis();
+	int VerInc();
+	int VerUpdate();
+	StringC WebSocket();
+	UTexture2D* GFXSmall();
+	UTexture2D* GFXLargeLoad();
 
 	bool DevFile_;
 
@@ -106,8 +118,22 @@ private:
 	
 	~AtlasC();
 
-	AtlasUID UID_;
-	
+	AtlasUID UID_;	
+	StringC ID_;
+	StringC Name_;
+	StringC Icon_;
+	StringC Desc_;
+	StringC Author_;
+	StringC Website_;
+	StringC Date_;
+	StringC VerVis_;
+	int VerInc_;
+	int VerUpdate_;
+	StringC WebSocket_;
+	UTexture2D* GFXSmall_;
+
+	UTexture2D* GetGFX(AtlasC::GFXSize Size);
+
 	bool Valid_;
 	bool Mounted_;
 	bool RequirementsChecked_;

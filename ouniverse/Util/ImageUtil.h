@@ -19,7 +19,7 @@ enum class EImageFormats : uint8
 	BMP		UMETA(DisplayName = "BMP        "),
 	ICO		UMETA(DisplayName = "ICO        "),
 	EXR		UMETA(DisplayName = "EXR        "),
-	ICNS		UMETA(DisplayName = "ICNS        ")
+	ICNS	UMETA(DisplayName = "ICNS        ")
 };
 
 UCLASS()

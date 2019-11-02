@@ -71,6 +71,12 @@ int AtlasUID::ForLog()
 	return UID_;
 }
 
+StringC AtlasUID::ToString()
+{
+	return StringC(UID_);
+}
+
+
 int AtlasUID::ParseTitle(StringC InFileName)
 {
 	if (!InFileName.BeInt(UID_))

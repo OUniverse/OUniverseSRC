@@ -32,7 +32,8 @@ class SaveDaisC;
 class SaveLibC;
 class LogC;
 class AtlasLibC;
-class DeprecLibC;
+
+class UBabel;
 class TerraC;
 class TimeC;
 class ConfigManager;
@@ -90,6 +91,7 @@ public:
 	FpsC*				Fps();
 	UCosmos*			Cosmos();
 	SaveVatC*			SaveV();
+	UBabel*				Babel();
 
 private:
 
@@ -107,6 +109,8 @@ private:
 	UUi*				Ui_;
 	UPROPERTY()
 	UMaestro*			Maestro_;
+	UPROPERTY()
+	UBabel*				Babel_;
 	AudioManager*		Audio_;
 	UWorld*				Scope_;
 	UViewportUE*		Viewport_;

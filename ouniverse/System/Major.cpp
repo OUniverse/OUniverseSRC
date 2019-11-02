@@ -24,6 +24,7 @@ UMajor* UMajor::Create()
 	return M;
 }
 
+
 UObject* UMajor::WorldContext()		{ return WorldContext_; }
 UserDaisC* UMajor::UserD()			{ return UserDais_; }
 UserLibC* UMajor::UserL()			{ return UserLib_; }
@@ -33,6 +34,7 @@ SaveDaisC* UMajor::SaveD()			{ return SaveDais_; }
 SaveLibC* UMajor::SaveL()			{ return SaveLib_; }
 SaveVatC* UMajor::SaveV()			{ return SaveV_; }
 
+UBabel* UMajor::Babel()				{ return Babel_; }
 ConfigManager* UMajor::Config()		{ return Config_; }
 ACameraUE* UMajor::Camera()			{ return Camera_; }
 UUi* UMajor::Ui()					{ return Ui_; }

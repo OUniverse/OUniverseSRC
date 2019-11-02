@@ -4,7 +4,7 @@
 #include "System/Major.h"
 #include "System/Class.h"
 
-#include "Ui/Writer_Max.h"
+#include "Ui/Writer_Master.h"
 
 namespace Global
 {
@@ -28,8 +28,9 @@ UUi* UUi::Get()
 
 void UUi::Init(UMajor* M)
 {
+	Major_ = M;
 	Scope_ = M->Scope();
-	Writer_ = CreateWidget<UWriter_Max>(M->Scope(), ClassC::Writer_Max());
+	Writer_ = UWriter_Master::Create(M->Scope(), M->Atlas());
 }
 
 void UUi::OpenMainMenu()

@@ -19,6 +19,8 @@
 
 #include "Key/GlobalK.h"
 
+#include "ImageUtils.h"
+
 #include "Min/DebugM.h"
 
 
@@ -50,6 +52,7 @@ AtlasC::AtlasC(StringC InFolderName, FolderC InFolder)
 	FormLib_ = NULL;
 	RevisionLib_ = NULL;
 	AmendmentLib_ = NULL;
+	GFXSmall_ = NULL;
 	AccordsHard_ = new AtlasAccordLibC();
 	AccordsSoft_ = new AtlasAccordLibC();
 	AccordsPref_ = new AtlasAccordLibC();
@@ -217,6 +220,7 @@ AtlasC::AtlasC(StringC InFolderName, FolderC InFolder)
 	LOG(10293, Name_, "Is Valid: $V$")
 	Valid_ = true;
 
+	GFXSmall_ = GetGFX(AtlasC::GFXSize::Small);
 }
 
 
@@ -230,6 +234,8 @@ AtlasC::~AtlasC()
 	delete FormLib_;
 	delete RevisionLib_;
 	delete AmendmentLib_;
+
+	delete GFXSmall_;
 }
 
 bool AtlasC::Try(FormUID UID, FormF*& InForm)
@@ -306,7 +312,89 @@ AtlasUID AtlasC::UID()
 	return UID_;
 }
 
+StringC AtlasC::ID()
+{
+	return ID_;
+}
 
+StringC AtlasC::Name()
+{
+	return Name_;
+}
+
+StringC AtlasC::Desc()
+{
+	return Desc_;
+}
+
+
+StringC AtlasC::Author()
+{
+	return Author_;
+}
+
+
+StringC AtlasC::Website()
+{
+	return Website_;
+}
+
+StringC AtlasC::Date()
+{
+	return Date_;
+}
+
+
+StringC AtlasC::VerVis()
+{
+	return VerVis_;
+}
+
+int AtlasC::VerInc()
+{
+	return VerInc_;
+}
+
+
+int AtlasC::VerUpdate()
+{
+	return VerUpdate_;
+}
+
+StringC AtlasC::WebSocket()
+{
+	return WebSocket_;
+}
+
+UTexture2D* AtlasC::GFXSmall()
+{
+	return GFXSmall_;
+}
+UTexture2D* AtlasC::GFXLargeLoad()
+{
+	return GetGFX(AtlasC::GFXSize::Large);
+}
+
+UTexture2D* AtlasC::GetGFX(AtlasC::GFXSize Size)
+{
+
+	StringC Path;
+
+	switch (Size) {
+	case AtlasC::GFXSize::Large:
+		Path = StringC("l");
+		break;
+	case AtlasC::GFXSize::Medium:
+		Path = StringC("m");
+		break;
+	case AtlasC::GFXSize::Small:
+		Path = StringC("S");
+		break;
+	}
+
+	FileC ImgFile = PathC::DirAtlas().ToInsideFolder(UID_.ToString()).ToFile(Path, "png");
+	return FImageUtils::ImportFileAsTexture2D(*ImgFile.ToString().ToFString());
+}
 
 bool AtlasC::CheckRequirements(AtlasLibC* InAtlasMap)
 {
@@ -444,4 +532,3 @@ JsonS AtlasC::ToJson()
 	
 	return S;
 }
-

@@ -7,6 +7,7 @@
 #include "System/Major.h"
 #include "System/Class.h"
 
+#include "System/Babel.h"
 #include "System/Log.h"
 #include "System/ConfigManager.h"
 #include "System/HudUE.h"
@@ -50,6 +51,10 @@
 #include "Interface/Url.h"
 
 #include "Interface/Data.h"
+
+
+
+#include "Framework/Application/SlateApplication.h"
 
 namespace GlobalVars
 {
@@ -152,6 +157,8 @@ void BootC::Standard(UObject* WorldContextObject)
 				return;
 		}
 
+	M->Babel_ = UBabel::Create(PathC::FileBabel());
+
 	M->Oni_ = new OniManagerC();
 	M->Oni()->Load(OniTypeC::Type::Internal, PathC::FileInternalConfig());
 	M->Oni()->Load(OniTypeC::Type::Global, PathC::FileGlobalConfig());
@@ -218,7 +225,8 @@ void BootC::Standard(UObject* WorldContextObject)
 	M->SaveV()->Load();
 
 
-	//M->Maestro()->FauxStart();
+	M->Maestro()->FauxStart();
 	M->Maestro()->WriterStart();
+
 	LOGP
 }

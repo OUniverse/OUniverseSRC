@@ -18,6 +18,7 @@ Atlas
 #include "System/DuetUID.h"
 
 class AtlasC;
+class UAtlas;
 class LoadoutC;
 class FormF;
 
@@ -63,6 +64,8 @@ public:
 	void UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ);
 
 	void SaveAtlasDoc(AtlasUID InAtlasUID);
+
+	TArray<UAtlas*> Consulify();
 
 private:
 

@@ -41,8 +41,13 @@ private:
 
 public:
 
+	bool OpenInternal();
+
+	UFUNCTION(BlueprintCallable)
+		void Open() {};
+
 	bool CloseInternal();
 
-	UFUNCTION(BlueprintNativeEvent, Category = "ViewEvents")
-	void OnClose(bool& Result);
+	UFUNCTION(BlueprintCallable)
+		void Close() {};
 };
