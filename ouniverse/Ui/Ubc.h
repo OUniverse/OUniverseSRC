@@ -37,5 +37,18 @@ class OUNIVERSE_API UUbc : public UUserWidget
 
 public:
 
+	FText BabelString(int UID);
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "RequestBP"))
+	void RequestBP();
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "ReadyBP"))
+	void ReadyBP();
+
+	virtual void Clicked() {};
+	virtual void Pressed() {};
+	virtual void Released() {};
+	virtual void Hovered() {};
+	virtual void Unhovered() {};
 
 };

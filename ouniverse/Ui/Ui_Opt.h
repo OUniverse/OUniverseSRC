@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
+#include "Ui/Ubc.h"
 #include "Ui_Opt.generated.h"
 
 
@@ -11,15 +11,20 @@ class UUi_View;
 
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUi_Opt : public UUserWidget
+class OUNIVERSE_API UUi_Opt : public UUbc
 {
 
 	GENERATED_BODY()
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int ViewUID_;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (DisplayName = "ViewID"))
+	int ViewUID;
+
+	UUi_View* View_;
+
+	UFUNCTION(BlueprintCallable)
+	void SetView(UUi_View* InView);
 
 	bool Deselect_Internal();
 
@@ -31,5 +36,23 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Select();
 
-	
+	UFUNCTION(BlueprintCallable)
+	void Click();
+
+	UFUNCTION(BlueprintCallable)
+	void HoverEnter();
+
+	UFUNCTION(BlueprintCallable)
+	void HoverExit();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnClick();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHoverExit();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHoverEnter();
+
+
 };

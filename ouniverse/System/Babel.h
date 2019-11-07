@@ -20,7 +20,7 @@ class OUNIVERSE_API UBabel : public UObject
 public:
 
 	UFUNCTION(BlueprintCallable, Category = "Babel")
-	static FString Decode(int InCode);
+	static FText Decode(int InCode);
 
 	static UBabel* Create(FileC BabelDoc);
 	void Init(FileC BabelDoc);

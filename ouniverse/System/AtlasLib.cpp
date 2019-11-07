@@ -79,17 +79,9 @@ void AtlasLibC::AddAtlas(AtlasC* NewAtlas)
 	Lib_.Add(NewAtlas->UID(), NewAtlas);
 }
 
-ArrayC<AtlasC*> AtlasLibC::GetAtlasPreArray()
+MapC<AtlasUID, AtlasC*>* AtlasLibC::GetAtlasPreMap()
 {
-	int l = PreLib_.Len();
-	ArrayC<AtlasC*> AtlasPreArr;
-
-	for (int i = 0; i < l; i++)
-	{
-		AtlasPreArr.Add(PreLib_.At(i));
-	}
-
-	return AtlasPreArr;
+	return &PreLib_;
 }
 
 AtlasC* AtlasLibC::GetAtlas(AtlasUID InValue)
@@ -202,18 +194,4 @@ void AtlasLibC::UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ)
 void AtlasLibC::SaveAtlasDoc(AtlasUID InAtlasUID)
 {
 	GetAtlas(InAtlasUID)->SaveDoc();
-}
-
-
-TArray<UAtlas*> AtlasLibC::Consulify()
-{
-	TArray<UAtlas*> Consul;
-
-	for (int i = 0; i < PreLen_; i++)
-	{
-		UAtlas* Atl = UAtlas::Create(PreLib_.At(i));
-		Consul.Emplace(Atl);
-	}
-
-	return Consul;
 }

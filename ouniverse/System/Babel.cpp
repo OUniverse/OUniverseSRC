@@ -8,6 +8,7 @@
 
 #include "Min/DebugM.h"
 
+
 namespace Global
 {
 	UBabel* Babel;
@@ -23,6 +24,7 @@ UBabel* UBabel::Create(FileC BabelDoc)
 
 void UBabel::Init(FileC BabelFile)
 {
+
 	JsonS J = JsonS(BabelFile.Doc().Open().ToString());
 	JsonS Cur;
 
@@ -36,7 +38,7 @@ void UBabel::Init(FileC BabelFile)
 }
 
 
-FString UBabel::Decode(int InCode)
+FText UBabel::Decode(int InCode)
 {
 	FString Result;
 
@@ -44,9 +46,9 @@ FString UBabel::Decode(int InCode)
 
 	if (bFound)
 	{
-		return Result;
+		return FText::FromString(Result);
 	}
 	
-	return FString::FromInt(InCode);
+	return FText::FromString(FString::FromInt(InCode));
 
 }

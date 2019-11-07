@@ -8,8 +8,7 @@
 #include "System/Atlas_.h"
 
 #include "Form/FormF.h"
-#include "System/FormPilot.h"
-#include "System/FormPilot^.h"
+
 
 #include <cohtml\Binding\Vector.h>
 #include <cohtml\Binding\String.h>
@@ -71,32 +70,7 @@ void ScribeP::UI_AtlasiMount(std::vector<int> AtlasiArr, bool ReqScribe)
 
 void ScribeP::UI_FormQUERY(std::string InQuery)
 {
-	FormQueryS* Query = new FormQueryS(InQuery);
-	//Data_->Query(Query);
-
-	int L = Query->ValidForms_.Len();
-
-	ArrayC<FormPilotS*> FormPilots;
-	FormWrapS CurForm;
-	DuetUID LoopDuet;
-	for (int i = 0; i < L; i++)
-	{
-		CurForm = Query->ValidForms_[i];
-		//LoopDuet = DuetUID(CurForm.Atlas()->UID(), CurForm.Form()->UID());
-		FormPilots.Add(new FormPilotS(LoopDuet, CurForm.Form()->ID(), CurForm.Form()->Type()));
-	}
-
-	//GSEND1("formlist>", FormPilots.Vector());
-
-	L = FormPilots.Len();
-
-	for (int i = 0; i < L; i++)
-	{
-		delete FormPilots[i];
-	}
-
-	delete Query;
-	DBUG("END QUERY")
+	
 
 }
 

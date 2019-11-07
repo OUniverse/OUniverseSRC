@@ -25,12 +25,13 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
+#include "Ui/Ui_Relay.h"
 #include "Ui_Bool.generated.h"
 
+class UUbc;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUi_Bool : public UUserWidget
+class OUNIVERSE_API UUi_Bool : public UUi_Relay
 {
 
 	GENERATED_BODY()

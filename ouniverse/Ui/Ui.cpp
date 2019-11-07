@@ -4,7 +4,7 @@
 #include "System/Major.h"
 #include "System/Class.h"
 
-#include "Ui/Writer_Master.h"
+#include "Ui/Writer/WRI_Alpha.h"
 
 namespace Global
 {
@@ -30,7 +30,6 @@ void UUi::Init(UMajor* M)
 {
 	Major_ = M;
 	Scope_ = M->Scope();
-	Writer_ = UWriter_Master::Create(M->Scope(), M->Atlas());
 }
 
 void UUi::OpenMainMenu()
@@ -40,5 +39,6 @@ void UUi::OpenMainMenu()
 
 void UUi::OpenWriter()
 {
+	Writer_ = UWRI_Alpha::Create(Major_->Scope(), Major_->Atlas());
 	Writer_->AddToViewport();
 }

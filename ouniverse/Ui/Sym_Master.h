@@ -25,12 +25,12 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Ui/Ui_Master.h"
+#include "Ui/Ui_Alpha.h"
 #include "Sym_Master.generated.h"
 
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API USym_Master : public UUi_Master
+class OUNIVERSE_API USym_Master : public UUi_Alpha
 {
 
 	GENERATED_BODY()

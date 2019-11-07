@@ -10,7 +10,6 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Json.h"
 
-#include "System/FormPilot.h"
 #include "System/FormQuery.h"
 
 class AtlasLibC;

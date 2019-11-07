@@ -51,7 +51,7 @@ public:
 
 	void AddPreAtlas(AtlasC* NewAtlas);
 
-	ArrayC<AtlasC*> GetAtlasPreArray();
+	MapC<AtlasUID, AtlasC*>* GetAtlasPreMap();
 
 	void Query(FormQueryS* InQuery);
 
@@ -64,8 +64,6 @@ public:
 	void UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ);
 
 	void SaveAtlasDoc(AtlasUID InAtlasUID);
-
-	TArray<UAtlas*> Consulify();
 
 private:
 

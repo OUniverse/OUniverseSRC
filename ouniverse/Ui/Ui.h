@@ -31,7 +31,7 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 class UMajor;
 class UWorld;
 
-class UWriter_Master;
+class UWRI_Alpha;
 
 UCLASS(Blueprintable)
 class OUNIVERSE_API UUi : public UUserWidget
@@ -56,5 +56,5 @@ public:
 	UMajor* Major_;
 
 	UPROPERTY()
-	UWriter_Master* Writer_;
+	UWRI_Alpha* Writer_;
 };
