@@ -75,3 +75,8 @@ int FormUID::ForLog()
 {
 	return UID_;
 }
+
+int& FormUID::Ref()
+{
+	return UID_;
+}

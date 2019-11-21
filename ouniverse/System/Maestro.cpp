@@ -43,5 +43,5 @@ void UMaestro::FauxStart()
 
 void UMaestro::WriterStart()
 {
-	Ui_->OpenWriter();
+	Ui_->OpenWriterMenu();
 }

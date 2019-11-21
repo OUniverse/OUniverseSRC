@@ -36,6 +36,17 @@ class OUNIVERSE_API UFF_Text : public UFFbc
 	GENERATED_BODY()
 
 public:
+	
+	static enum Primitives {
+		Int32,
+		StringC,
+	};
 
+	static UFF_Text* Create(int InFFID, void* InVP, UFF_Text::Primitives InPrimitive);
 
+	void Init(int InFFID, void* InVP, UFF_Text::Primitives InPrimitive);
+
+	void* VP_;
+
+	UFF_Text::Primitives Primitive_;
 };

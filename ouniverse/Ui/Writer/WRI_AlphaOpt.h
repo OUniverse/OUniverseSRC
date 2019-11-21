@@ -54,6 +54,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UUi_Catch* V_Catch;
 
+	int BabelID_;
+
 	int ViewUID_;
 
 	UWRI_Alpha* CastedView_;

@@ -9,9 +9,11 @@
 
 
 
-class UScrollBox;
-class UForm;
+class UUi_Catch;
 class UWRI_VForm;
+
+class UTextBlock;
+class UImage;
 
 UCLASS(Blueprintable)
 class OUNIVERSE_API UWRI_VFormEntry : public UUbc
@@ -29,16 +31,20 @@ public:
 
 	FormWrapS FormW_;
 
-	UPROPERTY()
+	UPROPERTY(meta = (BindWidget))
+	UUi_Catch* V_Catch;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* V_Text;
+
+	UPROPERTY(meta = (BindWidget))
+	UImage* V_ImgType;
+
+	UPROPERTY(meta = (BindWidget))
+	UImage* V_ImgAtlas;
+
 	UWRI_VForm* View_;
 
-	UFUNCTION(BlueprintPure)
-	UWRI_VForm* View();
-
-	UFUNCTION(BlueprintPure)
-	FString GetFormID();
-
-	UFUNCTION(BlueprintPure)
-	int GetFormUID();
+	void Clicked() override;
 
 };

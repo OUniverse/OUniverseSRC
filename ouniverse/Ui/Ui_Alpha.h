@@ -28,6 +28,7 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 #include "Ui/Ui_View.h"
 #include "Ui_Alpha.generated.h"
 
+class UUi;
 
 UCLASS(Blueprintable)
 class OUNIVERSE_API UUi_Alpha : public UUi_View
@@ -41,9 +42,12 @@ private:
 
 public:
 
-	void SetScope(UWorld* InScope);
+	void SetupAlpha(UWorld* InScope, UUi* InUi);
 		
 	UWorld* Scope();
 
 	UWorld* Scope_;
+
+	UUi* Ui_;
+
 };

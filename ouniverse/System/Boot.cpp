@@ -90,7 +90,6 @@ BootC::BootC(EBootMethod InBootMethod, UObject* WorldContextObject)
 
 	switch (InBootMethod) {
 	case EBootMethod::Standard:
-		ProgramState_ = ProgramStateC::State::Standard;
 		Standard(WorldContextObject);
 		break;
 	}
@@ -182,15 +181,16 @@ void BootC::Standard(UObject* WorldContextObject)
 
 	M->Fps_ = FpsC::Create(M->Time_);
 
-	M->UserDais_ = new UserDaisC(M->Oni());
 	M->LoadoutDais_ = new LoadoutDaisC();
+	M->UserDais_ = new UserDaisC(M->Oni());
 	M->SaveDais_ = new SaveDaisC();
-
 	M->UserLib_ = new UserLibC(PathC::DirUsers(), M->UserD(), M->Oni());
 	M->LoadoutLib_ = new LoadoutLibC(M->LoadoutD(), M->Oni());
 	M->SaveLib_ = new SaveLibC(M->SaveD());
 	M->SaveV_ = new SaveVatC(M->SaveD());
 
+	M->UserD()->Initialize(M->LoadoutL());
+	M->UserL()->Load();
 
 	M->Ui_ = UUi::Create(M);
 
@@ -202,8 +202,8 @@ void BootC::Standard(UObject* WorldContextObject)
 	M->Terra_ = TerraC::Create();
 
 
-	M->UserL()->Load();
-	M->UserL()->Decide();
+	
+
 
 
 
@@ -215,18 +215,20 @@ void BootC::Standard(UObject* WorldContextObject)
 	M->Control()->Init(M->Maestro());
 	
 
-	M->UserL()->Set(32767);
-	M->LoadoutL()->Load(M->UserD()->Folder());
-	M->LoadoutL()->Set(1314);
-	M->Atlas()->Mount(M->LoadoutD()->Get());
+	//M->UserL()->Set(32767);
+	//M->LoadoutL()->Load(M->UserD()->Folder());
+	//M->LoadoutL()->Set(1314);
+	//M->Atlas()->Mount(M->LoadoutD()->Get());
 
-	M->SaveL()->Load(M->UserD()->Folder());
-	M->SaveL()->Set(32767);
-	M->SaveV()->Load();
+	//M->SaveL()->Load(M->UserD()->Folder());
+	//M->SaveL()->Set(32767);
+	//M->SaveV()->Load();
 
 
-	M->Maestro()->FauxStart();
-	M->Maestro()->WriterStart();
+	//M->Maestro()->FauxStart();
+	//M->Maestro()->WriterStart();
+
+	M->Ui()->OpenSystemMenu();
 
 	LOGP
 }

@@ -4,13 +4,16 @@
 #include "Ui/Writer/WRI_VForm.h"
 
 #include "Form/FormF.h"
-#include "Components/ScrollBox.h"
+#include "Ui/Ui_Catch.h"
 #include "System/Class.h"
 
+#include "Components/TextBlock.h"
 
 
 void UWRI_VFormEntry::NativeConstruct()
 {
+	V_Catch->SetRelay(this);
+	V_Text->SetText(FText::FromString(FormW_.Form()->ID().ToChar()));
 
 	Super::NativeConstruct();
 }
@@ -28,17 +31,7 @@ void UWRI_VFormEntry::Init(UWRI_VForm* InView, FormWrapS InFormW)
 	FormW_ = InFormW;
 }
 
-UWRI_VForm* UWRI_VFormEntry::View()
+void UWRI_VFormEntry::Clicked()
 {
-	return View_;
-}
-
-FString UWRI_VFormEntry::GetFormID()
-{
-	return FormW_.Form()->ID().ToFString();
-}
-
-int UWRI_VFormEntry::GetFormUID()
-{
-	return FormW_.Form()->UID().ForUI();
+	(Cast<UWRI_VForm>(View_))->FormSelected(FormW_);
 }

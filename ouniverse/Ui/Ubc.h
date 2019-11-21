@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "ReadyBP"))
 	void ReadyBP();
 
+	virtual float Height() { return 0.0f; };
+	virtual float Width() { return 0.0f; };
+
 	virtual void Clicked() {};
 	virtual void Pressed() {};
 	virtual void Released() {};

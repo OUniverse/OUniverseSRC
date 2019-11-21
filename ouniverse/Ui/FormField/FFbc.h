@@ -37,5 +37,7 @@ class OUNIVERSE_API UFFbc : public UUbc
 
 public:
 
+	void SetFFID(int FFID);
 
+	int FFID_;
 };

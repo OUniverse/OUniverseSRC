@@ -16,12 +16,13 @@ UWRI_AlphaOpt* UWRI_AlphaOpt::Create(UWorld* InScope, UUi_View* InView, int InVi
 	UWRI_AlphaOpt* Neu = NewObject<UWRI_AlphaOpt>(InScope, ClassC::WRI_AlphaOpt());
 	Neu->SetView(InView);
 	Neu->ViewUID_ = InViewUID;
+	Neu->BabelID_ = BabelUID;
 	return Neu;
 }
 
 void UWRI_AlphaOpt::NativeConstruct()
 {
-	V_Text->SetText(FText::FromString("FUCK YOU"));
+	V_Text->SetText(BabelString(BabelID_));
 	V_Catch->SetRelay(this);
 	CastedView_ = Cast<UWRI_Alpha>(View_);
 	Super::NativeConstruct();
@@ -29,5 +30,5 @@ void UWRI_AlphaOpt::NativeConstruct()
 
 void UWRI_AlphaOpt::Clicked()
 {
-	CastedView_->SwitchView(ViewUID_,false);
+	//CastedView_->SwitchView(UWRI_Alpha::ViewPanels::Main, ViewUID_, false);
 }

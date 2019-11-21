@@ -4,6 +4,7 @@
 #include "Ui/Writer/WRI_Alpha.h"
 
 #include "UI/Writer/WRI_VFormEntry.h"
+#include "UI/Writer/WRI_VFormEForm.h"
 
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -17,23 +18,27 @@
 
 #include "System/AtlasLib.h"
 
+#include "Min/DebugM.h"
 
 
-void UWRI_VForm::InitFromViewer()
+void UWRI_VForm::NativeConstruct()
 {
-	CastedView_ = Cast<UWRI_Alpha>(OwningView_);
-	CastedView_->ImbueVForm(this);
+
+	Super::NativeConstruct();
 }
 
-void UWRI_VForm::Imbue(AtlasLibC* InAtlas)
+void UWRI_VForm::FormSelected(FormWrapS InFormWrap)
 {
-	AtlasLib_ = InAtlas;
+	UWRI_VFormEForm* FormPage = UWRI_VFormEForm::Create(this, InFormWrap);
+	V_Form->AddChild(FormPage);
+	(Cast<UCanvasPanelSlot>(FormPage->Slot))->SetAutoSize(true);
+	
 }
 
 void UWRI_VForm::Query(FString InQueryText)
 {
 	FormRefs_.Clear();
-	V_ScrollBox->ClearChildren();
+	V_Scroll->ClearChildren();
 
 	FormQueryS* FormQuery = new FormQueryS(InQueryText,&FormRefs_);
 	AtlasLib_->Query(FormQuery);
@@ -42,7 +47,7 @@ void UWRI_VForm::Query(FString InQueryText)
 	for (int i = 0; i < L; i++)
 	{
 		UWRI_VFormEntry* Entry = UWRI_VFormEntry::Create(OwningView_->Scope(), this, FormRefs_[i]);
-		V_ScrollBox->AddChild(Entry);
+		V_Scroll->Add(Entry);
 	}
 
 	delete FormQuery;

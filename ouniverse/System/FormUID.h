@@ -40,6 +40,8 @@ public:
 
 	int ForLog();
 
+	int& Ref();
+
 private:
 
 	int UID_;

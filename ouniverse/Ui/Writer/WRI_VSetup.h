@@ -27,12 +27,9 @@ class OUNIVERSE_API UWRI_VSetup : public UUi_View
 
 public:
 
-	void InitFromViewer() override;
-
-	void Imbue(AtlasLibC* InAtlasLib);
 
 	UPROPERTY(meta = (BindWidget))
-	UUi_ScrollBox* V_ScrollBox;
+	UUi_ScrollBox* V_Scroll;
 
 	UWRI_VSetupEntry* ActiveEntry_;
 

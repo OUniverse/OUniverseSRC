@@ -23,14 +23,17 @@ class OUNIVERSE_API UWRI_VForm : public UUi_View
 
 public:
 
-	void InitFromViewer() override;
+	virtual void NativeConstruct() override;
 
-	void Imbue(AtlasLibC* InAtlasLib);
+	void FormSelected(FormWrapS InFormWrap);
 
 	UWRI_Alpha* CastedMaster_;
 
 	UPROPERTY(meta = (BindWidget))
-	UUi_ScrollBox* V_ScrollBox;
+	UUi_ScrollBox* V_Scroll;
+
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* V_Form;
 
 	UWRI_Alpha* CastedView_;
 

@@ -13,6 +13,7 @@
 #include "System/Class.h"
 
 
+/**
 void UWRI_VSetup::InitFromViewer()
 {
 	ActiveEntry_ = NULL;
@@ -27,11 +28,11 @@ void UWRI_VSetup::Imbue(AtlasLibC* InAtlasLib)
 	for (int i = 0; i < L; i++)
 	{
 		UWRI_VSetupEntry* Entry = UWRI_VSetupEntry::Create(OwningView_->Scope(), this, InAtlasLib->GetAtlasPreMap()->At(i));
-		V_ScrollBox->AddChild(Entry);
+		V_Scroll->Add(Entry);
 		Entries_.Emplace(Entry);
 	}
 }
-
+*/
 
 void UWRI_VSetup::BoolChanged(EWRI_VSetupEntryBoolType Type, UWRI_VSetupEntry* InEntry)
 {

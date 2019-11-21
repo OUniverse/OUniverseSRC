@@ -4,6 +4,8 @@
 #include "System/Major.h"
 #include "System/Class.h"
 
+#include "Ui/System/SYM_Alpha.h"
+#include "Ui/Title/TIM_Alpha.h"
 #include "Ui/Writer/WRI_Alpha.h"
 
 namespace Global
@@ -28,17 +30,37 @@ UUi* UUi::Get()
 
 void UUi::Init(UMajor* M)
 {
+	ActiveAlpha_ = NULL;
 	Major_ = M;
 	Scope_ = M->Scope();
 }
 
-void UUi::OpenMainMenu()
+void UUi::CloseActive()
 {
-	//MainMenu_->AddToViewport();
+	if (ActiveAlpha_ != NULL)
+	{
+		ActiveAlpha_->RemoveFromParent();
+	}
 }
 
-void UUi::OpenWriter()
+void UUi::OpenSystemMenu()
 {
-	Writer_ = UWRI_Alpha::Create(Major_->Scope(), Major_->Atlas());
-	Writer_->AddToViewport();
+	CloseActive();
+	ActiveAlpha_ = USYM_Alpha::Create(Major_->Scope(), this, Major_->UserL(), Major_->UserD(), Major_->LoadoutL(), Major_->LoadoutD());
+	ActiveAlpha_->AddToViewport();
+}
+
+
+void UUi::OpenTitleMenu()
+{
+	CloseActive();
+	ActiveAlpha_ = UTIM_Alpha::Create(Major_->Scope(), this, Major_->UserD(), Major_->LoadoutD(), Major_->Atlas());
+	ActiveAlpha_->AddToViewport();
+}
+
+void UUi::OpenWriterMenu()
+{
+	CloseActive();
+	ActiveAlpha_ = UWRI_Alpha::Create(Major_->Scope(), Major_->Atlas());
+	ActiveAlpha_->AddToViewport();
 }

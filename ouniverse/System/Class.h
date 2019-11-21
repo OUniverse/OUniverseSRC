@@ -19,13 +19,21 @@ class UFF_Text;
 class ULOG_Alpha;
 class UPLS_Alpha;
 
-class USym_Master;
-class USym_VLoadout;
-class USym_VUser;
-class USym_VUserEntry;
+class USYM_Alpha;
+class USYM_AlphaOpt;
+class USYM_VMain;
+class USYM_VMainVLoadout;
+class USYM_VMainVUser;
+class USYM_VMainVUserEntry;
+class USYM_VUser;
+class USYM_VUserVCreate;
+class USYM_VUserVSelect;
 
-class UTim_Master;
-class UTim_VHome;
+class UTIM_Alpha;
+class UTIM_VMain;
+class UTIM_VMainVHome;
+class UTIM_VMainVLoad;
+class UTIM_VMainVPre;
 
 class UWRI_Alpha;
 class UWRI_AlphaOpt;
@@ -59,13 +67,20 @@ public:
 	static TSubclassOf<ULOG_Alpha>				LOG_Alpha();
 	static TSubclassOf<UPLS_Alpha>				PLS_Alpha();
 
-	static TSubclassOf<USym_Master>				Sym_Master();
-	static TSubclassOf<USym_VLoadout>			Sym_VLoadout();
-	static TSubclassOf<USym_VUser>				Sym_VUser();
-	static TSubclassOf<USym_VUserEntry>			Sym_VUserEntry();
+	static TSubclassOf<USYM_Alpha>				SYM_Alpha();
+	static TSubclassOf<USYM_AlphaOpt>			SYM_AlphaOpt();
+	static TSubclassOf<USYM_VMain>				SYM_VMain();
+	static TSubclassOf<USYM_VMainVLoadout>		SYM_VMainVLoadout();
+	static TSubclassOf<USYM_VMainVUserEntry>	SYM_VUserEntry();
+	static TSubclassOf<USYM_VUser>				SYM_VUser();
+	static TSubclassOf<USYM_VUserVCreate>		SYM_VUserVCreate();
+	static TSubclassOf<USYM_VUserVSelect>		SYM_VUserVSelect();
 
-	static TSubclassOf<UTim_Master>				Tim_Master();
-	static TSubclassOf<UTim_VHome>				Tim_VHome();
+	static TSubclassOf<UTIM_Alpha>				TIM_Alpha();
+	static TSubclassOf<UTIM_VMain>				TIM_VMain();
+	static TSubclassOf<UTIM_VMainVHome>			TIM_VMainVHome();
+	static TSubclassOf<UTIM_VMainVLoad>			TIM_VMainVLoad();
+	static TSubclassOf<UTIM_VMainVPre>			TIM_VMainVPre();
 
 	static TSubclassOf<UWRI_Alpha>				WRI_Alpha();
 	static TSubclassOf<UWRI_AlphaOpt>			WRI_AlphaOpt();

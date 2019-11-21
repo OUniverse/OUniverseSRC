@@ -11,6 +11,9 @@ Form: Abstract base form.
 
 #include "System/FormUID.h"
 
+
+struct FormFieldPolyS;
+
 class FormF
 {
 
@@ -23,7 +26,7 @@ public:
 	void Setup(JsonS& InJ);
 
 	virtual int Type();
-		
+	
 	virtual void Demarshal();
 		
 	virtual ~FormF() {};
@@ -40,6 +43,9 @@ public:
 
 	void Update(JsonS& InJ);
 
+	virtual bool TryVP(int VarID, void*& VP);
+
+	virtual void FormFields(FormFieldPolyS* InFFP);
 protected:
 
 	FormUID UID_;

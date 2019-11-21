@@ -27,10 +27,76 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #include "Ui/Ubc.h"
 #include "Ui/Ui_Opt.h"
+
 #include "Ui_View.generated.h"
 
 class UUi_Alpha;
-class UUi_Viewer;
+
+class UCanvasPanel;
+class UUi_View;
+
+UCLASS()
+class OUNIVERSE_API UUi_ViewElementData : public UObject
+{
+	GENERATED_BODY()
+
+public:
+
+	static UUi_ViewElementData* Create(int InUID, UUi_View* InView);
+
+	int UID_;
+	UUi_View* View_;
+	UUbc* Opt_;
+};
+
+
+
+
+UCLASS()
+class OUNIVERSE_API UViewPanelData : public UObject
+{
+
+	GENERATED_BODY()
+
+public:
+
+	static UViewPanelData* Create(int InUID);
+
+	int UID_;
+
+	void Add(int InViewUID, UUi_View* InView);
+
+	UUi_ViewElementData* GetView(int InViewUID);
+
+	void SetViewPanel(UCanvasPanel* InViewPanel);
+
+	UCanvasPanel* Viewer_;
+
+	UPROPERTY()
+	TMap<int, UUi_ViewElementData*> Views_;
+
+
+	UUi_ViewElementData* Active_;
+	UUi_ViewElementData* Pending_;
+
+
+	void SwitchView(int InViewID);
+
+
+
+	UFUNCTION(BlueprintCallable)
+		void CloseComplete();
+
+	UFUNCTION(BlueprintCallable)
+		void OpenComplete();
+
+};
+
+
+
+
+
+
 
 UCLASS(Blueprintable, BlueprintType)
 class OUNIVERSE_API UUi_View : public UUbc
@@ -41,17 +107,7 @@ class OUNIVERSE_API UUi_View : public UUbc
 
 public:
 
-	void CreateViewer();
-
-	UUi_Viewer* Viewer_;
-
-	void SwitchView(int InUID, bool InOpenFirst);
-
-	void InitFromViewer_Internal(UUi_View* InOwningView);
-
-	virtual void InitFromViewer();
-
-	void SetView(UUi_View* InView);
+	void StoreParentView(UUi_View* InView);
 
 	UWorld* Scope();
 
@@ -62,14 +118,36 @@ public:
 	UUi_View* OwningView_;
 
 
-	bool OpenView_Internal(UUi_Viewer* InViewer);
+	bool OpenView_Internal(UViewPanelData* InViewer);
 
 	UFUNCTION(BlueprintNativeEvent)
-	void OpenView(UUi_Viewer* InViewer);
+	void OpenView(UViewPanelData* InViewer);
 
-	void CloseView_Internal(UUi_Viewer* InViewer);
+	void CloseView_Internal(UViewPanelData* InViewer);
 
 	UFUNCTION(BlueprintNativeEvent)
-	void CloseView(UUi_Viewer* InViewer);
+	void CloseView(UViewPanelData* InViewer);
+
+
+
+
+	
+
+
+
+
+	void AddViewPanel(int InPanelUID);
+
+	void AddView(int InPanelUID, int InViewUID, UUi_View* InView);
+
+	void SetViewPanel(int PanelUID, UCanvasPanel* InViewPanel);
+
+	UViewPanelData* GetPanel(int InPanelUID);
+
+	UPROPERTY()
+	TMap<int, UViewPanelData*> Panels_;
+
+	void SwitchView(int InPanelID, int InViewID);
+
 
 };

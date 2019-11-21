@@ -31,6 +31,7 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 class UMajor;
 class UWorld;
 
+class UUi_Alpha;
 class UWRI_Alpha;
 
 UCLASS(Blueprintable)
@@ -46,15 +47,16 @@ public:
 
 	void Init(UMajor* M);
 
-	void OpenMainMenu();
-
-
-	void OpenWriter();
+	void OpenSystemMenu();
+	void OpenTitleMenu();
+	void OpenWriterMenu();
 
 	UWorld* Scope_;
 
 	UMajor* Major_;
 
+	void CloseActive();
+
 	UPROPERTY()
-	UWRI_Alpha* Writer_;
+	UUi_Alpha* ActiveAlpha_;
 };

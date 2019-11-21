@@ -56,7 +56,6 @@ public:
 	BootC() {};
 
 	EBootMethod BootMethod_;
-	ProgramStateC::State ProgramState_;
 
 	BootC(EBootMethod InBootMethod, UObject* WorldContextObject);
 

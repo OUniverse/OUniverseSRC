@@ -5,6 +5,10 @@
 #include "Interface/Json.h"
 #include "Key/GlobalK.h"
 
+#include "System/FormVar.h"
+
+#include "System/FormFieldPoly.h"
+
 int FormF::Type()
 {
 	return FormTypesC::Types::Form;
@@ -67,4 +71,24 @@ JsonS FormF::ToJsonInternal(JsonS& S)
 	S.Add(GlobalK::ID, ID());
 	S.Add(GlobalK::Type, Type());
 	return S;
+}
+
+bool FormF::TryVP(int VarID, void*& VP)
+{
+	switch (VarID) {
+	case FormVarC::UID:
+		VP = &UID_;
+		return true;
+	case FormVarC::ID:
+		VP = &ID_;
+		return true;
+	}
+
+	return false;
+}
+
+void FormF::FormFields(FormFieldPolyS* InFFP)
+{
+	InFFP->AddInt(FormVarC::UID,&UID_.Ref());
+	InFFP->AddString(FormVarC::ID, &ID_);
 }
