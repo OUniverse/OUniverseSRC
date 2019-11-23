@@ -25,13 +25,13 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Ui/Ui_Relay.h"
+#include "Ui/Ui_Interactive.h"
 #include "Ui_Bool.generated.h"
 
-class UUbc;
+class UUi_Pylon;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUi_Bool : public UUi_Relay
+class OUNIVERSE_API UUi_Bool : public UUi_Interactive
 {
 
 	GENERATED_BODY()
@@ -48,15 +48,11 @@ public:
 	void Toggle();
 
 	UFUNCTION(BlueprintCallable)
-	void Set(bool SetTo);
-
-	UFUNCTION(BlueprintCallable)
-	void SetNoChanged(bool SetTo);
+	void Set(bool SetTo, bool bInternalOnly);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Update();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Changed();
-
 };

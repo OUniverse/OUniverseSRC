@@ -52,21 +52,21 @@ void UViewPanelData::SwitchView(int InViewID)
 	if (Active_ != NULL)
 	{
 		UUi_View* ActiveView = Active_->View_;
-		ActiveView->CloseView_Internal(this);
+		ActiveView->ViewClose_Mechanism(this);
 	}
 	else
 	{
-		CloseComplete();
+		ViewCloseComplete();
 	}
 }
 
 
-void UViewPanelData::OpenComplete()
+void UViewPanelData::ViewOpenComplete()
 {
 
 }
 
-void UViewPanelData::CloseComplete()
+void UViewPanelData::ViewCloseComplete()
 {
 	if (Active_ != NULL)
 	{
@@ -81,7 +81,7 @@ void UViewPanelData::CloseComplete()
 	CanvasSlot->SetAnchors(FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
 	CanvasSlot->SetOffsets(FMargin(0.0f, 0.0f, 0.0f, 0.0f));
 
-	ActiveView->OpenView_Internal(this);
+	ActiveView->ViewOpen_Mechanism(this);
 }
 
 
@@ -116,25 +116,25 @@ UWorld* UUi_View::Scope()
 	return Alpha_->Scope();
 }
 
-bool UUi_View::OpenView_Internal(UViewPanelData* InViewPanel)
+bool UUi_View::ViewOpen_Mechanism(UViewPanelData* InViewPanel)
 {
-	OpenView(InViewPanel);
+	ViewOpen(InViewPanel);
 	return false;
 }
 
-void UUi_View::OpenView_Implementation(UViewPanelData* InViewPanel)
+void UUi_View::ViewOpen_Implementation(UViewPanelData* InViewPanel)
 {
 
 }
 
-void UUi_View::CloseView_Internal(UViewPanelData* InViewPanel)
+void UUi_View::ViewClose_Mechanism(UViewPanelData* InViewPanel)
 {
-	CloseView(InViewPanel);
+	ViewClose(InViewPanel);
 }
 
-void UUi_View::CloseView_Implementation(UViewPanelData* InViewPanel)
+void UUi_View::ViewClose_Implementation(UViewPanelData* InViewPanel)
 {
-	InViewPanel->CloseComplete();
+	InViewPanel->ViewCloseComplete();
 }
 
 

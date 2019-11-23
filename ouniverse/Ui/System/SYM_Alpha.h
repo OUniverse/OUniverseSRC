@@ -32,8 +32,9 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 class UCanvasPanel;
 
-class USYM_VMain;
-class USYM_VUser;
+class USYM_Main;
+class USYM_UserCreate;
+class USYM_UserSelect;
 
 class UserLibC;
 class UserDaisC;
@@ -63,10 +64,18 @@ public:
 	LoadoutDaisC* LoadoutDais_;
 
 	UPROPERTY()
-	USYM_VMain* View_Menu;
+	USYM_Main* View_Main;
 
 	UPROPERTY()
-	USYM_VUser* View_User;
+	USYM_UserSelect* View_UserSelect;
+
+	UPROPERTY()
+	USYM_UserCreate* View_UserCreate;
+
+	static constexpr int const& VMain = 0;
+	static constexpr int const& VUserCreate = 1;
+	static constexpr int const& VUserSelect = 2;
 
 	void ToTitleMenu();
+
 };

@@ -37,7 +37,7 @@ FormLibC::~FormLibC()
 {
 	for(int i = 0; i < Len(); i++)
 	{
-		delete Lib_[i];
+		delete Lib_.At(i);
 	}
 }
 

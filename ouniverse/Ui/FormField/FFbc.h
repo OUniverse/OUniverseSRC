@@ -25,12 +25,12 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Ui/Ubc.h"
+#include "Ui/Ui_Pylon.h"
 #include "FFbc.generated.h"
 
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UFFbc : public UUbc
+class OUNIVERSE_API UFFbc : public UUi_Pylon
 {
 
 	GENERATED_BODY()

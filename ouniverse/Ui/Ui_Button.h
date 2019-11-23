@@ -3,26 +3,27 @@
 
 #pragma once
 
-#include "Ui/Ubc.h"
+#include "Ui/Ui_Interface.h"
 #include "Ui_Button.generated.h"
 
-class UUi_View;
+class UTexture2D;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUi_Button : public UUbc
+class OUNIVERSE_API UUi_Button : public UUi_Interface
 {
 
 	GENERATED_BODY()
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Command;
+	bool Deselect_Internal();
 
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
-	UUi_View* View_;
+	UFUNCTION(BlueprintCallable)
+	void Deselect();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int UID;
+	bool Select_Internal();
+
+	UFUNCTION(BlueprintCallable)
+	void Select();
 
 };

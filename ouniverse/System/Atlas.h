@@ -30,6 +30,22 @@ class AtlasAccordLibC;
 
 class UTexture2D;
 
+class UWRI_AtlasEdit;
+
+struct AtlasDataStorageS
+{
+public:
+
+	AtlasDataStorageS() {};
+	AtlasDataStorageS(AtlasC* InAtlas);
+
+	StringC ID;
+	StringC Name;
+	StringC Author;
+	StringC Website;
+	StringC Socket;
+};
+
 class AtlasC
 {
 
@@ -41,6 +57,7 @@ class AtlasC
 	static const char* K_DESC;
 	static const char* K_AUTHOR;
 	static const char* K_WEBSITE;
+
 	static const char* K_DATE;
 	static const char* K_VER_VIS;
 	static const char* K_VER_INC;
@@ -55,7 +72,8 @@ class AtlasC
 	static const char* K_FLAGS;
 
 	friend AtlasLibC;
-	
+	friend UWRI_AtlasEdit;
+
 public: 
 
 
@@ -112,7 +130,13 @@ public:
 
 	JsonS ToJson();
 
+	void WriterMasterLoad();
+	void WriterMasterUnload();
+
 private:
+
+	AtlasDataStorageS* DataStorage_;
+
 
 	AtlasC(StringC InFolderName, FolderC InFolder);
 	

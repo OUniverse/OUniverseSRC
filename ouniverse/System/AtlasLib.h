@@ -20,6 +20,7 @@ Atlas
 class AtlasC;
 class UAtlas;
 class LoadoutC;
+class LoadoutDaisC;
 class FormF;
 
 class AtlasLibC
@@ -27,11 +28,11 @@ class AtlasLibC
 
 public:
 
-	static AtlasLibC* Create(FolderC InFolder);
+	static AtlasLibC* Create(FolderC InFolder, LoadoutDaisC* InLoadoutDais);
 	
 	static AtlasLibC* Get();
 
-	AtlasLibC(FolderC InFolder);
+	AtlasLibC(FolderC InFolder, LoadoutDaisC* InLoadoutDais);
 
 	AtlasC* GetAtlas(AtlasUID InValue);
 
@@ -45,7 +46,11 @@ public:
 
 	void Reset();
 
-	void Mount(LoadoutC* InLoadout);
+	void MountFromLoadout();
+
+	void MountFromWriter(ArrayC<AtlasC*>* AtlasUIDs);
+
+	void Dismount();
 
 	void AddAtlas(AtlasC* NewAtlas);
 
@@ -77,4 +82,5 @@ private:
 
 	MapC<AtlasUID, AtlasC*> Lib_;
 
+	LoadoutDaisC* LoadoutDais_;
 };

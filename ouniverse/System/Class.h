@@ -20,29 +20,30 @@ class ULOG_Alpha;
 class UPLS_Alpha;
 
 class USYM_Alpha;
-class USYM_AlphaOpt;
-class USYM_VMain;
-class USYM_VMainVLoadout;
-class USYM_VMainVUser;
-class USYM_VMainVUserEntry;
-class USYM_VUser;
-class USYM_VUserVCreate;
-class USYM_VUserVSelect;
+class USYM_Loadout;
+class USYM_Main;
+class USYM_UserCreate;
+class USYM_UserEdit;
+class USYM_UserSelect;
+class USYM_UserSelect_Le;
+
 
 class UTIM_Alpha;
-class UTIM_VMain;
-class UTIM_VMainVHome;
-class UTIM_VMainVLoad;
-class UTIM_VMainVPre;
+class UTIM_AtlasMount;
+class UTIM_Home;
+class UTIM_Main;
+class UTIM_Pre;
 
 class UWRI_Alpha;
-class UWRI_AlphaOpt;
-class UWRI_VAtlas;
-class UWRI_VForm;
-class UWRI_VFormEForm;
-class UWRI_VFormEntry;
-class UWRI_VSetup;
-class UWRI_VSetupEntry;
+class UWRI_AtlasEdit;
+class UWRI_AtlasMount;
+class UWRI_FormEdit;
+class UWRI_FormEdit_Form;
+class UWRI_FormEdit_Le;
+class UWRI_Loadout;
+class UWRI_Loadout_Le;
+class UWRI_Main;
+class UWRI_Splash;
 
 class OUNIVERSE_API ClassC
 {
@@ -67,27 +68,30 @@ public:
 	static TSubclassOf<ULOG_Alpha>				LOG_Alpha();
 	static TSubclassOf<UPLS_Alpha>				PLS_Alpha();
 
-	static TSubclassOf<USYM_Alpha>				SYM_Alpha();
-	static TSubclassOf<USYM_AlphaOpt>			SYM_AlphaOpt();
-	static TSubclassOf<USYM_VMain>				SYM_VMain();
-	static TSubclassOf<USYM_VMainVLoadout>		SYM_VMainVLoadout();
-	static TSubclassOf<USYM_VMainVUserEntry>	SYM_VUserEntry();
-	static TSubclassOf<USYM_VUser>				SYM_VUser();
-	static TSubclassOf<USYM_VUserVCreate>		SYM_VUserVCreate();
-	static TSubclassOf<USYM_VUserVSelect>		SYM_VUserVSelect();
+	static TSubclassOf<USYM_Alpha>					SYM_Alpha();
+	static TSubclassOf<USYM_Loadout>				SYM_Loadout();
+	static TSubclassOf<USYM_Main>					SYM_Main();
+	static TSubclassOf<USYM_UserCreate>				SYM_UserCreate();
+	static TSubclassOf<USYM_UserEdit>				SYM_UserEdit();
+	static TSubclassOf<USYM_UserSelect>				SYM_UserSelect();
+	static TSubclassOf<USYM_UserSelect_Le>	SYM_UserSelect_Le();
+
+	
 
 	static TSubclassOf<UTIM_Alpha>				TIM_Alpha();
-	static TSubclassOf<UTIM_VMain>				TIM_VMain();
-	static TSubclassOf<UTIM_VMainVHome>			TIM_VMainVHome();
-	static TSubclassOf<UTIM_VMainVLoad>			TIM_VMainVLoad();
-	static TSubclassOf<UTIM_VMainVPre>			TIM_VMainVPre();
+	static TSubclassOf<UTIM_AtlasMount>			TIM_AtlasMount();
+	static TSubclassOf<UTIM_Home>				TIM_Home();
+	static TSubclassOf<UTIM_Main>				TIM_Main();
+	static TSubclassOf<UTIM_Pre>				TIM_Pre();
 
 	static TSubclassOf<UWRI_Alpha>				WRI_Alpha();
-	static TSubclassOf<UWRI_AlphaOpt>			WRI_AlphaOpt();
-	static TSubclassOf<UWRI_VAtlas>				WRI_VAtlas();
-	static TSubclassOf<UWRI_VForm>				WRI_VForm();
-	static TSubclassOf<UWRI_VFormEForm>			WRI_VFormEForm();
-	static TSubclassOf<UWRI_VFormEntry>			WRI_VFormEntry();
-	static TSubclassOf<UWRI_VSetup>				WRI_VSetup();
-	static TSubclassOf<UWRI_VSetupEntry>		WRI_VSetupEntry();
+	static TSubclassOf<UWRI_AtlasEdit>			WRI_AtlasEdit();
+	static TSubclassOf<UWRI_AtlasMount>			WRI_AtlasMount();	
+	static TSubclassOf<UWRI_FormEdit>			WRI_FormEdit();
+	static TSubclassOf<UWRI_FormEdit_Form>		WRI_FormEdit_Form();
+	static TSubclassOf<UWRI_FormEdit_Le>		WRI_FormEdit_Le();
+	static TSubclassOf<UWRI_Loadout>			WRI_Loadout();
+	static TSubclassOf<UWRI_Loadout_Le>			WRI_Loadout_Le();
+	static TSubclassOf<UWRI_Main>				WRI_Main();
+	static TSubclassOf<UWRI_Splash>				WRI_Splash();
 };

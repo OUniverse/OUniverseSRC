@@ -61,6 +61,6 @@ void UUi::OpenTitleMenu()
 void UUi::OpenWriterMenu()
 {
 	CloseActive();
-	ActiveAlpha_ = UWRI_Alpha::Create(Major_->Scope(), Major_->Atlas());
+	ActiveAlpha_ = UWRI_Alpha::Create(Major_->Scope(), this, Major_->Atlas());
 	ActiveAlpha_->AddToViewport();
 }

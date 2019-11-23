@@ -1,58 +1,62 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Writer/WRI_Alpha.h"
-#include "Ui/Writer/WRI_AlphaOpt.h"
 
-#include "Ui/Writer/WRI_VSetup.h"
-#include "Ui/Writer/WRI_VForm.h"
+#include "Ui/Writer/WRI_Main.h"
+#include "Ui/Writer/WRI_Splash.h"
 
-#include "System/Babel.h"
 #include "System/AtlasLib.h"
-#include "System/Class.h"
-#include "Ui/Ui_Viewer.h"
+#include "System/Atlas.h"
 
-#include "Components/HorizontalBox.h"
+#include "System/Class.h"
+
 
 
 
 void UWRI_Alpha::NativeConstruct()
 {
-	/**
-	V_Viewer->Init(this);
-	CreateViewManager(ViewPanels::ViewPanels_MAX);
-	ViewManager_->SetViewPanel(ViewPanels::Main, V_Viewer);
+	MasterAtlas_ = NULL;
+	SetViewPanel(0, V_View);
 
-	UWRI_AlphaOpt* Opt = UWRI_AlphaOpt::Create(Scope(), this, Views::Setup, 81912345);
-	V_Viewer->AddTab(Views::Setup, Opt, *ClassC::WRI_VSetup(), false);
-	V_Opts->AddChildToHorizontalBox(Opt);
+	SwitchView(0, UWRI_Alpha::VSplash);
 
-	Opt = UWRI_AlphaOpt::Create(Scope(), this, Views::Form, 81912345);
-	V_Viewer->AddTab(Views::Form, Opt, *ClassC::WRI_VForm(), false);
-	V_Opts->AddChildToHorizontalBox(Opt);
-
-	V_Viewer->SwitchView(Views::Setup, false);
-
-	//Opt = UWRI_AlphaOpt::Create(Scope(),81912345);
-	//OptsBox_->AddChildToHorizontalBox(Opt);
-	//Opt = UWRI_AlphaOpt::Create(Scope(),81912345);
-	//OptsBox_->AddChildToHorizontalBox(Opt);
-
-	*/
 	Super::NativeConstruct();
 }
 
 
-UWRI_Alpha* UWRI_Alpha::Create(UWorld* InScope, AtlasLibC* InAtlasLib)
+UWRI_Alpha* UWRI_Alpha::Create(UWorld* InScope, UUi* InUi, AtlasLibC* InAtlasLib)
 {
 	UWRI_Alpha* Neu = CreateWidget<UWRI_Alpha>(InScope, ClassC::WRI_Alpha());
-	//Neu->SetupAlpha(InScope);
-	Neu->Init(InAtlasLib);
+	Neu->Init(InScope, InUi, InAtlasLib);
 	return Neu;
 }
 
-void UWRI_Alpha::Init(AtlasLibC* InAtlasLib)
+void UWRI_Alpha::Init(UWorld* InScope, UUi* InUi, AtlasLibC* InAtlasLib)
 {
-	Alpha_ = this;
-	OwningView_ = NULL;
+	SetupAlpha(InScope, InUi);
+
 	AtlasLib_ = InAtlasLib;
+	AddViewPanel(0);
+	View_Main = UWRI_Main::Create(this, InAtlasLib);
+	AddView(0, UWRI_Alpha::VMain, View_Main);
+
+	View_Splash = UWRI_Splash::Create(this);
+	AddView(0, UWRI_Alpha::VSplash, View_Splash);
+
+}
+
+
+void UWRI_Alpha::OpenLoadout()
+{
+	AtlasLib_->MountFromWriter(&Loadout_);
+}
+
+void UWRI_Alpha::SetMasterAtlas(AtlasC* InMasterAtlas)
+{
+	if (MasterAtlas_ != NULL)
+	{
+		MasterAtlas_->WriterMasterUnload();
+	}
+	MasterAtlas_ = InMasterAtlas;
+	MasterAtlas_->WriterMasterLoad();
 }

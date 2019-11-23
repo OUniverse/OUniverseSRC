@@ -16,29 +16,32 @@
 #include "Ui/Pulse/PLS_Alpha.h"
 
 #include "Ui/System/SYM_Alpha.h"
-#include "Ui/System/SYM_AlphaOpt.h"
-#include "Ui/System/SYM_VMainVLoadout.h"
-#include "Ui/System/SYM_VMain.h"
-#include "Ui/System/SYM_VMainVUser.h"
-#include "Ui/System/SYM_VMainVUserEntry.h"
-#include "Ui/System/SYM_VUser.h"
-#include "Ui/System/SYM_VUserVCreate.h"
-#include "Ui/System/SYM_VUserVSelect.h"
+#include "Ui/System/SYM_Loadout.h"
+#include "Ui/System/SYM_Main.h"
+#include "Ui/System/SYM_UserCreate.h"
+#include "Ui/System/SYM_UserEdit.h"
+#include "Ui/System/SYM_UserSelect.h"
+#include "Ui/System/SYM_UserSelect_Le.h"
 
 #include "Ui/Title/TIM_Alpha.h"
-#include "Ui/Title/TIM_VMain.h"
-#include "Ui/Title/TIM_VMainVHome.h"
-#include "Ui/Title/TIM_VMainVLoad.h"
-#include "Ui/Title/TIM_VMainVPre.h"
+#include "Ui/Title/TIM_AtlasMount.h"
+#include "Ui/Title/TIM_Home.h"
+#include "Ui/Title/TIM_Main.h"
+#include "Ui/Title/TIM_Pre.h"
 
 #include "Ui/Writer/WRI_Alpha.h"
-#include "Ui/Writer/WRI_AlphaOpt.h"
-#include "Ui/Writer/WRI_VAtlas.h"
-#include "Ui/Writer/WRI_VForm.h"
-#include "Ui/Writer/WRI_VFormEForm.h"
-#include "Ui/Writer/WRI_VFormEntry.h"
-#include "Ui/Writer/WRI_VSetup.h"
-#include "Ui/Writer/WRI_VSetupEntry.h"
+#include "Ui/Writer/WRI_AtlasEdit.h"
+#include "Ui/Writer/WRI_AtlasMount.h"
+#include "Ui/Writer/WRI_FormEdit.h"
+#include "Ui/Writer/WRI_FormEdit_Le.h"
+#include "Ui/Writer/WRI_Loadout.h"
+#include "Ui/Writer/WRI_Loadout_Le.h"
+#include "Ui/Writer/WRI_Main.h"
+#include "Ui/Writer/WRI_Splash.h"
+#include "Ui/Writer/WRI_VMainVFormEForm.h"
+
+
+
 
 namespace Class
 {
@@ -55,33 +58,34 @@ namespace Class
 	TSubclassOf<UFF_LinkList>			FF_LinkList;
 	TSubclassOf<UFF_Text>				FF_Text;
 
-	TSubclassOf<ULOG_Alpha>				LOG_Alpha;
-	TSubclassOf<UPLS_Alpha>				PLS_Alpha;
+	TSubclassOf<ULOG_Alpha>					LOG_Alpha;
+	TSubclassOf<UPLS_Alpha>					PLS_Alpha;
 
-	TSubclassOf<USYM_Alpha>				SYM_Alpha;
-	TSubclassOf<USYM_AlphaOpt>			SYM_AlphaOpt;
-	TSubclassOf<USYM_VMain>				SYM_VMain;
-	TSubclassOf<USYM_VMainVLoadout>		SYM_VMainVLoadout;
-	TSubclassOf<USYM_VMainVUser>		SYM_VMainVUser;
-	TSubclassOf<USYM_VMainVUserEntry>	SYM_VUserEntry;
-	TSubclassOf<USYM_VUser>				SYM_VUser;
-	TSubclassOf<USYM_VUserVCreate>		SYM_VUserVCreate;
-	TSubclassOf<USYM_VUserVSelect>		SYM_VUserVSelect;
+	TSubclassOf<USYM_Alpha>					SYM_Alpha;
+	TSubclassOf<USYM_Loadout>				SYM_Loadout;
+	TSubclassOf<USYM_Main>					SYM_Main;
+	TSubclassOf<USYM_UserCreate>			SYM_UserCreate;
+	TSubclassOf<USYM_UserEdit>				SYM_UserEdit;
+	TSubclassOf<USYM_UserSelect>			SYM_UserSelect;
+	TSubclassOf<USYM_UserSelect_Le>	SYM_UserSelect_Le;
+		
 
-	TSubclassOf<UTIM_Alpha>				TIM_Alpha;
-	TSubclassOf<UTIM_VMain>				TIM_VMain;
-	TSubclassOf<UTIM_VMainVHome>		TIM_VMainVHome;
-	TSubclassOf<UTIM_VMainVLoad>		TIM_VMainVLoad;
-	TSubclassOf<UTIM_VMainVPre>			TIM_VMainVPre;
+	TSubclassOf<UTIM_Alpha>					TIM_Alpha;
+	TSubclassOf<UTIM_AtlasMount>			TIM_AtlasMount;
+	TSubclassOf<UTIM_Home>					TIM_Home;
+	TSubclassOf<UTIM_Main>					TIM_Main;
+	TSubclassOf<UTIM_Pre>					TIM_Pre;
 
-	TSubclassOf<UWRI_Alpha>				WRI_Alpha;
-	TSubclassOf<UWRI_AlphaOpt>			WRI_AlphaOpt;
-	TSubclassOf<UWRI_VAtlas>			WRI_VAtlas;
-	TSubclassOf<UWRI_VForm>				WRI_VForm;
-	TSubclassOf<UWRI_VFormEForm>		WRI_VFormEForm;
-	TSubclassOf<UWRI_VFormEntry>		WRI_VFormEntry;
-	TSubclassOf<UWRI_VSetup>			WRI_VSetup;
-	TSubclassOf<UWRI_VSetupEntry>		WRI_VSetupEntry;
+	TSubclassOf<UWRI_Alpha>					WRI_Alpha;
+	TSubclassOf<UWRI_AtlasEdit>				WRI_AtlasEdit;
+	TSubclassOf<UWRI_AtlasMount>			WRI_AtlasMount;
+	TSubclassOf<UWRI_FormEdit>				WRI_FormEdit;
+	TSubclassOf<UWRI_FormEdit_Form>			WRI_FormEdit_Form;
+	TSubclassOf<UWRI_FormEdit_Le>			WRI_FormEdit_Le;
+	TSubclassOf<UWRI_Loadout>				WRI_Loadout;
+	TSubclassOf<UWRI_Loadout_Le>			WRI_Loadout_Le;
+	TSubclassOf<UWRI_Main>					WRI_Main;
+	TSubclassOf<UWRI_Splash>				WRI_Splash;
 }
 
 
@@ -102,34 +106,34 @@ void ClassC::Setup()
 	Class::FF_Text		= TSoftClassPtr<UFF_Text>(FSoftClassPath("/Game/class/ui/FormField/FF_TextC.FF_TextC_C")).LoadSynchronous();
 
 
-	Class::LOG_Alpha	= TSoftClassPtr<ULOG_Alpha>(FSoftClassPath("/Game/class/ui/log/LOG_AlphaC.LOG_AlphaC_C")).LoadSynchronous();
+	Class::LOG_Alpha			= TSoftClassPtr<ULOG_Alpha>(FSoftClassPath("/Game/class/ui/log/LOG_AlphaC.LOG_AlphaC_C")).LoadSynchronous();
 
-	Class::PLS_Alpha	= TSoftClassPtr<UPLS_Alpha>(FSoftClassPath("/Game/class/ui/pulse/PLS_AlphaC.PLS_AlphaC_C")).LoadSynchronous();
+	Class::PLS_Alpha				= TSoftClassPtr<UPLS_Alpha>(FSoftClassPath("/Game/class/ui/pulse/PLS_AlphaC.PLS_AlphaC_C")).LoadSynchronous();
 
-	Class::SYM_Alpha			= TSoftClassPtr<USYM_Alpha>(FSoftClassPath("/Game/class/ui/system/SYM_AlphaC.SYM_AlphaC_C")).LoadSynchronous();
-	Class::SYM_AlphaOpt			= TSoftClassPtr<USYM_AlphaOpt>(FSoftClassPath("/Game/class/ui/system/SYM_AlphaOptC.SYM_AlphaOptC_C")).LoadSynchronous();
-	Class::SYM_VMain			= TSoftClassPtr<USYM_VMain>(FSoftClassPath("/Game/class/ui/system/SYM_VMainC.SYM_VMainC_C")).LoadSynchronous();
-	Class::SYM_VMainVLoadout	= TSoftClassPtr<USYM_VMainVLoadout>(FSoftClassPath("/Game/class/ui/system/SYM_VMainVLoadoutC.SYM_VMainVLoadoutC_C")).LoadSynchronous();
-	Class::SYM_VMainVUser		= TSoftClassPtr<USYM_VMainVUser>(FSoftClassPath("/Game/class/ui/system/SYM_VMainVUserC.SYM_VMainVUserC_C")).LoadSynchronous();
-	Class::SYM_VUserEntry		= TSoftClassPtr<USYM_VMainVUserEntry>(FSoftClassPath("/Game/class/ui/system/SYM_VUserEntryC.SYM_VUserEntryC_C")).LoadSynchronous();
-	Class::SYM_VUser			= TSoftClassPtr<USYM_VUser>(FSoftClassPath("/Game/class/ui/system/SYM_VUserC.SYM_VUserC_C")).LoadSynchronous();
-	Class::SYM_VUserVCreate		= TSoftClassPtr<USYM_VUserVCreate>(FSoftClassPath("/Game/class/ui/system/SYM_VUserVCreateC.SYM_VUserVCreateC_C")).LoadSynchronous();
-	Class::SYM_VUserVSelect		= TSoftClassPtr<USYM_VUserVSelect>(FSoftClassPath("/Game/class/ui/system/SYM_VUserVSelectC.SYM_VUserVSelectC_C")).LoadSynchronous();
+	Class::SYM_Alpha				= TSoftClassPtr<USYM_Alpha>(FSoftClassPath("/Game/class/ui/system/SYM_AlphaC.SYM_AlphaC_C")).LoadSynchronous();
+	Class::SYM_Loadout				= TSoftClassPtr<USYM_Loadout>(FSoftClassPath("/Game/class/ui/system/SYM_LoadoutC.SYM_LoadoutC_C")).LoadSynchronous();
+	Class::SYM_Main					= TSoftClassPtr<USYM_Main>(FSoftClassPath("/Game/class/ui/system/SYM_MainC.SYM_MainC_C")).LoadSynchronous();
+	Class::SYM_UserCreate			= TSoftClassPtr<USYM_UserCreate>(FSoftClassPath("/Game/class/ui/system/SYM_UserCreateC.SYM_UserCreateC_C")).LoadSynchronous();
+	Class::SYM_UserEdit				= TSoftClassPtr<USYM_UserEdit>(FSoftClassPath("/Game/class/ui/system/SYM_UserEditC.SYM_UserEditC_C")).LoadSynchronous();
+	Class::SYM_UserSelect			= TSoftClassPtr<USYM_UserSelect>(FSoftClassPath("/Game/class/ui/system/SYM_UserSelectC.SYM_UserSelectC_C")).LoadSynchronous();
+	Class::SYM_UserSelect_Le		= TSoftClassPtr<USYM_UserSelect_Le>(FSoftClassPath("/Game/class/ui/system/SYM_UserSelect_LeC.SYM_UserSelect_LeC_C")).LoadSynchronous();
 
-	Class::TIM_Alpha			= TSoftClassPtr<UTIM_Alpha>(FSoftClassPath("/Game/class/ui/title/TIM_AlphaC.TIM_AlphaC_C")).LoadSynchronous();
-	Class::TIM_VMain			= TSoftClassPtr<UTIM_VMain>(FSoftClassPath("/Game/class/ui/title/TIM_VMainC.TIM_VMainC_C")).LoadSynchronous();
-	Class::TIM_VMainVHome		= TSoftClassPtr<UTIM_VMainVHome>(FSoftClassPath("/Game/class/ui/title/TIM_VMainVHomeC.TIM_VMainVHomeC_C")).LoadSynchronous();
-	Class::TIM_VMainVLoad		= TSoftClassPtr<UTIM_VMainVLoad>(FSoftClassPath("/Game/class/ui/title/TIM_VMainVLoadC.TIM_VMainVLoadC_C")).LoadSynchronous();
-	Class::TIM_VMainVPre		= TSoftClassPtr<UTIM_VMainVPre>(FSoftClassPath("/Game/class/ui/title/TIM_VMainVPreC.TIM_VMainVPreC_C")).LoadSynchronous();
+	Class::TIM_Alpha				= TSoftClassPtr<UTIM_Alpha>(FSoftClassPath("/Game/class/ui/title/TIM_AlphaC.TIM_AlphaC_C")).LoadSynchronous();
+	Class::TIM_AtlasMount			= TSoftClassPtr<UTIM_AtlasMount>(FSoftClassPath("/Game/class/ui/title/TIM_AtlasMountC.TIM_AtlasMountC_C")).LoadSynchronous();
+	Class::TIM_Home					= TSoftClassPtr<UTIM_Home>(FSoftClassPath("/Game/class/ui/title/TIM_HomeC.TIM_HomeC_C")).LoadSynchronous();
+	Class::TIM_Main					= TSoftClassPtr<UTIM_Main>(FSoftClassPath("/Game/class/ui/title/TIM_MainC.TIM_MainC_C")).LoadSynchronous();
+	Class::TIM_Pre					= TSoftClassPtr<UTIM_Pre>(FSoftClassPath("/Game/class/ui/title/TIM_PreC.TIM_PreC_C")).LoadSynchronous();
 
-	Class::WRI_Alpha		= TSoftClassPtr<UWRI_Alpha>(FSoftClassPath("/Game/class/ui/writer/WRI_AlphaC.WRI_AlphaC_C")).LoadSynchronous();
-	Class::WRI_AlphaOpt		= TSoftClassPtr<UWRI_AlphaOpt>(FSoftClassPath("/Game/class/ui/writer/WRI_AlphaOptC.WRI_AlphaOptC_C")).LoadSynchronous();
-	Class::WRI_VAtlas		= TSoftClassPtr<UWRI_VAtlas>(FSoftClassPath("/Game/class/ui/writer/WRI_VAtlasC.WRI_VAtlasC_C")).LoadSynchronous();
-	Class::WRI_VForm		= TSoftClassPtr<UWRI_VForm>(FSoftClassPath("/Game/class/ui/writer/WRI_VFormC.WRI_VFormC_C")).LoadSynchronous();
-	Class::WRI_VFormEForm	= TSoftClassPtr<UWRI_VFormEForm>(FSoftClassPath("/Game/class/ui/writer/WRI_VFormEFormC.WRI_VFormEFormC_C")).LoadSynchronous();
-	Class::WRI_VFormEntry	= TSoftClassPtr<UWRI_VFormEntry>(FSoftClassPath("/Game/class/ui/writer/WRI_VFormEntryC.WRI_VFormEntryC_C")).LoadSynchronous();
-	Class::WRI_VSetup		= TSoftClassPtr<UWRI_VSetup>(FSoftClassPath("/Game/class/ui/writer/WRI_VSetupC.WRI_VSetupC_C")).LoadSynchronous();
-	Class::WRI_VSetupEntry	= TSoftClassPtr<UWRI_VSetupEntry>(FSoftClassPath("/Game/class/ui/writer/WRI_VSetupEntryC.WRI_VSetupEntryC_C")).LoadSynchronous();
+	Class::WRI_Alpha				= TSoftClassPtr<UWRI_Alpha>(FSoftClassPath("/Game/class/ui/writer/WRI_AlphaC.WRI_AlphaC_C")).LoadSynchronous();
+	Class::WRI_AtlasEdit			= TSoftClassPtr<UWRI_AtlasEdit>(FSoftClassPath("/Game/class/ui/writer/WRI_AtlasEditC.WRI_AtlasEditC_C")).LoadSynchronous();
+	Class::WRI_AtlasMount			= TSoftClassPtr<UWRI_AtlasMount>(FSoftClassPath("/Game/class/ui/writer/WRI_AtlasMountC.WRI_AtlasMountC_C")).LoadSynchronous();
+	Class::WRI_FormEdit				= TSoftClassPtr<UWRI_FormEdit>(FSoftClassPath("/Game/class/ui/writer/WRI_FormEditC.WRI_FormEditC_C")).LoadSynchronous();
+	Class::WRI_FormEdit_Form		= TSoftClassPtr<UWRI_FormEdit_Form>(FSoftClassPath("/Game/class/ui/writer/WRI_FormEdit_FormC.WRI_FormEdit_FormC_C")).LoadSynchronous();
+	Class::WRI_FormEdit_Le			= TSoftClassPtr<UWRI_FormEdit_Le>(FSoftClassPath("/Game/class/ui/writer/WRI_FormEdit_LeC.WRI_FormEdit_LeC_C")).LoadSynchronous();
+	Class::WRI_Loadout				= TSoftClassPtr<UWRI_Loadout>(FSoftClassPath("/Game/class/ui/writer/WRI_LoadoutC.WRI_LoadoutC_C")).LoadSynchronous();
+	Class::WRI_Loadout_Le			= TSoftClassPtr<UWRI_Loadout_Le>(FSoftClassPath("/Game/class/ui/writer/WRI_Loadout_LeC.WRI_Loadout_LeC_C")).LoadSynchronous();
+	Class::WRI_Main					= TSoftClassPtr<UWRI_Main>(FSoftClassPath("/Game/class/ui/writer/WRI_MainC.WRI_MainC_C")).LoadSynchronous();
+	Class::WRI_Splash				= TSoftClassPtr<UWRI_Splash>(FSoftClassPath("/Game/class/ui/writer/WRI_SplashC.WRI_SplashC_C")).LoadSynchronous();
 }
 
 bool ClassC::IsSetup()
@@ -150,29 +154,30 @@ TSubclassOf<UFF_Link> ClassC::FF_Link()							{ return Class::FF_Link; }
 TSubclassOf<UFF_LinkList> ClassC::FF_LinkList()					{ return Class::FF_LinkList; }
 TSubclassOf<UFF_Text> ClassC::FF_Text()							{ return Class::FF_Text; }
 
-TSubclassOf<ULOG_Alpha> ClassC::LOG_Alpha()						{ return Class::LOG_Alpha; }
-TSubclassOf<UPLS_Alpha> ClassC::PLS_Alpha()						{ return Class::PLS_Alpha; }
+TSubclassOf<ULOG_Alpha> ClassC::LOG_Alpha()									{ return Class::LOG_Alpha; }
+TSubclassOf<UPLS_Alpha> ClassC::PLS_Alpha()									{ return Class::PLS_Alpha; }
 
-TSubclassOf<USYM_Alpha> ClassC::SYM_Alpha()						{ return Class::SYM_Alpha; }
-TSubclassOf<USYM_AlphaOpt> ClassC::SYM_AlphaOpt()				{ return Class::SYM_AlphaOpt; }
-TSubclassOf<USYM_VMain> ClassC::SYM_VMain()						{ return Class::SYM_VMain; }
-TSubclassOf<USYM_VMainVLoadout> ClassC::SYM_VMainVLoadout()		{ return Class::SYM_VMainVLoadout; }
-TSubclassOf<USYM_VMainVUserEntry> ClassC::SYM_VUserEntry()		{ return Class::SYM_VUserEntry; }
-TSubclassOf<USYM_VUser> ClassC::SYM_VUser()						{ return Class::SYM_VUser; }
-TSubclassOf<USYM_VUserVCreate> ClassC::SYM_VUserVCreate()		{ return Class::SYM_VUserVCreate; }
-TSubclassOf<USYM_VUserVSelect> ClassC::SYM_VUserVSelect()		{ return Class::SYM_VUserVSelect; }
+TSubclassOf<USYM_Alpha> ClassC::SYM_Alpha()									{ return Class::SYM_Alpha; }
+TSubclassOf<USYM_Main> ClassC::SYM_Main()									{ return Class::SYM_Main; }
+TSubclassOf<USYM_Loadout> ClassC::SYM_Loadout()								{ return Class::SYM_Loadout; }
+TSubclassOf<USYM_UserSelect_Le> ClassC::SYM_UserSelect_Le()	{ return Class::SYM_UserSelect_Le; }
+TSubclassOf<USYM_UserCreate> ClassC::SYM_UserCreate()						{ return Class::SYM_UserCreate; }
+TSubclassOf<USYM_UserEdit> ClassC::SYM_UserEdit()							{ return Class::SYM_UserEdit; }
+TSubclassOf<USYM_UserSelect> ClassC::SYM_UserSelect()						{ return Class::SYM_UserSelect; }
 
-TSubclassOf<UTIM_Alpha> ClassC::TIM_Alpha()						{ return Class::TIM_Alpha; }
-TSubclassOf<UTIM_VMain> ClassC::TIM_VMain()						{ return Class::TIM_VMain; }
-TSubclassOf<UTIM_VMainVHome> ClassC::TIM_VMainVHome()			{ return Class::TIM_VMainVHome; }
-TSubclassOf<UTIM_VMainVLoad> ClassC::TIM_VMainVLoad()			{ return Class::TIM_VMainVLoad; }
-TSubclassOf<UTIM_VMainVPre> ClassC::TIM_VMainVPre()				{ return Class::TIM_VMainVPre; }
+TSubclassOf<UTIM_Alpha> ClassC::TIM_Alpha()								{ return Class::TIM_Alpha; }
+TSubclassOf<UTIM_Main> ClassC::TIM_Main()								{ return Class::TIM_Main; }
+TSubclassOf<UTIM_Home> ClassC::TIM_Home()								{ return Class::TIM_Home; }
+TSubclassOf<UTIM_AtlasMount> ClassC::TIM_AtlasMount()					{ return Class::TIM_AtlasMount; }
+TSubclassOf<UTIM_Pre> ClassC::TIM_Pre()									{ return Class::TIM_Pre; }
 
-TSubclassOf<UWRI_Alpha> ClassC::WRI_Alpha()						{ return Class::WRI_Alpha; }
-TSubclassOf<UWRI_AlphaOpt> ClassC::WRI_AlphaOpt()				{ return Class::WRI_AlphaOpt; }
-TSubclassOf<UWRI_VAtlas> ClassC::WRI_VAtlas()					{ return Class::WRI_VAtlas; }
-TSubclassOf<UWRI_VForm> ClassC::WRI_VForm()						{ return Class::WRI_VForm; }
-TSubclassOf<UWRI_VFormEForm> ClassC::WRI_VFormEForm()			{ return Class::WRI_VFormEForm; }
-TSubclassOf<UWRI_VFormEntry> ClassC::WRI_VFormEntry()			{ return Class::WRI_VFormEntry; }
-TSubclassOf<UWRI_VSetup> ClassC::WRI_VSetup()					{ return Class::WRI_VSetup; }
-TSubclassOf<UWRI_VSetupEntry> ClassC::WRI_VSetupEntry()			{ return Class::WRI_VSetupEntry; }
+TSubclassOf<UWRI_Alpha> ClassC::WRI_Alpha()								{ return Class::WRI_Alpha; }
+TSubclassOf<UWRI_AtlasEdit> ClassC::WRI_AtlasEdit()						{ return Class::WRI_AtlasEdit; }
+TSubclassOf<UWRI_AtlasMount> ClassC::WRI_AtlasMount()					{ return Class::WRI_AtlasMount; }
+TSubclassOf<UWRI_FormEdit> ClassC::WRI_FormEdit()						{ return Class::WRI_FormEdit; }
+TSubclassOf<UWRI_FormEdit_Form> ClassC::WRI_FormEdit_Form()				{ return Class::WRI_FormEdit_Form; }
+TSubclassOf<UWRI_FormEdit_Le> ClassC::WRI_FormEdit_Le()					{ return Class::WRI_FormEdit_Le; }
+TSubclassOf<UWRI_Loadout> ClassC::WRI_Loadout()							{ return Class::WRI_Loadout; }
+TSubclassOf<UWRI_Loadout_Le> ClassC::WRI_Loadout_Le()					{ return Class::WRI_Loadout_Le; }
+TSubclassOf<UWRI_Main> ClassC::WRI_Main()								{ return Class::WRI_Main; }
+TSubclassOf<UWRI_Splash> ClassC::WRI_Splash()							{ return Class::WRI_Splash; }

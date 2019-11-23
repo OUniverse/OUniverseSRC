@@ -1,6 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Ui_Bool.h"
+#include "Ui/Ui_Interface.h"
 
 bool UUi_Bool::GetValue()
 {
@@ -14,15 +15,13 @@ void UUi_Bool::Toggle()
 	Changed();
 }
 
-void UUi_Bool::Set(bool SetTo)
+void UUi_Bool::Set(bool SetTo, bool bInternalOnly)
 {
 	Value = SetTo;
 	Update();
-	Changed();
-}
 
-void UUi_Bool::SetNoChanged(bool SetTo)
-{
-	Value = SetTo;
-	Update();
+	if (!bInternalOnly)
+	{
+		Changed();
+	}
 }

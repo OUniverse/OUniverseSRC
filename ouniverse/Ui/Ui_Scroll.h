@@ -3,18 +3,17 @@
 
 #pragma once
 
-#include "Ui/Ubc.h"
+#include "Ui/Ui_Pylon.h"
 #include "Interface/Array.h"
 #include "Ui_Scroll.generated.h"
 
 
 class UScrollBox;
-class UUserWidget;
-class UUbc;
+class UCanvasPanel;
 class UCanvasPanelSlot;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUi_Scroll: public UUbc
+class OUNIVERSE_API UUi_Scroll: public UUi_Pylon
 {
 
 	GENERATED_BODY()
@@ -24,16 +23,20 @@ public:
 	virtual void NativeConstruct() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxHeight;
+	float MaxDisplayed;
 
-	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* V_Canvas;
 	UScrollBox* V_Scroll;
+	
+	
+	//UCanvasPanelSlot* Slot_;
 
-	UCanvasPanelSlot* Slot_;
+	UFUNCTION(BlueprintCallable)
+	void Require(UCanvasPanel* CanvasPanel, UScrollBox* ScrollBox);
 
 	void Add(UUserWidget* InChild);
 
 	void ClearChildren();
 
-	ArrayC<UUbc*> Entries_;
+	//ArrayC<UUserWidget*> Entries_;
 };

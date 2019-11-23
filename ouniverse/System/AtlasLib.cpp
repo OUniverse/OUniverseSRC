@@ -2,13 +2,14 @@
 
 #include "System/AtlasLib.h"
 #include "System/Atlas.h"
-#include "System/Atlas_.h"
+
 #include "System/Loadout.h"
+
+#include "System/LoadoutDais.h"
 
 #include "System/Log.h"
 
 #include "Min/DebugM.h"
-
 
 namespace Global
 {
@@ -20,18 +21,19 @@ AtlasLibC* AtlasLibC::Get()
 	return Global::AtlasLib;
 }
 
-AtlasLibC* AtlasLibC::Create(FolderC InFolder)
+AtlasLibC* AtlasLibC::Create(FolderC InFolder, LoadoutDaisC* InLoadoutDais)
 {
-	AtlasLibC* Neu = new AtlasLibC(InFolder);
+	AtlasLibC* Neu = new AtlasLibC(InFolder, InLoadoutDais);
 	Global::AtlasLib = Neu;
 	return Neu;
 }
 
-AtlasLibC::AtlasLibC(FolderC InAtlasFolder)
+AtlasLibC::AtlasLibC(FolderC InAtlasFolder, LoadoutDaisC* InLoadoutDais)
 {
 	PreLen_ = 0;
 	Len_ = 0;
 	AtlasFolder_ = InAtlasFolder;
+	LoadoutDais_ = InLoadoutDais;
 
 	ArrayC<FolderC> Fo = AtlasFolder_.GetFolders();
 	LOG(31258, AtlasFolder_.ToString() / "", " Scanning directory : $V$")
@@ -142,9 +144,10 @@ void AtlasLibC::Reset()
 	}
 }
 
-void AtlasLibC::Mount(LoadoutC* InLoadout)
+void AtlasLibC::MountFromLoadout()
 {
-	ArrayC<AtlasUID> UIDArr = InLoadout->GetSelectedAtlasi();
+	Dismount();
+	ArrayC<AtlasUID> UIDArr = LoadoutDais_->Get()->GetSelectedAtlasi();
 	int L = UIDArr.Len();
 	AtlasC* TryAtlas;
 
@@ -152,6 +155,7 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 	{
 		if (PreLib_.Try(UIDArr[i], TryAtlas))
 		{
+
 			LOG(11922, TryAtlas->UID().ForLog(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
 			TryAtlas->Mount(this);
@@ -164,6 +168,42 @@ void AtlasLibC::Mount(LoadoutC* InLoadout)
 	{
 		Lib_.At(i)->Demarshal();
 	}
+
+	LOGP
+}
+
+void AtlasLibC::MountFromWriter(ArrayC<AtlasC*>* AtlasArr)
+{
+	Dismount();
+	int L = AtlasArr->Len();
+
+	for (int i = 0; i < L; i++)
+	{
+		AtlasC* ThisAtlas = AtlasArr->At(i);
+		AddAtlas(ThisAtlas);
+		ThisAtlas->Mount(this);
+	}
+
+	L = Lib_.Len();
+
+	for (int i = 0; i < L; i++)
+	{
+		Lib_.At(i)->Demarshal();
+	}
+
+	LOGP
+}
+
+void AtlasLibC::Dismount()
+{
+	int L = Lib_.Len();
+
+	for (int i = 0; i < L; i++)
+	{
+		Lib_.At(i)->Dismount();
+	}
+
+	Lib_.Clear();
 }
 
 void AtlasLibC::Query(FormQueryS* InQuery)

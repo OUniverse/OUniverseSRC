@@ -173,7 +173,7 @@ void BootC::Standard(UObject* WorldContextObject)
 	//M->Audio_ = AudioManager::Create(M->Scope());
 
 
-	M->Atlas_	= AtlasLibC::Create(PathC::DirAtlas());
+
 
 	M->Time_	= TimeC::Create();
 	M->TickUE_	= NewObject<UTickUE>();
@@ -191,6 +191,8 @@ void BootC::Standard(UObject* WorldContextObject)
 
 	M->UserD()->Initialize(M->LoadoutL());
 	M->UserL()->Load();
+	
+	M->Atlas_ = AtlasLibC::Create(PathC::DirAtlas(),M->LoadoutD());
 
 	M->Ui_ = UUi::Create(M);
 

@@ -2,8 +2,9 @@
 
 #include "Ui/Title/TIM_Alpha.h"
 
-#include "UI/Title/TIM_VMain.h"
+#include "UI/Title/TIM_Main.h"
 #include "System/Class.h"
+#include "UI/Ui.h"
 
 
 namespace TIM_Mem
@@ -29,6 +30,7 @@ UTIM_Alpha* UTIM_Alpha::Create(UWorld* InScope, UUi* InUi, UserDaisC* InUserDais
 {
 	UTIM_Alpha* Neu = CreateWidget<UTIM_Alpha>(InScope, ClassC::TIM_Alpha());
 	Neu->Init(InScope, InUi, InUserDais, InLoadoutDais,InAtlasLib);
+
 	return Neu;
 }
 
@@ -42,6 +44,11 @@ void UTIM_Alpha::Init(UWorld* InScope, UUi* InUi, UserDaisC* InUserDais, Loadout
 	AddViewPanel(0);
 
 
-	View_Main = UTIM_VMain::Create(this,UserDais_,LoadoutDais_,InAtlasLib);
+	View_Main = UTIM_Main::Create(this,UserDais_,LoadoutDais_,InAtlasLib);
 	AddView(0, UTIM_Alpha::VMain, View_Main);
+}
+
+void UTIM_Alpha::ToWriterMenu()
+{
+	Ui_->OpenWriterMenu();
 }

@@ -25,8 +25,8 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Ui/Ubc.h"
-#include "Ui/Ui_Opt.h"
+#include "Ui/Ui_Pylon.h"
+
 
 #include "Ui_View.generated.h"
 
@@ -46,7 +46,7 @@ public:
 
 	int UID_;
 	UUi_View* View_;
-	UUbc* Opt_;
+	UUi_Pylon* Opt_;
 };
 
 
@@ -85,10 +85,10 @@ public:
 
 
 	UFUNCTION(BlueprintCallable)
-		void CloseComplete();
+	void ViewCloseComplete();
 
 	UFUNCTION(BlueprintCallable)
-		void OpenComplete();
+	void ViewOpenComplete();
 
 };
 
@@ -98,8 +98,8 @@ public:
 
 
 
-UCLASS(Blueprintable, BlueprintType)
-class OUNIVERSE_API UUi_View : public UUbc
+UCLASS(Abstract, Blueprintable, BlueprintType)
+class OUNIVERSE_API UUi_View : public UUi_Pylon
 {
 
 	GENERATED_BODY()
@@ -118,15 +118,15 @@ public:
 	UUi_View* OwningView_;
 
 
-	bool OpenView_Internal(UViewPanelData* InViewer);
+	bool ViewOpen_Mechanism(UViewPanelData* InViewer);
 
 	UFUNCTION(BlueprintNativeEvent)
-	void OpenView(UViewPanelData* InViewer);
+	void ViewOpen(UViewPanelData* InViewer);
 
-	void CloseView_Internal(UViewPanelData* InViewer);
+	void ViewClose_Mechanism(UViewPanelData* InViewer);
 
 	UFUNCTION(BlueprintNativeEvent)
-	void CloseView(UViewPanelData* InViewer);
+	void ViewClose(UViewPanelData* InViewer);
 
 
 

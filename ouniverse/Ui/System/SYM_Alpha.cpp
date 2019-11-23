@@ -1,14 +1,13 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/System/SYM_Alpha.h"
-#include "Ui/System/SYM_VMain.h"
-#include "Ui/System/SYM_VUser.h"
+#include "Ui/System/SYM_Main.h"
+#include "Ui/System/SYM_UserCreate.h"
+#include "Ui/System/SYM_UserSelect.h"
 #include "Ui/Ui.h"
 
 #include "System/Class.h"
 
-
-#include "UI/System/SYM_Views.h"
 
 
 
@@ -26,42 +25,8 @@ void USYM_Alpha::NativeConstruct()
 {
 	SetViewPanel(0, V_View);
 
-	SwitchView(0, SYM_ViewsC::VUser);
-
-	/**
-	USYM_AlphaOpt* Opt = USYM_AlphaOpt::Create(Scope(), this, Views::User, 912569922);
-	V_Viewer->AddTab(Views::User, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-
-	Opt = USYM_AlphaOpt::Create(Scope(), this, Views::Loadout, 756854254);
-	V_Viewer->AddTab(Views::Loadout, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-
-	Opt = USYM_AlphaOpt::Create(Scope(), this, Views::User, 515093516);
-	V_Viewer->AddTab(Views::User, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-
-	Opt = USYM_AlphaOpt::Create(Scope(), this, Views::User, 1077593158);
-	V_Viewer->AddTab(Views::User, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-
-	Opt = USYM_AlphaOpt::Create(Scope(), this, Views::User, 634432051);
-	V_Viewer->AddTab(Views::User, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-
-	Opt = USYM_AlphaOpt::Create(Scope(), this, Views::User, 760295618);
-	V_Viewer->AddTab(Views::User, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-
-	Opt = USYM_AlphaOpt::Create(Scope(), this, Views::User, 1112825869);
-	V_Viewer->AddTab(Views::User, Opt, *ClassC::SYM_VUser(), false);
-	V_Scroll->Add(Opt);
-	*/
-
-
-
-
-	//V_Viewer->SwitchView(Views::User, false);
+	//SwitchView(0, USYM_Alpha::VUserCreate);
+	SwitchView(0, USYM_Alpha::VUserSelect);
 
 	SYM_Mem::FirstOpenComplete = true;
 
@@ -88,11 +53,13 @@ void USYM_Alpha::Init(UWorld* InScope, UUi* InUi, UserLibC* InUserLib, UserDaisC
 
 	AddViewPanel(0);
 
-	//View_Menu = USYM_VMain::Create(this,InUserLib,InLoadoutLib);
-	//AddView(0, SYM_ViewsC::Main, View_Menu);
-
-	View_User = USYM_VUser::Create(this, InUserLib);
-	AddView(0, SYM_ViewsC::VUser, View_User);
+	View_Main = USYM_Main::Create(this,InUserLib,InLoadoutLib);
+	AddView(0, USYM_Alpha::VMain, View_Main);
+	View_UserCreate = USYM_UserCreate::Create(this, InUserLib);
+	AddView(0, USYM_Alpha::VUserCreate, View_UserCreate);
+	View_UserSelect = USYM_UserSelect::Create(this, InUserLib);
+	AddView(0, USYM_Alpha::VUserSelect, View_UserSelect);
+	
 }
 
 void USYM_Alpha::ToTitleMenu()

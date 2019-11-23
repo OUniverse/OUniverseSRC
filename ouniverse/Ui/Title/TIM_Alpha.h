@@ -29,7 +29,7 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 #include "TIM_Alpha.generated.h"
 
 
-class UTIM_VMain;
+class UTIM_Main;
 class UUi;
 
 class UserDaisC;
@@ -56,8 +56,9 @@ public:
 	LoadoutDaisC* LoadoutDais_;
 
 	UPROPERTY()
-	UTIM_VMain* View_Main;
+	UTIM_Main* View_Main;
 
 	static constexpr int const& VMain = 0;
 
+	void ToWriterMenu();
 };

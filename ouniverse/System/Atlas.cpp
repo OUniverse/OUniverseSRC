@@ -46,6 +46,18 @@ const char* AtlasC::K_LINKS_PREF	= "p";
 
 const char* AtlasC::K_FLAGS			= "f";
 
+
+AtlasDataStorageS::AtlasDataStorageS(AtlasC* InAtlas)
+{
+	ID = InAtlas->ID();
+	Name = InAtlas->Name();
+	Author = InAtlas->Author();
+	Website = InAtlas->Website();
+	Socket = InAtlas->WebSocket();
+}
+
+
+
 AtlasC::AtlasC(StringC InFolderName, FolderC InFolder)
 {
 
@@ -231,11 +243,13 @@ AtlasC::~AtlasC()
 	delete AccordsSoft_;
 	delete AccordsPref_;
 
+	delete GFXSmall_;
+
 	delete FormLib_;
 	delete RevisionLib_;
 	delete AmendmentLib_;
 
-	delete GFXSmall_;
+	
 }
 
 bool AtlasC::Try(FormUID UID, FormF*& InForm)
@@ -284,6 +298,14 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 
 void AtlasC::Dismount()
 {
+
+	delete FormLib_;
+	delete RevisionLib_;
+	delete AmendmentLib_;
+	FormLib_ = NULL;
+	RevisionLib_ = NULL;
+	AmendmentLib_ = NULL;
+
 	Mounted_ = false;
 }
 
@@ -500,6 +522,22 @@ void AtlasC::SaveDoc()
 	AtlasDo.Write(Doc);
 }
 
+
+
+void AtlasC::WriterMasterLoad()
+{
+	DataStorage_ = new AtlasDataStorageS(this);
+}
+
+void AtlasC::WriterMasterUnload()
+{
+	ID_			= DataStorage_->ID;
+	Name_		= DataStorage_->Name;
+	Author_		= DataStorage_->Author;
+	Website_	= DataStorage_->Website;
+	WebSocket_	= DataStorage_->Socket;
+	delete DataStorage_;
+}
 
 
 JsonS AtlasC::ToJson()
