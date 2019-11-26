@@ -8,9 +8,11 @@
 #include "Ui_Scroll.generated.h"
 
 
-class UScrollBox;
+class USizeBox;
 class UCanvasPanel;
+class UVerticalBox;
 class UCanvasPanelSlot;
+class UUi_ScrollEl;
 
 UCLASS(Blueprintable)
 class OUNIVERSE_API UUi_Scroll: public UUi_Pylon
@@ -22,21 +24,56 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxDisplayed;
+	UPROPERTY(meta = (BindWidget))
+	USizeBox* V_Size;
 
-	UCanvasPanel* V_Canvas;
-	UScrollBox* V_Scroll;
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* V_Frame;
+
+	UPROPERTY(meta = (BindWidget))
+	UVerticalBox* V_Case;
 	
-	
-	//UCanvasPanelSlot* Slot_;
+	UCanvasPanelSlot* CaseSlot;
 
-	UFUNCTION(BlueprintCallable)
-	void Require(UCanvasPanel* CanvasPanel, UScrollBox* ScrollBox);
+	FVector2D ScrollPosSaver;
+	bool bScrolling;
 
-	void Add(UUserWidget* InChild);
+	void Build();
+
+	void MeasureInside();
+	void MeasureOutside();
+
+	float InnerHeight;
+	float OuterHeight;
+	float ScrollOffset;
+
+	FReply NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
+
+	FReply NativeOnMouseButtonUp(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
+
+	FReply NativeOnMouseMove(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
+
+	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+
+	void AddEntry(UUi_ScrollEl* InEntry);
 
 	void ClearChildren();
 
-	//ArrayC<UUserWidget*> Entries_;
+	void CalcCenter();
+
+	UUi_ScrollEl* CenteredElement;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool SameSizeWEntryMode;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool AllowSemStyle;
+
+	float SemSize;
+
+	void SemStyle();
+
+	
+	ArrayC<UUi_ScrollEl*> Entries_;
+
 };

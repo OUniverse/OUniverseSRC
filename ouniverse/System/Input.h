@@ -7,6 +7,18 @@
 
 class UCharacterA;
 
+class OUNIVERSE_API FUiAction
+{
+
+public:
+
+	FUiAction() {};
+
+	bool Pressed;
+	float Power;
+	float Length; 
+};
+
 class OUNIVERSE_API InputC
 {
 

@@ -9,6 +9,7 @@
 class UserLibC;
 class UUi_Scroll;
 
+
 class USYM_UserSelect_Le;
 
 UCLASS(Blueprintable)
@@ -30,5 +31,14 @@ public:
 	UUi_Scroll* V_Scroll;
 
 	UserLibC* UserLib_;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCurveFloat* CurveScrollScale;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCurveFloat* CurveScrollOpacity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCurveFloat* CurveScrollColor;
 
 };

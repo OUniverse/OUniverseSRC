@@ -2,18 +2,15 @@
 
 #pragma once
 
-#include "Ui/Ui_Pylon.h"
+#include "Ui/Ui_ScrollEl.h"
 #include "SYM_UserSelect_Le.generated.h"
 
 class UserC;
-
 class USYM_UserSelect;
-class UTexture2D;
-class UImage;
 class UTextBlock;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API USYM_UserSelect_Le : public UUi_Pylon
+class OUNIVERSE_API USYM_UserSelect_Le : public UUi_ScrollEl
 {
 
 	GENERATED_BODY()
@@ -27,14 +24,12 @@ public:
 	void Init(USYM_UserSelect* InView, UserC* InUser);
 
 	UPROPERTY(meta = (BindWidget))
-	UImage* V_Image;
-	UPROPERTY(meta = (BindWidget))
 	UTextBlock* V_Text;
-
 
 	UserC* User_;
 
 	USYM_UserSelect* View_;
 
+	void UpdateStyleByViewPosition(float InViewPosition) override;
 
 };

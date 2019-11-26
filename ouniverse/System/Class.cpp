@@ -16,8 +16,11 @@
 #include "Ui/Pulse/PLS_Alpha.h"
 
 #include "Ui/System/SYM_Alpha.h"
+#include "Ui/System/SYM_AtlasMount.h"
+#include "Ui/System/SYM_Home.h"
 #include "Ui/System/SYM_Loadout.h"
 #include "Ui/System/SYM_Main.h"
+#include "Ui/System/SYM_Pre.h"
 #include "Ui/System/SYM_UserCreate.h"
 #include "Ui/System/SYM_UserEdit.h"
 #include "Ui/System/SYM_UserSelect.h"
@@ -62,12 +65,15 @@ namespace Class
 	TSubclassOf<UPLS_Alpha>					PLS_Alpha;
 
 	TSubclassOf<USYM_Alpha>					SYM_Alpha;
+	TSubclassOf<USYM_AtlasMount>			SYM_AtlasMount;
+	TSubclassOf<USYM_Home>					SYM_Home;
 	TSubclassOf<USYM_Loadout>				SYM_Loadout;
 	TSubclassOf<USYM_Main>					SYM_Main;
+	TSubclassOf<USYM_Pre>					SYM_Pre;
 	TSubclassOf<USYM_UserCreate>			SYM_UserCreate;
 	TSubclassOf<USYM_UserEdit>				SYM_UserEdit;
 	TSubclassOf<USYM_UserSelect>			SYM_UserSelect;
-	TSubclassOf<USYM_UserSelect_Le>	SYM_UserSelect_Le;
+	TSubclassOf<USYM_UserSelect_Le>			SYM_UserSelect_Le;
 		
 
 	TSubclassOf<UTIM_Alpha>					TIM_Alpha;
@@ -111,8 +117,11 @@ void ClassC::Setup()
 	Class::PLS_Alpha				= TSoftClassPtr<UPLS_Alpha>(FSoftClassPath("/Game/class/ui/pulse/PLS_AlphaC.PLS_AlphaC_C")).LoadSynchronous();
 
 	Class::SYM_Alpha				= TSoftClassPtr<USYM_Alpha>(FSoftClassPath("/Game/class/ui/system/SYM_AlphaC.SYM_AlphaC_C")).LoadSynchronous();
+	Class::SYM_AtlasMount			= TSoftClassPtr<USYM_AtlasMount>(FSoftClassPath("/Game/class/ui/system/SYM_AtlasMountC.SYM_AtlasMountC_C")).LoadSynchronous();
+	Class::SYM_Home					= TSoftClassPtr<USYM_Home>(FSoftClassPath("/Game/class/ui/system/SYM_HomeC.SYM_HomeC_C")).LoadSynchronous();
 	Class::SYM_Loadout				= TSoftClassPtr<USYM_Loadout>(FSoftClassPath("/Game/class/ui/system/SYM_LoadoutC.SYM_LoadoutC_C")).LoadSynchronous();
 	Class::SYM_Main					= TSoftClassPtr<USYM_Main>(FSoftClassPath("/Game/class/ui/system/SYM_MainC.SYM_MainC_C")).LoadSynchronous();
+	Class::SYM_Pre					= TSoftClassPtr<USYM_Pre>(FSoftClassPath("/Game/class/ui/system/SYM_PreC.SYM_PreC_C")).LoadSynchronous();
 	Class::SYM_UserCreate			= TSoftClassPtr<USYM_UserCreate>(FSoftClassPath("/Game/class/ui/system/SYM_UserCreateC.SYM_UserCreateC_C")).LoadSynchronous();
 	Class::SYM_UserEdit				= TSoftClassPtr<USYM_UserEdit>(FSoftClassPath("/Game/class/ui/system/SYM_UserEditC.SYM_UserEditC_C")).LoadSynchronous();
 	Class::SYM_UserSelect			= TSoftClassPtr<USYM_UserSelect>(FSoftClassPath("/Game/class/ui/system/SYM_UserSelectC.SYM_UserSelectC_C")).LoadSynchronous();
@@ -158,9 +167,12 @@ TSubclassOf<ULOG_Alpha> ClassC::LOG_Alpha()									{ return Class::LOG_Alpha; }
 TSubclassOf<UPLS_Alpha> ClassC::PLS_Alpha()									{ return Class::PLS_Alpha; }
 
 TSubclassOf<USYM_Alpha> ClassC::SYM_Alpha()									{ return Class::SYM_Alpha; }
+TSubclassOf<USYM_AtlasMount> ClassC::SYM_AtlasMount()						{ return Class::SYM_AtlasMount; }
+TSubclassOf<USYM_Home> ClassC::SYM_Home()									{ return Class::SYM_Home; }
 TSubclassOf<USYM_Main> ClassC::SYM_Main()									{ return Class::SYM_Main; }
+TSubclassOf<USYM_Pre> ClassC::SYM_Pre()								{ return Class::SYM_Pre; }
 TSubclassOf<USYM_Loadout> ClassC::SYM_Loadout()								{ return Class::SYM_Loadout; }
-TSubclassOf<USYM_UserSelect_Le> ClassC::SYM_UserSelect_Le()	{ return Class::SYM_UserSelect_Le; }
+TSubclassOf<USYM_UserSelect_Le> ClassC::SYM_UserSelect_Le()					{ return Class::SYM_UserSelect_Le; }
 TSubclassOf<USYM_UserCreate> ClassC::SYM_UserCreate()						{ return Class::SYM_UserCreate; }
 TSubclassOf<USYM_UserEdit> ClassC::SYM_UserEdit()							{ return Class::SYM_UserEdit; }
 TSubclassOf<USYM_UserSelect> ClassC::SYM_UserSelect()						{ return Class::SYM_UserSelect; }

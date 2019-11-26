@@ -32,10 +32,12 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 class UCanvasPanel;
 
+class USYM_AtlasMount;
 class USYM_Main;
 class USYM_UserCreate;
 class USYM_UserSelect;
 
+class AtlasLibC;
 class UserLibC;
 class UserDaisC;
 class LoadoutLibC;
@@ -52,11 +54,13 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	static USYM_Alpha* Create(UWorld* InScope, UUi* InUi, UserLibC* InUserLib, UserDaisC* InUserDais, LoadoutLibC* InLoadoutLib, LoadoutDaisC* InLoadoutDais);
-	void Init(UWorld* InScope, UUi* InUi, UserLibC* InUserLib, UserDaisC* InUserDais, LoadoutLibC* InLoadoutLib, LoadoutDaisC* InLoadoutDais);
+	static USYM_Alpha* Create(UWorld* InScope, UUi* InUi, AtlasLibC* InAtlasLib, UserLibC* InUserLib, UserDaisC* InUserDais, LoadoutLibC* InLoadoutLib, LoadoutDaisC* InLoadoutDais);
+	void Init(UWorld* InScope, UUi* InUi, AtlasLibC* InAtlasLib, UserLibC* InUserLib, UserDaisC* InUserDais, LoadoutLibC* InLoadoutLib, LoadoutDaisC* InLoadoutDais);
 
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* V_View;
+
+	AtlasLibC* AtlasLib_;
 
 	UserLibC* UserLib_;
 	UserDaisC* UserDais_;
@@ -64,17 +68,24 @@ public:
 	LoadoutDaisC* LoadoutDais_;
 
 	UPROPERTY()
+	USYM_AtlasMount* View_AtlasMount;
+	UPROPERTY()
 	USYM_Main* View_Main;
-
 	UPROPERTY()
 	USYM_UserSelect* View_UserSelect;
-
 	UPROPERTY()
 	USYM_UserCreate* View_UserCreate;
 
-	static constexpr int const& VMain = 0;
-	static constexpr int const& VUserCreate = 1;
-	static constexpr int const& VUserSelect = 2;
+
+
+
+
+	static constexpr int const& VP				= 0;
+
+	static constexpr int const& VAtlasMount		= 0;
+	static constexpr int const& VMain			= 1;
+	static constexpr int const& VUserCreate		= 2;
+	static constexpr int const& VUserSelect		= 3;
 
 	void ToTitleMenu();
 

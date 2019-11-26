@@ -46,7 +46,7 @@ void UUi::CloseActive()
 void UUi::OpenSystemMenu()
 {
 	CloseActive();
-	ActiveAlpha_ = USYM_Alpha::Create(Major_->Scope(), this, Major_->UserL(), Major_->UserD(), Major_->LoadoutL(), Major_->LoadoutD());
+	ActiveAlpha_ = USYM_Alpha::Create(Major_->Scope(), this, Major_->Atlas(), Major_->UserL(), Major_->UserD(), Major_->LoadoutL(), Major_->LoadoutD());
 	ActiveAlpha_->AddToViewport();
 }
 
@@ -63,4 +63,9 @@ void UUi::OpenWriterMenu()
 	CloseActive();
 	ActiveAlpha_ = UWRI_Alpha::Create(Major_->Scope(), this, Major_->Atlas());
 	ActiveAlpha_->AddToViewport();
+}
+
+void UUi::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	
 }

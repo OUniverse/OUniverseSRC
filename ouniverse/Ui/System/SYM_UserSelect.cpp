@@ -16,8 +16,11 @@ void  USYM_UserSelect::NativeConstruct()
 	for (int i = 0; i < L;i++)
 	{
 		USYM_UserSelect_Le* Entry = USYM_UserSelect_Le::Create(this, UserLib_->GetUser(i));
-		V_Scroll->Add(Entry);
+		V_Scroll->AddEntry(Entry);
 	}
+
+
+	V_Scroll->Build();
 
 	Super::NativeConstruct();
 }

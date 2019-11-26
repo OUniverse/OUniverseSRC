@@ -32,3 +32,9 @@ void USYM_UserSelect_Le::Init(USYM_UserSelect* InView, UserC* InUser)
 	View_ = InView;
 	User_ = InUser;
 }
+
+void USYM_UserSelect_Le::UpdateStyleByViewPosition(float InViewPosition)
+{
+	SetRenderOpacity(View_->CurveScrollOpacity->GetFloatValue(InViewPosition));
+	SetRenderScale(FVector2D(View_->CurveScrollScale->GetFloatValue(InViewPosition), View_->CurveScrollScale->GetFloatValue(InViewPosition)));
+}

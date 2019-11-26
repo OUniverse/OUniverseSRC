@@ -41,4 +41,7 @@ public:
 
 	UPROPERTY()
 	UUi_Alpha* ActiveAlpha_;
+
+	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+
 };

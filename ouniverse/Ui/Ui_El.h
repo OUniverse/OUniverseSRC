@@ -1,31 +1,10 @@
 //Copyright 2015-2019, All Rights Reserved.
 
-/**
-
-## UiManager
-
-> **Singleton Service: Created once only by the boot process.**
-
-The UiManager is a service singleton which manages all user interface elements (UI).
-
-#### IO
-IO is used here as an abbreviation for Interface Object and is any menu component
-* A menu IO can be made up of many smaller IOs.
-
-#### Tasks:
-* Coordinates all of the UI's IO elements.
-* Allows the IO elements to register with other systems (For example the console registering for the console CommandC).
-* Activates each IO so that they bind themselves to the actual UI.
-* Provides functions for other parts of the program to trigger UI events like popup notifications or data ribbons.
-
-**Creator:** UBoot
-**Holder:** Major
-
- */
-
 #pragma once
 
 #include "Ui/Ui_Base.h"
+#include "System/Input.h"
+
 #include "Ui_El.generated.h"
 
 
@@ -38,5 +17,33 @@ class OUNIVERSE_API UUi_El : public UUi_Base
 public:
 
 
+	virtual void InitNEW();
+
+	void Cancel();
+
+
+	
+	void ControlFocus_Mechanism(UUi_El* ControlParent) {};
+	void ControlUnfocus_Mechanism() {};
+
+	void ControlFocus() {};
+	void ControlUnfocus() {};
+
+	void ControlRelay(UUi_El* Relay);
+	void ControlClaim();
+
+	bool ACT_Up(FUiAction Action) { return false; };
+	bool ACT_Down(FUiAction Action) { return false; };
+	bool ACT_Left(FUiAction Action) { return false; };
+	bool ACT_Right(FUiAction Action) { return false; };
+
+	bool ACT_Accept(FUiAction Action) { return false; };
+	bool ACT_Cancel(FUiAction Action) { return false; };
+
+private:
+
+
+	UUi_El* ControlParent_;
+	UUi_El* ControlChild_;
 
 };

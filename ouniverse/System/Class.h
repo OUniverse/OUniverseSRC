@@ -20,8 +20,11 @@ class ULOG_Alpha;
 class UPLS_Alpha;
 
 class USYM_Alpha;
+class USYM_AtlasMount;
+class USYM_Home;
 class USYM_Loadout;
 class USYM_Main;
+class USYM_Pre;
 class USYM_UserCreate;
 class USYM_UserEdit;
 class USYM_UserSelect;
@@ -69,12 +72,15 @@ public:
 	static TSubclassOf<UPLS_Alpha>				PLS_Alpha();
 
 	static TSubclassOf<USYM_Alpha>					SYM_Alpha();
+	static TSubclassOf<USYM_AtlasMount>				SYM_AtlasMount();
+	static TSubclassOf<USYM_Home>					SYM_Home();
 	static TSubclassOf<USYM_Loadout>				SYM_Loadout();
 	static TSubclassOf<USYM_Main>					SYM_Main();
+	static TSubclassOf<USYM_Pre>					SYM_Pre();
 	static TSubclassOf<USYM_UserCreate>				SYM_UserCreate();
 	static TSubclassOf<USYM_UserEdit>				SYM_UserEdit();
 	static TSubclassOf<USYM_UserSelect>				SYM_UserSelect();
-	static TSubclassOf<USYM_UserSelect_Le>	SYM_UserSelect_Le();
+	static TSubclassOf<USYM_UserSelect_Le>			SYM_UserSelect_Le();
 
 	
 

@@ -23,7 +23,4 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "BaseClose"))
 	void BaseClose();
 
-	virtual float Height() { return 0.0f; };
-	virtual float Width() { return 0.0f; };
-
 };
