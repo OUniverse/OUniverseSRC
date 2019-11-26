@@ -19,6 +19,30 @@ public:
 	float Length; 
 };
 
+
+
+class OUNIVERSE_API KeyDataS
+{
+
+public:
+
+	bool Pressed;
+	float Power;
+	float Length;
+};
+
+
+class OUNIVERSE_API InputNewC : public UObject
+{
+	virtual void Up(KeyDataS* KeyData)		{ };
+	virtual void Down(KeyDataS* KeyData)	{ };
+	virtual void Left(KeyDataS* KeyData)	{ };
+	virtual void Right(KeyDataS* KeyData)	{ };
+	virtual void Accept(KeyDataS* KeyData)	{ };
+	virtual void Cancel(KeyDataS* KeyData)	{ };
+};
+
+
 class OUNIVERSE_API InputC
 {
 

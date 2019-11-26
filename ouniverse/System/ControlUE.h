@@ -42,6 +42,9 @@ public:
 	FInputAction GetInputAction(bool InPressed);
 	
 	UFUNCTION()
+	void GPAD_FACE_Down();
+
+	UFUNCTION()
 	void Test();
 
 	UFUNCTION()

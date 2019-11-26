@@ -7,10 +7,10 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
-#include "CoverPro.generated.h"
+#include "SymPro.generated.h"
 
 UCLASS()
-class OUNIVERSE_API UCoverPro : public UProtocol
+class OUNIVERSE_API USymPro : public UProtocol
 {
 	GENERATED_BODY()
 
@@ -21,6 +21,6 @@ public:
 
 private:
 
-	UCoverPro();
+	USymPro();
 
 };

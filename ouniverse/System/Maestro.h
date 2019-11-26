@@ -33,6 +33,7 @@ class UMajor;
 class UUi;
 
 class UProtocol;
+class USymPro;
 class UGlobalPro;
 class UWorldPro;
 class UWriterPro;
@@ -51,6 +52,9 @@ public:
 	void Start();
 	void FauxStart();
 	void WriterStart();
+
+	UPROPERTY()
+	USymPro* Sym_;
 
 	UPROPERTY()
 	UGlobalPro* Global_;

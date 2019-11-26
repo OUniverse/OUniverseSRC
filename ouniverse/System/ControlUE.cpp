@@ -28,6 +28,8 @@ void AControlUE::Init(UMaestro* InMaestro)
 	SHIFT_ = false;
 	HELP_ = false;
 		
+	InputComponent->BindKey(FKey("Gamepad_FaceButton_Bottom"), IE_Pressed, this, &AControlUE::GPAD_FACE_Down);
+
 	InputComponent->BindKey(FKey("one"), IE_Pressed, this, &AControlUE::Test);
 	InputComponent->BindKey(FKey("one"), IE_Released, this, &AControlUE::Test);
 
@@ -60,6 +62,12 @@ void AControlUE::Init(UMaestro* InMaestro)
 	InputComponent->BindKey(FKey("MiddleMouseButton"), IE_Pressed, this, &AControlUE::MouseM_D);
 	InputComponent->BindKey(FKey("MiddleMouseButton"), IE_Released, this, &AControlUE::MouseM_U);
 	
+}
+
+
+void AControlUE::GPAD_FACE_Down()
+{
+	DBUG("OK")
 }
 
 void AControlUE::SetupInputComponent()
