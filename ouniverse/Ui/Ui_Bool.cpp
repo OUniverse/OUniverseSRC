@@ -1,7 +1,6 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Ui_Bool.h"
-#include "Ui/Ui_Interface.h"
 
 bool UUi_Bool::GetValue()
 {

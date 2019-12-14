@@ -25,13 +25,12 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Ui/Ui_Interactive.h"
+#include "Ui/UiEl.h"
 #include "Ui_Bool.generated.h"
 
-class UUi_Pylon;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUi_Bool : public UUi_Interactive
+class OUNIVERSE_API UUi_Bool : public UUiEl
 {
 
 	GENERATED_BODY()

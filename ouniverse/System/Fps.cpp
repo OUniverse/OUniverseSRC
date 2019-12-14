@@ -33,7 +33,7 @@ EventLife FpsC::OnFrame(float DeltaTime)
 			Average += Recents_[i];
 		}
 
-		DBUG(IFS(int(10/Average)))
+		//DBUG(IFS(int(10/Average)))
 	}
 
 	return EventLife(true);

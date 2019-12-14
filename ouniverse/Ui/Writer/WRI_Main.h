@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "Ui/Ui_View.h"
+#include "Ui/UiView.h"
 #include "WRI_Main.generated.h"
 
 class AtlasLibC;
 
-class UCanvasPanel;
-class UUi_Interactive;
+class UUiButton;
+
 
 class UWRI_AtlasMount;
 class UWRI_Loadout;
@@ -16,54 +16,49 @@ class UWRI_AtlasEdit;
 class UWRI_FormEdit;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UWRI_Main : public UUi_View
+class OUNIVERSE_API UWRI_Main : public UUiView
 {
 
 	GENERATED_BODY()
 
 public:
 
-	virtual void NativeConstruct() override;
 
-	static UWRI_Main* Create(UUi_View* InParentView, AtlasLibC* InAtlasLib);
+	static UWRI_Main* Create(UUiView* InParentView, AtlasLibC* InAtlasLib);
 
-	void Init(UUi_View* InParentView, AtlasLibC* InAtlasLib);
-
-	UPROPERTY(meta = (BindWidget))
-	UCanvasPanel* V_View;
+	void Init(UUiView* InParentView, AtlasLibC* InAtlasLib);
 
 	UPROPERTY(meta = (BindWidget))
-	UUi_Interactive* V_OptLoadout;
+	UUiButton* OPT_Loadout;
+	UPROPERTY(meta = (BindWidget))
+	UUiButton* OPT_AtlasEdit;
+	UPROPERTY(meta = (BindWidget))
+	UUiButton* OPT_FormEdit;
+
 
 	UPROPERTY(meta = (BindWidget))
-	UUi_Interactive* V_OptAtlas;
-
+	UWRI_AtlasMount* View_AtlasLoad;
 	UPROPERTY(meta = (BindWidget))
-	UUi_Interactive* V_OptForm;
-
-	UPROPERTY()
-	UWRI_AtlasMount* View_AtlasMount;
-
-	UPROPERTY()
 	UWRI_Loadout* View_Loadout;
-
-	UPROPERTY()
+	UPROPERTY(meta = (BindWidget))
 	UWRI_AtlasEdit* View_AtlasEdit;
-
-	UPROPERTY()
+	UPROPERTY(meta = (BindWidget))
 	UWRI_FormEdit* View_FormEdit;
 
-	static constexpr int const& VAtlasMount = 0;
-	static constexpr int const& VLoadout	= 1;
-	static constexpr int const& VAtlasEdit	= 2;
-	static constexpr int const& VFormEdit	= 3;
 
-	static enum Interactives {
+	static enum Interfaces {
 		OptLoadout,
-		OptAtlas,
-		OptForm,
+		OptAtlasEdit,
+		OptFormEdit,
 	};
 
-	void Click(UUi_Interactive* Interactive) override;
+	static enum Views {
+		AtlasLoad,
+		Loadout,
+		AtlasEdit,
+		FormEdit,
+	};
+
+	void EventUi(int WidgetID, int InEventID, UUserWidget* InWidget) override;
 
 };

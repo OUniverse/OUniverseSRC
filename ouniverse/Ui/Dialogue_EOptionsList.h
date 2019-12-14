@@ -25,12 +25,12 @@ IO is used here as an abbreviation for Interface Object and is any menu componen
 
 #pragma once
 
-#include "Ui/Ui_Pylon.h"
+#include "Ui/UiBase.h"
 #include "Dialogue_EOptionsList.generated.h"
 
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UDialogue_EOptionsList : public UUi_Pylon
+class OUNIVERSE_API UDialogue_EOptionsList : public UUiBase
 {
 
 	GENERATED_BODY()

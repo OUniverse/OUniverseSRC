@@ -2,7 +2,110 @@
 
 #include "System/Input.h"
 #include "Form/CharacterA.h"
+#include "Ui/UiEl.h"
 #include "Component/CharacterInput.h"
+
+
+
+bool InputC::InputCommand(KeyS InKey)
+{ 
+	return false; 
+};
+
+bool InputC::InputAxis(AxisS InAxis)
+{ 
+	return false; 
+};
+
+
+
+
+
+
+InputStackC::InputStackC()
+{
+	Len_ = 0;
+};
+
+bool InputStackC::InputCommand(KeyS InKey)
+{ 
+	return InputStackBroadcastCommand(&InputC::InputCommand, InKey);
+};
+
+bool InputStackC::InputAxis(AxisS InAxis)
+{
+	return InputStackBroadcastAxis(&InputC::InputAxis, InAxis);
+};
+
+void InputStackC::InputStackAdd(InputC* InSchema)
+{
+	Len_++;
+	Stack_.Add(InSchema);
+}
+
+void InputStackC::InputStackRemove(InputC* InSchema)
+{
+	Len_--;
+	Stack_.EraseElement(InSchema);
+}
+
+
+bool InputStackC::InputStackBroadcastCommand(bool(InputC::* PTR)(KeyS), KeyS InKey)
+{
+	for (int i = Len_ - 1; i > -1; i--)
+	{
+		bool Reply = (Stack_[i]->*PTR)(InKey);
+
+		if (Reply)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool InputStackC::InputStackBroadcastAxis(bool(InputC::* PTR)(AxisS), AxisS InAxis)
+{
+	for (int i = Len_ - 1; i > -1; i--)
+	{
+		bool Reply = (Stack_[i]->*PTR)(InAxis);
+
+		if (Reply)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+
+
+void InputUiC::SetInputHandler(UUiEl* InHandler)
+{
+	UiInputHandler_ = InHandler;
+}
+
+bool InputUiC::InputCommand(KeyS InKey)
+{ 
+	return UiInputHandler_->InputCommand_Mechanism(InKey);
+};
+
+bool InputUiC::InputAxis(AxisS InAxis)
+{
+	return UiInputHandler_->InputAxis_Mechanism(InAxis);
+};
+
+
+
+
+
+
+
+
+
 
 UInputSchemaStack* UInputSchemaStack::Create()
 {

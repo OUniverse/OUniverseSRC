@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Writer/WRI_Loadout.h"
-#include "Ui/Writer/WRI_Alpha.h"
+#include "Ui/Writer/Wri.h"
 #include "Ui/Writer/WRI_Main.h"
 #include "Ui/Writer/WRI_Loadout_Le.h"
 #include "Ui/Ui_Bool.h"
@@ -10,15 +10,21 @@
 #include "System/AtlasLib.h"
 #include "System/Class.h"
 
-void UWRI_Loadout::NativeConstruct()
+class AtlasLibC;
+
+void UWRI_Loadout::Init(UUiView* InParentView, AtlasLibC* InAtlasLib)
 {
+	ConstructView(InParentView);
+	//CastedAlpha = Cast<UWRI>(Alpha());
+	AtlasLib_ = InAtlasLib;
+
 	ActiveEntry_ = NULL;
 	V_Scroll->ClearChildren();
 	Entries_.Empty();
 
 	int L = AtlasLib_->GetAtlasPreMap()->Len();
 
-	V_Accept->SetupInterface(this, Interactives::Accept);
+	//V_Accept->SetupInterface(this, Interactives::Accept);
 
 	for (int i = 0; i < L; i++)
 	{
@@ -27,21 +33,7 @@ void UWRI_Loadout::NativeConstruct()
 		Entries_.Emplace(Entry);
 	}
 
-	Super::NativeConstruct();
-}
 
-UWRI_Loadout* UWRI_Loadout::Create(UUi_View* InParentView, AtlasLibC* InAtlasLib)
-{
-	UWRI_Loadout* Neu = CreateWidget<UWRI_Loadout>(InParentView->Scope(), ClassC::WRI_Loadout());
-	Neu->Init(InParentView, InAtlasLib);
-	return Neu;
-}
-
-void UWRI_Loadout::Init(UUi_View* InParentView, AtlasLibC* InAtlasLib)
-{
-	StoreParentView(InParentView);
-	CastedAlpha = Cast<UWRI_Alpha>(Alpha());
-	AtlasLib_ = InAtlasLib;
 }
 
 void UWRI_Loadout::BoolChanged(int Type, UWRI_Loadout_Le* InEntry)
@@ -63,6 +55,7 @@ void UWRI_Loadout::BoolChanged(int Type, UWRI_Loadout_Le* InEntry)
 	}
 }
 
+/**
 void UWRI_Loadout::Click(UUi_Interactive* Interactive)
 {
 
@@ -82,6 +75,7 @@ void UWRI_Loadout::Click(UUi_Interactive* Interactive)
 		}
 
 		CastedAlpha->Loadout_.Add(ActiveEntry_->Atlas_);
-		OwningView_->SwitchView(0, UWRI_Main::VAtlasMount);
+		//OwningView_->SwitchView(0, UWRI_Main::VAtlasMount);
 	}
 }
+*/

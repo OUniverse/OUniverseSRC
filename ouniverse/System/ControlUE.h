@@ -17,7 +17,7 @@ AControlUE is an exension to UE4's APlayerController.
 #include "ControlUE.generated.h"
 
 
-class UMaestro;
+class MaestroC;
 class ACameraUE;
 
 UCLASS()
@@ -33,16 +33,17 @@ public:
 
 	AControlUE();
 
-	void Init(UMaestro* InMaestro);
+	void Init(MaestroC* InMaestro);
 
 	void SetCamera(ACameraUE* InCamera);
 
 	ACameraUE* GetCamera();
-
-	FInputAction GetInputAction(bool InPressed);
 	
 	UFUNCTION()
-	void GPAD_FACE_Down();
+	void GPAD_A_D();
+
+	UFUNCTION()
+	void GPAD_B_D();
 
 	UFUNCTION()
 	void Test();
@@ -82,6 +83,38 @@ public:
 	UFUNCTION()
 	void Right_U();
 
+
+	UFUNCTION()
+	void JOY_Up_D();
+	UFUNCTION()
+	void JOY_Up_U();
+
+	UFUNCTION()
+	void JOY_Down_D();
+	UFUNCTION()
+	void JOY_Down_U();
+
+	UFUNCTION()
+	void JOY_Left_D();
+	UFUNCTION()
+	void JOY_Left_U();
+
+	UFUNCTION()
+	void JOY_Right_D();
+	UFUNCTION()
+	void JOY_Right_U();
+
+
+	UFUNCTION()
+	void Accept_D();
+	UFUNCTION()
+	void Accept_U();
+
+	UFUNCTION()
+	void Cancel_D();
+	UFUNCTION()
+	void Cancel_U();
+
 	UFUNCTION()
 	void Wheel_D();
 	UFUNCTION()
@@ -110,10 +143,18 @@ public:
 	UFUNCTION()
 	void MouseM_U();
 
+	UFUNCTION()
+	void Console_D();
+	UFUNCTION()
+	void Console_U();
+
 private:
 
-	UPROPERTY()
-	UMaestro* Maestro_;
+	int LastInputSource_;
+
+	void SetLastInputSource(int InInputSource);
+
+	MaestroC* Maestro_;
 
 	UPROPERTY()
 	ACameraUE* Camera_;

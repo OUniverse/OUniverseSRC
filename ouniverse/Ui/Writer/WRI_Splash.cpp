@@ -2,26 +2,22 @@
 
 #include "Ui/Writer/WRI_Splash.h"
 #include "System/Class.h"
-#include "UI/Writer/WRI_Alpha.h"
+#include "System/Scope.h"
 
-void UWRI_Splash::NativeConstruct()
-{
-	Super::NativeConstruct();
-}
 
-UWRI_Splash* UWRI_Splash::Create(UUi_View* InParentView)
+UWRI_Splash* UWRI_Splash::Create(UUiView* InParentView)
 {
-	UWRI_Splash* Neu = CreateWidget<UWRI_Splash>(InParentView->Scope(), ClassC::WRI_Splash());
+	UWRI_Splash* Neu = CreateWidget<UWRI_Splash>(ScopeC::World(), ClassC::WRI_Splash());
 	Neu->Init(InParentView);
 	return Neu;
 }
 
-void UWRI_Splash::Init(UUi_View* InParentView)
+void UWRI_Splash::Init(UUiView* InParentView)
 {
-	StoreParentView(InParentView);
+	ConstructView(InParentView);
 }
 
 void UWRI_Splash::CmdAdvance()
 {
-	OwningView_->SwitchView(0, UWRI_Alpha::VMain);
+	//OwningView_->SwitchView(0, UWRI_Alpha::VMain);
 }

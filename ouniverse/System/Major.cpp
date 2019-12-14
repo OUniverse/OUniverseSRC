@@ -34,15 +34,16 @@ SaveDaisC* UMajor::SaveD()			{ return SaveDais_; }
 SaveLibC* UMajor::SaveL()			{ return SaveLib_; }
 SaveVatC* UMajor::SaveV()			{ return SaveV_; }
 
-UBabel* UMajor::Babel()				{ return Babel_; }
+BabelC* UMajor::Babel()				{ return Babel_; }
 ConfigManager* UMajor::Config()		{ return Config_; }
 ACameraUE* UMajor::Camera()			{ return Camera_; }
 UUi* UMajor::Ui()					{ return Ui_; }
-UMaestro* UMajor::Maestro()			{ return Maestro_; }
+MaestroC* UMajor::Maestro()			{ return Maestro_; }
 LogC* UMajor::Log()					{ return Log_; }
+LoggerC* UMajor::Logger()			{ return Logger_; }
 AudioManager* UMajor::Audio()		{ return Audio_; }
 AControlUE* UMajor::Control()		{ return Control_; }
-UWorld* UMajor::Scope()				{ return Scope_; }
+ScopeC* UMajor::Scope()				{ return Scope_; }
 AHudUE* UMajor::Hud()				{ return Hud_; }
 UViewportUE* UMajor::Viewport()		{ return Viewport_; }
 TerraC* UMajor::Terra()				{ return Terra_; }

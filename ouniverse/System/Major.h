@@ -31,15 +31,16 @@ class LoadoutLibC;
 class SaveDaisC;
 class SaveLibC;
 class LogC;
+class LoggerC;
 class AtlasLibC;
-
-class UBabel;
+class ScopeC;
+class BabelC;
 class TerraC;
 class TimeC;
 class ConfigManager;
 class UUi;
 class AudioManager;
-class UMaestro;
+class MaestroC;
 class AudioManager;
 class UViewportUE;
 class AHudUE;
@@ -74,14 +75,15 @@ public:
 	SaveDaisC*			SaveD();
 	SaveLibC*			SaveL();
 	LogC*				Log();
+	LoggerC*			Logger();
 	ConfigManager*		Config();
 	ACameraUE*			Camera();
 	AudioManager*		Audio();
 	AControlUE*			Control();
 	UUi*				Ui();
-	UMaestro*			Maestro();
+	MaestroC*			Maestro();
 	AHudUE*				Hud();
-	UWorld*				Scope();
+	ScopeC*				Scope();
 	UViewportUE*		Viewport();
 	OniManagerC*		Oni();
 	AtlasLibC*			Atlas();
@@ -91,7 +93,7 @@ public:
 	FpsC*				Fps();
 	UCosmos*			Cosmos();
 	SaveVatC*			SaveV();
-	UBabel*				Babel();
+	BabelC*				Babel();
 
 private:
 
@@ -104,15 +106,14 @@ private:
 	SaveDaisC*			SaveDais_;
 	SaveLibC*			SaveLib_;
 	LogC*				Log_;
+	LoggerC*			Logger_;
 	ConfigManager*		Config_;
 	UPROPERTY()
 	UUi*				Ui_;
-	UPROPERTY()
-	UMaestro*			Maestro_;
-	UPROPERTY()
-	UBabel*				Babel_;
+	MaestroC*			Maestro_;
+	BabelC*				Babel_;
 	AudioManager*		Audio_;
-	UWorld*				Scope_;
+	ScopeC*				Scope_;
 	UViewportUE*		Viewport_;
 	AHudUE*				Hud_;
 	AControlUE*			Control_;

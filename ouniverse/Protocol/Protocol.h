@@ -15,26 +15,35 @@ This is the abstract Protocol class which all actual Protocols extend from.
 #pragma once
 
 #include "System/Input.h"
-#include "Protocol.generated.h"
+#include "Protocol/Flux.h"
+#include "Protocol/Focal.h"
+#include "Protocol/Ley.h"
 
-class UMaestro;
+class MaestroC;
+class UUserWidget;
+class InputC;
 
-UCLASS()
-class OUNIVERSE_API UProtocol : public UInputSchemaStack
+class OUNIVERSE_API ProtocolC : public FluxC, public FocalC
 {
-	GENERATED_BODY()
 
-	friend UMaestro;
+	friend MaestroC;
 
 protected:
 
-	UProtocol();
+	ProtocolC(int InID, InputC* InInput);
 
-	virtual ~UProtocol() {};
+	virtual ~ProtocolC() {};
+	
+public:
 
-	virtual void Mount();
-	virtual void Dismount();
+	InputC* Input_;
 
-private:
+	virtual void EventCode(int ID, int EventID, int Var) {};
 
+	virtual void FocusChanged(int ID) {};
+	
+
+
+	virtual void EventPro(int ID, int EventID, ProtocolC* Pro) {};
+	virtual void EventUi(int ID, int EventID, UUserWidget* InWidget) {};
 };

@@ -22,59 +22,55 @@ An example of different states would be the System Menu compared to Open World. 
 
 #pragma once
 
-#include "Interface/Array.h"
+#include "System/Input.h"
+#include "Protocol/Protocol.h"
+#include "Interface/Map.h"
 #include "Interface/String.h"
 
-#include "System/Input.h"
-#include "Maestro.generated.h"
 
 class BootC;
 class UMajor;
 class UUi;
 
-class UProtocol;
-class USymPro;
-class UGlobalPro;
-class UWorldPro;
-class UWriterPro;
+class ConsoleNewPro;
+class ProtocolC;
+class SystemPro;
+class GlobalPro;
+class WorldPro;
+class WriterPro;
 
-UCLASS()
-class OUNIVERSE_API UMaestro : public UInputSchemaStack
+class InputC;
+
+class OUNIVERSE_API MaestroC : public InputStackC, public ProtocolC
 {
-	GENERATED_BODY()
+
 
 public:
 
-	UMaestro();
-	static UMaestro* Create(UMajor* Major);
-	void Init(UMajor* Major);
+	MaestroC();
+	static MaestroC* Create();
+
+	void Initialize(UMajor* InMajor);
 
 	void Start();
-	void FauxStart();
-	void WriterStart();
 
-	UPROPERTY()
-	USymPro* Sym_;
 
-	UPROPERTY()
-	UGlobalPro* Global_;
-	UPROPERTY()
-	UWorldPro* World_;
-	UPROPERTY()
-	UWriterPro* Writer_;
+public:
+
+	void ProSystem();
+	void ProWriter();
+
+public:
+
+	ConsoleNewPro* Console_;
+	SystemPro* System_;
+	GlobalPro* Global_;
+	WorldPro* World_;
+	WriterPro* Writer_;
+
+private:
+
 
 	UUi* Ui_;
 
-public:
-
-	//void Action(InputSchemaC::Command InAction, InputStrokeS InStroke);
-
-	enum ProtocolUID
-	{
-		Global,
-		Sym,
-		OpenWorld,
-		Writer,
-		MAX,
-	};
 };

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Ui/Ui_View.h"
+#include "Ui/UiView.h"
 #include "System/FormWrap.h"
 #include "WRI_VMainVFormEForm.generated.h"
 
@@ -10,7 +10,7 @@ class UWRI_FormEdit;
 class UUi_ScrollBox;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UWRI_FormEdit_Form : public UUi_View
+class OUNIVERSE_API UWRI_FormEdit_Form : public UUiView
 {
 
 	GENERATED_BODY()
@@ -26,4 +26,6 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UUi_ScrollBox* V_Scroll;
+
+
 };

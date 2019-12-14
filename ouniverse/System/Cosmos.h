@@ -41,10 +41,9 @@ public:
 
 	UCosmos();
 	static UCosmos* Get();
-	static UCosmos* Create(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope);
-	void Init(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope);
+	static UCosmos* Create(AControlUE* InControl);
+	void Init(AControlUE* InControl);
 	
-	UWorld* Scope();
 	bool RegisterSpawn(AActor* InAct);
 
 	void LoadLevel(StringC LevelName);
@@ -60,7 +59,5 @@ public:
 private:
 
 	AControlUE* Control_;
-	UObject* WorldContext_;
-	UWorld* Scope_;
 	ULevelStreamingDynamic* StreamedLevel_;
 };

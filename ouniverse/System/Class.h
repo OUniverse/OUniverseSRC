@@ -9,35 +9,24 @@ class ACharacter3D;
 class UCharacterA;
 
 class UUi;
-class UCNS_Alpha;
 
 class UFF_Bool;
 class UFF_Link;
 class UFF_LinkList;
 class UFF_Text;
 
-class ULOG_Alpha;
+class UConShelf;
+class UConShelf_LogEntry;
+class UConTray;
+
 class UPLS_Alpha;
 
-class USYM_Alpha;
-class USYM_AtlasMount;
-class USYM_Home;
-class USYM_Loadout;
-class USYM_Main;
-class USYM_Pre;
-class USYM_UserCreate;
-class USYM_UserEdit;
-class USYM_UserSelect;
+class USystemUi;
 class USYM_UserSelect_Le;
 
 
-class UTIM_Alpha;
-class UTIM_AtlasMount;
-class UTIM_Home;
-class UTIM_Main;
-class UTIM_Pre;
 
-class UWRI_Alpha;
+class UWRI;
 class UWRI_AtlasEdit;
 class UWRI_AtlasMount;
 class UWRI_FormEdit;
@@ -61,36 +50,23 @@ public:
 	static TSubclassOf<ACharacter3D> F_Character3D();
 
 	static TSubclassOf<UUi>						U_Ui();
-	static TSubclassOf<UCNS_Alpha>				CNS_Alpha();
+	
+	static TSubclassOf<UConShelf>				ConShelf();
+	static TSubclassOf<UConShelf_LogEntry>		ConShelf_LogEntry();
+	static TSubclassOf<UConTray>				ConTray();
 
 	static TSubclassOf<UFF_Bool>				FF_Bool();
 	static TSubclassOf<UFF_Link>				FF_Link();
 	static TSubclassOf<UFF_LinkList>			FF_LinkList();
 	static TSubclassOf<UFF_Text>				FF_Text();
 
-	static TSubclassOf<ULOG_Alpha>				LOG_Alpha();
+	
 	static TSubclassOf<UPLS_Alpha>				PLS_Alpha();
 
-	static TSubclassOf<USYM_Alpha>					SYM_Alpha();
-	static TSubclassOf<USYM_AtlasMount>				SYM_AtlasMount();
-	static TSubclassOf<USYM_Home>					SYM_Home();
-	static TSubclassOf<USYM_Loadout>				SYM_Loadout();
-	static TSubclassOf<USYM_Main>					SYM_Main();
-	static TSubclassOf<USYM_Pre>					SYM_Pre();
-	static TSubclassOf<USYM_UserCreate>				SYM_UserCreate();
-	static TSubclassOf<USYM_UserEdit>				SYM_UserEdit();
-	static TSubclassOf<USYM_UserSelect>				SYM_UserSelect();
+	static TSubclassOf<USystemUi>						SYM_Alpha();
 	static TSubclassOf<USYM_UserSelect_Le>			SYM_UserSelect_Le();
 
-	
-
-	static TSubclassOf<UTIM_Alpha>				TIM_Alpha();
-	static TSubclassOf<UTIM_AtlasMount>			TIM_AtlasMount();
-	static TSubclassOf<UTIM_Home>				TIM_Home();
-	static TSubclassOf<UTIM_Main>				TIM_Main();
-	static TSubclassOf<UTIM_Pre>				TIM_Pre();
-
-	static TSubclassOf<UWRI_Alpha>				WRI_Alpha();
+		static TSubclassOf<UWRI>				WRI_Alpha();
 	static TSubclassOf<UWRI_AtlasEdit>			WRI_AtlasEdit();
 	static TSubclassOf<UWRI_AtlasMount>			WRI_AtlasMount();	
 	static TSubclassOf<UWRI_FormEdit>			WRI_FormEdit();

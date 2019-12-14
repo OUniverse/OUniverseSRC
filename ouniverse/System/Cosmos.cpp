@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "System/Cosmos.h"
-#include "Min/MajorM.h"
+#include "System/Scope.h"
 #include "Engine/World.h"
 
 #include "System/ControlUE.h"
@@ -17,12 +17,12 @@ namespace Global
 
 UCosmos::UCosmos() {};
 
-UCosmos* UCosmos::Create(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope)
+UCosmos* UCosmos::Create(AControlUE* InControl)
 {
-	UCosmos* Obj = NewObject<UCosmos>();
-	Obj->Init(InControl,InWorldContext,InScope);
-	Global::Cosmos = Obj;
-	return Obj;
+	UCosmos* Neu = NewObject<UCosmos>();
+	Neu->Init(InControl);
+	Global::Cosmos = Neu;
+	return Neu;
 }
 
 UCosmos* UCosmos::Get()
@@ -30,11 +30,9 @@ UCosmos* UCosmos::Get()
 	return Global::Cosmos;
 }
 
-void UCosmos::Init(AControlUE* InControl, UObject* InWorldContext, UWorld* InScope)
+void UCosmos::Init(AControlUE* InControl)
 {
 	Control_ = InControl;
-	WorldContext_ = InWorldContext;
-	Scope_ = InScope;
 }
 
 void UCosmos::Mount()
@@ -45,11 +43,6 @@ void UCosmos::Mount()
 void UCosmos::Dismount()
 {
 
-}
-
-UWorld* UCosmos::Scope()
-{
-	return Scope_;
 }
 
 bool UCosmos::RegisterSpawn(AActor* InAct)
@@ -66,7 +59,7 @@ bool UCosmos::RegisterSpawn(AActor* InAct)
 void UCosmos::LoadLevel(StringC LevelName)
 {
 	bool bFound = true;
-	StreamedLevel_ = ULevelStreamingDynamic::LoadLevelInstance(WorldContext_, LevelName.ToChar(), FVector(0.0f), FRotator(0.0f), bFound);
+	StreamedLevel_ = ULevelStreamingDynamic::LoadLevelInstance(ScopeC::WorldContext(), LevelName.ToChar(), FVector(0.0f), FRotator(0.0f), bFound);
 	StreamedLevel_->OnLevelLoaded.AddDynamic(this, &UCosmos::OnLevelStreamed);
 }
 void UCosmos::OnLevelStreamed()
@@ -78,5 +71,5 @@ ACameraUE* UCosmos::SpawnCamera()
 {
 	FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
-	return Scope_->SpawnActor<ACameraUE>(Location, Rotation);
+	return ScopeC::World()->SpawnActor<ACameraUE>(Location, Rotation);
 }

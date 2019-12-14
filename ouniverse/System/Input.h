@@ -3,106 +3,63 @@
 #pragma once
 
 #include "UObject/NoExportTypes.h"
+#include "Interface/Array.h"
+#include "System/InputData.h"
+
 #include "Input.generated.h"
 
 class UCharacterA;
-
-class OUNIVERSE_API FUiAction
-{
-
-public:
-
-	FUiAction() {};
-
-	bool Pressed;
-	float Power;
-	float Length; 
-};
-
-
-
-class OUNIVERSE_API KeyDataS
-{
-
-public:
-
-	bool Pressed;
-	float Power;
-	float Length;
-};
-
-
-class OUNIVERSE_API InputNewC : public UObject
-{
-	virtual void Up(KeyDataS* KeyData)		{ };
-	virtual void Down(KeyDataS* KeyData)	{ };
-	virtual void Left(KeyDataS* KeyData)	{ };
-	virtual void Right(KeyDataS* KeyData)	{ };
-	virtual void Accept(KeyDataS* KeyData)	{ };
-	virtual void Cancel(KeyDataS* KeyData)	{ };
-};
+class UUiEl;
 
 
 class OUNIVERSE_API InputC
 {
-
+	
 public:
+	InputC() {};
 
-	enum Action
-	{
-		Forward,
-		Back,
-		Left,
-		Right,
-		Console,
-		Interact,
-		Member1,
-		Member2,
-		Member3,
-		Member4,
-		Member5,
-	};
+	virtual bool InputCommand(KeyS InKey);
+	virtual bool InputAxis(AxisS InAxis);
 };
 
-USTRUCT(BlueprintType)
-struct FInputAction
-{
-	GENERATED_BODY()
-
-public:
-
-	bool Press;
-
-	bool ALT;
-
-	bool SHIFT;
-
-	bool CTR;
-
-	bool HELP;
-
-	FInputAction()
-	{
-		CTR = false;
-		ALT = false;
-		SHIFT = false;
-		HELP = false;
-	};
-
-	FInputAction(bool InPress, bool InCTR, bool InALT, bool InSHIFT, bool InHelp)
-	{
-		Press = InPress;
-		CTR = InCTR;
-		ALT = InALT;
-		SHIFT = InSHIFT;
-		HELP = InHelp;
-	};
-};
-
-class InputAxisS
+class OUNIVERSE_API InputStackC : public InputC
 {
 
+public:
+	InputStackC();
+
+	virtual ~InputStackC() {};
+	void InputStackAdd(InputC* InInput);
+	void InputStackRemove(InputC* InInput);
+
+	bool InputStackBroadcastCommand(bool(InputC::* PTR)(KeyS), KeyS InKey);
+	bool InputStackBroadcastAxis(bool(InputC::* PTR)(AxisS), AxisS InKey);
+
+	virtual bool InputCommand(KeyS InKey);
+	virtual bool InputAxis(AxisS InAxis);
+
+	int Len_;
+
+	ArrayC<InputC*> Stack_;
+
 };
+
+class OUNIVERSE_API InputUiC : public InputC
+{
+
+public:
+	
+	InputUiC() {};
+
+	void SetInputHandler(UUiEl* InHandler);
+	UUiEl* UiInputHandler_;
+
+	virtual bool InputCommand(KeyS InKey);
+	virtual bool InputAxis(AxisS InAxis);
+
+};
+
+
 
 UCLASS()
 class OUNIVERSE_API UInputSchema : public UObject

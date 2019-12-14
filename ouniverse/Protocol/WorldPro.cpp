@@ -11,19 +11,7 @@
 #include "Min/DebugM.h"
 
 
-UWorldPro::UWorldPro() : UProtocol()
-{
-
-}
-
-UWorldPro* UWorldPro::Create(AControlUE* InControl, UCosmos* InCosmos)
-{
-	UWorldPro* Obj = NewObject<UWorldPro>();
-	Obj->Init(InControl,InCosmos);
-	return Obj;
-}
-
-void UWorldPro::Init(AControlUE* InControl, UCosmos* InCosmos)
+WorldProC::WorldProC(int InID, MaestroC* InMaestro, AControlUE* InControl, UCosmos* InCosmos) : ProtocolC(InID,this)
 {
 	Cosmos_ = InCosmos;
 	Control_ = InControl;
@@ -32,7 +20,14 @@ void UWorldPro::Init(AControlUE* InControl, UCosmos* InCosmos)
 	CharacterInputBeacon_ = NewObject<UInputSchemaCharacter>();
 }
 
-void UWorldPro::Start()
+WorldProC* WorldProC::Create(int InID, MaestroC* InMaestro, AControlUE* InControl, UCosmos* InCosmos)
+{
+	WorldProC* Obj = new WorldProC(InID, InMaestro,InControl,InCosmos);
+	return Obj;
+}
+
+
+void WorldProC::Start()
 {
 	Cosmos_->LoadLevel(StringC("TESTMAP"));
 	Party_->Faux();
@@ -41,10 +36,10 @@ void UWorldPro::Start()
 	Possess(Party_->Members_[0]);
 };
 
-void UWorldPro::Possess(UCharacterA* InChar)
+void WorldProC::Possess(UCharacterA* InChar)
 {
 	CharacterInputBeacon_->SetCharacter(InChar);
-	AddInputSchema(CharacterInputBeacon_);
+	//AddInputSchema(CharacterInputBeacon_);
 	PossessedCharacter_ = InChar;
 	InChar->Possess();
 	Control_->GetCamera()->SetGoal(InChar->Character3D()->GetControlCam());

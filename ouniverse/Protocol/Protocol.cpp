@@ -3,34 +3,7 @@
 #include "Protocol/Protocol.h"
 
 
-UProtocol::UProtocol()
+ProtocolC::ProtocolC(int InID, InputC* InInput) : FluxC(InID)
 {
-
+	Input_ = InInput;
 }
-
-void UProtocol::Mount()
-{
-
-}
-
-void UProtocol::Dismount()
-{
-
-}
-
-/**
-InputReplyS* ProtocolP::OnCommandInternal(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI)
-{
-	if(Reply->Bubble())
-	{
-		OnCommand(Reply, Command, UpDown, PostUI);
-	}
-
-	return Reply;
-}
-
-InputReplyS* ProtocolP::OnCommand(InputReplyS* Reply, InputSchemaC::Commands Command, bool UpDown, bool PostUI)
-{
-	return Reply;
-}
-*/

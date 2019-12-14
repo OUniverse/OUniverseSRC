@@ -9,21 +9,19 @@
 #include "Interface/Map.h"
 #include "Interface/String.h"
 
-#include "Babel.generated.h"
 
-
-UCLASS()
-class OUNIVERSE_API UBabel : public UObject
+class OUNIVERSE_API BabelC
 {
-	GENERATED_BODY()
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "Babel")
-	static FText Decode(int InCode);
+	BabelC(FileC BabelDoc);
 
-	static UBabel* Create(FileC BabelDoc);
-	void Init(FileC BabelDoc);
+	FText Decode(int InCode);
 
+	static BabelC* Get();
+
+	static BabelC* Create(FileC BabelDoc);
+	
 	MapC<int, FString> Lib_;
 };

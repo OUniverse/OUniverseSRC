@@ -7,23 +7,27 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
-#include "GlobalPro.generated.h"
+#include "System/Input.h"
 
-UCLASS()
-class OUNIVERSE_API UGlobalPro : public UProtocol
+
+class UMajor;
+
+class OUNIVERSE_API GlobalPro : public ProtocolC, public InputUiC
 {
-	GENERATED_BODY()
 
-	friend UMaestro;
+
+	friend MaestroC;
 
 public:
-
-	static UGlobalPro* Create();
 
 
 private:
 
-	UGlobalPro();
+	static GlobalPro* Create(int InID, UMajor* InMajor);
 
-	virtual bool Up(bool Down);
+	GlobalPro(int InID, UMajor* InMajor);
+
+	bool InputCommand(KeyS InKey) override;
+
+	UMajor* Major_;
 };

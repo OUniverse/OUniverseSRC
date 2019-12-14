@@ -3,6 +3,9 @@
 #include "Form/CharacterA.h"
 #include "Form/CharacterF.h"
 #include "Form/Character3D.h"
+
+#include "System/Scope.h"
+
 #include "Component/CharacterInput.h"
 
 #include "System/Cosmos.h"
@@ -13,7 +16,7 @@
 
 UCharacterA* UCharacterA::Create(CharacterF* InForm)
 {
-	UCharacterA* Neu = NewObject<UCharacterA>(UCosmos::Get()->Scope(),ClassC::F_CharacterA());
+	UCharacterA* Neu = NewObject<UCharacterA>(ScopeC::World(),ClassC::F_CharacterA());
 	Neu->InitBase(InForm);
 	return Neu;
 }
@@ -22,7 +25,7 @@ AActor* UCharacterA::Spawn()
 {
 	UCosmos* Cosmos = UCosmos::Get();
 	//TSoftClassPtr<ACharacter3D> CharacterClass = TSoftClassPtr<ACharacter3D>(FSoftClassPath(ACharacter3D::Class));
-	Character3D_ = Cosmos->Scope()->SpawnActor<ACharacter3D>(ClassC::F_Character3D(), FVector(0.0f, 0.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
+	Character3D_ = ScopeC::World()->SpawnActor<ACharacter3D>(ClassC::F_Character3D(), FVector(0.0f, 0.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
 	Cosmos->RegisterSpawn(Character3D_);
 	return  Character3D_;
 }

@@ -10,13 +10,9 @@ Base widget which manages the entire UI.
 #include "Blueprint/UserWidget.h"
 #include "Ui.generated.h"
 
-class UMajor;
-class UWorld;
+class UCanvasPanel;
 
-class UUi_Alpha;
-class UWRI_Alpha;
-
-UCLASS(Blueprintable)
+UCLASS(Abstract, Blueprintable)
 class OUNIVERSE_API UUi : public UUserWidget
 {
 
@@ -24,24 +20,25 @@ class OUNIVERSE_API UUi : public UUserWidget
 
 public:
 
-	static UUi* Create(UMajor* M);
+	static UUi* Create();
 	static UUi* Get();
 
-	void Init(UMajor* M);
+	void Init();
 
-	void OpenSystemMenu();
-	void OpenTitleMenu();
-	void OpenWriterMenu();
 
-	UWorld* Scope_;
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* Viewport;
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* Shelf;
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* Tray;
 
-	UMajor* Major_;
 
-	void CloseActive();
+	void ToViewport(UWidget* InWidget);
+	void ToShelf(UWidget* InWidget);
+	void ToTray(UWidget* InWidget);
 
-	UPROPERTY()
-	UUi_Alpha* ActiveAlpha_;
+	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override {};
 
-	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 };

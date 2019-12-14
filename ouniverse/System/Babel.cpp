@@ -11,20 +11,17 @@
 
 namespace Global
 {
-	UBabel* Babel;
+	BabelC* Babel;
+	bool Initialized = false;
 }
 
-UBabel* UBabel::Create(FileC BabelDoc)
+BabelC* BabelC::Get()
 {
-	UBabel* Neu = NewObject<UBabel>();
-	Global::Babel = Neu;
-	Neu->Init(BabelDoc);
-	return Neu;
+	return Global::Babel;
 }
 
-void UBabel::Init(FileC BabelFile)
+BabelC::BabelC(FileC BabelFile)
 {
-
 	JsonS J = JsonS(BabelFile.Doc().Open().ToString());
 	JsonS Cur;
 
@@ -37,9 +34,21 @@ void UBabel::Init(FileC BabelFile)
 	}
 }
 
-
-FText UBabel::Decode(int InCode)
+BabelC* BabelC::Create(FileC InBabelDoc)
 {
+	BabelC* Neu = new BabelC(InBabelDoc);
+	Global::Babel = Neu;
+	Global::Initialized = true;
+	return Neu;
+}
+
+
+FText BabelC::Decode(int InCode)
+{
+	if (!Global::Initialized)
+	{
+		return FText::FromString(FString::FromInt(InCode));
+	}
 	FString Result;
 
 	bool bFound = Global::Babel->Lib_.Try(InCode,Result);

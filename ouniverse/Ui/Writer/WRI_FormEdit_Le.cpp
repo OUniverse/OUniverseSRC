@@ -3,6 +3,8 @@
 #include "Ui/Writer/WRI_FormEdit_Le.h"
 #include "Ui/Writer/WRI_FormEdit.h"
 
+#include "System/Scope.h"
+
 #include "Form/FormF.h"
 #include "System/Class.h"
 
@@ -18,7 +20,7 @@ void UWRI_FormEdit_Le::NativeConstruct()
 
 UWRI_FormEdit_Le* UWRI_FormEdit_Le::Create(UWorld* InScope, UWRI_FormEdit* InView, FormWrapS InFormW)
 {
-	UWRI_FormEdit_Le* Neu = CreateWidget<UWRI_FormEdit_Le>(InScope,ClassC::WRI_FormEdit_Le());
+	UWRI_FormEdit_Le* Neu = CreateWidget<UWRI_FormEdit_Le>(ScopeC::World(),ClassC::WRI_FormEdit_Le());
 	Neu->Init(InView,InFormW);
 	return Neu;
 }

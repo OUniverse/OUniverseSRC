@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Ui/Ui_Pylon.h"
+#include "Ui/UiBase.h"
 #include "WRI_Loadout_Le.generated.h"
 
 class AtlasC;
@@ -15,7 +15,7 @@ class UTextBlock;
 
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UWRI_Loadout_Le : public UUi_Pylon
+class OUNIVERSE_API UWRI_Loadout_Le : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -41,7 +41,6 @@ public:
 
 	UWRI_Loadout* View_;
 
-	void Click(UUi_Interactive* Interactive) override;
 
 	bool AtlasActivated();
 

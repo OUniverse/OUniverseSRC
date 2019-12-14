@@ -5,6 +5,11 @@
 #include "System/Boot.h"
 #include "System/GameInstanceUE.h"
 #include "System/Major.h"
+
+#include "Class/ClassGeneral.h"
+#include "Class/ClassProtocol.h"
+#include "Class/ClassForm.h"
+
 #include "System/Class.h"
 
 #include "System/Babel.h"
@@ -23,6 +28,7 @@
 #include "System/TickUE.h"
 #include "System/Fps.h"
 #include "System/Cosmos.h"
+#include "System/Scope.h"
 #include "Ui/Ui.h"
 
 #include "System/AtlasLib.h"
@@ -40,6 +46,7 @@
 
 #include "System/Terra.h"
 
+#include "Protocol/ProtocolREG.h"
 
 #include "Min/DebugM.h"
 #include "System/Log.h"
@@ -52,6 +59,7 @@
 
 #include "Interface/Data.h"
 
+#include "System/Logger.h"
 
 
 #include "Framework/Application/SlateApplication.h"
@@ -118,22 +126,24 @@ void BootC::Standard(UObject* WorldContextObject)
 
 
 
+	
 
 	UMajor* M = UMajor::Create();
 	Singleton->Major_ = M;
-
 	
+	M->Scope_ = new ScopeC(WorldContextObject_PRE,Scope_PRE);
 
-	M->WorldContext_ = WorldContextObject_PRE;
-	M->Scope_ = Scope_PRE;
 	//A crash here means that the custom ViewportClient is no longer set correctly in UE4.
-	M->Viewport_ = Cast<UViewportUE>(M->Scope()->GetGameInstance()->GetGameViewportClient());
+	M->Viewport_ = Cast<UViewportUE>(ScopeC::World()->GetGameInstance()->GetGameViewportClient());
 
 	bool bModeFail = false;
-	if (M->Scope()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
+	if (M->Scope()->World()->GetAuthGameMode()->GetClass() != AMode::StaticClass())
 	{
 		bModeFail = true;
 	}
+
+	UClassGeneral::Initialize();
+	UClassProtocol::Initialize();
 
 	ClassC::Setup();
 	if (!ClassC::IsSetup())
@@ -143,20 +153,26 @@ void BootC::Standard(UObject* WorldContextObject)
 	}
 
 	PathC::SetGlobals(); //Must be called to set global paths to reduce the amount of string assembly functions at run time.
+	
+	
+	
+	M->Logger_ = LoggerC::Create(PathC::FileLogLegend(), PathC::FileLog());
 	M->Log_ = LogC::Create(PathC::FileLog());
 
-	LOG(10000, Void(), "Standard Boot Activated. MajorC, PathsC, and LogC services have been created.")
+
+	
+	LOGGER("Begin standard boot.", LoggerEntryC::W(37524)->Mail())
 
 		if (bModeFail)
 		{
+			//Error here happens if the main map's mode is not AMode.
 			DBUGC(RGB_ERR, "The game mode is not correct. It should be AMode...")
-
-				LOG(19222, Void(), "The game mode is incorrectly set. It should be AMode. ")
-
-				return;
+			LOGGER("The game mode is incorrectly set.",LoggerEntryC::W(19595)->Mail())
+	
+			return;
 		}
 
-	M->Babel_ = UBabel::Create(PathC::FileBabel());
+	M->Babel_ = BabelC::Create(PathC::FileBabel());
 
 	M->Oni_ = new OniManagerC();
 	M->Oni()->Load(OniTypeC::Type::Internal, PathC::FileInternalConfig());
@@ -194,9 +210,9 @@ void BootC::Standard(UObject* WorldContextObject)
 	
 	M->Atlas_ = AtlasLibC::Create(PathC::DirAtlas(),M->LoadoutD());
 
-	M->Ui_ = UUi::Create(M);
+	M->Ui_ = UUi::Create();
 
-	M->Cosmos_ = UCosmos::Create(M->Control(), M->WorldContext(), M->Scope());
+	M->Cosmos_ = UCosmos::Create(M->Control());
 
 	M->Camera_ = M->Cosmos()->SpawnCamera();
 	M->Control()->SetCamera(M->Camera());
@@ -213,7 +229,9 @@ void BootC::Standard(UObject* WorldContextObject)
 
 
 
-	M->Maestro_ = UMaestro::Create(M);
+	M->Maestro_ = MaestroC::Create();
+	M->Maestro()->Initialize(M);
+
 	M->Control()->Init(M->Maestro());
 	
 
@@ -230,7 +248,7 @@ void BootC::Standard(UObject* WorldContextObject)
 	//M->Maestro()->FauxStart();
 	//M->Maestro()->WriterStart();
 
-	M->Ui()->OpenSystemMenu();
+	M->Maestro()->Start();
 
-	LOGP
+	LOGGER("Standard Boot Complete.", LoggerEntryC::W(39464)->Mail())
 }

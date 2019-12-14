@@ -8,6 +8,7 @@
 #include "System/LoadoutDais.h"
 
 #include "System/Log.h"
+#include "System/Logger.h"
 
 #include "Min/DebugM.h"
 
@@ -30,6 +31,8 @@ AtlasLibC* AtlasLibC::Create(FolderC InFolder, LoadoutDaisC* InLoadoutDais)
 
 AtlasLibC::AtlasLibC(FolderC InAtlasFolder, LoadoutDaisC* InLoadoutDais)
 {
+	LOGGER("Preloading Atlas Data", LoggerEntryC::W(20035)->Mail())
+
 	PreLen_ = 0;
 	Len_ = 0;
 	AtlasFolder_ = InAtlasFolder;
@@ -37,6 +40,7 @@ AtlasLibC::AtlasLibC(FolderC InAtlasFolder, LoadoutDaisC* InLoadoutDais)
 
 	ArrayC<FolderC> Fo = AtlasFolder_.GetFolders();
 	LOG(31258, AtlasFolder_.ToString() / "", " Scanning directory : $V$")
+	LOGGER("Scanning Atlas directory : {0}", LoggerEntryC::W(10748,AtlasFolder_.ToString())->Mail())
 
 		int l = Fo.Len();
 		for (int i = 0; i < l; i++)

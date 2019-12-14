@@ -8,8 +8,9 @@ Protocol for handling the MainMenu.
 
 #include "Interface/Map.h"
 #include "System/DuetUID.h"
+#include "System/Input.h"
+
 #include "Protocol/Protocol.h"
-#include "WorldPro.generated.h"
 
 class UCosmos;
 class AControlUE;
@@ -17,16 +18,15 @@ class UParty;
 class UCharacterA;
 class PopulaceC;
 
-UCLASS()
-class OUNIVERSE_API UWorldPro : public UProtocol
-{
-	GENERATED_BODY()
 
-	friend UMaestro;
+class OUNIVERSE_API WorldProC : public ProtocolC, public InputStackC
+{
+
+
+	friend MaestroC;
 
 public:
 
-	UWorldPro();
 
 	void Start();
 
@@ -34,8 +34,9 @@ public:
 
 private:
 
-	static UWorldPro* Create(AControlUE* InControl, UCosmos* InCosmos);
-	void Init(AControlUE* InControl, UCosmos* InCosmos);
+	static WorldProC* Create(int InID, MaestroC* InMaestro, AControlUE* InControl, UCosmos* InCosmos);
+
+	WorldProC(int InID, MaestroC* InMaestro, AControlUE* InControl, UCosmos* InCosmos);
 	
 	PopulaceC* Populace_;
 

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Ui/Ui_Pylon.h"
+#include "Ui/UiBase.h"
 #include "System/FormWrap.h"
 
 #include "WRI_FormEdit_Le.generated.h"
@@ -15,7 +15,7 @@ class UTextBlock;
 class UImage;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UWRI_FormEdit_Le : public UUi_Pylon
+class OUNIVERSE_API UWRI_FormEdit_Le : public UUiBase
 {
 
 	GENERATED_BODY()

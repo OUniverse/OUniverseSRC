@@ -2,6 +2,7 @@
 
 #include "Ui/Writer/WRI_VMainVFormEForm.h"
 #include "UI/Writer/WRI_FormEdit.h"
+#include "System/Scope.h"
 
 #include "System/FormTypes.h"
 
@@ -28,7 +29,7 @@ void UWRI_FormEdit_Form::NativeConstruct()
 
 UWRI_FormEdit_Form* UWRI_FormEdit_Form::Create(UWRI_FormEdit* InView, FormWrapS InFormW)
 {
-	UWRI_FormEdit_Form* Neu = CreateWidget<UWRI_FormEdit_Form>(InView->Scope(),ClassC::WRI_FormEdit_Form());
+	UWRI_FormEdit_Form* Neu = CreateWidget<UWRI_FormEdit_Form>(ScopeC::World(),ClassC::WRI_FormEdit_Form());
 	Neu->Init(InView, InFormW);
 
 	return Neu;

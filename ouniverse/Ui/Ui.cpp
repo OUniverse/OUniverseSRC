@@ -1,12 +1,12 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/Ui.h"
-#include "System/Major.h"
-#include "System/Class.h"
+#include "System/Scope.h"
 
-#include "Ui/System/SYM_Alpha.h"
-#include "Ui/Title/TIM_Alpha.h"
-#include "Ui/Writer/WRI_Alpha.h"
+#include "System/Class.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+
 
 namespace Global
 {
@@ -14,10 +14,10 @@ namespace Global
 }
 
 
-UUi* UUi::Create(UMajor* M)
+UUi* UUi::Create()
 {
-	UUi* Neu = CreateWidget<UUi>(M->Scope(), ClassC::U_Ui());
-	Neu->Init(M);
+	UUi* Neu = CreateWidget<UUi>(ScopeC::World(), ClassC::U_Ui());
+	Neu->Init();
 	Global::Ui = Neu;
 	Neu->AddToViewport();
 	return Neu;
@@ -28,44 +28,34 @@ UUi* UUi::Get()
 	return Global::Ui;
 }
 
-void UUi::Init(UMajor* M)
+void UUi::Init()
 {
-	ActiveAlpha_ = NULL;
-	Major_ = M;
-	Scope_ = M->Scope();
-}
 
-void UUi::CloseActive()
-{
-	if (ActiveAlpha_ != NULL)
-	{
-		ActiveAlpha_->RemoveFromParent();
-	}
-}
-
-void UUi::OpenSystemMenu()
-{
-	CloseActive();
-	ActiveAlpha_ = USYM_Alpha::Create(Major_->Scope(), this, Major_->Atlas(), Major_->UserL(), Major_->UserD(), Major_->LoadoutL(), Major_->LoadoutD());
-	ActiveAlpha_->AddToViewport();
 }
 
 
-void UUi::OpenTitleMenu()
+void UUi::ToViewport(UWidget* InWidget)
 {
-	CloseActive();
-	ActiveAlpha_ = UTIM_Alpha::Create(Major_->Scope(), this, Major_->UserD(), Major_->LoadoutD(), Major_->Atlas());
-	ActiveAlpha_->AddToViewport();
+	Viewport->AddChildToCanvas(InWidget);
+	UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(InWidget->Slot);
+	CanvasSlot->SetAnchors(FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
+	CanvasSlot->SetOffsets(FMargin(0.0f,0.0f,0.0f,0.0f));
 }
 
-void UUi::OpenWriterMenu()
+void UUi::ToShelf(UWidget* InWidget)
 {
-	CloseActive();
-	ActiveAlpha_ = UWRI_Alpha::Create(Major_->Scope(), this, Major_->Atlas());
-	ActiveAlpha_->AddToViewport();
+	Shelf->AddChildToCanvas(InWidget);
+	UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(InWidget->Slot);
+	CanvasSlot->SetAnchors(FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
+	CanvasSlot->SetOffsets(FMargin(0.0f, 0.0f, 0.0f, 0.0f));
+	CanvasSlot->SetAutoSize(true);
 }
 
-void UUi::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+void UUi::ToTray(UWidget* InWidget)
 {
-	
+	Tray->AddChildToCanvas(InWidget);
+	UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(InWidget->Slot);
+	CanvasSlot->SetAnchors(FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
+	CanvasSlot->SetOffsets(FMargin(0.0f, 0.0f, 0.0f, 0.0f));
+	CanvasSlot->SetAutoSize(true);
 }

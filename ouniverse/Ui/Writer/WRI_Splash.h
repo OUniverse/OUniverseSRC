@@ -2,23 +2,21 @@
 
 #pragma once
 
-#include "Ui/Ui_View.h"
+#include "Ui/UiView.h"
 #include "WRI_Splash.generated.h"
 
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UWRI_Splash : public UUi_View
+class OUNIVERSE_API UWRI_Splash : public UUiView
 {
 
 	GENERATED_BODY()
 
 public:
 
-	virtual void NativeConstruct() override;
+	static UWRI_Splash* Create(UUiView* InParentView);
 
-	static UWRI_Splash* Create(UUi_View* InParentView);
-
-	void Init(UUi_View* InParentView);
+	void Init(UUiView* InParentView);
 
 	UFUNCTION(BlueprintCallable)
 	void CmdAdvance();

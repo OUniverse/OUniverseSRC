@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "Ui/Ui_Pylon.h"
+#include "Ui/UiEl.h"
 #include "Ui_ScrollBox.generated.h"
 
 class UScrollBox;
 class UUserWidget;
 
 UCLASS(Abstract,Blueprintable)
-class OUNIVERSE_API UUi_ScrollBox: public UUi_Pylon
+class OUNIVERSE_API UUi_ScrollBox: public UUiEl
 {
 
 	GENERATED_BODY()

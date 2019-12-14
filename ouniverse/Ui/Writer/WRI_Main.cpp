@@ -2,57 +2,55 @@
 
 #include "Ui/Writer/WRI_Main.h"
 #include "System/Class.h"
-
-#include "Components/HorizontalBox.h"
-
-#include "Ui/Ui_Interactive.h"
+#include "System/Scope.h"
+#include "Ui/UiButton.h"
 
 #include "Ui/Writer/WRI_AtlasMount.h"
 #include "Ui/Writer/WRI_Loadout.h"
 #include "Ui/Writer/WRI_AtlasEdit.h"
 #include "Ui/Writer/WRI_FormEdit.h"
 
-void UWRI_Main::NativeConstruct()
+
+UWRI_Main* UWRI_Main::Create(UUiView* InParentView, AtlasLibC* InAtlasLib)
 {
-	SetViewPanel(0, V_View);
-
-	SwitchView(0, UWRI_Main::VLoadout);
-
-	V_OptLoadout->SetupInterface(this,Interactives::OptLoadout);
-	V_OptAtlas->SetupInterface(this, Interactives::OptAtlas);
-	V_OptForm->SetupInterface(this, Interactives::OptForm);
-
-	Super::NativeConstruct();
-}
-
-UWRI_Main* UWRI_Main::Create(UUi_View* InParentView, AtlasLibC* InAtlasLib)
-{
-	UWRI_Main* Neu = CreateWidget<UWRI_Main>(InParentView->Scope(), ClassC::WRI_Main());
+	UWRI_Main* Neu = CreateWidget<UWRI_Main>(ScopeC::World(), ClassC::WRI_Main());
 	Neu->Init(InParentView, InAtlasLib);
 	return Neu;
 }
 
-void UWRI_Main::Init(UUi_View* InParentView, AtlasLibC* InAtlasLib)
+void UWRI_Main::Init(UUiView* InParentView, AtlasLibC* InAtlasLib)
 {
-	StoreParentView(InParentView);
+	ConstructView(InParentView);
+
+	OPT_Loadout->SetupButton(Interfaces::OptLoadout, this);
+	OPT_AtlasEdit->SetupButton(Interfaces::OptAtlasEdit, this);
+	OPT_FormEdit->SetupButton(Interfaces::OptFormEdit, this);
+
+
+
+	SwitchView(0, UWRI_Main::Loadout);
+
+
+
 
 	AddViewPanel(0);
 
-	View_AtlasMount = UWRI_AtlasMount::Create(this);
-	AddView(0, UWRI_Main::VAtlasMount, View_AtlasMount);
+	View_AtlasLoad->Init(this);
+	AddView(0, UWRI_Main::AtlasLoad, View_AtlasLoad);
 
-	View_Loadout = UWRI_Loadout::Create(this,InAtlasLib);
-	AddView(0, UWRI_Main::VLoadout, View_Loadout);
+	View_Loadout->Init(this, InAtlasLib);
+	AddView(0, UWRI_Main::Loadout, View_Loadout);
 
-	View_AtlasEdit = UWRI_AtlasEdit::Create(this);
-	AddView(0, UWRI_Main::VAtlasEdit, View_AtlasEdit);
+	View_AtlasEdit->Init(this);
+	AddView(0, UWRI_Main::AtlasEdit, View_AtlasEdit);
 
-	View_FormEdit = UWRI_FormEdit::Create(this,InAtlasLib);
-	AddView(0, UWRI_Main::VFormEdit, View_FormEdit);
+	View_FormEdit->Init(this,InAtlasLib);
+	AddView(0, UWRI_Main::FormEdit, View_FormEdit);
 }
 
-void UWRI_Main::Click(UUi_Interactive* Interactive)
+void UWRI_Main::EventUi(int WidgetID, int InEventID, UUserWidget* InWidget)
 {
+	/**
 	int IUID = Interactive->InterfaceUID();
 	switch (IUID) {
 	case Interactives::OptLoadout:
@@ -65,4 +63,5 @@ void UWRI_Main::Click(UUi_Interactive* Interactive)
 		SwitchView(0, UWRI_Main::VFormEdit);
 		break;
 	}
+	*/
 }
