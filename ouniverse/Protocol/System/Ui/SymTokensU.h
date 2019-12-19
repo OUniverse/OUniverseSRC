@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymTokensU.generated.h"
 
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymTokens : public UUiBaseNew
+class OUNIVERSE_API USymTokens : public UUiBase
 {
 
 	GENERATED_BODY()

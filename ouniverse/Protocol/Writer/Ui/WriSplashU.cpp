@@ -3,7 +3,7 @@
 #include "Protocol/Writer/Ui/WriSplashU.h"
 #include "Protocol/Writer/WriSplashP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 void UWriSplash::NativeConstruct()

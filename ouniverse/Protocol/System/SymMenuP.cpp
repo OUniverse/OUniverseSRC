@@ -9,7 +9,7 @@
 
 #include "Protocol/System/SymPro.h"
 #include "Protocol/System/Ui/SymMenuU.h"
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Protocol/Focus.h"
 
 #include "Protocol/System/SymUserSelectP.h"

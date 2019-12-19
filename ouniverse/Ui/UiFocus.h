@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "System/InputData.h"
 #include "UiFocus.generated.h"
 
 class ProtocolC;
 class FocusUiC;
 
-UCLASS(Blueprintable)
-class OUNIVERSE_API UUiFocus : public UUiBaseNew
+UCLASS(Abstract, Blueprintable)
+class OUNIVERSE_API UUiFocus : public UUiBase
 {
 
 	GENERATED_BODY()

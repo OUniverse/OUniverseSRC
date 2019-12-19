@@ -47,17 +47,6 @@ const char* AtlasC::K_LINKS_PREF	= "p";
 const char* AtlasC::K_FLAGS			= "f";
 
 
-AtlasDataStorageS::AtlasDataStorageS(AtlasC* InAtlas)
-{
-	ID = InAtlas->ID();
-	Name = InAtlas->Name();
-	Author = InAtlas->Author();
-	Website = InAtlas->Website();
-	Socket = InAtlas->WebSocket();
-}
-
-
-
 AtlasC::AtlasC(StringC InFolderName, FolderC InFolder)
 {
 
@@ -259,7 +248,7 @@ bool AtlasC::Try(FormUID UID, FormF*& InForm)
 	return bFound;
 }
 
-bool AtlasC::Mount(AtlasLibC* InAtlasLib)
+bool AtlasC::Mount(AtlasLibC* InAtlasLib, int InDataMode)
 {
 	FormLib_ = new FormLibC(this);
 	RevisionLib_ = new RevisionLibC(this, InAtlasLib);
@@ -278,7 +267,7 @@ bool AtlasC::Mount(AtlasLibC* InAtlasLib)
 	//Forms
 	std::getline(FileSS, LineSS);
 	J = JsonS(StringC(LineSS));
-	FormLib_->AddList(&J);
+	FormLib_->AddList(&J, this, InDataMode);
 
 	//Revisions
 	std::getline(FileSS, LineSS);
@@ -495,6 +484,11 @@ void AtlasC::Query(FormQueryS* InQuery)
 	FormLib_->Query(InQuery);
 }
 
+void AtlasC::QueryFormData(FormDataQueryC* InQuery)
+{
+	FormLib_->QueryFormData(InQuery);
+}
+
 FormWrapS AtlasC::GetFormWrap(FormUID InForm)
 {
 	return FormLib_->GetFormWrap(InForm);
@@ -520,23 +514,6 @@ void AtlasC::SaveDoc()
 
 	DocC AtlasDo = AtlasFile_.Doc();
 	AtlasDo.Write(Doc);
-}
-
-
-
-void AtlasC::WriterMasterLoad()
-{
-	DataStorage_ = new AtlasDataStorageS(this);
-}
-
-void AtlasC::WriterMasterUnload()
-{
-	ID_			= DataStorage_->ID;
-	Name_		= DataStorage_->Name;
-	Author_		= DataStorage_->Author;
-	Website_	= DataStorage_->Website;
-	WebSocket_	= DataStorage_->Socket;
-	delete DataStorage_;
 }
 
 

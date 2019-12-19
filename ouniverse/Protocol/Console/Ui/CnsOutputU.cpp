@@ -3,7 +3,7 @@
 #include "Protocol/Console/Ui/CnsOutputU.h"
 #include "Protocol/Console/CnsOutputP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 void UCnsOutput::NativeConstruct()

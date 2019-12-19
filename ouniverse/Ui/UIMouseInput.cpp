@@ -1,50 +1,57 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Ui/UiMouseInput.h"
-#include "Ui/UiBase.h"
 #include "Ui/UiEventCodes.h"
-#include "Ui/UiStatics.h"
+#include "Ui/UiBase.h"
 
 void UUiMouseInput::NativeConstruct()
 {
 	bIsFocusable = true;
+	bHitDisabled = false;
+	bEventDisabled = false;
 	Super::NativeConstruct();
 }
 
+void UUiMouseInput::Setup(int InID, UUiBase* InRelay)
+{
+	ID_ = InID;
+	Relay_ = InRelay;
+}
 
 FReply UUiMouseInput::NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
 {
 	bPressed = true;
-	return Relay_->EventMouseButtonDown(ID_,MyGeometry,MouseEvent);
+	MouseEvent.GetEffectingButton();
+	Relay_->EventUi(ID_,0,this);
 	return FReply::Handled();
 }
 
 FReply UUiMouseInput::NativeOnMouseButtonUp(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
 {
-	FReply MyReply = Relay_->EventMouseButtonUp(ID_, MyGeometry, MouseEvent);
+	return FReply::Handled();
+}
 
-	if (bPressed == true)
-	{		
-		MyReply = Relay_->EventMouseClick(ID_, MyGeometry, MouseEvent);
-	}
-
-	bPressed = false;
-	return MyReply;
+FReply UUiMouseInput::NativeOnMouseButtonDoubleClick(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
+{
+	bPressed = true;
+	MouseEvent.GetEffectingButton();
+	Relay_->EventUi(ID_, 0, this);
+	return FReply::Handled();
 }
 
 FReply UUiMouseInput::NativeOnMouseMove(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
 {
-	return Relay_->EventMouseMove(ID_, MyGeometry, MouseEvent);
+	return FReply::Handled();
 }
 
 void UUiMouseInput::NativeOnMouseEnter(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
 {
 	//UUi_Statics::FocusWidget(this);
 
-	Relay_->EventMouseEnter(ID_, MyGeometry, MouseEvent);
+	//Relay_->EventMouseEnter(ID_, MyGeometry, MouseEvent);
 }
 
 void UUiMouseInput::NativeOnMouseLeave(const FPointerEvent& MouseEvent)
 {
-	Relay_->EventMouseLeave(ID_, MouseEvent);
+	//Relay_->EventMouseLeave(ID_, MouseEvent);
 }

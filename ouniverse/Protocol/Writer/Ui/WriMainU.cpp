@@ -3,7 +3,7 @@
 #include "Protocol/Writer/Ui/WriMainU.h"
 #include "Protocol/Writer/WriMainP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 void UWriMenu::NativeConstruct()
@@ -24,7 +24,7 @@ void UWriMenu::UiConstruct(WriMenuP* InPro)
 
 void UWriMenu::EventUi(int WidgetID, int InEventID, UUserWidget* InWidget)
 {
-	if (InEventID == UiEventsC::ButtonAccept)
+	if (InEventID == UiEventsC::ButtonAccept || InEventID == UiEventsC::MouseLeftClick)
 	{
 		switch (WidgetID) {
 		case REG::Loadout:

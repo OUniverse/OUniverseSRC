@@ -5,6 +5,10 @@
 
 #include "Key/GlobalK.h"
 
+#include "System/AtlasLib.h"
+
+#include "System/FormData.h"
+
 #include "Form/FormF.h"
 #include "Form/ObjF.h"
 #include "Form/CharacterF.h"
@@ -21,6 +25,7 @@ FormLibC::FormLibC(AtlasC* InOwningAtlas)
 {
 
 	Len_ = 0;
+	FormDataLen_ = 0;
 	OwningAtlas = InOwningAtlas;
 
 	FactoryArray.Init(FormTypesC::Types::TYPES_MAX, NULL);
@@ -39,6 +44,11 @@ FormLibC::~FormLibC()
 	{
 		delete Lib_.At(i);
 	}
+
+	for (int i = 0; i < FormDataLen_; i++)
+	{
+		delete FormDataLib_.At(i);
+	}
 }
 
 int FormLibC::Len()
@@ -46,19 +56,35 @@ int FormLibC::Len()
 	return Len_;
 }
 
-void FormLibC::AddList(JsonS* InJ)
+void FormLibC::AddList(JsonS* InJ, AtlasC* InAtlas, int InDataMode)
 {
 
 	int L = InJ->Len();
 
 
-	for (int i = 0; i < L; i++)
+	if (InDataMode == AtlasLibC::DataMode::Writer)
 	{
-		JsonS NeuForm = InJ->At(i);
-		int Type = NeuForm.Int(GlobalK::Type);
-		FormF* Form = FactoryArray[Type](NeuForm);
-		Add(Form);
+		for (int i = 0; i < L; i++)
+		{
+			JsonS NeuForm = InJ->At(i);
+			int Type = NeuForm.Int(GlobalK::Type);
+			FormF* Form = FactoryArray[Type](NeuForm);
+			Add(Form);
+			AddData(InAtlas,Form);
+		}
 	}
+	else
+	{
+		for (int i = 0; i < L; i++)
+		{
+			JsonS NeuForm = InJ->At(i);
+			int Type = NeuForm.Int(GlobalK::Type);
+			FormF* Form = FactoryArray[Type](NeuForm);
+			Add(Form);
+		}
+	}
+
+	
 }
 
 void FormLibC::Demarshal()
@@ -76,6 +102,14 @@ void FormLibC::Add(FormF* InForm)
 	Len_++;
 	LOG(54439, InForm->UID().ForLog(), "Adding Form: $V$")
 	Lib_.Add(InForm->UID(), InForm);
+}
+
+void FormLibC::AddData(AtlasC* InAtlas, FormF* InForm)
+{
+	FormDataLen_++;
+
+	FormDataC* Neu = new FormDataC(InAtlas,InForm);
+	FormDataLib_.Add(InForm->UID(), Neu);
 }
 
 FormF* FormLibC::Get(FormUID InUID)
@@ -96,6 +130,16 @@ void FormLibC::Query(FormQueryS* InQuery)
 	{
 		FormWrap = FormWrapS(OwningAtlas, Lib_.At(i));
 		InQuery->Scan(FormWrap);
+	}
+
+}
+
+void FormLibC::QueryFormData(FormDataQueryC* InQuery)
+{
+
+	for (int i = 0; i < Len(); i++)
+	{
+		InQuery->Scan(FormDataLib_.At(i));
 	}
 
 }

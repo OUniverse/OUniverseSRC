@@ -12,6 +12,7 @@ class UWriPro;
 class UCnsTray;
 class UCnsShelf;
 class UWriLoadout_ScrollEntry;
+class UWriForm_ScrollEntry;
 
 UCLASS(Abstract, Blueprintable)
 class OUNIVERSE_API UClassProtocol : public UObject
@@ -34,6 +35,9 @@ public:
 	UPROPERTY(EditAnywhere, meta = (Category = "System"))
 	TSubclassOf<UWriLoadout_ScrollEntry>	WriLoadout_ScrollEntryUI;
 	
+	UPROPERTY(EditAnywhere, meta = (Category = "System"))
+	TSubclassOf<UWriForm_ScrollEntry>		WriForm_ScrollEntryUI;
+
 	UPROPERTY(EditAnywhere, meta = (Category = "System"))
 	TSubclassOf<UCnsShelf>			CnsShelfUI;
 

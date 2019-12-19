@@ -12,7 +12,7 @@ Protocol for handling the MainMenu.
 class USymPre;
 class SystemPro;
 
-class OUNIVERSE_API SymPreP : public ProtocolC, public InputUiC
+class OUNIVERSE_API SymPreP : public ProtocolC, public InputC
 {
 
 public:

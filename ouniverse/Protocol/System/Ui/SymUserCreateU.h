@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymUserCreateU.generated.h"
 
 class SymUserCreateP;
@@ -11,7 +11,7 @@ class UserLibC;
 
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymUserCreate : public UUiBaseNew
+class OUNIVERSE_API USymUserCreate : public UUiBase
 {
 
 	GENERATED_BODY()

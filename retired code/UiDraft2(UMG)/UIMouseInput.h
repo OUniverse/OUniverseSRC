@@ -3,13 +3,12 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
-#include "UiMouseRelay.generated.h"
+#include "Ui/UiRelay.h"
+#include "UIMouseInput.generated.h"
 
-class UUiBaseNew;
 
 UCLASS(Blueprintable)
-class OUNIVERSE_API UUiMouseRelay : public UUserWidget
+class OUNIVERSE_API UUiMouseInput : public UUiRelay
 {
 
 	GENERATED_BODY()
@@ -18,14 +17,7 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	int ID_;
-
-	UUiBaseNew* Relay_;
-	void Setup(int InID, UUiBaseNew* InRelay);
-
 	bool bPressed;
-	bool bHitDisabled;
-	bool bEventDisabled;
 
 	FReply NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
 

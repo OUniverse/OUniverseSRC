@@ -6,7 +6,7 @@
 #include "Protocol/System/SymLoadoutMenuP.h"
 #include "Protocol/System/Ui/SymLoadoutSelectU.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Protocol/System/Ui/SymLoadoutSelectU_Solodex.h"
 
 #include "Protocol/Focus.h"

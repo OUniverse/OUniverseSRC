@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymSummaryU.generated.h"
 
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymSummary : public UUiBaseNew
+class OUNIVERSE_API USymSummary : public UUiBase
 {
 
 	GENERATED_BODY()

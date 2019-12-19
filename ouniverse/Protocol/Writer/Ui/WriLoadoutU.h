@@ -3,19 +3,21 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "WriLoadoutU.generated.h"
-
 
 class WriLoadoutP;
 
-class UUiButtonNew;
-class UUiScroller;
+class UUiButton;
+class UUiScroll;
 
 class AtlasLibC;
+class WriDataC;
+
+class UWriLoadout_ScrollEntry;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UWriLoadout : public UUiBaseNew
+class OUNIVERSE_API UWriLoadout : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -31,14 +33,24 @@ public:
 	AtlasLibC* AtlasLib_;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* BT_Load;
+	UUiButton* BT_Load;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiScroller* V_Scroll;
-
+	UUiScroll* V_Scroll;
+	
 	void OpenUi();
+
+	UWriLoadout_ScrollEntry* MasterEntry_;
+
+	void MasterSet(UWriLoadout_ScrollEntry* InMaster);
+	void MasterCleared();
 
 	static enum REG {
 		Load,
+		New,
 	};
+
+	void EventUi(int WidgetID, int InEventID, UUserWidget* InWidget);
+
+	void SetData(WriDataC* InData);
 };

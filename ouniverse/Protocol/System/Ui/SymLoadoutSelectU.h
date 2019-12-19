@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymLoadoutSelectU.generated.h"
 
 class SymLoadoutSelectP;
@@ -12,7 +12,7 @@ class LoadoutLibC;
 class USymLoadoutSelect_Solodex;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymLoadoutSelect : public UUiBaseNew
+class OUNIVERSE_API USymLoadoutSelect : public UUiBase
 {
 
 	GENERATED_BODY()

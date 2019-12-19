@@ -60,7 +60,10 @@ public:
 
 	void Query(FormQueryS* InQuery);
 
+	void QueryFormData(FormDataQueryC* InQuery);
+
 	FormWrapS GetFormWrap(DuetUID InDuet);
+
 
 	bool TryForm(DuetUID DUID, FormF*& InForm, int& Error);
 
@@ -69,6 +72,11 @@ public:
 	void UpdateAtlas(AtlasUID InAtlasUID, JsonS& AtlasJ);
 
 	void SaveAtlasDoc(AtlasUID InAtlasUID);
+
+	static enum DataMode {
+		GameDefault,
+		Writer,
+	};
 
 private:
 
@@ -83,4 +91,6 @@ private:
 	MapC<AtlasUID, AtlasC*> Lib_;
 
 	LoadoutDaisC* LoadoutDais_;
+
+
 };

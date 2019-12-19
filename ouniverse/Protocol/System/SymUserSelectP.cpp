@@ -6,7 +6,7 @@
 #include "Protocol/System/SymUserMenuP.h"
 #include "Protocol/System/Ui/SymUserSelectU.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Protocol/System/Ui/SymUserSelectU_Solodex.h"
 
 #include "Protocol/Focus.h"

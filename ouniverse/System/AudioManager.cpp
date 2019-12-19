@@ -15,10 +15,7 @@
 #include "Ui/Ui.h"
 #include "Engine/World.h"
 #include "Misc/FileHelper.h"
-#include "CohtmlHUD.h"
-#include "cohtml/Binding/EventHandler.h"
-#include "cohtml/Binding/Binding.h"
-#include "CohtmlFStringBinder.h"
+
 
 
 AudioManager* AudioManager::Create(UWorld* Scope)
@@ -210,7 +207,7 @@ int32 AudioManager::FindSource(class USoundWave* SoundWave, class FSoundSource* 
 		for (auto activeSoundIt(tmpActualSounds.CreateIterator()); activeSoundIt; ++activeSoundIt)
 		{
 			activeSound = *activeSoundIt;
-			for (auto WaveInstanceIt(activeSound->WaveInstances.CreateIterator()); WaveInstanceIt; ++WaveInstanceIt)
+			for (auto WaveInstanceIt(activeSound->GetWaveInstances().CreateConstIterator()); WaveInstanceIt; ++WaveInstanceIt)
 			{
 				sw_instance = WaveInstanceIt.Value();
 				if (sw_instance->WaveData->CompressedDataGuid == SoundWave->CompressedDataGuid)

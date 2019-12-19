@@ -2,7 +2,6 @@
 
 #include "System/Input.h"
 #include "Form/CharacterA.h"
-#include "Ui/UiEl.h"
 #include "Component/CharacterInput.h"
 
 
@@ -81,22 +80,6 @@ bool InputStackC::InputStackBroadcastAxis(bool(InputC::* PTR)(AxisS), AxisS InAx
 }
 
 
-
-
-void InputUiC::SetInputHandler(UUiEl* InHandler)
-{
-	UiInputHandler_ = InHandler;
-}
-
-bool InputUiC::InputCommand(KeyS InKey)
-{ 
-	return UiInputHandler_->InputCommand_Mechanism(InKey);
-};
-
-bool InputUiC::InputAxis(AxisS InAxis)
-{
-	return UiInputHandler_->InputAxis_Mechanism(InAxis);
-};
 
 
 

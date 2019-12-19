@@ -7,7 +7,6 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
-#include "Protocol/Flux.h"
 #include "System/Input.h"
 
 class UUi;

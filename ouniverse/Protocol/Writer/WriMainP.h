@@ -7,7 +7,6 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
-#include "Protocol/Flux.h"
 #include "System/Input.h"
 
 
@@ -21,6 +20,8 @@ class UWriMenu;
 class FocusUiRackC;
 class FocusDockC;
 
+class WriDataC;
+
 class WriLoadoutP;
 class WriAtlasP;
 class WriFormP;
@@ -30,11 +31,13 @@ class OUNIVERSE_API WriMenuP : public ProtocolC, public InputC
 
 public: 
 
-	WriMenuP(int InID, WriterPro* InPro, AtlasLibC* InAtlasLib);
+	WriMenuP(int InID, WriterPro* InPro, WriDataC* WriData_, AtlasLibC* InAtlasLib);
 
 	UWriMenu* View_;
 
 	WriterPro* Pro_;
+
+	WriDataC* WriData_;
 
 	WriLoadoutP* WriLoadout_;
 	WriAtlasP* WriAtlas_;

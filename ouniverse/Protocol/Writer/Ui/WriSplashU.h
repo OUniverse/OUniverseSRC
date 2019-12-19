@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "WriSplashU.generated.h"
 
-class UUiButtonNew;
+class UUiButton;
 class WriSplashP;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UWriSplash : public UUiBaseNew
+class OUNIVERSE_API UWriSplash : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -26,9 +26,9 @@ public:
 	void EventUi(int WidgetID, int InEventID, UUserWidget* InWidget) override;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Start;
+	UUiButton* V_Start;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Back;
+	UUiButton* V_Back;
 
 	static enum REG {
 		Start,

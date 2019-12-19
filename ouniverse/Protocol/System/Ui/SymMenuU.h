@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymMenuU.generated.h"
 
-class UUiButtonNew;
+class UUiButton;
 class SymMenuP;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymMenu : public UUiBaseNew
+class OUNIVERSE_API USymMenu : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -26,26 +26,26 @@ public:
 	void EventUi(int WidgetID, int InEventID, UUserWidget* InWidget) override;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_NewGame;
+	UUiButton* V_NewGame;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Continue;
+	UUiButton* V_Continue;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_User;
+	UUiButton* V_User;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Loadout;
+	UUiButton* V_Loadout;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Trophey;
+	UUiButton* V_Trophey;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Settings;
+	UUiButton* V_Settings;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Update;
+	UUiButton* V_Update;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Credits;
+	UUiButton* V_Credits;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_News;
+	UUiButton* V_News;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Scribe;
+	UUiButton* V_Scribe;
 
 	static enum REG {
 		NewGame,

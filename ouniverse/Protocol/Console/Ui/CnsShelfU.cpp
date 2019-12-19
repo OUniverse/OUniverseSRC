@@ -3,7 +3,7 @@
 #include "Protocol/Console/Ui/CnsShelfU.h"
 #include "Protocol/Console/CnsShelfP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 

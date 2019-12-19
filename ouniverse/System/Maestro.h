@@ -60,6 +60,8 @@ public:
 	void ProSystem();
 	void ProWriter();
 
+	void QuickStartWriter();
+
 public:
 
 	ConsoleNewPro* Console_;

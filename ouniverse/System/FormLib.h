@@ -17,6 +17,7 @@ Atlas
 class AtlasLibC;
 class AtlasC;
 struct JsonS;
+class FormDataC;
 
 
 
@@ -41,9 +42,13 @@ public:
 
 	void Add(FormF* InForm);
 
-	void AddList(JsonS* InJ);
+	void AddData(AtlasC* InAtlas, FormF* InForm);
+
+	void AddList(JsonS* InJ, AtlasC* InAtlas, int InDataMode);
 		
 	void Query(FormQueryS* InQuery);
+
+	void QueryFormData(FormDataQueryC* InQuery);
 
 	FormWrapS GetFormWrap(FormUID InForm);
 
@@ -54,9 +59,12 @@ public:
 private:
 
 	int Len_;
+	int FormDataLen_;
 
 	ArrayC<FormF* (*)(JsonS&)> FactoryArray;
 
 	MapC<FormUID, FormF*> Lib_;
+
+	MapC<FormUID, FormDataC*> FormDataLib_;
 
 };

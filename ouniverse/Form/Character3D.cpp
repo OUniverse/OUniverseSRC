@@ -60,8 +60,8 @@ ACharacter3D::ACharacter3D()
 	OrbitBoom_->TargetArmLength = CamZoomGoal;
 
 	OrbitBoom_->SocketOffset = FVector(0.f, 0.f, 0.f);
-	OrbitBoom_->RelativeLocation = FVector(0.f, 0.f, 70.f);
-	OrbitBoom_->RelativeRotation = FRotator(-10.f, 0.f, 0.f);
+	OrbitBoom_->SetRelativeLocation(FVector(0.f, 0.f, 70.f));
+	OrbitBoom_->SetRelativeRotation(FRotator(-10.f, 0.f, 0.f));
 	OrbitBoom_->bEnableCameraLag = true;
 	OrbitBoom_->CameraLagSpeed = 3.0f;
 	OrbitBoom_->bUsePawnControlRotation = true;

@@ -47,6 +47,11 @@ void MaestroC::Start()
 	ProSystem();
 }
 
+void MaestroC::QuickStartWriter()
+{
+	ProWriter();
+}
+
 void MaestroC::ProSystem()
 {
 	FluxSwitchOpC* Op = FluxSwitchOpC::Create(this, ProtocolREG::Dock::DMaestro, ProtocolREG::Flux::FSystem);

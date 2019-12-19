@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymLoadoutMenuU.generated.h"
 
-class UUiBaseNew;
-class UUiButtonNew;
+class UUiBase;
+class UUiButton;
 class SymLoadoutMenuP;
 
 class USymUserSelect;
@@ -15,7 +15,7 @@ class USymUserCreate;
 class USymUserEdit;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymLoadoutMenu : public UUiBaseNew
+class OUNIVERSE_API USymLoadoutMenu : public UUiBase
 {
 
 	GENERATED_BODY()

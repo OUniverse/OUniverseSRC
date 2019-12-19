@@ -4,7 +4,7 @@
 #include "Protocol/System/SymLoadoutMenuP.h"
 
 #include "Ui/UiEventCodes.h"
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 
 #include "Min/DebugM.h"
 

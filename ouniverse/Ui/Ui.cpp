@@ -3,7 +3,8 @@
 #include "Ui/Ui.h"
 #include "System/Scope.h"
 
-#include "System/Class.h"
+#include "Class/ClassGeneral.h"
+
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 
@@ -16,7 +17,7 @@ namespace Global
 
 UUi* UUi::Create()
 {
-	UUi* Neu = CreateWidget<UUi>(ScopeC::World(), ClassC::U_Ui());
+	UUi* Neu = CreateWidget<UUi>(ScopeC::World(), UClassGeneral::Get()->UiUI);
 	Neu->Init();
 	Global::Ui = Neu;
 	Neu->AddToViewport();

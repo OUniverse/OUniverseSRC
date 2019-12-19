@@ -3,13 +3,14 @@
 
 #pragma once
 
-#include "Ui/UiScroller.h"
-#include "WriLoadoutU_Scroll.generated.h"
+#include "Ui/UiBase.h"
+#include "WriBrassU.generated.h"
 
+class WriBrassP;
 
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UWriLoadout_Scroll : public UUiScroller
+class OUNIVERSE_API UWriBrass : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -17,5 +18,5 @@ class OUNIVERSE_API UWriLoadout_Scroll : public UUiScroller
 public:
 
 	virtual void NativeConstruct() override;
-
+	virtual void NativeDestruct() override;
 };

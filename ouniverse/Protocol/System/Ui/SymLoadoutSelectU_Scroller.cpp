@@ -3,7 +3,6 @@
 #include "Protocol/System/Ui/SymLoadoutSelectU_Scroller.h"
 
 #include "Components/TextBlock.h"
-#include "Ui/UiButton.h"
 
 #include "Protocol/Focus.h"
 

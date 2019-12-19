@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymUserEditU.generated.h"
 
 class SymUserEditP;
 class UserLibC;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymUserEdit : public UUiBaseNew
+class OUNIVERSE_API USymUserEdit : public UUiBase
 {
 
 	GENERATED_BODY()

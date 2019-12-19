@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "WriMainU.generated.h"
 
-class UUiButtonNew;
+class UUiButton;
 class WriMenuP;
 
 class UWriLoadout;
@@ -14,7 +14,7 @@ class UWriAtlas;
 class UWriForm;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UWriMenu : public UUiBaseNew
+class OUNIVERSE_API UWriMenu : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -28,11 +28,11 @@ public:
 	WriMenuP* Pro_;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* BT_Loadout;
+	UUiButton* BT_Loadout;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* BT_Atlas;
+	UUiButton* BT_Atlas;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* BT_Form;
+	UUiButton* BT_Form;
 
 
 	UPROPERTY(meta = (BindWidget))

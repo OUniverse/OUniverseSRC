@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymPreU.generated.h"
 
-class UUiButtonNew;
+class UUiButton;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymPre : public UUiBaseNew
+class OUNIVERSE_API USymPre : public UUiBase
 {
 
 	GENERATED_BODY()

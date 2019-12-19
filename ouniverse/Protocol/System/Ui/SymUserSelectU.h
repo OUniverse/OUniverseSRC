@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymUserSelectU.generated.h"
 
 class SymUserSelectP;
@@ -12,7 +12,7 @@ class UserLibC;
 class USymUserSelect_Solodex;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymUserSelect : public UUiBaseNew
+class OUNIVERSE_API USymUserSelect : public UUiBase
 {
 
 	GENERATED_BODY()

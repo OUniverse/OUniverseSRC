@@ -2,7 +2,6 @@
 
 #include "Protocol/System/Ui/SymUserSelectU.h"
 
-#include "Ui/UiButton.h"
 #include "Protocol/System/Ui/SymUserSelectU_Solodex.h"
 
 void USymUserSelect::NativeConstruct()

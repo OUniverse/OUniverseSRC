@@ -3,14 +3,17 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "WriAtlasU.generated.h"
 
-class UEditableTextBox;
+
 class WriAtlasP;
+class AtlasC;
+
+class UUiFieldWriterString;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UWriAtlas : public UUiBaseNew
+class OUNIVERSE_API UWriAtlas : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -24,10 +27,11 @@ public:
 	WriAtlasP* Pro_;
 
 	UPROPERTY(meta = (BindWidget))
-	UEditableTextBox* V_ID;
+	UUiFieldWriterString* V_ID;
 
 	UPROPERTY(meta = (BindWidget))
-	UEditableTextBox* V_Author;
+	UUiFieldWriterString* V_Author;
 
+	void OpenUI(AtlasC* InAtlas);
 
 };

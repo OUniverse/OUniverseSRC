@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "CnsTrayU.generated.h"
 
 
 class CnsTrayP;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UCnsTray : public UUiBaseNew
+class OUNIVERSE_API UCnsTray : public UUiBase
 {
 
 	GENERATED_BODY()

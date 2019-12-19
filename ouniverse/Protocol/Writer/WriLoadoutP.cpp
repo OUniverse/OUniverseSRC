@@ -2,22 +2,25 @@
 
 #include "Protocol/Writer/WriLoadoutP.h"
 #include "Protocol/Writer/Ui/WriLoadoutU.h"
-#include "Protocol/Writer/Ui/WriLoadoutU_Scroll.h"
 #include "Protocol/Writer/Ui/WriLoadoutU_ScrollEntry.h"
 #include "Protocol/Writer/WriPro.h"
+#include "Protocol/Writer/Ex/WriData.h"
 
 #include "System/InputID.h"
 #include "Ui/Ui.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Protocol/Focus.h"
+#include "Interface/Array.h"
 
 
-
-WriLoadoutP::WriLoadoutP(int InID, WriMenuP* InPro, AtlasLibC* InAtlasLib) : ProtocolC(InID,this)
+WriLoadoutP::WriLoadoutP(int InID, WriMenuP* InPro, WriterPro* InWriPro, WriDataC* InWriData, AtlasLibC* InAtlasLib) : ProtocolC(InID,this)
 {
 	Pro_ = InPro;
+	WriPro_ = InWriPro;
+
 	AtlasLib_ = InAtlasLib;
+	WriData_ = InWriData;
 
 	FScroller_ = new FocusUiC(Focus::FRack, this);
 	RegisterFocus(FScroller_);
@@ -46,4 +49,16 @@ void WriLoadoutP::FluxOpen_Technical(FluxSwitchOpC* InOp)
 void WriLoadoutP::FluxClose_Technical(FluxSwitchOpC* InOp)
 {
 	View_->Hide();
+}
+
+void WriLoadoutP::AcceptLoad()
+{
+	WriData_->Dismount();
+	View_->SetData(WriData_);
+	WriPro_->GoDataLoad();
+}
+
+void WriLoadoutP::AcceptNew()
+{
+
 }

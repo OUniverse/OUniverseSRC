@@ -162,7 +162,7 @@ void AtlasLibC::MountFromLoadout()
 
 			LOG(11922, TryAtlas->UID().ForLog(), "Promoting Atlas: $V$")
 			AddAtlas(TryAtlas);
-			TryAtlas->Mount(this);
+			TryAtlas->Mount(this, AtlasLibC::DataMode::GameDefault);
 		}
 	}
 
@@ -185,7 +185,7 @@ void AtlasLibC::MountFromWriter(ArrayC<AtlasC*>* AtlasArr)
 	{
 		AtlasC* ThisAtlas = AtlasArr->At(i);
 		AddAtlas(ThisAtlas);
-		ThisAtlas->Mount(this);
+		ThisAtlas->Mount(this, AtlasLibC::DataMode::Writer);
 	}
 
 	L = Lib_.Len();
@@ -217,8 +217,17 @@ void AtlasLibC::Query(FormQueryS* InQuery)
 	{
 		Lib_.At(i)->Query(InQuery);
 	}
-
 }
+
+void AtlasLibC::QueryFormData(FormDataQueryC* InQuery)
+{
+
+	for (int i = 0; i < Len(); i++)
+	{
+		Lib_.At(i)->QueryFormData(InQuery);
+	}
+}
+
 
 FormWrapS AtlasLibC::GetFormWrap(DuetUID InDuet)
 {

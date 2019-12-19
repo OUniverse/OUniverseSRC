@@ -7,12 +7,14 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
-#include "Protocol/Flux.h"
 #include "System/Input.h"
 
 class AtlasLibC;
+class AtlasC;
+class WriDataC;
 
 class WriMenuP;
+class WriterPro;
 class UWriLoadout;
 
 class FocusUiC;
@@ -23,13 +25,7 @@ class OUNIVERSE_API WriLoadoutP : public ProtocolC, public InputC
 
 public: 
 
-	WriLoadoutP(int InID, WriMenuP* InPro, AtlasLibC* InAtlasLib);
-
-	UWriLoadout* View_;
-
-	WriMenuP* Pro_;
-
-	AtlasLibC* AtlasLib_;
+	WriLoadoutP(int InID, WriMenuP* InPro, WriterPro* InWriPro, WriDataC* InWriData, AtlasLibC* InAtlasLib);
 
 	void FluxOpen_Technical(FluxSwitchOpC* InOp) override;
 	void FluxClose_Technical(FluxSwitchOpC* InOp) override;
@@ -45,6 +41,18 @@ public:
 		FLoad,
 		FOCUS_MAX,
 	};
+	
+	void AcceptLoad();
+	void AcceptNew();
+
+private:
+
+	UWriLoadout* View_;
+	WriMenuP* Pro_;
+	WriterPro* WriPro_;
+
+	AtlasLibC* AtlasLib_;
+	WriDataC* WriData_;
 
 	FocusUiRackC* FRack_;
 	FocusUiC* FScroller_;

@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymUserMenuU.generated.h"
 
-class UUiBaseNew;
-class UUiButtonNew;
+class UUiBase;
+class UUiButton;
 class SymUserMenuP;
 
 class USymUserSelect;
@@ -15,7 +15,7 @@ class USymUserCreate;
 class USymUserEdit;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymUserMenu : public UUiBaseNew
+class OUNIVERSE_API USymUserMenu : public UUiBase
 {
 
 	GENERATED_BODY()
@@ -25,13 +25,13 @@ public:
 	virtual void NativeConstruct() override;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Create;
+	UUiButton* V_Create;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Select;
+	UUiButton* V_Select;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Edit;
+	UUiButton* V_Edit;
 	UPROPERTY(meta = (BindWidget))
-	UUiButtonNew* V_Back;
+	UUiButton* V_Back;
 
 	UPROPERTY(meta = (BindWidget))
 	USymUserSelect* View_Select;

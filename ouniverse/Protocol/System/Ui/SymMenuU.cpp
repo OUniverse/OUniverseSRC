@@ -3,7 +3,7 @@
 #include "Protocol/System/Ui/SymMenuU.h"
 #include "Protocol/System/SymMenuP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 void USymMenu::NativeConstruct()

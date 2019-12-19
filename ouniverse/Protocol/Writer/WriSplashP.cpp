@@ -8,7 +8,7 @@
 
 #include "Ui/Ui.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Protocol/Focus.h"
 
 

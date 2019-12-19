@@ -9,8 +9,6 @@
 #include "Input.generated.h"
 
 class UCharacterA;
-class UUiEl;
-
 
 class OUNIVERSE_API InputC
 {
@@ -41,21 +39,6 @@ public:
 	int Len_;
 
 	ArrayC<InputC*> Stack_;
-
-};
-
-class OUNIVERSE_API InputUiC : public InputC
-{
-
-public:
-	
-	InputUiC() {};
-
-	void SetInputHandler(UUiEl* InHandler);
-	UUiEl* UiInputHandler_;
-
-	virtual bool InputCommand(KeyS InKey);
-	virtual bool InputAxis(AxisS InAxis);
 
 };
 

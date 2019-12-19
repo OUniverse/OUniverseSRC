@@ -12,7 +12,7 @@ Protocol for handling the MainMenu.
 
 class UMajor;
 
-class OUNIVERSE_API GlobalPro : public ProtocolC, public InputUiC
+class OUNIVERSE_API GlobalPro : public ProtocolC, public InputC
 {
 
 

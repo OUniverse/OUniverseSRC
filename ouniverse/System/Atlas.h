@@ -30,21 +30,10 @@ class AtlasAccordLibC;
 
 class UTexture2D;
 
-class UWRI_AtlasEdit;
+class WriDataC;
+class FormDataC;
 
-struct AtlasDataStorageS
-{
-public:
-
-	AtlasDataStorageS() {};
-	AtlasDataStorageS(AtlasC* InAtlas);
-
-	StringC ID;
-	StringC Name;
-	StringC Author;
-	StringC Website;
-	StringC Socket;
-};
+enum AtlasLibC::DataMode;
 
 class AtlasC
 {
@@ -72,7 +61,7 @@ class AtlasC
 	static const char* K_FLAGS;
 
 	friend AtlasLibC;
-	friend UWRI_AtlasEdit;
+	friend WriDataC;
 
 public: 
 
@@ -89,7 +78,7 @@ public:
 	
 	bool Try(FormUID UID, FormF*& InForm);
 
-	bool Mount(AtlasLibC* InAtlasLib);
+	bool Mount(AtlasLibC* InAtlasLib, int InDataMode);
 
 	void Dismount();
 
@@ -120,6 +109,9 @@ public:
 
 	void Query(FormQueryS* InQuery);
 
+	void QueryFormData(FormDataQueryC* InQuery);
+
+
 	FormWrapS GetFormWrap(FormUID InForm);
 
 	void UpdateForm(FormUID InUID, JsonS& InJ);
@@ -130,12 +122,8 @@ public:
 
 	JsonS ToJson();
 
-	void WriterMasterLoad();
-	void WriterMasterUnload();
-
 private:
 
-	AtlasDataStorageS* DataStorage_;
 
 
 	AtlasC(StringC InFolderName, FolderC InFolder);

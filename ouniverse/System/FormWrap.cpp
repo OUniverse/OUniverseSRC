@@ -8,11 +8,11 @@
 
 
 
-FormWrapS::FormWrapS(AtlasC* InAtlas,FormF* InForm)
+FormWrapS::FormWrapS(AtlasC* InAtlas, FormF* InForm)
 {
 	Atlas_ = InAtlas;
 	Form_ = InForm;
-	
+
 }
 
 AtlasC* FormWrapS::Atlas()

@@ -3,7 +3,7 @@
 #include "Protocol/Console/Ui/CnsTrayU.h"
 #include "Protocol/Console/CnsTrayP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 void UCnsTray::NativeConstruct()

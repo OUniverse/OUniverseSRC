@@ -12,7 +12,7 @@ public class ouniverse : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Http","Json", "JsonUtilities"});
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore","CohtmlPlugin","Cohtml" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 

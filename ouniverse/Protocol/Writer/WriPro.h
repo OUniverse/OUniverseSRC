@@ -7,7 +7,6 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
-#include "Protocol/Flux.h"
 #include "System/Input.h"
 
 
@@ -16,9 +15,13 @@ class UMajor;
 class MaestroC;
 
 class WriMenuP;
+class WriDataLoadP;
 class WriSplashP;
+class WriDataC;
 
 class UWriPro;
+
+class WriFooterP;
 
 class FluxSwitchOpC;
 
@@ -29,6 +32,7 @@ class OUNIVERSE_API WriterPro : public ProtocolC, public InputStackC
 public: 
 
 	void GoMain();
+	void GoDataLoad();
 	void EscWriter();
 
 private:
@@ -42,9 +46,13 @@ private:
 	UUi* Ui_;
 
 	WriMenuP* WriMain_;
+	WriDataLoadP* WriDataLoad_;
 	WriSplashP* WriSplash_;
 	UWriPro* View_;
+	WriFooterP* WriFooter_;
+
 	
+	WriDataC* WriData_;
 
 	static enum Focus {
 		FOCUS_MAX,
@@ -56,7 +64,9 @@ private:
 	};
 	
 	static enum Pro {
+		PFooter,
 		PSplash,
+		PDataLoad,
 		PMain,
 		PRO_MAX,
 	};

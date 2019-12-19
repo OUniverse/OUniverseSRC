@@ -3,7 +3,7 @@
 #include "Protocol/Console/Ui/CnsLogU.h"
 #include "Protocol/Console/CnsLogP.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Ui/UiEventCodes.h"
 
 void UCnsLog::NativeConstruct()

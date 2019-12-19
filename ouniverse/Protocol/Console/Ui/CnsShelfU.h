@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "CnsShelfU.generated.h"
 
 class CnsShelfP;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API UCnsShelf : public UUiBaseNew
+class OUNIVERSE_API UCnsShelf : public UUiBase
 {
 
 	GENERATED_BODY()

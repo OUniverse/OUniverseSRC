@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Ui/UiBaseNew.h"
+#include "Ui/UiBase.h"
 #include "SymProU.generated.h"
 
 class USymPre;
@@ -13,7 +13,7 @@ class USymMenu;
 class USymTokens;
 
 UCLASS(Abstract, Blueprintable)
-class OUNIVERSE_API USymPro : public UUiBaseNew
+class OUNIVERSE_API USymPro : public UUiBase
 {
 
 	GENERATED_BODY()

@@ -248,7 +248,8 @@ void BootC::Standard(UObject* WorldContextObject)
 	//M->Maestro()->FauxStart();
 	//M->Maestro()->WriterStart();
 
-	M->Maestro()->Start();
+	//M->Maestro()->Start();
+	M->Maestro()->QuickStartWriter();
 
 	LOGGER("Standard Boot Complete.", LoggerEntryC::W(39464)->Mail())
 }

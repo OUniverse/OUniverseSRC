@@ -8,7 +8,7 @@
 
 #include "Ui/Ui.h"
 
-#include "Ui/UiButtonNew.h"
+#include "Ui/UiButton.h"
 #include "Protocol/Focus.h"
 #include "Protocol/FluxOp.h"
 
@@ -16,18 +16,19 @@
 #include "Protocol/Writer/WriAtlasP.h"
 #include "Protocol/Writer/WriFormP.h"
 
-WriMenuP::WriMenuP(int InID, WriterPro* InPro, AtlasLibC* InAtlasLib) : ProtocolC(InID,this)
+WriMenuP::WriMenuP(int InID, WriterPro* InPro, WriDataC* InWriData, AtlasLibC* InAtlasLib) : ProtocolC(InID,this)
 {
 	Pro_ = InPro;
 	AtlasLib_ = InAtlasLib;
+	WriData_ = InWriData;
 
 	FluxDockC* Dock_ = AddFluxDock(Dock::DMain, this);
 
-	WriLoadout_ = new WriLoadoutP(Pro::PLoadout,this,AtlasLib_);
+	WriLoadout_ = new WriLoadoutP(Pro::PLoadout,this,Pro_,WriData_,AtlasLib_);
 	Dock_->AddFlux(WriLoadout_);
-	WriAtlas_ = new WriAtlasP(Pro::PAtlas,this);
+	WriAtlas_ = new WriAtlasP(Pro::PAtlas,this,WriData_);
 	Dock_->AddFlux(WriAtlas_);
-	WriForm_ = new WriFormP(Pro::PForm,this);
+	WriForm_ = new WriFormP(Pro::PForm,this,AtlasLib_);
 	Dock_->AddFlux(WriForm_);
 
 	ODock_ = new FocusDockC(Focus::FDock, this);
@@ -80,10 +81,14 @@ void WriMenuP::AcceptLoadout()
 
 void WriMenuP::AcceptAtlas()
 {
-
+	FluxSwitchOpC* Op = FluxSwitchOpC::Create(this, Dock::DMain, Pro::PAtlas);
+	//Op->FocalSwap(Focus::FDock);
+	Op->Run();
 }
 
 void WriMenuP::AcceptForm()
 {
-
+	FluxSwitchOpC* Op = FluxSwitchOpC::Create(this, Dock::DMain, Pro::PForm);
+	//Op->FocalSwap(Focus::FDock);
+	Op->Run();
 }
