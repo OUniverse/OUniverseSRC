@@ -22,14 +22,14 @@ EpochF::EpochF()
 
 }
 
-FormF* EpochF::Create(JsonS& InJ)
+DataD* EpochF::Create(JsonS& InJ)
 { 
-	FormF* Obj = new EpochF();
+	DataD* Obj = new EpochF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void EpochF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

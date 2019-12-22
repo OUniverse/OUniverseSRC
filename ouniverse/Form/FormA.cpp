@@ -1,21 +1,21 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Form/FormA.h"
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 
-UFormA* UFormA::Create(FormF* InForm)
+UFormA* UFormA::Create(DataD* InForm)
 {
 	UFormA* Neu = NewObject<UFormA>();
 	Neu->InitBase(InForm);
 	return Neu;
 }
 
-void UFormA::InitBase(FormF* InForm)
+void UFormA::InitBase(DataD* InForm)
 {
 	Form_ = InForm;
 }
 
-FormF* UFormA::Form()
+DataD* UFormA::Form()
 {
 	return Form_;
 }

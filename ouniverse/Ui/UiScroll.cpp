@@ -13,5 +13,6 @@ void UUiScroll::AddEntry(UUiScrollEntry* InEntry)
 
 void UUiScroll::ClearChildren()
 {
-	//V_Scroll->ClearChildren();
+	V_Case->ClearChildren();
+	Entries_.Clear();
 }

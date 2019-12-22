@@ -10,7 +10,7 @@ Form: Abstract base form.
 #include "Interface/Json.h"
 
 #include "System/DuetUID.h"
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 
 class RevisionC
 {
@@ -37,6 +37,6 @@ private:
 	DuetUID Target_;
 	StringC UID_;
 	
-	FormF* Form_;
+	DataD* Form_;
 	JsonS Json_;
 };

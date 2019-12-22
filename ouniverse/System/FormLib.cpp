@@ -9,9 +9,9 @@
 
 #include "System/FormData.h"
 
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 #include "Form/ObjF.h"
-#include "Form/CharacterF.h"
+#include "Data/CharacterD.h"
 #include "Form/WorldF.h"
 #include "Form/EpochF.h"
 #include "Form/RegionF.h"
@@ -29,9 +29,9 @@ FormLibC::FormLibC(AtlasC* InOwningAtlas)
 	OwningAtlas = InOwningAtlas;
 
 	FactoryArray.Init(FormTypesC::Types::TYPES_MAX, NULL);
-	FactoryArray[FormTypesC::Types::Form]		= FormF::Create;
+	FactoryArray[FormTypesC::Types::Form]		= DataD::Create;
 	FactoryArray[FormTypesC::Types::Obj]		= ObjF::Create;
-	FactoryArray[FormTypesC::Types::Character]	= CharacterF::Create;
+	FactoryArray[FormTypesC::Types::Character]	= CharacterD::Create;
 	FactoryArray[FormTypesC::Types::World]		= WorldF::Create;
 	FactoryArray[FormTypesC::Types::Epoch]		= EpochF::Create;
 	FactoryArray[FormTypesC::Types::Region]		= RegionF::Create;
@@ -68,7 +68,7 @@ void FormLibC::AddList(JsonS* InJ, AtlasC* InAtlas, int InDataMode)
 		{
 			JsonS NeuForm = InJ->At(i);
 			int Type = NeuForm.Int(GlobalK::Type);
-			FormF* Form = FactoryArray[Type](NeuForm);
+			DataD* Form = FactoryArray[Type](NeuForm);
 			Add(Form);
 			AddData(InAtlas,Form);
 		}
@@ -79,7 +79,7 @@ void FormLibC::AddList(JsonS* InJ, AtlasC* InAtlas, int InDataMode)
 		{
 			JsonS NeuForm = InJ->At(i);
 			int Type = NeuForm.Int(GlobalK::Type);
-			FormF* Form = FactoryArray[Type](NeuForm);
+			DataD* Form = FactoryArray[Type](NeuForm);
 			Add(Form);
 		}
 	}
@@ -97,14 +97,14 @@ void FormLibC::Demarshal()
 	}
 }
 
-void FormLibC::Add(FormF* InForm)
+void FormLibC::Add(DataD* InForm)
 {
 	Len_++;
 	LOG(54439, InForm->UID().ForLog(), "Adding Form: $V$")
 	Lib_.Add(InForm->UID(), InForm);
 }
 
-void FormLibC::AddData(AtlasC* InAtlas, FormF* InForm)
+void FormLibC::AddData(AtlasC* InAtlas, DataD* InForm)
 {
 	FormDataLen_++;
 
@@ -112,12 +112,12 @@ void FormLibC::AddData(AtlasC* InAtlas, FormF* InForm)
 	FormDataLib_.Add(InForm->UID(), Neu);
 }
 
-FormF* FormLibC::Get(FormUID InUID)
+DataD* FormLibC::Get(FormUID InUID)
 {
 	return Lib_[InUID];
 }
 
-bool FormLibC::Try(FormUID InUID, FormF*& InForm)
+bool FormLibC::Try(FormUID InUID, DataD*& InForm)
 {
 	return Lib_.Try(InUID, InForm);
 }

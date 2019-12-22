@@ -3,7 +3,7 @@
 
 #include "System/FormData.h"
 
-FormDataC::FormDataC(AtlasC* InAtlas, FormF* InForm)
+FormDataC::FormDataC(AtlasC* InAtlas, DataD* InForm)
 {
 	Form_ = InForm;
 	Atlas_ = InAtlas;
@@ -14,7 +14,7 @@ AtlasC* FormDataC::Atlas()
 	return Atlas_;
 }
 
-FormF* FormDataC::Form()
+DataD* FormDataC::Form()
 {
 	return Form_;
 }

@@ -25,11 +25,15 @@ class WriFooterP;
 
 class FluxSwitchOpC;
 
+class DictC;
+
 class OUNIVERSE_API WriterPro : public ProtocolC, public InputStackC
 {
 	friend MaestroC;
 
 public: 
+
+	static FText Dict(int InID);
 
 	void GoMain();
 	void GoDataLoad();
@@ -37,6 +41,7 @@ public:
 
 private:
 
+	
 	static WriterPro* Create(int InID, UMajor* InMajor);
 
 	WriterPro(int InID, UMajor* InMajor);
@@ -51,6 +56,7 @@ private:
 	UWriPro* View_;
 	WriFooterP* WriFooter_;
 
+	DictC* WriterDict_;
 	
 	WriDataC* WriData_;
 

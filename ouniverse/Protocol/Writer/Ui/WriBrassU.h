@@ -6,8 +6,8 @@
 #include "Ui/UiBase.h"
 #include "WriBrassU.generated.h"
 
-class WriBrassP;
-
+struct WriBrassS;
+class UTexture2D;
 
 UCLASS(Abstract, Blueprintable)
 class OUNIVERSE_API UWriBrass : public UUiBase
@@ -19,4 +19,14 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void NativeDestruct() override;
+
+
+	void Display(WriBrassS* InBrassData);
+
+	void Clear();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BrassUpdateBP(UTexture2D* InTexture, const FText& InTitle, const FText& InDescription);
+	UFUNCTION(BlueprintImplementableEvent)
+	void BrassClearBP();
 };

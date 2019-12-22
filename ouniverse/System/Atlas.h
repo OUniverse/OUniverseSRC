@@ -20,7 +20,7 @@ Atlas
 class AtlasLibC;
 class UAtlas;
 
-class FormF;
+class DataD;
 class PayloadC;
 
 class FormLibC;
@@ -76,7 +76,7 @@ public:
 
 	bool Valid();
 	
-	bool Try(FormUID UID, FormF*& InForm);
+	bool Try(FormUID UID, DataD*& InForm);
 
 	bool Mount(AtlasLibC* InAtlasLib, int InDataMode);
 

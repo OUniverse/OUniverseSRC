@@ -11,6 +11,7 @@ class WriFormEditP;
 class UWriButton;
 class UMultiLineEditableTextBox;
 class UTextBlock;
+class UUiPolyViewer;
 
 class FormDataC;
 
@@ -40,6 +41,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UWriButton* vVerify;
+
+	UPROPERTY(meta = (BindWidget))
+	UUiPolyViewer* vPoly;
 
 	UPROPERTY(meta = (BindWidget))
 	UMultiLineEditableTextBox* vOutput;

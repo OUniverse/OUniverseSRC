@@ -6,19 +6,19 @@ Actra Form: A placement in 3D space.
 
 #pragma once
 
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 #include "Interface/String.h"
 
 class UCharacterA;
 
-class CharacterF : public FormF
+class CharacterD : public DataD
 {
 
 public:
 
-	CharacterF();
+	CharacterD();
 
-	static FormF* Create(JsonS& InJ);
+	static DataD* Create(JsonS& InJ);
 
 	virtual int Type() override;
 
@@ -27,4 +27,7 @@ public:
 	UCharacterA* CreateEx();
 
 	StringC Name_;
+
+	PolyC* PolyInternal(PolyObjectC* InPoly) override;
+
 };

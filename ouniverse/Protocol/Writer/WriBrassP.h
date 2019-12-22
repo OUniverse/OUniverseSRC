@@ -7,11 +7,29 @@ Protocol for handling the MainMenu.
 #pragma once
 
 #include "Protocol/Protocol.h"
+#include "Interface/Map.h"
+#include "Protocol/Brass.h"
 
-class WriterPro;
+struct WriBrassS
+{
+	WriBrassS() {}
+
+	WriBrassS(int InIcon, int InTitle, int InDescription)
+	{
+		Icon_ = InIcon;
+		Title_ = InTitle;
+		Description_ = InDescription;
+	};
+
+	int Icon_;
+	int Title_;
+	int Description_;
+};
+
+
 class UWriBrass;
 
-class OUNIVERSE_API WriBrassP : public ProtocolC
+class OUNIVERSE_API WriBrassP : public ProtocolC, public BrassC
 {
 
 public: 
@@ -21,4 +39,11 @@ public:
 	void ConstructUi(UWriBrass* InView);
 
 	UWriBrass* View_;
+
+	void BrassDisplay(int BrassID) override;
+
+	void BrassClear() override;
+
+	MapC<int, WriBrassS> Lib_;
+
 };

@@ -5,7 +5,7 @@
 #include "UObject/NoExportTypes.h"
 #include "FormA.generated.h"
 
-class FormF;
+class DataD;
 
 UCLASS(Blueprintable)
 class OUNIVERSE_API UFormA : public UObject
@@ -14,12 +14,12 @@ class OUNIVERSE_API UFormA : public UObject
 
 public:
 
-	static UFormA* Create(FormF* InForm);
-	void InitBase(FormF* InForm);
+	static UFormA* Create(DataD* InForm);
+	void InitBase(DataD* InForm);
 
 
-	FormF* Form();
-	FormF* Form_;	
+	DataD* Form();
+	DataD* Form_;	
 	
 	UFUNCTION(BlueprintPure, Category = "Form")
 	FString GetFormID();

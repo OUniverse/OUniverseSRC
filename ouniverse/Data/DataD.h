@@ -8,20 +8,19 @@ Form: Abstract base form.
 
 #include "Interface/String.h"
 #include "Interface/Json.h"
-
+#include "Interface/Poly.h"
 #include "System/FormUID.h"
 
 
-struct FormFieldPolyS;
 
-class FormF
+class DataD
 {
 
 public:
 
-	static FormF* Create(JsonS& InJ);
+	static DataD* Create(JsonS& InJ);
 
-	FormF();
+	DataD();
 
 	void Setup(JsonS& InJ);
 
@@ -29,7 +28,7 @@ public:
 	
 	virtual void Demarshal();
 		
-	virtual ~FormF() {};
+	virtual ~DataD() {};
 
 	FormUID UID();
 	
@@ -39,13 +38,19 @@ public:
 
 	JsonS ToJson();
 
-	virtual JsonS ToJsonInternal(JsonS& S);
+	JsonS* ToWriter(JsonS* InJ);
+
+	PolyC* Poly();
+	
+	virtual PolyC* PolyInternal(PolyObjectC* InPoly);
+
+	virtual JsonS* ToJsonInternal(JsonS* S);
 
 	void Update(JsonS& InJ);
 
 	virtual bool TryVP(int VarID, void*& VP);
 
-	virtual void FormFields(FormFieldPolyS* InFFP);
+
 protected:
 
 	FormUID UID_;

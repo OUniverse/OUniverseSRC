@@ -17,14 +17,14 @@ FlagF::FlagF()
 
 }
 
-FormF* FlagF::Create(JsonS& InJ)
+DataD* FlagF::Create(JsonS& InJ)
 {
-	FormF* Obj = new FlagF();
+	DataD* Obj = new FlagF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void FlagF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

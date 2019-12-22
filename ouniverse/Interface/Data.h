@@ -19,7 +19,7 @@ Data is a singleton which loads all the atlas style game data.
 
 #include "System/DuetUID.h"
 
-class FormF;
+class DataD;
 
 class OUNIVERSE_API DataC
 {
@@ -30,12 +30,12 @@ public:
 	DataC(DuetUID InDuet);
 
 	bool Found();
-	FormF* Form();
+	DataD* Form();
 	int Error();
 
 private:
 
 	bool Found_;
-	FormF* Form_;
+	DataD* Form_;
 	int Error_;
 };

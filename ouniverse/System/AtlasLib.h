@@ -21,7 +21,7 @@ class AtlasC;
 class UAtlas;
 class LoadoutC;
 class LoadoutDaisC;
-class FormF;
+class DataD;
 
 class AtlasLibC
 {
@@ -65,7 +65,7 @@ public:
 	FormWrapS GetFormWrap(DuetUID InDuet);
 
 
-	bool TryForm(DuetUID DUID, FormF*& InForm, int& Error);
+	bool TryForm(DuetUID DUID, DataD*& InForm, int& Error);
 
 	void UpdateForm(DuetUID InDuet, JsonS& FormJ);
 

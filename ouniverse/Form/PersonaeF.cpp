@@ -17,14 +17,14 @@ PersonaeF::PersonaeF()
 
 }
 
-FormF* PersonaeF::Create(JsonS& InJ)
+DataD* PersonaeF::Create(JsonS& InJ)
 {
-	FormF* Obj = new PersonaeF();
+	DataD* Obj = new PersonaeF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void PersonaeF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

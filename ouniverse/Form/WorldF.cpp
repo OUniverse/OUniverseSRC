@@ -22,14 +22,14 @@ WorldF::WorldF()
 
 }
 
-FormF* WorldF::Create(JsonS& InJ)
+DataD* WorldF::Create(JsonS& InJ)
 { 
-	FormF* Obj = new WorldF();
+	DataD* Obj = new WorldF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void WorldF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

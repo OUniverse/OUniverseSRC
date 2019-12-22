@@ -17,11 +17,19 @@
 
 #include "Protocol/FluxOp.h"
 
-#include "Min/DebugM.h"
+#include "Interface/Dict.h"
+#include "Interface/Url.h"
+
+namespace WriterGlobal
+{
+	WriterPro* Pro;
+}
+
 
 WriterPro* WriterPro::Create(int InID, UMajor* InMajor) 
 {
 	WriterPro* Neu = new WriterPro(InID, InMajor);
+	WriterGlobal::Pro = Neu;
 	return Neu;
 }
 
@@ -30,6 +38,8 @@ WriterPro::WriterPro(int InID, UMajor* InMajor) : ProtocolC(InID,this)
 	Major_ = InMajor;
 	Maestro_ = Major_->Maestro();
 	Ui_ = Major_->Ui();
+
+	WriterDict_ = new DictC();
 
 	WriData_ = new WriDataC(Major_->Atlas());
 
@@ -52,9 +62,16 @@ WriterPro::WriterPro(int InID, UMajor* InMajor) : ProtocolC(InID,this)
 	//SymTokens_ = new SymTokensP(ProtocolREG::Flux::FSymTokens);
 }
 
+FText WriterPro::Dict(int InID)
+{
+	return WriterGlobal::Pro->WriterDict_->Get(InID).ToFText();
+}
 
 void WriterPro::FluxOpen_Technical(FluxSwitchOpC* InOp)
 {
+	
+	WriterDict_->Load(PathC::FileDictWriter());
+
 	View_ = CreateWidget<UWriPro>(ScopeC::World(), UClassProtocol::Get()->WriProUI);
 	Ui_->ToViewport(View_);
 	WriDataLoad_->ConstructUi(View_->View_DataLoad);
@@ -67,6 +84,7 @@ void WriterPro::FluxOpen_Technical(FluxSwitchOpC* InOp)
 
 void WriterPro::FluxClose_Technical(FluxSwitchOpC* InOp)
 {
+	WriterDict_->Clear();
 	View_->RemoveFromParent();
 	View_ = NULL;
 }

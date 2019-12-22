@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Protocol/Writer/WriFormEditP.h"
-#include "Protocol/Writer/Ui/WriFormU.h"
+#include "Protocol/Writer/Ui/WriDataU.h"
 #include "Protocol/Writer/WriPro.h"
 
 #include "System/InputID.h"
@@ -13,7 +13,7 @@
 
 
 
-WriFormEditP::WriFormEditP(int InID, WriFormP* InPro) : ProtocolC(InID,this)
+WriFormEditP::WriFormEditP(int InID, WriDataP* InPro) : ProtocolC(InID,this)
 {
 	Pro_ = InPro;
 }

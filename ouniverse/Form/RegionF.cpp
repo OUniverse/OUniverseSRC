@@ -22,14 +22,14 @@ RegionF::RegionF()
 
 }
 
-FormF* RegionF::Create(JsonS& InJ)
+DataD* RegionF::Create(JsonS& InJ)
 { 
-	FormF* Obj = new RegionF();
+	DataD* Obj = new RegionF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void RegionF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

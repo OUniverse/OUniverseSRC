@@ -241,7 +241,7 @@ AtlasC::~AtlasC()
 	
 }
 
-bool AtlasC::Try(FormUID UID, FormF*& InForm)
+bool AtlasC::Try(FormUID UID, DataD*& InForm)
 {
 	bool bFound = false;
 	bFound = FormLib_->Try(UID, InForm);

@@ -15,7 +15,7 @@ class OUNIVERSE_API UObjA : public UFormA
 public:
 
 	UObjA();
-	static UObjA* Create(FormF* InForm);
+	static UObjA* Create(DataD* InForm);
 
 	UFUNCTION()
 	virtual AActor* Spawn();

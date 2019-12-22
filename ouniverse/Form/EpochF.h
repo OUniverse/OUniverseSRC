@@ -6,19 +6,19 @@ Actra Form: A placement in 3D space.
 
 #pragma once
 
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 #include "Interface/String.h"
 
 class UEpochA;
 
-class EpochF : public FormF
+class EpochF : public DataD
 {
 
 public:
 
 	EpochF();
 
-	static FormF* Create(JsonS& InJ);
+	static DataD* Create(JsonS& InJ);
 
 	virtual int Type() override;
 

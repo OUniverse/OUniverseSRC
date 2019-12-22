@@ -14,9 +14,9 @@ ObjF::ObjF()
 
 }
 
-FormF* ObjF::Create(JsonS& InJ)
+DataD* ObjF::Create(JsonS& InJ)
 { 
-	FormF* Obj = new ObjF();
+	DataD* Obj = new ObjF();
 	Obj->Setup(InJ);
 	return Obj;
 }
@@ -24,5 +24,5 @@ FormF* ObjF::Create(JsonS& InJ)
 
 void ObjF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

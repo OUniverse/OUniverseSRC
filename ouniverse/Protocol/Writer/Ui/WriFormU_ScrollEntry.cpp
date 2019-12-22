@@ -3,7 +3,7 @@
 #include "Protocol/Writer/Ui/WriFormU_ScrollEntry.h"
 #include "System/Scope.h"
 #include "Class/ClassProtocol.h"
-#include "Protocol/Writer/Ui/WriFormU.h"
+#include "Protocol/Writer/Ui/WriDataU.h"
 
 #include "System/Atlas.h"
 #include "Ui/UiMouseInput.h"
@@ -21,14 +21,14 @@ void UWriForm_ScrollEntry::NativeConstruct()
 	vSelect->Setup(REG::MiSelect, this);
 }
 
-UWriForm_ScrollEntry* UWriForm_ScrollEntry::Create(UWriForm* InView, FormDataC* InFormData)
+UWriForm_ScrollEntry* UWriForm_ScrollEntry::Create(UWriDataSearch* InView, FormDataC* InFormData)
 {
 	UWriForm_ScrollEntry* Neu = CreateWidget<UWriForm_ScrollEntry>(ScopeC::World(), UClassProtocol::Get()->WriForm_ScrollEntryUI);
 	Neu->Init(InView, InFormData);
 	return Neu;
 }
 
-void UWriForm_ScrollEntry::Init(UWriForm* InView, FormDataC* InFormData)
+void UWriForm_ScrollEntry::Init(UWriDataSearch* InView, FormDataC* InFormData)
 {
 	View_ = InView;
 	FormData_ = InFormData;
@@ -38,7 +38,7 @@ void UWriForm_ScrollEntry::EventUi(int WidgetID, int InEventID, UUserWidget* InW
 {
 	switch (WidgetID) {
 	case REG::MiArea:
-		View_->OpenForm(FormData_);
+		//View_->OpenForm(FormData_);
 		break;
 	case REG::MiSelect:
 		BoolSelectedToggle();

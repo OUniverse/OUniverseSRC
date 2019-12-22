@@ -24,7 +24,7 @@ class WriDataC;
 
 class WriLoadoutP;
 class WriAtlasP;
-class WriFormP;
+class WriDataP;
 
 class OUNIVERSE_API WriMenuP : public ProtocolC, public InputC
 {
@@ -41,7 +41,7 @@ public:
 
 	WriLoadoutP* WriLoadout_;
 	WriAtlasP* WriAtlas_;
-	WriFormP* WriForm_;
+	WriDataP* WriForm_;
 
 	AtlasLibC* AtlasLib_;
 
@@ -57,7 +57,10 @@ public:
 		FDock,
 		FLoadout,
 		FAtlas,
-		FForm,
+		FData,
+		FWorld,
+		FTools,
+		FExit,
 		FOCUS_MAX,
 	};
 

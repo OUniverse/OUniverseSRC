@@ -8,7 +8,7 @@
 
 UObjA::UObjA() {}
 
-UObjA* UObjA::Create(FormF* InForm)
+UObjA* UObjA::Create(DataD* InForm)
 {
 	UObjA* Neu = NewObject<UObjA>();
 	Neu->InitBase(InForm);

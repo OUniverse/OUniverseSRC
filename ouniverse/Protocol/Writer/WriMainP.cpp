@@ -14,7 +14,9 @@
 
 #include "Protocol/Writer/WriLoadoutP.h"
 #include "Protocol/Writer/WriAtlasP.h"
-#include "Protocol/Writer/WriFormP.h"
+#include "Protocol/Writer/WriDataP.h"
+
+#include "Protocol/Writer/Ui/WriButtonOptU.h"
 
 WriMenuP::WriMenuP(int InID, WriterPro* InPro, WriDataC* InWriData, AtlasLibC* InAtlasLib) : ProtocolC(InID,this)
 {
@@ -28,7 +30,7 @@ WriMenuP::WriMenuP(int InID, WriterPro* InPro, WriDataC* InWriData, AtlasLibC* I
 	Dock_->AddFlux(WriLoadout_);
 	WriAtlas_ = new WriAtlasP(Pro::PAtlas,this,WriData_);
 	Dock_->AddFlux(WriAtlas_);
-	WriForm_ = new WriFormP(Pro::PForm,this,AtlasLib_);
+	WriForm_ = new WriDataP(Pro::PForm,this,AtlasLib_);
 	Dock_->AddFlux(WriForm_);
 
 	ODock_ = new FocusDockC(Focus::FDock, this);
@@ -60,9 +62,13 @@ void WriMenuP::FluxOpen_Technical(FluxSwitchOpC* InOp)
 	View_->Show();
 
 	ORack_->Reset();
-	ORack_->Add(View_->BT_Loadout, Focus::FLoadout);
-	ORack_->Add(View_->BT_Atlas, Focus::FAtlas);
-	ORack_->Add(View_->BT_Form, Focus::FForm);
+	ORack_->Add(View_->vLoadout, Focus::FLoadout);
+	ORack_->Add(View_->vAtlas, Focus::FAtlas);
+	ORack_->Add(View_->vData, Focus::FData);
+	ORack_->Add(View_->vWorld, Focus::FWorld);
+	ORack_->Add(View_->vTools, Focus::FTools);
+	ORack_->Add(View_->vExit, Focus::FExit);
+
 	FocalActivate(Focus::FRack);
 	AcceptLoadout();
 }

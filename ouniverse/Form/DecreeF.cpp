@@ -17,14 +17,14 @@ DecreeF::DecreeF()
 
 }
 
-FormF* DecreeF::Create(JsonS& InJ)
+DataD* DecreeF::Create(JsonS& InJ)
 {
-	FormF* Obj = new DecreeF();
+	DataD* Obj = new DecreeF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void DecreeF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

@@ -7,7 +7,7 @@
 
 #include "CharacterA.generated.h"
 
-class CharacterF;
+class CharacterD;
 class ACharacter3D;
 class UCharacterInput;
 
@@ -22,7 +22,7 @@ public:
 
 	UCharacterA() {};
 
-	static UCharacterA* Create(CharacterF* InForm);
+	static UCharacterA* Create(CharacterD* InForm);
 
 	virtual AActor* Spawn() override;
 

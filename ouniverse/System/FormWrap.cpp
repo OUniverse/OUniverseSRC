@@ -3,12 +3,12 @@
 
 #include "System/FormWrap.h"
 #include "System/Atlas.h"
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 
 
 
 
-FormWrapS::FormWrapS(AtlasC* InAtlas, FormF* InForm)
+FormWrapS::FormWrapS(AtlasC* InAtlas, DataD* InForm)
 {
 	Atlas_ = InAtlas;
 	Form_ = InForm;
@@ -20,7 +20,7 @@ AtlasC* FormWrapS::Atlas()
 	return Atlas_;
 }
 
-FormF* FormWrapS::Form()
+DataD* FormWrapS::Form()
 {
 	return Form_;
 }

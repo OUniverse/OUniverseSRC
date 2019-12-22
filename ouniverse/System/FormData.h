@@ -7,7 +7,7 @@ Atlas
 #pragma once
 
 
-class FormF;
+class DataD;
 class AtlasC;
 
 class UWriForm_ScrollEntry;
@@ -19,17 +19,17 @@ class FormDataC
 public:
 
 	FormDataC() {};
-	FormDataC(AtlasC* InAtlas, FormF* InForm);
+	FormDataC(AtlasC* InAtlas, DataD* InForm);
 
 	AtlasC* Atlas();
-	FormF* Form();
+	DataD* Form();
 	
 	void SetOpen(bool status);
 
 private:
 
 	AtlasC* Atlas_;
-	FormF* Form_;
+	DataD* Form_;
 	
 	bool Open_;
 	bool Unsaved_;

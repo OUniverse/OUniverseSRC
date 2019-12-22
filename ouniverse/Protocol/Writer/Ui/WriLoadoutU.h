@@ -8,7 +8,7 @@
 
 class WriLoadoutP;
 
-class UUiButton;
+class UWriButton;
 class UUiScroll;
 
 class AtlasLibC;
@@ -32,11 +32,16 @@ public:
 
 	AtlasLibC* AtlasLib_;
 
-	UPROPERTY(meta = (BindWidget))
-	UUiButton* BT_Load;
+	bool FirstDraw_;
 
 	UPROPERTY(meta = (BindWidget))
-	UUiScroll* V_Scroll;
+	UUiButton* vLoad;
+
+	UPROPERTY(meta = (BindWidget))
+	UWriButton* vUnlock;
+
+	UPROPERTY(meta = (BindWidget))
+	UUiScroll* vScroll;
 	
 	void OpenUi();
 
@@ -47,6 +52,7 @@ public:
 
 	static enum REG {
 		Load,
+		Unlock,
 		New,
 	};
 

@@ -6,6 +6,7 @@
 #include "Ui/UiButton.h"
 #include "WriButtonU.generated.h"
 
+class UTextBlock;
 
 UCLASS(Abstract, Blueprintable)
 class OUNIVERSE_API UWriButton : public UUiButton
@@ -18,8 +19,11 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void NativeDestruct() override;
 
+	void SetTextHash(int InTextHash);
 
-	static enum REG {
-		BSearch,
-	};
+
+	UFUNCTION(BlueprintCallable)
+	void Require(UTextBlock* InText);
+
+	UTextBlock* vText;
 };

@@ -12,7 +12,7 @@ Protocol for handling the MainMenu.
 
 class WriMenuP;
 
-class UWriForm;
+class UWriData;
 class FocusUiRackC;
 
 class AtlasLibC;
@@ -22,11 +22,11 @@ class OUNIVERSE_API WriFormEditP : public ProtocolC, public InputC
 
 public: 
 
-	WriFormEditP(int InID, WriFormP* InPro);
+	WriFormEditP(int InID, WriDataP* InPro);
 
 	UWriFormEdit* View_;
 
-	WriFormP* Pro_;
+	WriDataP* Pro_;
 
 	void FluxOpen_Technical(FluxSwitchOpC* InOp) override;
 	void FluxClose_Technical(FluxSwitchOpC* InOp) override;

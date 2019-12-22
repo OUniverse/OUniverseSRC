@@ -17,14 +17,14 @@ DialogueF::DialogueF()
 
 }
 
-FormF* DialogueF::Create(JsonS& InJ)
+DataD* DialogueF::Create(JsonS& InJ)
 {
-	FormF* Obj = new DialogueF();
+	DataD* Obj = new DialogueF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void DialogueF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

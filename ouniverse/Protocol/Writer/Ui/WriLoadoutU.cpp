@@ -9,7 +9,7 @@
 #include "System/AtlasLib.h"
 
 #include "Ui/UiScroll.h"
-#include "Ui/UiButton.h"
+#include "Protocol/Writer/Ui/WriButtonU.h"
 #include "Ui/UiEventCodes.h"
 
 
@@ -17,7 +17,9 @@ void UWriLoadout::NativeConstruct()
 {
 	MasterEntry_ = NULL;
 	Super::NativeConstruct();
-	BT_Load->SetupButton(REG::Load, this);	
+	vLoad->SetupButton(REG::Load, this);	
+	vUnlock->SetupButton(REG::Unlock, this);
+	FirstDraw_ = false;
 }
 
 void UWriLoadout::UiConstruct(WriLoadoutP* InPro, AtlasLibC* InAtlasLib)
@@ -28,17 +30,23 @@ void UWriLoadout::UiConstruct(WriLoadoutP* InPro, AtlasLibC* InAtlasLib)
 
 void UWriLoadout::OpenUi()
 {
-	//V_Scroll->ClearChildren();
-	//Entries_.Empty();
 
-	int L = AtlasLib_->GetAtlasPreMap()->Len();
-
-	for (int i = 0; i < L; i++)
+	if (!FirstDraw_)
 	{
-		UWriLoadout_ScrollEntry* Entry = UWriLoadout_ScrollEntry::Create(this, AtlasLib_->GetAtlasPreMap()->At(i));
-		V_Scroll->AddEntry(Entry);
-		//Entries_.Emplace(Entry);
+		vScroll->ClearChildren();
+
+		int L = AtlasLib_->GetAtlasPreMap()->Len();
+
+		for (int i = 0; i < L; i++)
+		{
+			UWriLoadout_ScrollEntry* Entry = UWriLoadout_ScrollEntry::Create(this, AtlasLib_->GetAtlasPreMap()->At(i));
+			vScroll->AddEntry(Entry);
+		}
+
+		FirstDraw_ = true;
 	}
+
+
 }
 
 void UWriLoadout::MasterSet(UWriLoadout_ScrollEntry* InMaster)
@@ -73,12 +81,12 @@ void UWriLoadout::EventUi(int WidgetID, int InEventID, UUserWidget* InWidget)
 
 void UWriLoadout::SetData(WriDataC* InData)
 {
-	int L = V_Scroll->Entries_.Len();
+	int L = vScroll->Entries_.Len();
 	UWriLoadout_ScrollEntry* Cur;
 
 	for (int i = 0; i < L; i++)
 	{
-		Cur = static_cast<UWriLoadout_ScrollEntry*>(V_Scroll->Entries_[i]);
+		Cur = static_cast<UWriLoadout_ScrollEntry*>(vScroll->Entries_[i]);
 		
 		if (Cur->AtlasMaster_)
 		{
@@ -90,4 +98,7 @@ void UWriLoadout::SetData(WriDataC* InData)
 			InData->Loadout_.Add(Cur->Atlas_);
 		}
 	}
+
+	vLoad->SetVisibility(ESlateVisibility::Collapsed);
+	vUnlock->SetVisibility(ESlateVisibility::HitTestInvisible);
 }

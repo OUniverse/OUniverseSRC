@@ -12,57 +12,66 @@ Protocol for handling the MainMenu.
 
 class WriMenuP;
 
-class UWriForm;
+class UWriData;
 class FocusUiRackC;
 
 class AtlasLibC;
 
+class WriDataSearchP;
 class WriFormEditP;
 
 class FocusUiC;
 class FocusDockC;
 class FocusRackC;
 
-class OUNIVERSE_API WriFormP : public ProtocolC, public InputC
+class OUNIVERSE_API WriDataP : public ProtocolC, public InputC
 {
 
 public: 
 
-	WriFormP(int InID, WriMenuP* InPro, AtlasLibC* InAtlasLi);
+	WriDataP(int InID, WriMenuP* InPro, AtlasLibC* InAtlasLi);
 
-	UWriForm* View_;
+	UWriData* View_;
 
 	WriMenuP* Pro_;
 
 	AtlasLibC* AtlasLib_;
 
+	WriDataSearchP* WriDataSearch0_;
+	WriDataSearchP* WriDataSearch1_;
+	WriDataSearchP* WriDataSearch2_;
 
 	WriFormEditP* WriFormEdit_;
 
-	FocusUiC* FocusScroll_;
-	FocusDockC* FocusDock_;
 	FocusRackC* FocusRack_;
+	FocusDockC* FocusSearchDock_;
+	FocusDockC* FocusEditDock_;
+	
 
 	void FluxOpen_Technical(FluxSwitchOpC* InOp) override;
 	void FluxClose_Technical(FluxSwitchOpC* InOp) override;
 
-	void ConstructUi(UWriForm* InView);
+	void ConstructUi(UWriData* InView);
 
 	bool InputCommand(KeyS InKey) override;
 
 
 	static enum Dock {
-		DForm,
+		DSearch,
+		DEdit,
 	};
 
 	static enum Pro {
+		PDataSearch0,
+		PDataSearch1,
+		PDataSearch2,
 		PFormEdit,
 	};
 
 	static enum Focus {
-		FDock,
+		FSearch,
+		FEdit,
 		FRack,
-		FScroll,
 		FOCUS_MAX,
 	};
 

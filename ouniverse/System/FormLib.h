@@ -10,7 +10,7 @@ Atlas
 #include "Interface/Map.h"
 #include "Interface/Json.h"
 
-#include "Form/FormF.h"
+#include "Data/DataD.h"
 
 #include "System/FormQuery.h"
 
@@ -36,13 +36,13 @@ public:
 
 	AtlasC* OwningAtlas;
 
-	FormF* Get(FormUID InUID);
+	DataD* Get(FormUID InUID);
 
-	bool Try(FormUID InUID, FormF*& InForm);
+	bool Try(FormUID InUID, DataD*& InForm);
 
-	void Add(FormF* InForm);
+	void Add(DataD* InForm);
 
-	void AddData(AtlasC* InAtlas, FormF* InForm);
+	void AddData(AtlasC* InAtlas, DataD* InForm);
 
 	void AddList(JsonS* InJ, AtlasC* InAtlas, int InDataMode);
 		
@@ -61,9 +61,9 @@ private:
 	int Len_;
 	int FormDataLen_;
 
-	ArrayC<FormF* (*)(JsonS&)> FactoryArray;
+	ArrayC<DataD* (*)(JsonS&)> FactoryArray;
 
-	MapC<FormUID, FormF*> Lib_;
+	MapC<FormUID, DataD*> Lib_;
 
 	MapC<FormUID, FormDataC*> FormDataLib_;
 

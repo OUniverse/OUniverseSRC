@@ -22,14 +22,14 @@ AreaF::AreaF()
 
 }
 
-FormF* AreaF::Create(JsonS& InJ)
+DataD* AreaF::Create(JsonS& InJ)
 {
-	FormF* Obj = new AreaF();
+	DataD* Obj = new AreaF();
 	Obj->Setup(InJ);
 	return Obj;
 }
 
 void AreaF::Demarshal()
 {
-	FormF::Demarshal();
+	DataD::Demarshal();
 }

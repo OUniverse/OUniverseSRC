@@ -9,23 +9,23 @@ Atlas
 #include "Interface/String.h"
 #include "Interface/Int.h"
 
-class FormF;
+class DataD;
 class AtlasC;
 
 struct FormWrapS
 {
 
 	FormWrapS() {};
-	FormWrapS(AtlasC* InAtlas, FormF* InForm);
+	FormWrapS(AtlasC* InAtlas, DataD* InForm);
 
 	AtlasC* Atlas();
-	FormF* Form();
+	DataD* Form();
 	
 
 private:
 
 	AtlasC* Atlas_;
-	FormF* Form_;
+	DataD* Form_;
 	
 
 };

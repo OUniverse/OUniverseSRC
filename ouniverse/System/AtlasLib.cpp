@@ -115,7 +115,7 @@ bool AtlasLibC::Try(AtlasUID InUID, AtlasC*& Out)
 	return PreLib_.Try(InUID, Out);
 }
 
-bool AtlasLibC::TryForm(DuetUID DUID, FormF*& InForm, int& Error)
+bool AtlasLibC::TryForm(DuetUID DUID, DataD*& InForm, int& Error)
 {
 	AtlasC* tAtlas;
 	Error = 0;

@@ -4,6 +4,13 @@
 #include "Protocol/Writer/Ui/WriButtonU.h"
 
 #include "System/FormData.h"
+#include "Data/DataD.h"
+
+#include "Ui/UiPoly.h"
+
+#include "Components/MultiLineEditableTextBox.h"
+
+#include "Interface/Json.h"
 
 void UWriFormEdit::NativeConstruct()
 {
@@ -30,5 +37,5 @@ void UWriFormEdit::UiConstruct(WriFormEditP* InPro)
 
 void UWriFormEdit::OpenForm(FormDataC* InFormData)
 {
-
+	vPoly->View(InFormData->Form()->Poly());
 }

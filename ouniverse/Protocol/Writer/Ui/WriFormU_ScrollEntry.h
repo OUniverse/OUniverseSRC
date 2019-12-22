@@ -8,14 +8,14 @@
 
 
 class AtlasC;
-class UWriForm;
+class UWriDataSearch;
 class UUi_Bool;
 class UImage;
 class UTextBlock;
 class UUiMouseInput;
-class UWriForm;
+class UWriData;
 
-class UUiBool;
+//class UUiBool;
 class FormDataC;
 
 UCLASS(Abstract, Blueprintable)
@@ -28,12 +28,12 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	static UWriForm_ScrollEntry* Create(UWriForm* InView, FormDataC* InFormData);
+	static UWriForm_ScrollEntry* Create(UWriDataSearch* InView, FormDataC* InFormData);
 
-	void Init(UWriForm* InView, FormDataC* InFormData);
+	void Init(UWriDataSearch* InView, FormDataC* InFormData);
 
 	FormDataC* FormData_;
-	UWriForm* View_;
+	UWriDataSearch* View_;
 
 	bool bSelected_;
 
@@ -47,13 +47,14 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UUiMouseInput* vArea;
 
+	/**
 	UPROPERTY(meta = (BindWidget))
 	UUiBool* vUnsaved;
 	UPROPERTY(meta = (BindWidget))
 	UUiBool* vOpen;
 	UPROPERTY(meta = (BindWidget))
 	UUiBool* vError;
-
+	*/
 
 
 	void EventUi(int WidgetID, int InEventID, UUserWidget* InWidget) override;

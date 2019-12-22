@@ -23,7 +23,7 @@ bool DataC::Found()
 	return Found_;
 }
 
-FormF* DataC::Form()
+DataD* DataC::Form()
 {
 	return Form_;
 }

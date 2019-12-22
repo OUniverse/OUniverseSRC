@@ -1,7 +1,7 @@
 //Copyright 2015-2019, All Rights Reserved.
 
 #include "Form/CharacterA.h"
-#include "Form/CharacterF.h"
+#include "Data/CharacterD.h"
 #include "Form/Character3D.h"
 
 #include "System/Scope.h"
@@ -14,7 +14,7 @@
 #include "Min/DebugM.h"
 
 
-UCharacterA* UCharacterA::Create(CharacterF* InForm)
+UCharacterA* UCharacterA::Create(CharacterD* InForm)
 {
 	UCharacterA* Neu = NewObject<UCharacterA>(ScopeC::World(),ClassC::F_CharacterA());
 	Neu->InitBase(InForm);
